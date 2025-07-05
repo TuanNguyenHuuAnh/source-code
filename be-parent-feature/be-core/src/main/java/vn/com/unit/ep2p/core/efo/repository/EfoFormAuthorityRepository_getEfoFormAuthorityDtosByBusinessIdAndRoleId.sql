@@ -1,0 +1,17 @@
+SELECT 
+	/*roleId*/10 			AS ROLE_ID
+	, form.ID				AS FORM_ID
+	, form.NAME				AS FORM_NAME
+	, CASE WHEN aut.FORM_ID IS NULL
+	THEN 0
+	ELSE 1 END 				AS ACCESS_FLAG
+FROM
+	EFO_FORM form
+LEFT JOIN
+	EFO_FORM_AUTHORITY aut
+ON
+	form.ID = aut.FORM_ID
+	AND aut.ROLE_ID = /*roleId*/10
+WHERE
+	form.DELETED_ID = 0
+	AND form.BUSINESS_ID = /*businessId*/10

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{templates/unit-layout}" layout:fragment="body">
+<body>
+
+	<link rel="stylesheet" type="text/css"
+		th:href="@{/static/cache/plugins/jquery-easyui-1.5/easyui.css}" />
+	<link rel="stylesheet" type="text/css"
+		th:href="@{/static/cache/plugins/jquery-easyui-1.5/icon.css}" />
+	<script type="text/javascript"
+		th:src="@{/static/cache/plugins/jquery-easyui-1.5/jquery.easyui.min.js}"></script>
+
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		var EDIT_DTO = /*[[${editDto}]]*/;
+		var LANGUAGE_LIST = /*[[${languageList}]]*/;
+		var MSG_ERROR_MIN_SIZE_DESKTOP = [[#{message.confirm.upload.image.banner.desktop.error}]];
+		var MSG_ERROR_MIN_SIZE_MOBILE = [[#{message.confirm.upload.image.banner.mobile.new.error}]];
+		var MSG_ERROR_MIN_SIZE_VIDEO = [[#{message.confirm.upload.image.banner.desktop.error}]];
+		var TEXT_DESKTOP = [[#{message.text.image.banner.desktop}]];
+		var TEXT_MOBILE =  [[#{message.text.image.banner.mobile}]];
+		var TEXT_MOBILE_APP =  [[#{message.text.banner.mobileapp}]];
+		
+		var ERROR_FILE_EXTENSTION =  [[#{message.error.file.extention}]];
+		var ERROR_VIDEO_SIZE =  [[#{message.error.video}]];
+		var ERROR_IMG_SIZE_3MB =  [[#{message.error.img}]];
+		var ERROR_IMG_SIZE_1MB=  [[#{message.error.img_1mb}]];
+	    var ERROR_IMG_LENGHT =  [[#{message.error.img.heigh.and.width}]];
+	    var ERROR_SPECIAL_CHARACTERS =  [[#{data.validate.specialCharacters}]];
+		/*]]>*/
+	</script>
+
+	<div class="title-head">
+		<div class="row">
+			<div class="col-md-5">
+				<h3>
+					<span>Thêm mới/Chỉnh sửa Sản phẩm</span>
+				</h3>
+			</div>
+			<div class="col-md-7">
+				<div class="pull-right">
+					<a class="u-btn u-btn-back" id="linkList"> <img
+						th:src="@{/static/images/icon-down.png}" alt="" width="17px"
+						class="rotate-ico" /> <span>Trở lại</span>
+					</a> <a class="u-btn u-btn-primary" id="addNew"
+						th:if="${editDto.id != null}"> <img
+						th:src="@{/static/images/ico-plus-white.png}" alt="" /> <span>Thêm
+							mới</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<form th:action="@{/banner/edit}" th:object="${editDto}" method="POST"
+		class="form-horizontal u-for-page-top j-form-validate" id="bannerForm">
+		<th:block
+			th:include="views/commons/message-alert.html :: content(${messageList})" />
+
+		<div class="bg-content">
+			<div class="row">
+				<div class="col-md-6 no-padding">
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('code')} ? has-error : ''">
+						<label for="code" class="col-sm-4 col-md-4"
+							>Mã Sản Phẩm</label>
+						<div class="col-sm-8 col-md-8">
+							<input type="text" th:field="*{code}"
+								class="form-control text-uppercase  j-maxlength"
+								data-rule-maxlength="30" readonly="readonly" /> <span
+								class="help-block" th:if="${#fields.hasErrors('code')}"
+								th:errors="*{code}"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 no-padding">
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('code')} ? has-error : ''">
+						<label class="col-sm-4 col-md-4 required" >Loại
+							sản phẩm</label>
+						<div class="col-sm-8 col-md-8">
+							<select class="form-control" th:field="*{productType}"
+								th:data-placeholder="#{banner.device}">
+								<option th:each="obj : ${listProductType}" th:value="${obj.id}"
+									th:text="${obj.name}"
+									th:selected="(${obj.id} == *{productType})"></option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- <div class="row">
+				<div class="col-md-6 no-padding">
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('code')} ? has-error : ''">
+						<label class="col-sm-4 col-md-4" th:text="#{banner.type}">Loại
+							banner</label>
+						<div class="col-sm-8 col-md-8">
+							<select class="form-control" th:field="*{bannerType}"
+								th:data-placeholder="#{banner.device}">
+								<option th:each="obj : ${listDataType}" th:value="${obj.id}"
+									th:text="${obj.name}"
+									th:selected="(${obj.id} == *{bannerType})"></option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="form-group">
+						<label class="col-sm-4 col-md-4" th:text="#{banner.device}">Thiết
+							bị</label>
+						<div class="col-sm-8 col-md-8">
+							<input class="form-control" th:field="*{bannerDevice}"
+								th:data-placeholder="#{banner.device}">
+							</input>
+						</div>
+						<a class="col-sm-12 mt-5" id="titleMobileApp"></a>
+					</div>
+				</div>
+			</div> -->
+
+			<div class="tab-content" style="margin-top: 10px">
+				<th:block th:each="language, i : ${languageList}"
+					th:with="index=${i.index}">
+					<div th:id="language__${index}__" class="tab-pane fade "
+						th:classappend="${index == 0}  ? 'in active' : ''">
+						<div class="row">
+							<div class="form-group">
+								<!-- th:classappend="${#fields.hasErrors('bannerLanguageList[__${index}__].title')} ? has-error : '' "-->
+								<label th:id="'productName' + ${index}"
+									class="lb_language col-sm-4 col-md-2 required"
+									>Tên Sản Phẩm</label>
+								<div class="col-sm-8 col-md-10 ">
+									<input th:type="text"
+										class="form-control j-maxlength j-required vietnamese-characters"
+										data-rule-maxlength="200" maxlength="200" th:id="'bannerInputTitle'+ ${index}"
+										th:field="*{productName}" /> <span
+										class="help-block"
+										th:if="${#fields.hasErrors('*{productName}')}"
+										th:errors="*{productName}"></span>
+								</div>
+							</div>
+							<div class="form-group"
+								th:classappend="${#fields.hasErrors('unitPrice')} ? has-error : ''">
+								<label th:id="'bannerEnabled' + ${index}"
+									class="lb_language col-sm-4 col-md-2 required"
+									>Đơn giá</label>
+								<div class="col-sm-8 col-md-10 ">
+									<input th:type="text" value="1" maxlength="200"
+										th:id="'bannerInputEnabled'+ ${index}" th:field="*{unitPrice}" class="col-sm-3 col-md-2 required" />
+									<div class="lb_language col-sm-2 col-md-1">VNĐ</div>
+								</div>
+							</div>
+							<!-- <div class="form-group "
+								th:classappend="${#fields.hasErrors('bannerLanguageList[__${index}__].bannerLink')} ? has-error : ''">
+								<label class="lb_language col-sm-4 col-md-2 "
+									th:text="#{banner.link}">Link banner</label>
+								<div class="col-sm-8 col-md-10 ">
+									<input type="text" class="form-control j-maxlength "
+										data-rule-maxlength="500" maxlength="500"
+										th:field="*{bannerLanguageList[__${index}__].bannerLink}" />
+									<span class="help-block"
+										th:if="${#fields.hasErrors('bannerLanguageList[__${index}__].bannerLink')}"
+										th:errors="*{bannerLanguageList[__${index}__].bannerLink}"></span>
+								</div>
+							</div> -->
+							<div class="form-group">
+									<div class="col-md-6 no-padding">
+										<div class="form-group">
+											<label class="col-sm-4 col-md-4 required">Ngày hiệu lực</label>
+											<div class="col-sm-8 col-md-8">
+												<input class="form-control required" th:field="*{effectiveDate}"
+												placeholder="dd/mm/yyyy"
+												th:value="${effectiveDate} ? ${#dates.format(effectiveDate, 'dd/MM/yyyy HH:mm:ss')}">
+												<!-- th:data-placeholder="#{banner.device} -->
+												</input>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="col-sm-4 col-md-4 required">Ngày hết hạn</label>
+											<div class="col-sm-8 col-md-8">
+												<input class="form-control validateExpiredDate required" th:field="*{expiredDate}"
+													placeholder="dd/mm/yyyy"
+													th:value="${expiredDate} ? ${#dates.format(expiredDate, 'dd/MM/yyyy')}">
+													<!-- th:data-placeholder="#{banner.device} -->
+												</input>
+											</div>
+									<a class="col-sm-12 mt-5" id="titleMobileApp"></a>
+									</div>
+								</div>
+							</div>
+							<div class="form-group" id="divImg">
+								<label th:id="'bannerImageLBL' + ${index}"
+									class="lb_language col-sm-4 col-md-2 required"
+									>Hình Sản Phẩm</label>
+								<div class="controls col-sm-8 col-md-10 ">
+									<div>
+										<div class="wrap_upload form-group" th:id="imageContainer__${index}__">
+											<button class="u-btn btn-upload-file" type="button"
+												th:id="imgPickfiles__${index}__" href="javascript:void(0)"
+												th:title="#{icon.add}">
+												<img th:src="@{/static/images/icon-down.png}" alt=""
+													width="17px" class="rotate-180-ico">
+											</button>
+											<span class="pos-4" th:id="${'spanImg'+index}"> <a
+												id="titleImgPC"></a> <a id="titleImgMobile"></a>
+											</span>
+										</div>
+
+
+
+										<div>
+										<!-- style="display: none" -->
+											<div th:id="imageConsole__${index}__" 
+											
+												th:for="imageConsole__${index}__"
+												class="error"></div>
+											<div class="wrap_img form-group">
+												<img th:id="img_banner__${index}__" class="img_banner"
+													style="width: 100%" />
+												<div th:id="imageFilelist__${index}__">Your browser
+													doesn't have Flash, Silverlight or HTML5 support.</div>
+												<input class="j-required" type="hidden"
+													th:id="physicalImg__${index}__"
+													th:field="*{productPhysicalImg}" />
+												<input type="hidden" th:id="bannerImg__${index}__"
+													th:field="*{productImg}" />
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+
+							
+
+							<!-- <input type="hidden"
+								th:field="*{bannerLanguageList[__${index}__].id}" /> <input
+								type="hidden"
+								th:name="'bannerLanguageList[' + ${index} + '].languageCode'"
+								th:value="${language.code}" /> -->
+						</div>
+				</th:block>
+			</div>
+
+			<div class="row m-0 pos-gr-btn" th:if="${editDto.hasEdit}">
+
+				<button type="button" class="u-btn u-btn-primary" id="btnSave">
+					<img th:src="@{/static/images/icon-save.png}" alt="" width="19px" />
+					<span th:text="#{save.button}">Lưu</span>
+				</button>
+			</div>
+
+		</div>
+
+		<input type="hidden" th:field="*{id}" /> <input type="hidden"
+			id="url" name="url" th:value="${editDto.url}" /> <input
+			type="hidden" id="requestToken" th:field="*{requestToken}" /> <input
+			type="hidden" th:field="*{referenceType}" /> <input type="hidden"
+			th:field="*{referenceId}" /> <input type="hidden" id="buttonAction"
+			name="buttonAction" /> <input type="hidden" id="fieldSearchHidd" />
+		<input type="hidden" id="fieldValuesHidd" /> <input type="hidden" />
+			<!-- th:field="*{codeSearch}" /> <input type="hidden"
+			th:field="*{nameSearch}" /> <input type="hidden"
+			th:field="*{statusSearch}" /> <input type="hidden"
+			th:field="*{updateDate}" /> <input type="hidden"
+			th:field="*{hasEdit}" /> -->
+	</form>
+
+	<script type="text/javascript"
+		th:src="@{/static/CMS/all/product/product-edit.js}"></script>
+	<script type="text/javascript" th:src="@{/static/CMS/js/bootstrap-datetimepicker.min.js}"></script>
+</body>
+</html>
+

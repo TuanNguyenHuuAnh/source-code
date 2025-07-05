@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+    <div class="col-sm-12 p-0">
+        <h2 class="title-box"> Search Result </h2>
+        <div class="box-tools pull-right">
+			<a class="btn-common pull-right" id="btnExport">
+				<i class="fa fa-download" aria-hidden="true"></i>
+          			<span th:text="' '+#{common.export.data}"></span> 
+       		</a>
+		</div>
+        <div class="table-responsive">
+            <table id="tblDataTable" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th style="width: 20px;">#</th>
+                        <th rowspan="2" style="width: 80px;">Action</th>
+                        <th>TR No</th>
+                        <th>Name Of Traveler</th>
+                        <th>Destination</th>
+                        <th>TR Date</th>
+                        <th>Purpose of Travel</th>
+                        <th>Cost Center</th>
+                        <th>Status</th>
+                        <th>Pening At</th>
+                    </tr>
+                   
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center">1</td>
+                         <td class="td-action">
+                          <div class="align-left">
+                            <a class="glyphicon glyphicon-eye-open custom-icon j-btn-detail" ></a>
+                            <a class="glyphicon glyphicon-edit custom-icon j-btn-edit"></a>
+                            <a class="glyphicon glyphicon-remove-sign font-size-20 red j-btn-delete"></a>  
+                          </div>
+                        </td>
+                        <td class="text-left">TR.FIN19.001</td>
+                        <td class="text-left">Trần Diệu Hương</td>
+                        <td class="text-left">Thành Phố HCM</td>
+                        <td class="text-center">20/08/2019</td>
+                        <td class="text-left">Finance</td>
+                        <td class="text-left">820000</td>
+                        <td class="text-center">Waiting for CPS</td>
+                        <td class="text-left">My Huong</td>
+                    </tr>
+	               
+                    
+                    
+                   
+                    
+                  
+                </tbody>
+            </table>
+        </div>
+        <!-- PAGINATION -->
+        <div class="col-sm-12 p-0">
+            <div class="col-sm-12 bg-table-navigation">            	            
+                <nav>
+                    <ul class="pagination pagination-sm mar-tb-no pull-right">
+                        
+                        <li>
+                            <a href="#" data-page="1" th:text="#{table.page.first}" class="j-page"></a>
+                        </li>
+                    
+                    
+                        <li>
+                            <a href="#" class="j-page">«</a>
+                        </li>
+                        
+                        <li class="active"><span>1</span></li>
+                        
+                        <li>
+                            <a href="javascript:void(0)" class="j-page" data-page="2">2</a>
+                        </li>
+                        
+                        <li>
+                            <a href="#" class="j-page">»</a>
+                        </li>
+                        
+                        <li>
+                            <a href="#" th:text="#{table.page.last}" class="j-page"></a>
+                        </li></ul>
+                    <span class="form-inline pull-right pagination-select">
+                        <span class="blu" th:text="#{table.page.label}">Trang</span>
+                        <span class="form-group input-group input-group-sm">
+                            <select class="form-control input-sm select-page select2">
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                            </select>
+                        </span>
+                    </span>
+                </nav>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
+

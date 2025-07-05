@@ -1,0 +1,4 @@
+DELETE 
+	JPM_BUTTON_LANG
+WHERE 
+	BUTTON_ID = /*buttonId*/ 

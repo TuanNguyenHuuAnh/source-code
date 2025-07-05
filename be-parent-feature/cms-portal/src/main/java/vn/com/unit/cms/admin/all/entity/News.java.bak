@@ -1,0 +1,915 @@
+/*******************************************************************************
+ * Class        ：News
+ * Created date ：2017/02/23
+ * Lasted date  ：2017/02/23
+ * Author       ：hand
+ * Change log   ：2017/02/23：01-00 hand create a new
+ ******************************************************************************/
+package vn.com.unit.cms.admin.all.entity;
+
+import java.util.Date;
+
+import org.springframework.data.annotation.Id;
+
+import jp.sf.amateras.mirage.annotation.Column;
+import jp.sf.amateras.mirage.annotation.PrimaryKey;
+import jp.sf.amateras.mirage.annotation.PrimaryKey.GenerationType;
+import jp.sf.amateras.mirage.annotation.Table;
+import vn.com.unit.cms.core.entity.AbstractTracking;
+
+/**
+ * News
+ * 
+ * @version 01-00
+ * @since 01-00
+ * @author hand
+ */
+@Table(name = "m_news")
+public class News extends AbstractTracking {
+
+    @Id
+    @Column(name = "id")
+    @PrimaryKey(generationType = GenerationType.SEQUENCE, generator = "SEQ_M_NEWS")
+    private Long id;
+
+    @Column(name = "m_news_type_id")
+    private Long mNewsTypeId;
+    
+    @Column(name = "m_news_category_id")
+    private Long mNewsCategoryId;
+    
+    @Column(name = "customer_type_id")
+    private Long custTypeId;
+
+    @Column(name = "code")
+    private String code;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "is_promotion")
+    private boolean promotion;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "note")
+    private String note;
+
+    @Column(name = "sub_title")
+    private String subTitle;
+
+    @Column(name = "image_url")
+    private String imageUrl;
+
+    @Column(name = "physical_img")
+    private String physicalImg;
+
+    @Column(name = "key_word")
+    private String keyWord;
+
+    @Column(name = "views")
+    private Long views;
+
+    @Column(name = "headlines")
+    private boolean headlines;
+
+    @Column(name = "enabled")
+    private boolean enabled;
+    
+    @Column(name = "sort")
+    private Long sort;
+    
+    @Column(name = "process_id")
+    private Long processId;
+    
+    @Column(name = "process_instance_id")
+    private Long processInstanceId;
+    
+    @Column(name = "status")
+    private Integer status;
+    
+    @Column(name = "owner_id")
+    private Long ownerId;
+    
+    @Column(name = "owner_section_id")
+    private Long ownerSectionId;
+    
+    @Column(name = "owner_branch_id")
+    private Long ownerBranchId;
+    
+    @Column(name = "assigner_id")
+    private Long assignerId;
+    
+    @Column(name = "assigner_section_id")
+    private Long assignerSectionId;
+    
+    @Column(name = "assigner_branch_id")
+    private Long assignerBranchId;
+    
+    @Column(name = "effective_date")
+    private Date effectiveDate;
+    
+    @Column(name = "expiration_date")
+    private Date expirationDate;
+
+    @Column(name = "link_alias")
+    private String linkAlias;
+    
+    @Column(name = "approve_by")
+    private String approveBy;
+    
+    @Column(name = "publish_by")
+    private String publishBy;
+    
+    @Column(name = "approve_date")
+    private Date approveDate;
+    
+    @Column(name = "publish_date")
+    private Date publishDate;
+    
+    @Column(name = "before_id")
+    private Long beforeId;
+    
+    @Column(name = "m_product_id")
+    private String productId;
+    
+    @Column(name = "m_product_category_id")
+    private String productCategoryId;
+    
+    @Column(name = "m_product_category_sub_id")
+    private String productCategorySubId;
+    
+    @Column(name = "posted_date")
+    private Date postedDate;
+    
+    @Column(name = "news_video")
+    private String newsVideo;
+    
+    @Column(name = "news_physical_video")
+    private String newsPhysicalVideo;
+    
+    @Column(name = "picture_introduction")
+    private boolean pictureIntroduction;
+    
+    @Column(name = "latest_news")
+    private boolean latestNews;
+    
+    @Column(name = "press_release")
+    private boolean pressRelease;
+    
+    /**
+     * Get id
+     * @return Long
+     * @author hand
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * Get mNewsTypeId
+     * @return Long
+     * @author hand
+     */
+    public Long getmNewsTypeId() {
+        return mNewsTypeId;
+    }
+
+	/**
+     * Get mNewsCategoryId
+     * @return Long
+     * @author hand
+     */
+    public Long getmNewsCategoryId() {
+        return mNewsCategoryId;
+    }
+
+    /**
+     * 
+     * get custTypeId
+     * @return
+     * @author sonnt
+     * 
+     */
+    public Long getCustTypeId() {
+		return custTypeId;
+	}
+
+    /**
+     * 
+     * set custTypeId
+     * @param custTypeId
+     * @author sonnt
+     * 
+     */
+	public void setCustTypeId(Long custTypeId) {
+		this.custTypeId = custTypeId;
+	}
+
+	/**
+     * Get code
+     * @return String
+     * @author hand
+     */
+    public String getCode() {
+        return code;
+    }
+
+    /**
+     * Get name
+     * @return String
+     * @author hand
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * get promotion
+     * @return
+     */
+    public boolean isPromotion() {
+		return promotion;
+	}
+
+    /**
+     * set promotion
+     * @param promotion
+     */
+	public void setPromotion(boolean promotion) {
+		this.promotion = promotion;
+	}
+
+	/**
+     * Get description
+     * @return String
+     * @author hand
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Get note
+     * @return String
+     * @author hand
+     */
+    public String getNote() {
+        return note;
+    }
+
+    /**
+     * Get subTitle
+     * @return String
+     * @author hand
+     */
+    public String getSubTitle() {
+        return subTitle;
+    }
+
+    /**
+     * Get imageUrl
+     * @return String
+     * @author hand
+     */
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    /**
+     * Get keyWord
+     * @return String
+     * @author hand
+     */
+    public String getKeyWord() {
+        return keyWord;
+    }
+
+    /**
+     * Get views
+     * @return Long
+     * @author hand
+     */
+    public Long getViews() {
+        return views;
+    }
+
+    /**
+     * Get headlines
+     * @return boolean
+     * @author hand
+     */
+    public boolean isHeadlines() {
+        return headlines;
+    }
+
+    /**
+     * Get enabled
+     * @return boolean
+     * @author hand
+     */
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    /**
+     * Set id
+     * @param   id
+     *          type Long
+     * @return
+     * @author  hand
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * Set mNewsTypeId
+     * @param   mNewsTypeId
+     *          type Long
+     * @return
+     * @author  hand
+     */
+    public void setmNewsTypeId(Long mNewsTypeId) {
+        this.mNewsTypeId = mNewsTypeId;
+    }
+
+    /**
+     * Set mNewsCategoryId
+     * @param   mNewsCategoryId
+     *          type Long
+     * @return
+     * @author  hand
+     */
+    public void setmNewsCategoryId(Long mNewsCategoryId) {
+        this.mNewsCategoryId = mNewsCategoryId;
+    }
+
+    /**
+     * Set code
+     * @param   code
+     *          type String
+     * @return
+     * @author  hand
+     */
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    /**
+     * Set name
+     * @param   name
+     *          type String
+     * @return
+     * @author  hand
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Set description
+     * @param   description
+     *          type String
+     * @return
+     * @author  hand
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Set note
+     * @param   note
+     *          type String
+     * @return
+     * @author  hand
+     */
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    /**
+     * Set subTitle
+     * @param   subTitle
+     *          type String
+     * @return
+     * @author  hand
+     */
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
+    }
+
+    /**
+     * Set imageUrl
+     * @param   imageUrl
+     *          type String
+     * @return
+     * @author  hand
+     */
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+	/**
+     * Set keyWord
+     * @param   keyWord
+     *          type String
+     * @return
+     * @author  hand
+     */
+    public void setKeyWord(String keyWord) {
+        this.keyWord = keyWord;
+    }
+
+    /**
+     * Set views
+     * @param   views
+     *          type Long
+     * @return
+     * @author  hand
+     */
+    public void setViews(Long views) {
+        this.views = views;
+    }
+
+    /**
+     * Set headlines
+     * @param   headlines
+     *          type boolean
+     * @return
+     * @author  hand
+     */
+    public void setHeadlines(boolean headlines) {
+        this.headlines = headlines;
+    }
+
+    /**
+     * Set enabled
+     * @param   enabled
+     *          type boolean
+     * @return
+     * @author  hand
+     */
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    /**
+     * Get physicalImg
+     * @return String
+     * @author hand
+     */
+    public String getPhysicalImg() {
+        return physicalImg;
+    }
+
+    /**
+     * Set physicalImg
+     * @param   physicalImg
+     *          type String
+     * @return
+     * @author  hand
+     */
+    public void setPhysicalImg(String physicalImg) {
+        this.physicalImg = physicalImg;
+    }
+
+    /**
+     * Get processId
+     * @return Long
+     * @author hand
+     */
+    public Long getProcessId() {
+        return processId;
+    }
+
+    /**
+     * Set processId
+     * @param   processId
+     *          type Long
+     * @return
+     * @author  hand
+     */
+    public void setProcessId(Long processId) {
+        this.processId = processId;
+    }
+
+ 	/**
+	 * @return the ownerId
+	 */
+	public Long getOwnerId() {
+		return ownerId;
+	}
+
+	/**
+	 * @param ownerId the ownerId to set
+	 */
+	public void setOwnerId(Long ownerId) {
+		this.ownerId = ownerId;
+	}
+
+	/**
+	 * @return the ownerSectionId
+	 */
+	public Long getOwnerSectionId() {
+		return ownerSectionId;
+	}
+
+	/**
+	 * @param ownerSectionId the ownerSectionId to set
+	 */
+	public void setOwnerSectionId(Long ownerSectionId) {
+		this.ownerSectionId = ownerSectionId;
+	}
+
+	/**
+	 * @return the ownerBranchId
+	 */
+	public Long getOwnerBranchId() {
+		return ownerBranchId;
+	}
+
+	/**
+	 * @param ownerBranchId the ownerBranchId to set
+	 */
+	public void setOwnerBranchId(Long ownerBranchId) {
+		this.ownerBranchId = ownerBranchId;
+	}
+
+	/**
+	 * @return the assignerId
+	 */
+	public Long getAssignerId() {
+		return assignerId;
+	}
+
+	/**
+	 * @param assignerId the assignerId to set
+	 */
+	public void setAssignerId(Long assignerId) {
+		this.assignerId = assignerId;
+	}
+
+	/**
+	 * @return the assignerSectionId
+	 */
+	public Long getAssignerSectionId() {
+		return assignerSectionId;
+	}
+
+	/**
+	 * @param assignerSectionId the assignerSectionId to set
+	 */
+	public void setAssignerSectionId(Long assignerSectionId) {
+		this.assignerSectionId = assignerSectionId;
+	}
+
+	/**
+	 * @return the assignerBranchId
+	 */
+	public Long getAssignerBranchId() {
+		return assignerBranchId;
+	}
+
+	/**
+	 * @param assignerBranchId the assignerBranchId to set
+	 */
+	public void setAssignerBranchId(Long assignerBranchId) {
+		this.assignerBranchId = assignerBranchId;
+	}
+
+    /**
+     * Get sort
+     * @return Long
+     * @author hand
+     */
+    public Long getSort() {
+        return sort;
+    }
+
+    /**
+     * Set sort
+     * @param   sort
+     *          type Long
+     * @return
+     * @author  hand
+     */
+    public void setSort(Long sort) {
+        this.sort = sort;
+    }
+
+    /**
+     * Get status
+     * @return String
+     * @author trieunh <trieunh@unit.com.vn>
+     */
+    public Integer getStatus() {
+        return status;
+    }
+
+    /**
+     * Set status
+     * @param   status
+     *          type String
+     * @return
+     * @author  trieunh <trieunh@unit.com.vn>
+     */
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    /**
+     * Get processInstanceId
+     * @return Long
+     * @author trieunh <trieunh@unit.com.vn>
+     */
+    public Long getProcessInstanceId() {
+        return processInstanceId;
+    }
+
+    /**
+     * Set processInstanceId
+     * @param   processInstanceId
+     *          type Long
+     * @return
+     * @author  trieunh <trieunh@unit.com.vn>
+     */
+    public void setProcessInstanceId(Long processInstanceId) {
+        this.processInstanceId = processInstanceId;
+    }
+
+    /**
+     * Get effectiveDate
+     * @return Date
+     * @author hand
+     */
+    public Date getEffectiveDate() {
+        return effectiveDate;
+    }
+
+    /**
+     * Set effectiveDate
+     * @param   effectiveDate
+     *          type Date
+     * @return
+     * @author  hand
+     */
+    public void setEffectiveDate(Date effectiveDate) {
+        this.effectiveDate = effectiveDate;
+    }
+
+    /**
+     * Get expirationDate
+     * @return Date
+     * @author hand
+     */
+    public Date getExpirationDate() {
+        return expirationDate;
+    }
+
+    /**
+     * Set expirationDate
+     * @param   expirationDate
+     *          type Date
+     * @return
+     * @author  hand
+     */
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+	public String getLinkAlias() {
+		return linkAlias;
+	}
+
+	public void setLinkAlias(String linkAlias) {
+		this.linkAlias = linkAlias;
+    }
+
+    /**
+     * Get approveBy
+     * 
+     * @return String
+     * @author taitm
+     */
+    public String getApproveBy() {
+        return approveBy;
+    }
+
+    /**
+     * Set approveBy
+     * 
+     * @param approveBy
+     *            type String
+     * @return
+     * @author taitm
+     */
+    public void setApproveBy(String approveBy) {
+        this.approveBy = approveBy;
+    }
+
+    /**
+     * Get publishBy
+     * 
+     * @return String
+     * @author taitm
+     */
+    public String getPublishBy() {
+        return publishBy;
+    }
+
+    /**
+     * Set publishBy
+     * 
+     * @param publishBy
+     *            type String
+     * @return
+     * @author taitm
+     */
+    public void setPublishBy(String publishBy) {
+        this.publishBy = publishBy;
+    }
+
+    
+    /**
+     * Get approveDate
+     * @return Date
+     * @author taitm
+     */
+    public Date getApproveDate() {
+        return approveDate;
+    }
+
+    
+    /**
+     * Set approveDate
+     * 
+     * @param approveDate
+     *            type Date
+     * @return
+     * @author taitm
+     */
+    public void setApproveDate(Date approveDate) {
+        this.approveDate = approveDate;
+    }
+
+    /**
+     * Get publishDate
+     * 
+     * @return Date
+     * @author taitm
+     */
+    public Date getPublishDate() {
+        return publishDate;
+    }
+
+    /**
+     * Set publishDate
+     * 
+     * @param publishDate
+     *            type Date
+     * @return
+     * @author taitm
+     */
+    public void setPublishDate(Date publishDate) {
+        this.publishDate = publishDate;
+    }
+
+    /**
+     * Get beforeId
+     * 
+     * @return Long
+     * @author taitm
+     */
+    public Long getBeforeId() {
+        return beforeId;
+    }
+
+    /**
+     * Set beforeId
+     * 
+     * @param beforeId
+     *            type Long
+     * @return
+     * @author taitm
+     */
+    public void setBeforeId(Long beforeId) {
+        this.beforeId = beforeId;
+    }
+
+    /**
+     * Get productId
+     * 
+     * @return Long
+     * @author taitm
+     */
+    public String getProductId() {
+        return productId;
+    }
+
+    /**
+     * Set productId
+     * 
+     * @param productId
+     *            type Long
+     * @return
+     * @author taitm
+     */
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    /**
+     * Get productCategoryId
+     * 
+     * @return Long
+     * @author taitm
+     */
+    public String getProductCategoryId() {
+        return productCategoryId;
+    }
+
+    /**
+     * Set productCategoryId
+     * 
+     * @param productCategoryId
+     *            type Long
+     * @return
+     * @author taitm
+     */
+    public void setProductCategoryId(String productCategoryId) {
+        this.productCategoryId = productCategoryId;
+    }
+
+    /**
+     * Get productCategorySubId
+     * 
+     * @return Long
+     * @author taitm
+     */
+    public String getProductCategorySubId() {
+        return productCategorySubId;
+    }
+
+    /**
+     * Set productCategorySubId
+     * 
+     * @param productCategorySubId
+     *            type Long
+     * @return
+     * @author taitm
+     */
+    public void setProductCategorySubId(String productCategorySubId) {
+        this.productCategorySubId = productCategorySubId;
+    }
+
+	public Date getPostedDate() {
+		return postedDate;
+	}
+
+	public void setPostedDate(Date postedDate) {
+		this.postedDate = postedDate;
+	}
+
+	public String getNewsVideo() {
+		return newsVideo;
+	}
+
+	public void setNewsVideo(String newsVideo) {
+		this.newsVideo = newsVideo;
+	}
+
+	public String getNewsPhysicalVideo() {
+		return newsPhysicalVideo;
+	}
+
+	public void setNewsPhysicalVideo(String newsPhysicalVideo) {
+		this.newsPhysicalVideo = newsPhysicalVideo;
+	}
+
+	public boolean isPictureIntroduction() {
+		return pictureIntroduction;
+	}
+
+	public void setPictureIntroduction(boolean pictureIntroduction) {
+		this.pictureIntroduction = pictureIntroduction;
+	}
+
+	public boolean isPressRelease() {
+		return pressRelease;
+	}
+
+	public void setPressRelease(boolean pressRelease) {
+		this.pressRelease = pressRelease;
+	}
+
+	public boolean isLatestNews() {
+		return latestNews;
+	}
+
+	public void setLatestNews(boolean latestNews) {
+		this.latestNews = latestNews;
+	}
+}

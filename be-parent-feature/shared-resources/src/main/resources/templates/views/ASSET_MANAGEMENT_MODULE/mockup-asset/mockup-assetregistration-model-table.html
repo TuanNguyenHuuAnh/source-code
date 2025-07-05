@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+    <div class="col-sm-12 p-0">
+        <h2 class="title-box"> Search Result </h2>
+        <div class="table-responsive">
+            <table id="tblDataTable" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th style="width: 20px;">#</th>
+                        <th>
+                            <input type="checkbox" id="checkAll"/>
+                        </th>
+                        <th>Goods Description</th>
+                        <th >PO No</th>
+                        <th >PR No</th>
+                        <th >Receipt No</th>
+                        <th >Receipt Date</th>
+                        <th >Recipient</th>
+                        <th >Quantity</th>
+                        <th >UOM</th>
+                        <th >Receipt Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td class="td-action">
+                          <div class="align-center">
+                            <input type="checkbox" />
+                          </div>
+                        </td>
+                        <td class="text-left">IT Asset</td>
+                        <td class="text-left">PR0001</td>
+                        <td class="text-left"></td>
+                        <td class="text-left"></td>
+                        <td class="text-center">26/07/2019</td>
+                        <td class="text-left"></td>
+                        <td class="text-center">1</td>
+                        <td class="text-left"></td>
+                        <td class="text-left"></td>
+                    </tr>
+	               
+                    <tr>
+                        <td class="text-center">2</td>
+                        <td class="td-action">
+                          <div class="align-center">
+                            <input type="checkbox" />
+                          </div>
+                        </td>
+                        <td class="text-left">IT Asset</td>
+                        <td class="text-left">PR0002</td>
+                        <td class="text-left"></td>
+                        <td class="text-left"></td>
+                        <td class="text-center">26/07/2019</td>
+                        <td class="text-left"></td>
+                        <td class="text-center">1</td>
+                        <td class="text-left"></td>
+                        <td class="text-left"></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="text-center">3</td>
+                        <td class="td-action">
+                          <div class="align-center">
+                            <input type="checkbox" />
+                          </div>
+                        </td>
+                        <td class="text-left">IT Asset</td>
+                        <td class="text-left">PR0003</td>
+                        <td class="text-left"></td>
+                        <td class="text-left"></td>
+                        <td class="text-center">26/07/2019</td>
+                        <td class="text-left"></td>
+                        <td class="text-center">1</td>
+                        <td class="text-left"></td>
+                        <td class="text-left"></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="text-center">4</td>
+                        <td class="td-action">
+                          <div class="align-center">
+                            <input type="checkbox" />
+                          </div>
+                        </td>
+                        <td class="text-left">IT Asset</td>
+                        <td class="text-left">PR0004</td>
+                        <td class="text-left"></td>
+                        <td class="text-left"></td>
+                        <td class="text-center">26/07/2019</td>
+                        <td class="text-left"></td>
+                        <td class="text-center">1</td>
+                        <td class="text-left"></td>
+                        <td class="text-left"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- PAGINATION -->
+        <div class="col-sm-12 p-0">
+            <div class="col-sm-12 bg-table-navigation">            	            
+                <nav>
+                    <ul class="pagination pagination-sm mar-tb-no pull-right">
+                        
+                        <li>
+                            <a href="#" data-page="1" th:text="#{table.page.first}" class="j-page"></a>
+                        </li>
+                    
+                    
+                        <li>
+                            <a href="#" class="j-page">«</a>
+                        </li>
+                        
+                        <li class="active"><span>1</span></li>
+                        
+                        <li>
+                            <a href="javascript:void(0)" class="j-page" data-page="2">2</a>
+                        </li>
+                        
+                        <li>
+                            <a href="#" class="j-page">»</a>
+                        </li>
+                        
+                        <li>
+                            <a href="#" th:text="#{table.page.last}" class="j-page"></a>
+                        </li></ul>
+                    <span class="form-inline pull-right pagination-select">
+                        <span class="blu" th:text="#{table.page.label}">Trang</span>
+                        <span class="form-group input-group input-group-sm">
+                            <select class="form-control input-sm select-page select2">
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                            </select>
+                        </span>
+                    </span>
+                </nav>
+            </div>
+        </div>
+    </div>
+<script>
+    $("#checkAll").on('click', function (){
+        if ($("#checkAll").is(":checked")){
+            $("#tblDataTable > tbody > tr").find("input[type=checkbox]").prop("checked", true);
+        } else{
+        	$("#tblDataTable > tbody > tr").find("input[type=checkbox]").prop("checked", false);
+        }
+    });
+</script>
+</body>
+</html>
+

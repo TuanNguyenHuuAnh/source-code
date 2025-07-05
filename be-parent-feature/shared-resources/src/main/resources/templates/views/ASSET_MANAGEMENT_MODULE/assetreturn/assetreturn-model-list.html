@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+  <script
+    type="text/javascript"
+    th:src="@{/static/jquery/multiple-select/js/jquery.multiselect.js}"
+  ></script>
+  <link
+    rel="stylesheet"
+    type="text/css"
+    th:href="@{/static/jquery/multiple-select/css/jquery.multiselect.css}"
+  />
+  <script
+    type="text/javascript"
+    th:src="@{/static/js/plupload-2.1.2/plupload.full.min.js}"
+  ></script>
+
+  <!-- BODY START -->
+  <body th:fragment="content">
+    <form
+      class="form-horizontal u-for-page-top j-formSearch"
+      th:action="@{/AssetReturn/list}"
+      th:object="${AssetProfileSearch}"
+      method="POST"
+      role="form"
+    >
+      <div
+        class="bg-content clearfix form-horizontal u-for-page-top j-formSearch"
+      >
+        <div
+          data-toggle="collapse"
+          data-target="#search-box"
+          class="header-box"
+        >
+          <h5 class="title-box">
+            <span th:text="#{search.title}">Vùng tìm kiếm</span>
+          </h5>
+          <i class="fa fa-minus pull-right" aria-hidden="true"></i>
+        </div>
+        <div class="collapse in row m-0" id="search-box">
+          <div class="col-xs-12 col-sm-12">
+            <div class="form-group">
+              <input type="hidden" th:field="*{assetReturnId}" />
+              <label class="col-md-2">Name of the Asset</label>
+              <div class="col-md-4">
+                <input
+                  class="form-control"
+                  type="text"
+                  th:field="*{assetName}"
+                />
+              </div>
+
+              <label class="col-md-2">Asset Serial No</label>
+              <div class="col-md-4">
+                <input
+                  class="form-control"
+                  type="text"
+                  th:field="*{serialNumber}"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-12">
+            <div class="form-group">
+              <label class="col-md-2">Asset Tag</label>
+              <div class="col-md-4">
+                <input
+                  class="form-control"
+                  type="text"
+                  th:field="*{assetTag}"
+                />
+              </div>
+
+              <label class="col-md-2">IMEI</label>
+              <div class="col-md-4">
+                <input class="form-control" type="text" th:field="*{imei}" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-12">
+            <div class="form-group">
+              <label class="col-md-2">Asset Category</label>
+              <div class="col-md-4">
+                <select
+                  class="form-control"
+                  th:field="*{assetCategoryName}"
+                ></select>
+              </div>
+
+              <label class="col-md-2">Asset Sub Category</label>
+              <div class="col-md-4">
+                <select class="form-control" th:field="*{assetSubCategoryName}">
+                  <option value="">--</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div align="center">
+            <div class="position-label col-xs-12 col-sm-12">
+              <button type="submit" id="btnSearch" class="btn-common">
+                <i class="fa fa-search"></i>
+                <span th:text="#{search.button}">Tìm kiếm</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- SEARCH AREA END -->
+      <!-- TABLE RESULT START -->
+      <div
+        class="bg-content clearfix bg-content-tbl"
+        id="tableListAssetProfile"
+      >
+        <th:block
+          th:include="/views/ASSET_MANAGEMENT_MODULE/assetreturn/assetreturn-model-table.html :: content"
+        />
+      </div>
+    </form>
+    <!-- TABLE RESULT END -->
+    <script th:inline="javascript">
+       /*<![CDATA[*/
+       var selectedProfileCategory = /*[[${AssetProfileSearch.assetCategoryName}]]*/;
+       var selectedSubCategory = /*[[${AssetProfileSearch.assetSubCategoryName}]]*/;
+      /*]]>*/
+    </script>
+    <script
+      type="text/javascript"
+      th:src="@{/static/ASSET_MANAGEMENT_MODULE/js/assethandover/assethandover-model-search-list.js}"
+    ></script>
+  </body>
+  <!-- BODY END -->
+
+  <script>
+    // date picker
+    // $(".date").datepicker({ autoclose: true, format: "dd/mm/yyyy" });
+    var idEffectedDate = $("#fromDate").val();
+    var idExpiredDate = $("#toDate").val();
+    changeDatepickerById(idEffectedDate, idExpiredDate, "#fromDate", "#toDate");
+  </script>
+  <input type="hidden" id="fieldSearchHidden" />
+  <input type="hidden" id="fieldValuesHidden" />
+  <input
+    type="hidden"
+    id="url"
+    name="url"
+    th:value="${AssetProfileSearch.url}"
+  />
+</html>

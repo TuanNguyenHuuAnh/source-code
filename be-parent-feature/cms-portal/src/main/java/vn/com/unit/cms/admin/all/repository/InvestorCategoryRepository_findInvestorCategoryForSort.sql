@@ -1,0 +1,29 @@
+SELECT 	
+         TBL_MAIN.id  as id
+	   , TBL_LANG.title			AS	name
+       , TBL_MAIN.code  as code
+	   , TBL_MAIN.INVESTOR_CATEGORY_PARENT_ID as parent_id
+	   , TBL_MAIN.INVESTOR_CATEGORY_LEVEL_ID as level_id
+	   , TBL_MAIN.INVESTOR_CATEGORY_TYPE as category_type
+	   
+FROM  	M_INVESTOR_CATEGORY TBL_MAIN
+
+JOIN 	M_INVESTOR_CATEGORY_LANGUAGE TBL_LANG
+
+ON 		TBL_MAIN.ID = TBL_LANG.M_INVESTOR_CATEGORY_ID
+
+WHERE   TBL_MAIN.DELETE_DATE IS NULL
+
+		AND TBL_MAIN.ENABLE = 1
+		
+    	AND TBL_MAIN.STATUS != 100
+    	
+		AND TBL_MAIN.CUSTOMER_TYPE_ID = /*searchDto.customerId*/
+    
+    	AND UPPER(TBL_LANG.M_LANGUAGE_CODE) = UPPER(/*searchDto.languageCode*/'')
+    	
+      /*IF searchDto.parentId != null*/
+      	AND TBL_MAIN.INVESTOR_CATEGORY_PARENT_ID   = /*searchDto.parentId*/
+      /*END*/
+      	
+ORDER BY TBL_MAIN.SORT ASC,TBL_MAIN.CREATE_DATE DESC

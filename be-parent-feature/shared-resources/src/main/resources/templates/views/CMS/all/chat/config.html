@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <link
+    rel="stylesheet"
+    type="text/css"
+    th:href="@{/static/jquery/row-sorter/style/row-sorter.css}"
+  />
+  <script
+    type="text/javascript"
+    th:src="@{/static/jquery/row-sorter/row-sorter.js}"
+  ></script>
+  <div class="row main-heading">
+    <div class="row unit-border-bottom">
+      <div class="col-sm-8">
+        <h2 class="mar-tb-no red" th:text="#{chat.config.title}">
+          Cấu hình màn hình hỗ trợ khách hàng
+        </h2>
+      </div>
+      <div class="col-sm-4 align-right ml-auto">
+        <a class="u-btn-head" id="linkList">
+          <img th:src="@{/static/icons/icon-back.png}" />
+          <span th:title="#{icon.back}">Trở lại</span>
+        </a>
+        <a
+          class="u-btn-head"
+          id="btnSave"
+          th:if="${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.CHAT_CONFIG_ONLINE}__:Edit'')')}"
+        >
+          <img th:src="@{/static/icons/icon-save.png}" />
+          <span th:title="#{save.button}">Lưu</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <th:block
+    th:include="views/commons/message-alert.html :: content(${messageList})"
+  />
+  <div class="row unit-bg-com">
+    <form
+      method="POST"
+      class="form-horizontal j-form-validate"
+      id="settingForm"
+      th:object="${settingDto}"
+    >
+      <div class="col-xs-12 col-sm-12 no-padding">
+        <div class="">
+          <label class="col-sm-2 control-label" th:text="#{news.type.language}"
+            >Ngôn ngữ</label
+          >
+          <div class="col-sm-10 no-padding gr-tab">
+            <ul class="nav nav-tabs" id="tabLanguage">
+              <th:block th:each="language, i : ${languageList}">
+                <li
+                  role="presentation"
+                  th:classappend="${i.index == 0}  ? 'active' : ''"
+                  th:id="tabLanguage + ${i.index}"
+                >
+                  <a
+                    th:href="'#language' + ${i.index}"
+                    th:text="${language.name}"
+                  ></a>
+                </li>
+              </th:block>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" style="margin-top: 10px">
+        <th:block
+          th:each="language, i : ${languageList}"
+          th:with="index=${i.index}"
+        >
+          <div
+            th:id="'language' + ${index}"
+            class="tab-pane fade unit-bg-table"
+            th:classappend="${index == 0}  ? 'in active' : ''"
+          >
+            <table
+              id="tb-sort-list"
+              class="table table-bordered table-striped table-hover"
+            >
+              <thead>
+                <tr>
+                  <th class="text-center" th:text="#{chat.config.field}">
+                    Tên field
+                  </th>
+                  <th class="text-center" th:text="#{chat.config.label}">
+                    Label
+                  </th>
+                  <th class="text-center" th:text="#{chat.config.place.holder}">
+                    placeHolder
+                  </th>
+                  <th class="text-center">Loại control</th>
+                  <th class="text-center" th:text="#{chat.config.sort}">
+                    Vị trí
+                  </th>
+                  <th class="text-center" th:text="#{chat.config.display}">
+                    Hiển thị
+                  </th>
+                  <th class="text-center" th:text="#{action.label}">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <input
+                  type="hidden"
+                  th:field="*{listSettingLanguageChat[__${index}__].mLanguageCode}"
+                  th:value="${settingDto.listSettingLanguageChat[__${index}__].mLanguageCode}"
+                />
+                <th:block
+                  th:each="row,j : ${settingDto.listSettingLanguageChat[__${index}__].listControls}"
+                >
+                  <!-- row.isVisible == true -->
+                  <th:block th:if="${row.isVisible == true}">
+                    <tr
+                      th:attr="data-row-id=${row.fieldCode}"
+                      th:name="listSettingLanguageChat[__${index}__].listControls[__${j.index}__].fieldCode"
+                    >
+                      <td style="display: none">
+                        <input
+                          type="hidden"
+                          th:field="*{listSettingLanguageChat[__${index}__].listControls[__${j.index}__].id}"
+                          th:value="${row.id}"
+                        />
+                        <input
+                          type="hidden"
+                          th:field="*{listSettingLanguageChat[__${index}__].listControls[__${j.index}__].fieldCode}"
+                          th:value="${row.fieldCode}"
+                        />
+                      </td>
+
+                      <td class="text-left">
+                        <input
+                          type="text"
+                          class="form-control j-required"
+                          th:name="listSettingLanguageChat[__${index}__].listControls[__${j.index}__].fieldName"
+                          th:value="${row.fieldName}"
+                        />
+                        <span
+                          class="help-block"
+                          th:if="${#fields.hasErrors('listSettingLanguageChat[__${index}__].listControls[__${j.index}__].fieldName')}"
+                          th:errors="*{listSettingLanguageChat[__${index}__].listControls[__${j.index}__].fieldName}"
+                        >
+                        </span>
+                      </td>
+                      <td class="text-center">
+                        <input
+                          type="text"
+                          class="form-control j-required"
+                          th:name="listSettingLanguageChat[__${index}__].listControls[__${j.index}__].labelName"
+                          th:value="${row.labelName}"
+                        />
+                        <span
+                          class="help-block"
+                          th:if="${#fields.hasErrors('listSettingLanguageChat[__${index}__].listControls[__${j.index}__].labelName')}"
+                          th:errors="*{listSettingLanguageChat[__${index}__].listControls[__${j.index}__].labelName}"
+                        >
+                        </span>
+                      </td>
+                      <td class="text-center">
+                        <input
+                          type="text"
+                          class="form-control j-required"
+                          th:name="listSettingLanguageChat[__${index}__].listControls[__${j.index}__].placeholderName"
+                          th:value="${row.placeholderName}"
+                        />
+                        <span
+                          class="help-block"
+                          th:if="${#fields.hasErrors('listSettingLanguageChat[__${index}__].listControls[__${j.index}__].placeholderName')}"
+                          th:errors="*{listSettingLanguageChat[__${index}__].listControls[__${j.index}__].placeholderName}"
+                        >
+                        </span>
+                      </td>
+                      <td class="text-center">
+                        <div style="width: 80%; float: left">
+                          <select
+                            type="select"
+                            class="form-control j-setting-chat-control-sync"
+                            th:name="listSettingLanguageChat[__${index}__].listControls[__${j.index}__].fieldType"
+                          >
+                            <option
+                              th:each="control : ${row.controls}"
+                              th:value="${control.code}"
+                              th:text="${control.controlName}"
+                              th:selected="(${control.code.equals(row.fieldType)})"
+                            ></option>
+                          </select>
+                        </div>
+                        <div style="width: 20%; float: left">
+                          <th:block th:if="${row.isSetData == 1}">
+                            <a
+                              class="
+                                glyphicon glyphicon-edit
+                                custom-icon
+                                j-btn-edit-control-value
+                              "
+                              th:name="listSettingLanguageChat[__${index}__].listControls[__${j.index}__].updateControl"
+                              style="
+                                width: 20px;
+                                height: 20px;
+                                margin-top: 10px;
+                                float: right;
+                              "
+                            ></a>
+                          </th:block>
+                          <th:block th:if="${row.isSetData == 0}">
+                            <a
+                              class="
+                                glyphicon glyphicon-edit
+                                custom-icon
+                                j-btn-edit-control-value
+                              "
+                              th:name="listSettingLanguageChat[__${index}__].listControls[__${j.index}__].updateControl"
+                              style="
+                                width: 20px;
+                                height: 20px;
+                                margin-top: 10px;
+                                display: none;
+                                float: right;
+                              "
+                            ></a>
+                          </th:block>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <input
+                          type="text"
+                          class="
+                            form-control
+                            j-number
+                            j-required
+                            j-required-number
+                            j-setting-chat-sync
+                          "
+                          th:name="listSettingLanguageChat[__${index}__].listControls[__${j.index}__].sort"
+                          th:value="${row.sort}"
+                        />
+                        <span
+                          class="help-block"
+                          th:if="${#fields.hasErrors('listSettingLanguageChat[__${index}__].listControls[__${j.index}__].sort')}"
+                          th:errors="*{listSettingLanguageChat[__${index}__].listControls[__${j.index}__].sort}"
+                        >
+                        </span>
+                      </td>
+                      <td class="text-center">
+                        <input
+                          type="checkbox"
+                          class="j-setting-chat-checkbox-sync"
+                          th:name="listSettingLanguageChat[__${index}__].listControls[__${j.index}__].isDisplay"
+                          th:disabled="${row.fieldCode == 'MSG_WELCOME'} or ${row.fieldCode == 'MSG_WELCOME_ONLINE'}"
+                          th:checked="${row.isDisplay}"
+                        />
+                      </td>
+                      <td class="text-center">
+                        <th:block th:if="${row.isDefault == false}">
+                          <a
+                            class="
+                              glyphicon glyphicon-remove-sign
+                              font-size-20
+                              red
+                              j-config-control-delete
+                            "
+                            th:if="${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.CHAT_CONFIG_ONLINE}__:Edit'')')}"
+                          >
+                          </a>
+                        </th:block>
+                      </td>
+                    </tr>
+                  </th:block>
+
+                  <!-- row.isVisible == false -->
+                  <th:block th:if="${row.isVisible == false}">
+                    <tr
+                      th:attr="data-row-id=${row.fieldCode}"
+                      th:name="listSettingLanguageChat[__${index}__].listControls[__${j.index}__].fieldCode"
+                      style="display: none"
+                    >
+                      <td style="display: none">
+                        <input
+                          type="hidden"
+                          th:field="*{listSettingLanguageChat[__${index}__].listControls[__${j.index}__].id}"
+                          th:value="${row.id}"
+                        />
+                        <input
+                          type="hidden"
+                          th:field="*{listSettingLanguageChat[__${index}__].listControls[__${j.index}__].fieldCode}"
+                          th:value="${row.fieldCode}"
+                        />
+                      </td>
+
+                      <td class="text-left">
+                        <input
+                          type="text"
+                          class="form-control j-required"
+                          th:name="listSettingLanguageChat[__${index}__].listControls[__${j.index}__].fieldName"
+                          th:value="${row.fieldName}"
+                        />
+                        <span
+                          class="help-block"
+                          th:if="${#fields.hasErrors('listSettingLanguageChat[__${index}__].listControls[__${j.index}__].fieldName')}"
+                          th:errors="*{listSettingLanguageChat[__${index}__].listControls[__${j.index}__].fieldName}"
+                        >
+                        </span>
+                      </td>
+                      <td class="text-center">
+                        <input
+                          type="text"
+                          class="form-control j-required"
+                          th:name="listSettingLanguageChat[__${index}__].listControls[__${j.index}__].labelName"
+                          th:value="${row.labelName}"
+                        />
+                        <span
+                          class="help-block"
+                          th:if="${#fields.hasErrors('listSettingLanguageChat[__${index}__].listControls[__${j.index}__].labelName')}"
+                          th:errors="*{listSettingLanguageChat[__${index}__].listControls[__${j.index}__].labelName}"
+                        >
+                        </span>
+                      </td>
+                      <td class="text-center">
+                        <input
+                          type="text"
+                          class="form-control j-required"
+                          th:name="listSettingLanguageChat[__${index}__].listControls[__${j.index}__].placeholderName"
+                          th:value="${row.placeholderName}"
+                        />
+                        <span
+                          class="help-block"
+                          th:if="${#fields.hasErrors('listSettingLanguageChat[__${index}__].listControls[__${j.index}__].placeholderName')}"
+                          th:errors="*{listSettingLanguageChat[__${index}__].listControls[__${j.index}__].placeholderName}"
+                        >
+                        </span>
+                      </td>
+                      <td class="text-center">
+                        <div style="width: 80%; float: left">
+                          <select
+                            type="select"
+                            class="form-control j-setting-chat-control-sync"
+                            th:name="listSettingLanguageChat[__${index}__].listControls[__${j.index}__].fieldType"
+                          >
+                            <option
+                              th:each="control : ${row.controls}"
+                              th:value="${control.code}"
+                              th:text="${control.controlName}"
+                              th:selected="(${control.code.equals(row.fieldType)})"
+                            ></option>
+                          </select>
+                        </div>
+                        <div style="width: 20%; float: left">
+                          <th:block th:if="${row.isSetData == 1}">
+                            <a
+                              class="
+                                glyphicon glyphicon-edit
+                                custom-icon
+                                j-btn-edit-control-value
+                              "
+                              th:name="listSettingLanguageChat[__${index}__].listControls[__${j.index}__].updateControl"
+                              style="
+                                width: 20px;
+                                height: 20px;
+                                margin-top: 10px;
+                                float: right;
+                              "
+                            ></a>
+                          </th:block>
+                          <th:block th:if="${row.isSetData == 0}">
+                            <a
+                              class="
+                                glyphicon glyphicon-edit
+                                custom-icon
+                                j-btn-edit-control-value
+                              "
+                              th:name="listSettingLanguageChat[__${index}__].listControls[__${j.index}__].updateControl"
+                              style="
+                                width: 20px;
+                                height: 20px;
+                                margin-top: 10px;
+                                display: none;
+                                float: right;
+                              "
+                            ></a>
+                          </th:block>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <input
+                          type="text"
+                          class="
+                            form-control
+                            j-number
+                            j-required
+                            j-required-number
+                            j-setting-chat-sync
+                          "
+                          th:name="listSettingLanguageChat[__${index}__].listControls[__${j.index}__].sort"
+                          th:value="${row.sort}"
+                        />
+                        <span
+                          class="help-block"
+                          th:if="${#fields.hasErrors('listSettingLanguageChat[__${index}__].listControls[__${j.index}__].sort')}"
+                          th:errors="*{listSettingLanguageChat[__${index}__].listControls[__${j.index}__].sort}"
+                        >
+                        </span>
+                      </td>
+                      <td class="text-center">
+                        <input
+                          type="checkbox"
+                          class="j-setting-chat-checkbox-sync"
+                          th:name="listSettingLanguageChat[__${index}__].listControls[__${j.index}__].isDisplay"
+                          th:disabled="${row.fieldCode == 'MSG_WELCOME'} or ${row.fieldCode == 'MSG_WELCOME_ONLINE'}"
+                          th:checked="${row.isDisplay}"
+                        />
+                      </td>
+                      <td class="text-center">
+                        <th:block th:if="${row.isDefault == false}">
+                          <a
+                            class="
+                              glyphicon glyphicon-remove-sign
+                              font-size-20
+                              red
+                              j-config-control-delete j-btn-delete
+                            "
+                            th:if="${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.CHAT_CONFIG_ONLINE}__:Edit'')')}"
+                          >
+                          </a>
+                        </th:block>
+                      </td>
+                    </tr>
+                  </th:block>
+                </th:block>
+              </tbody>
+            </table>
+          </div>
+        </th:block>
+      </div>
+
+      <input type="hidden" th:field="*{jsonDto}" />
+    </form>
+  </div>
+
+  <div
+    class="modal fade"
+    id="modal-insert-value"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myModalLabel"
+  >
+    <div class="modal-dialog" role="document" style="width: 800px">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">Thêm giá trị cho control</h4>
+        </div>
+        <div class="modal-body" id="modal-body"></div>
+      </div>
+    </div>
+  </div>
+  <script th:inline="javascript">
+    	/*<![CDATA[*/
+    	var LANGUAGE_LIST = /*[[${languageList}]]*/;
+    	var CONTROL_LIST = /*[[${controlList}]]*/;
+    	var SETTINGDTO = /*[[${settingDto}]]*/;
+
+    /*]]>*/
+  </script>
+
+  <script type="text/javascript">
+    var table = document.getElementById("tb-sort-list");
+    RowSorter(table, {
+      handler: "td",
+    });
+  </script>
+  <!-- loading -->
+  <link
+    rel="stylesheet"
+    type="text/css"
+    th:href="@{/static/plugins/isloading/jquery.isloading.css}"
+  />
+  <script
+    type="text/javascript"
+    th:src="@{/static/plugins/isloading/jquery.isloading.js}"
+  ></script>
+  <script
+    type="text/javascript"
+    th:src="@{/web-app/views/chat/config.js}"
+  ></script>
+</html>

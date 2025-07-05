@@ -1,0 +1,21 @@
+
+WITH TBL_DATA AS (
+select 
+	detail.AGENT_CODE		AS AGENT_CODE
+	, detail.AGENT_NAME		AS AGENT_NAME
+	, detail.POSITION		AS POSITION
+	, n.NOTIFY_TITLE		AS NOTIFY_TITLE
+FROM M_NOTIFYS_APPLICABLE_DETAIL detail
+LEFT JOIN M_NOTIFYS n
+ON detail.NOTIFY_ID = n.ID
+/*IF searchDto.id != NULL && searchDto.id != ''*/
+WHERE detail.NOTIFY_ID=/*searchDto.id*/
+/*END*/
+)
+SELECT 
+	ROW_NUMBER() OVER(ORDER BY tbl.AGENT_CODE) as no
+	, *
+	FROM TBL_DATA TBL
+	WHERE
+	1 = 1
+	ORDER BY TBL.AGENT_CODE

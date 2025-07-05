@@ -1,0 +1,7 @@
+SELECT 
+	EMAIL
+FROM  
+	JCA_ACCOUNT
+WHERE
+	DELETED_ID = 0
+	AND ID IN /*accountIds*/();

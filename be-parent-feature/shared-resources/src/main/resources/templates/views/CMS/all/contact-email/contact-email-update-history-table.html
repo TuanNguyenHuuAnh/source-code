@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+	<section th:fragment="content(dataList)">
+		<div class="col-sm-12">
+			<h2 class="sub-header section-heading" th:text="#{contact.booking.update-history.title}">Lịch sử thay đổi</h2>
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th class="u_t_no">#</th>
+							<th th:text="#{contact.booking.update-history.processed-user}">Người xử lý</th>
+							<th th:text="#{contact.booking.update-history.comment}">Ghi chú</th>
+							<th th:text="#{contact.booking.update-history.status}">Trạng thái</th>
+							<th class="u_t_date" th:text="#{contact.email.processed-time}">Thời gian xử lý</th>
+						</tr>
+					</thead>
+					<tbody>
+						<th:block th:each="dataRow,i : ${dataList}" th:with="startIndex=1">
+							<tr>
+								<td th:text="${i.index + startIndex}" style="text-align:center"></td>
+								<td style="width:200px;" th:text="${dataRow.processedUser}"></td>
+								<td style="width:200px;" th:text="${dataRow.commentCode != null}?#{${dataRow.commentCode}}:${dataRow.comment}"></td>
+								<td th:text="${dataRow.statusTitle != null}? #{${dataRow.statusTitle}} : ''" style="text-align:left;width:130px;"></td>
+								<td style="text-align:center;width:130px;">
+									<div th:if="${dataRow.createDate != null}">
+										<span th:text="${dataRow.createDate} ? ${#dates.format(dataRow.createDate, 'dd-MM-yyyy HH:mm:ss')}"></span>
+									</div>
+								</td>
+							</tr>
+						</th:block>
+					</tbody>
+				</table>
+			</div>
+		</div>
+<!-- 		<th:block th:include="views/commons/pagination.html :: content"/> -->
+<!-- 		<script type="text/javascript" th:src="@{/web-app/views/contact-booking/contact-booking-update-history-table.js}"></script> -->
+</section>
+</html>
+

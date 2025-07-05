@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<script type="text/javascript"
+	th:src="@{/static/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/static/jquery/multiple-select/css/jquery.multiselect.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/static/css/style-upload.css}" />	
+<body th:fragment="content">
+
+<div class="modal fade modal-email" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 80%;">
+        <div class="modal-content">
+        	<div id="msg_modal"></div>
+        	 <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <button class="resize-popup">
+                	<i class="fa fa-window-maximize" aria-hidden="true"></i>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Template Email</h4>
+            </div>
+           
+           	<div class="col-sm-12 p-3" id="errorUpload"></div>
+           	<div class="col-sm-12 p-0">
+           		<label class="col-sm-2 align-top required" th:text="#{email.template.name.file}">File name</label>
+			    <div class="col-sm-10">
+			     	<input type="text" id="nameFileModal" name="nameFileModal" class="form-control"/>
+			         <div id="nameFileErrorModal"></div>
+			    </div>
+			</div>
+			<div class="col-sm-12 p-0" style ="padding-top: 5px;">
+		       	<label class="col-sm-2 align-top required" th:text="#{email.template.code}">Code</label>
+		        <div class="col-sm-3">
+		            <input type="text" id="code" name="code" class="form-control"/>
+		            <div id="codeError"></div>
+		        </div>
+		            
+		        <form method="POST"  enctype="multipart/form-data" id="uploadModal">
+		            <div class="col-sm-5  form-group">
+						<div class="input-group input-upload-1">
+						    <div class="form-control box-list-file" readonly="readonly"  id="fileNameModal">
+						    </div>
+						    <label class="input-group-addon">
+						       <span >
+						       		<span th:text="#{email.template.browser}"></span>
+						            <input type="file" name="file" class="hide" />
+						            <input type="hidden" name="companyId" id="companyIdTemplate" class="hide"/>
+						            <input type="hidden" name="nameFile" id="nameFile" />
+						       </span>
+						   </label>
+						 </div>
+					</div>
+				</form>
+					
+				<div class="col-sm-2"> 
+			         <div class="form-group pull-right">
+						<button class="btn-common" type="button" id="btnImportModal"><i class="fa fa-upload" aria-hidden="true"></i> Upload</button>
+					</div>
+				</div>
+				<input type="hidden" name="url" id="url" />
+			</div>
+	       <div class="col-sm-12 p-0" style ="padding-top: 5px;" th:if="${companyList.size()>1}">
+	           <div class="form-group">
+		            <label for="companyId" class="col-sm-2 align-top" th:text="#{company.detail}">Company</label>
+		            <div class="col-sm-10">
+			          	<select class="form-control select2" name="companyIdDetail" id="companyIdDetail">
+			              	<option th:value="${NULL}" th:text="#{company.all}"></option>
+			               	<option th:each="company : ${companyList}" 
+			                     	th:value="${company.id}"
+			                       	th:text="${company.text}">
+			                </option>
+			            </select>
+		           	</div>
+		       </div>
+		 	</div>
+		    <div class="form-group" th:unless="${companyList.size()>1}">
+			    <input type="hidden" name="companyIdDetail" id="companyIdDetail" th:value="${#authentication?.principal?.companyId}" />
+			</div>
+		    <div class="col-sm-12 p-0" style="padding-top: 5px;">
+		       	<div class="form-group">
+			    	<label for="mobileNotification" class="col-sm-2 align-top" th:text="#{email.template.mobile.notification}">Mobile notification</label>
+			       	<div class="col-sm-10">
+				       	<textarea rows="3" class="col-sm-10 form-control j-maxlength" data-rule-maxlength="255" id="mobileNotification" name="mobileNotification"></textarea>                
+			       	</div>
+			  	</div>
+            </div> 
+             <div class="modal-body" style="background:#fff">
+				<div class="bg-content clearfix" >
+					<div class="col-sm-12 p-0  flex-box" style="padding-right: 15px!important">
+						<div class="col-md-12 p-0 box-send-mail col-sm-12">
+							<input type="hidden" id="templateId" />
+						</div>
+					</div>
+					<div class="col-sm-12 textarea-body-mail box-body-email-list" style="margin-top: 10px">
+						<div class="form-control" placeholder="Body email"  id="modalContent"></div>
+					</div>
+					<!-- <div class="col-sm-12 no-padding" style="font-size: 12px;" >
+						<div class="col-md-4">
+							<p style="margin-bottom: 3px"><i><b>${accountFullName}</b> : Account full name</i></p>
+							<p style="margin-bottom: 3px"><i><b>${accountNumber}</b> : Account number</i></p>
+						</div>
+						<div class="col-md-4">
+							<p style="margin-bottom: 3px"><i><b>${securityId}</b> : Security id</i></p>
+							<p style="margin-bottom: 3px"><i><b>${currentDate}</b> : Current Date</i></p>
+						</div>
+						<div class="col-md-4">
+							<p style="margin-bottom: 3px"><i><b>${replyTo}</b> : Reply to</i></p>
+						</div>
+					</div> -->
+				</div>
+				<div class="col-sm-12 no-padding" style="font-size: 12px;" id="listParam"></div>
+			</div>
+			<div id = "action" class="gr-btn-footer-popup" style="display: true;">
+				<button id="checkParam" class="btn-common"><i class=" fa fa-search"></i><span th:text="#{email.template.check.param.button}">checkParam</span></button>
+				<button id="saveTemplate" class="btn-common"><i class="fa fa-save"></i><span th:text="#{save.button}">Save</span></button>
+				<button class="btn-cancel" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i><span th:text="#{cancel.button}">Cancel</span></button>
+			</div>
+			
+		</div>
+	</div>
+</div>
+</body>
+</html>

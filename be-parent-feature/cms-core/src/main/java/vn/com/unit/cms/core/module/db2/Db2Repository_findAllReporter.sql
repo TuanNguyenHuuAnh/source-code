@@ -1,0 +1,1 @@
+select 'kv' as id, 'khu vực' as name  from sysibm.sysdummy1;

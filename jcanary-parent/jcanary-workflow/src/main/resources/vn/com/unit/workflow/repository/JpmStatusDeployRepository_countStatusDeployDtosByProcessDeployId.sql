@@ -1,0 +1,7 @@
+SELECT
+	COUNT(1)
+FROM
+	JPM_STATUS_DEPLOY status
+WHERE
+	status.DELETED_ID = 0
+	AND status.PROCESS_DEPLOY_ID = /*processDeployId*/

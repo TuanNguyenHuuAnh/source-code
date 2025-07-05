@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+
+<!-- Start table fix-->		
+<div class="col-sm-12 p-0">
+<div class="header-box">
+	<h2 class="title-box" th:text="#{search.results.title}">Kết quả tìm kiếm</h2>
+</div>
+<div class="table-responsive" id="idDivTable">
+	<table class="table table-bordered table-striped">
+      <thead>
+          <tr>
+              <th class="u_t_no">#</th>
+              <th class="u_t_action" th:text="#{action.label}">Thao tác</th>
+               <th th:text="#{company.detail}">Company</th> 
+              <th class="u_t_code" th:text="#{role.code}">Mã quyền</th>
+              <th class="u_t_name" th:text="#{role.name}">Tên quyền</th>
+              <th th:text="#{role.description}">Mô tả</th>
+              <th th:text="#{role.status}">Trạng thái</th> 
+          </tr>
+      </thead>
+      <tbody>
+          <th:block th:each="roleListDto,i : ${pageWrapper.data}" th:with="startIndex=${pageWrapper.startIndexCurrent}">
+                 <tr th:attr="data-role-id=${roleListDto.roleId}">
+                     <td class="text-center" th:text="${i.index + startIndex}"></td>
+                     <td class="td-action align-center">
+                     	 <a class="j-btn-detail glyphicon glyphicon-eye-open custom-icon"></a>
+                         <a class="j-btn-edit glyphicon glyphicon-edit custom-icon"
+                         th:if="${#authorization.expression('hasAuthority(@roleConstant.ROLE)') and ((roleListDto.companyName != null and roleListDto.companyName!='') or #authentication?.principal?.companyAdmin)}"></a>
+                         <a class="j-btn-delete glyphicon glyphicon-remove-sign font-size-20 red" 
+                         th:if="${#authorization.expression('hasAuthority(@roleConstant.ROLE)') and ((roleListDto.companyName != null and roleListDto.companyName!='') or #authentication?.principal?.companyAdmin)}"></a>
+                     </td>
+ 					 <td th:text="${roleListDto.companyName} !='' and ${roleListDto.companyName} != null ? ${roleListDto.companyName}: #{company.all}"></td> 
+					 <td th:text="${roleListDto.code}"></td>
+                     <td th:text="${roleListDto.name}"></td>
+                     <td th:text="${roleListDto.description}"></td>
+                      <td> 
+                          <th:block  th:text="#{${roleListDto.active} ? 'role.status.activated' : 'role.status.not.activated'}" />
+                      </td> 
+                 </tr>
+             </th:block>
+      </tbody>
+  </table>
+	
+</div>
+
+</div>
+<th:block th:include="views/commons/pagination.html :: content"/>
+
+<script type="text/javascript" th:src="@{/static/cache/js/role/role-table.js}"></script>
+</body>
+</html>
+

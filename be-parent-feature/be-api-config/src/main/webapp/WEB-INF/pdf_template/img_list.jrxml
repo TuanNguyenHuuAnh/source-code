@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="img_list" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ddd5e22f-5a08-4c2b-880b-4c2fab67c7bb">
+	<property name="ireport.zoom" value="1.4641000000000028"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Base" isDefault="true" fontName="Arial" fontSize="10"/>
+	<parameter name="pathFile" class="java.lang.String"/>
+	<field name="fileString" class="java.lang.String"/>
+	<field name="typeDocument" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="330" splitType="Stretch">
+			<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle">
+				<reportElement positionType="Float" x="0" y="0" width="555" height="320" uuid="7c1ca94e-cb2c-44c9-91b8-961db90e7a97">
+					<printWhenExpression><![CDATA[$F{fileString} != "" && $F{typeDocument} != "CERTIFICATE_PHOTO"]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$F{fileString}]]></imageExpression>
+			</image>
+			<break>
+				<reportElement positionType="Float" x="0" y="329" width="555" height="1" uuid="bb54c078-cbcf-4a13-9198-66126d16c916"/>
+			</break>
+			<image scaleImage="RealSize" hAlign="Center" vAlign="Middle">
+				<reportElement positionType="Float" x="0" y="0" width="555" height="320" uuid="73e3fecf-a392-4e7c-a8b4-a8ca2718dda1">
+					<printWhenExpression><![CDATA[$F{fileString} != "" && $F{typeDocument}.equals("CERTIFICATE_PHOTO")]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$F{fileString}]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

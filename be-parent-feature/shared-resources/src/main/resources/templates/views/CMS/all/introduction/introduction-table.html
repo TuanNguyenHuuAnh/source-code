@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <body th:fragment="content">
+
+
+
+    <!-- <div class="col-sm-12"> -->
+    <div class="col-sm-12 p-0">
+
+
+
+      <!-- <div class="col-sm-7 no-padding">
+        <h2
+          class="sub-header section-heading"
+          th:text="#{search.results.title}"
+        >
+          Kết quả tìm kiếm
+        </h2>
+      </div> -->
+      	<div class="col-sm-7 p-0">
+			<h2 class="title-box"  th:text="#{search.results.title}">Kết quả tìm kiếm</h2>
+		</div>
+
+
+
+      <div class="col-sm-5 no-padding">
+        <span class="pull-right">
+          <button id="btnSort" type="button" class="btn-common">
+            <i class="fa fa-sort"></i>
+            <span th:text="#{btn.title.list-order}">Sắp sếp lại</span>
+          </button>
+
+          <button class="btn-common" type="button" id="btnExport">
+            <i class="fa fa-download" aria-hidden="true"></i>
+            <span th:text="#{document.versionlist.download}">Tải về</span>
+          </button>
+        </span>
+      </div>
+      <div class="col-sm-12 no-padding table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th class="u_t_no">#</th>
+              <th
+                th:text="#{introduction.action}"
+                class="text-center u_t_action"
+              >
+                Thao tác
+              </th>
+              <th th:text="#{introduction.categoryname}">
+                Danh mục giới thiệu
+              </th>
+              <th class="u_t_code" th:text="#{introduction.code}">Mã</th>
+              <th th:text="#{introduction.name}">Tên</th>
+              <th class="text-center" th:text="#{product.category.enabled}">
+                Kích hoạt
+              </th>
+              <th th:text="#{process.status}">Trạng thái</th>
+              <th th:text="#{introduction.createby}">Người tạo</th>
+              <th class="u_t_date" th:text="#{introduction.createdate}">
+                Ngày tạo
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <th:block
+              th:each="intro, i : ${pageWrapper.data}"
+              th:with="startIndex=${pageWrapper.startIndexCurrent}"
+            >
+              <tr th:attr="data-introduction-id=${intro.id}" class="trEdit">
+                <td th:text="${i.index + startIndex}" class="align-center"></td>
+                <td class="text-center">
+                  <!-- Edit -->
+                  <a
+                    class="j-btn-edit glyphicon glyphicon-edit custom-icon"
+                    th:if="${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.INTRODUCTION_LIST}__'')')}"
+                  >
+                  </a>
+
+                  <!-- Delete -->
+                  <a
+                    class="
+                      j-btn-delete
+                      glyphicon glyphicon-remove-sign
+                      font-size-20
+                      red
+                    "
+                    th:if="${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.BUTTON_INTRODUCTION_EDIT}__:Edit'')')}
+												 and (${intro.status eq @stepNoStatusConstant.STEP_DRAFT}
+				              						or ${intro.status eq @stepNoStatusConstant.STEP_REJECTED})"
+                  >
+                  </a>
+                </td>
+                <td th:text="${intro.categoryName}"></td>
+                <td th:text="${intro.code}"></td>
+                <td th:text="${intro.title}"></td>
+                <td class="text-center">
+                  <span th:if="${intro.enabled}">
+                    <img th:src="@{/static/icons/icon-check-blue-1.png}" />
+                  </span>
+                </td>
+                <td th:text="${intro.statusName}"></td>
+                <td th:text="${intro.createBy}"></td>
+                <td
+                  th:text="${intro.createDate} ? ${#dates.format(intro.createDate, 'dd-MM-yyyy')}"
+                  class="align-center"
+                ></td>
+              </tr>
+            </th:block>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <th:block th:include="views/commons/pagination.html :: content" />
+
+    <script
+      type="text/javascript"
+      th:src="@{/static/CMS/all/introduction/introduction-list.js}"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{templates/unit-layout}" layout:fragment="body">
+<body>
+
+	<script th:inline="javascript">
+      	/*<![CDATA[*/
+      var CUSTOMER_ALIAS = [[${customerAlias}]];
+
+      var LANGUAGE_LIST = /*[[${languageList}]]*/;
+
+	  var PAGE_URL = CUSTOMER_ALIAS + "/emulate";
+	  var MSG_ERROR_MIN_SIZE_ECARD = [[#{message.confirm.upload.image.420x200.error}]];
+	  var ERROR_FILE_EXTENSTION = [[#{message.error.file.extention}]];
+	  var DATE_FORMATE_TYPE = "FULL_DATE";
+	  var ERROR_IMG_SIZE_3MB =  [[#{message.error.img}]];
+	  var ERROR_POSITION_VALUE =  [[#{position.ecard.value}]];
+      /*]]>*/
+    </script>
+    
+	<div class="title-head">
+		<div class="row">
+			<div class="col-md-5">
+				<h3>
+					<span th:text="#{ecard.edit.title}">Tiêu đề trang</span>
+				</h3>
+			</div>
+		   	<div class="col-md-7">
+		        <div class="pull-right">
+		        	 <a class="u-btn u-btn-back" id="linkList">
+					 	<img th:src="@{/static/images/icon-down.png}" alt="" width="17px" class="rotate-ico"/>
+					 	<span th:text="#{comeback.button}">Trở lại</span>
+					 </a>
+					 <a class="u-btn u-btn-primary" id="addNew"
+					 	th:if="${editDto.id != null} and ${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.BUTTON_NEWS_EDIT}__:Edit'')')}">
+					 	<img th:src="@{/static/images/ico-plus-white.png}" alt="" />
+					 	<span th:text="#{add.new.button}">Thêm mới</span>
+					 </a>
+		        </div>
+		   </div>
+		</div>
+	</div>
+
+	<form th:object="${editDto}" method="post" class="form-horizontal u-for-page-top j-form-validate" role="form" id="formId">
+		<th:block th:include="views/commons/message-alert.html :: content(${messageList})" />
+
+		<div class="bg-content">
+			<div class="row">
+				<div class="col-md-6 no-padding">
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('code')} ? has-error : ''">
+						<label for="menuCode" class="col-sm-4 control-label"
+							th:text="#{ecard.code}">Mã</label>
+						<div class="col-sm-8">
+							<input type="text" th:field="*{code}"
+								class="form-control text-uppercase" readonly="readonly"
+								data-rule-maxlength="30" />
+							<span class="help-block" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-12 no-padding">
+					<div class="form-group" th:classappend="${#fields.hasErrors('title')} ? has-error : ''">
+						<label class="col-sm-2 control-label required"
+							th:text="#{ecard.name}">Name</label>
+						<div class="col-sm-10">
+							<input type="text" th:field="*{title}" class="form-control j-required" data-rule-maxlength="100" maxlength="100"/>
+							<span class="help-block" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-6 form-group no-padding">
+					<label class="col-sm-4 control-label required" th:text="#{ecard.type}"></label>
+					<div class="col-sm-8">
+						<select class="form-control j-required" th:field="*{type}"
+							th:data-placeholder="#{ecard.type}">
+							<option value=""></option>
+							<th:block th:each="obj : ${ecardTypeList}">
+								<option th:value="${obj.id}"
+									th:text="${obj.name}"
+									th:selected="${obj.id} == *{type}">
+								</option>
+							</th:block>
+						</select>
+						
+						<label id="type-error" class="error" for="type" style="display: none;">Giá trị bắt buộc nhập</label>
+					</div>
+				</div>
+				
+				<div class="col-md-6 form-group no-padding">
+					<label class="col-sm-4 control-label" th:text="#{ecard.type.name}"></label>
+					<div class="col-sm-8 tbl-img">
+						<input class="form-control" disabled="disabled" th:checked="*{typeName}" th:field="*{typeName}"
+							   th:placeholder="#{ecard.type.name}" type="text"/>
+
+						<div class="img_banner_big_e_card">
+							<img th:src="@{/static/images/} + ${editDto.typeName} + '.png'"/>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group" id="divImg">
+					<label class="lb_language col-sm-4 col-md-2"
+						   th:id="'eCardImageLBL'"
+						   >Hình nền</label>
+					<div class="controls col-sm-8 col-md-10 ">
+						<div>
+							<div class="wrap_upload" th:id="imageContainer">
+								<button class="u-btn btn-upload-file" href="javascript:void(0)"
+										th:id="imgPickfiles" th:title="#{icon.add}"
+										type="button">
+									<img alt="" class="rotate-180-ico"
+										 th:src="@{/static/images/icon-down.png}" width="17px">
+								</button>
+							</div>
+
+							<div style="margin-top: 10px;">
+								<span class="pos-4">
+									<a th:text="#{message.text.image.format.ecard}"></a>
+								</span>
+								<br>
+								<span class="pos-4">
+									<a th:text="#{message.text.image.size.ecard}"></a>
+								</span>
+							</div>
+							
+							<div>
+								<div th:id="imageConsole" style="display: none"
+									 class="error"></div>
+								<div class="wrap_img">
+									<img th:id="img_banner" class="img_banner"
+										 style="width: 100%" />
+									<div th:id="imageFilelist">Your browser
+										doesn't have Flash, Silverlight or HTML5 support.</div>
+									<input type="hidden" th:id="physicalImg" th:field="*{eCardPhysicalImg}"/>
+									<input type="hidden" th:id="eCardImg" th:field="*{eCardImg}"/>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 form-group no-padding">
+					<label class="col-md-4 control-label" th:text="#{searchfield.disp.agent.name}"></label>
+					<div class="col-md-8">
+						<input class="form-control position-validate" min="1" placeholder="1" th:field="*{agentName}" type="number" onkeypress='return isNumberKey(event)' />
+					</div>
+				</div>
+
+				<div class="col-sm-6 form-group no-padding">
+					<label class="col-md-4 control-label" th:text="#{searchfield.disp.agent.type}"></label>
+					<div class="col-md-8">
+						<input th:field="*{agentType}" type="number" class="form-control position-validate" min="1" placeholder="2" onkeypress='return isNumberKey(event)'/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-6 form-group no-padding">
+					<label class="col-md-4 control-label" th:text="#{searchfield.disp.office.general.agents}"></label>
+					<div class="col-md-8">
+						<input th:field="*{office}" type="number" class="form-control position-validate" min="1" placeholder="3" onkeypress='return isNumberKey(event)'/>
+					</div>
+				</div>
+				
+				<div class="col-sm-6 form-group no-padding">
+					<label class="col-md-4 control-label" th:text="#{searchfield.disp.phone}"></label>
+					<div class="col-md-8">
+						<input th:field="*{phone}" type="number" class="form-control position-validate" min="1" placeholder="4" onkeypress='return isNumberKey(event)'/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-6 form-group no-padding">
+					<label class="col-md-4 control-label" th:text="#{searchfield.disp.zalo}"></label>
+					<div class="col-md-8">
+						<input th:field="*{zalo}" type="number" class="form-control position-validate" min="1" placeholder="5" onkeypress='return isNumberKey(event)'/>
+					</div>
+				</div>
+				
+				<div class="col-sm-6 form-group no-padding">
+					<label class="col-md-4 control-label" th:text="#{searchfield.disp.facebook}"></label>
+					<div class="col-md-8">
+						<input th:field="*{facebook}" type="number" class="form-control position-validate" min="1" placeholder="6" onkeypress='return isNumberKey(event)'/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-6 form-group no-padding">
+					<label class="col-md-4 control-label" th:text="#{searchfield.disp.email}"></label>
+					<div class="col-md-8">
+						<input th:field="*{email}" type="number" class="form-control position-validate" min="1" placeholder="7" onkeypress='return isNumberKey(event)'/>
+					</div>
+				</div>
+				
+				<div class="col-sm-6 form-group no-padding">
+					<label class="col-md-4 control-label" >Danh hiệu</label>
+					<div class="col-md-8">
+						<input th:field="*{label}" type="number" class="form-control position-validate" min="1" placeholder="8" onkeypress='return isNumberKey(event)' disabled/>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 form-group no-padding">
+					<div class="col-md-4"></div>
+					<div class="col-md-4">
+						<input type="checkbox" tabindex="2" th:field="*{enabled}" th:checked="*{enabled}" />
+						<label class="control-label" th:text="#{searchfield.disp.enabled}">Kích hoạt</label>
+					</div>
+				</div>
+			</div>
+			<div class="row m-0 pos-gr-btn" th:if="${editDto.hasEdit}">
+				<!-- <button type="button" class="u-btn u-btn-back " id="cancel"  >
+                    <img th:src="@{/static/images/icon-down.png}" alt="" width="17px" class="rotate-ico"/>
+                    <span th:text="#{cancel.button}">Thoát</span>
+                </button> -->
+                
+				<button type="button" class="u-btn u-btn-primary" id="btnSave" >
+                    <img th:src="@{/static/images/icon-save.png}" alt="" width="19px"/> <span th:text="#{save.button}">Lưu</span>
+                </button>
+			</div>
+			
+			<input type="hidden" th:field="*{id}" />
+			<input type="hidden" id="url" name="url" th:value="${editDto.url}" />
+			<input type="hidden" th:field="*{referenceId}" />
+			<input type="hidden" th:field="*{referenceType}" />
+			<input type="hidden" th:field="*{requestToken}" />
+			<input type="hidden" th:field="*{searchDto}" />
+			<input type="hidden" id="buttonId" name="buttonId" />
+			<input type="hidden" th:field="*{updateDate}" />
+			<input type="hidden" th:field="*{hasEdit}" />
+			<input type="hidden" th:field="*{customerTypeId}" />
+	</form>
+	
+	<script type="text/javascript" th:src="@{/static/CMS/all/e-card/e-card-edit.js}"></script>
+</body>
+</html>

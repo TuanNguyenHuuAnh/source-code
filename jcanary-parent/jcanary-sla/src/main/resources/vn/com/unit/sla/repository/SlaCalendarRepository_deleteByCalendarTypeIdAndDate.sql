@@ -1,0 +1,3 @@
+DELETE FROM SLA_CALENDAR 
+WHERE CALENDAR_TYPE_ID = /*calendarTypeId*/ 
+						AND CALENDAR_DATE =/*calendarDate*/''

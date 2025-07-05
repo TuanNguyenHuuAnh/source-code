@@ -1,0 +1,7 @@
+SELECT
+	*
+FROM
+	JCA_ACCOUNT_TEAM
+WHERE
+	ACCOUNT_ID IN /*accountIds*/()
+	AND TEAM_ID = /*teamId*/

@@ -1,0 +1,42 @@
+/*******************************************************************************
+* Class        JpmParamDeployDto
+* Created date 2020/11/25
+* Lasted date  2020/11/25
+* Author       KhuongTH
+* Change log   2020/11/25 01-00 KhuongTH create a new
+******************************************************************************/
+
+package vn.com.unit.workflow.dto;
+
+import java.util.List;
+
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * JpmParamDeployDto
+ * 
+ * @version 01-00
+ * @since 01-00
+ * @author KhuongTH
+ */
+
+@Getter
+@Setter
+public class JpmParamDeployDto {
+
+	private Long paramDeployId;
+
+	private Long processDeployId;
+
+	private String fieldName;
+
+	private String dataType;
+
+	private Long paramId;
+
+	private String formFieldName;
+	
+	private List<JpmParamConfigDeployDto> paramConfigDtos;
+
+}

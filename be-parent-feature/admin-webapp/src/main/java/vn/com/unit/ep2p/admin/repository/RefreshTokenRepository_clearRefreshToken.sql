@@ -1,0 +1,6 @@
+DELETE 
+FROM 
+	JCA_API_REFRESH_TOKEN 
+WHERE 
+	OS = /*os*/ 
+	AND VERSION_APP = /*versionApp*/

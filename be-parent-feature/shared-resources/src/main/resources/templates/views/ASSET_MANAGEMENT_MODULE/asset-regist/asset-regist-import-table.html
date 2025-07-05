@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <body th:fragment="content">
+    <div class="col-sm-12 no-padding">
+      <div class="section-wrap">
+        <!-- 			<h5 class="sub-header section-heading"> -->
+        <!--                 <i class="fa fa-table"></i> -->
+        <!-- 				<span class="bold" th:text="#{common.import.table}"> Import table</span> -->
+        <!-- 			</h5> -->
+        <div class="table-responsive">
+          <table id="data" class="table table-bordered table-striped">
+            <!-- id="data" -->
+            <thead>
+              <tr>
+                <th class="u_t_no text-center" th:text="#{common.import.row}">
+                  Row<a href="javascript:void(0)" class="pull-right"
+                    ><i
+                      class="fa fa-sort sort sort-rownum"
+                      aria-hidden="true"
+                    ></i
+                  ></a>
+                </th>
+                <th class="u_t_no text-center min-wd-150">
+                  <span th:text="#{common.import.message.error}"></span
+                  ><a href="javascript:void(0)" class="pull-right"
+                    ><i
+                      class="fa fa-sort sort sort-message"
+                      aria-hidden="true"
+                    ></i
+                  ></a>
+                </th>
+                <th
+                  class="required"
+                  th:text="#{asset.regist.edit.name.of.the.asset}"
+                >
+                  Name of the Asset
+                </th>
+                <th
+                  class="required"
+                  th:text="#{asset.regist.edit.asset.description}"
+                >
+                  Asset Description
+                </th>
+
+                <th
+                  class="required min-wd-75"
+                  th:text="#{p2passetsubcategory.assetCategory}"
+                >
+                  Asset Category
+                </th>
+                <th
+                  class="min-wd-75"
+                  th:text="#{asset.regist.edit.asset.sub.category}"
+                >
+                  Asset Sub Category
+                </th>
+                <th class="required" th:text="#{asset.regist.edit.quantity}">
+                  Quantity
+                </th>
+                <th
+                  class="required"
+                  th:text="#{asset.regist.edit.unit.of.measure}"
+                >
+                  Unit of Measure
+                </th>
+                <th class="required" th:text="#{po.add.col.unit.price}"></th>
+                <th th:text="#{po.detail.amount}"></th>
+                <th th:text="#{asset.regist.edit.serial.no}">Serial No</th>
+                <th class="min-wd-75" th:text="#{asset.regist.edit.imei}">
+                  IMEI
+                </th>
+                <th th:text="#{asset.regist.edit.purchase.date}">
+                  Purchase Date
+                </th>
+                <th th:text="#{asset.regist.edit.invoice.number}">
+                  Invoice Number
+                </th>
+                <th th:text="#{asset.regist.edit.pr.no}">PR No</th>
+                <th th:text="#{asset.regist.edit.po.no}">PO No</th>
+                <th th:text="#{asset.regist.edit.contract.no}">Contract No</th>
+                <th th:text="#{asset.regist.edit.payment.no}">Payment No</th>
+                <th th:text="#{asset.regist.edit.payment.date}">
+                  Payment Date
+                </th>
+                <th th:text="#{asset.regist.edit.receipt.no}">Receipt No</th>
+                <th th:text="#{asset.regist.edit.receipt.date}">
+                  Receipt Date
+                </th>
+                <th th:text="#{asset.regist.edit.recipient}">Recipient</th>
+                <th th:text="#{asset.regist.edit.cpu}">CPU</th>
+                <th th:text="#{asset.regist.edit.ram}">RAM</th>
+                <th th:text="#{asset.regist.edit.ho.hdd}">HO-HDD</th>
+                <th th:text="#{asset.regist.edit.os}">OS</th>
+                <th th:text="#{asset.regist.edit.note}">Note</th>
+              </tr>
+            </thead>
+            <tbody>
+              <th:block
+                th:each="item, i : ${pageWrapper.data}"
+                th:with="startIndex=${pageWrapper.startIndexCurrent}"
+              >
+                <tr th:attr="data-temp-id=${item.id}">
+                  <td class="text-center" th:text="${item.rowNum}"></td>
+                  <td class="text-left" style="min-width: 200px">
+                    <th:block th:if="${item.messageType == 2}">
+                      <span
+                        class="message-error"
+                        th:text="#{${item.messageErrorCode} }"
+                      ></span>
+                    </th:block>
+                    <th:block th:if="${item.messageType == 1}">
+                      <span
+                        class="message-warning"
+                        th:text="#{${item.messageErrorCode} }"
+                      ></span>
+                    </th:block>
+                    <th:block
+                      th:if="${item.messageType != 1 AND item.messageType != 2}"
+                    >
+                      <span></span>
+                    </th:block>
+                  </td>
+
+                  <td class="text-left" th:text="${item.assetName}"></td>
+                  <td class="text-left" th:text="${item.assetDescription}"></td>
+                  <td
+                    class="text-left"
+                    th:text="${item.assetCategoryName}"
+                  ></td>
+                  <td
+                    class="text-left"
+                    th:text="${item.assetSubCategoryName}"
+                  ></td>
+                  <td class="text-right" th:text="${item.quantity}"></td>
+                  <td class="text-center" th:text="${item.uomCode}"></td>
+                  <td
+                    class="text-center"
+                    th:text="${item.unitPrice != null ? #numbers.formatDecimal(item.unitPrice, 0, 'COMMA',0, 'POINT') : 0}"
+                  ></td>
+                  <td
+                    class="text-center"
+                    th:text="${item.purchasePrice != null ? #numbers.formatDecimal(item.purchasePrice, 0, 'COMMA',0, 'POINT') : 0}"
+                  ></td>
+                  <td class="text-center" th:text="${item.serialNo}"></td>
+                  <td class="text-center" th:text="${item.imei}"></td>
+                  <td
+                    class="text-center"
+                    th:text="${item.purchaseDate} ? ${#dates.format(item.purchaseDate, @systemConfig.getConfig('DATE_PATTERN'))}"
+                  ></td>
+                  <td class="text-center" th:text="${item.invoiceNumber}"></td>
+                  <td class="text-center" th:text="${item.prNo}"></td>
+                  <td class="text-center" th:text="${item.poNo}"></td>
+                  <td class="text-center" th:text="${item.contractNo}"></td>
+                  <td class="text-center" th:text="${item.paymentNo}"></td>
+                  <td
+                    class="text-center"
+                    th:text="${item.paymentDate} ?  ${#dates.format(item.paymentDate, @systemConfig.getConfig('DATE_PATTERN'))}"
+                  ></td>
+                  <td class="text-center" th:text="${item.receiptNo}"></td>
+                  <td
+                    class="text-center"
+                    th:text="${item.receiptDate} ? ${#dates.format(item.receiptDate, @systemConfig.getConfig('DATE_PATTERN'))}"
+                  ></td>
+                  <td class="text-left" th:text="${item.recipient}"></td>
+                  <td class="text-left" th:text="${item.cpu}"></td>
+                  <td class="text-left" th:text="${item.ram}"></td>
+                  <td class="text-left" th:text="${item.hdd}"></td>
+                  <td class="text-left" th:text="${item.os}"></td>
+                  <td
+                    class="text-left min-wd-150"
+                    th:text="${item.remark}"
+                  ></td>
+                </tr>
+              </th:block>
+            </tbody>
+          </table>
+        </div>
+        <th:block
+          th:include="/views/ASSET_MANAGEMENT_MODULE/commons/pagination.html :: content"
+        />
+        <div
+          class="col-sm-12 text-center"
+          style="margin-top: 10px; margin-bottom: 10px"
+        >
+          <!-- 				<a id="import" onclick="importToMasterData()" class="btn-common"><span th:text="#{common.import.button}">Import</span></a> -->
+        </div>
+      </div>
+    </div>
+    <script
+      type="text/javascript"
+      th:src="@{/static/ASSET_MANAGEMENT_MODULE/js/asset-regist/asset-regist-import-table.js}"
+    ></script>
+
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+      var urlImport = /*[[${urlImport}]]*/ ;
+      var importId = /*[[${importId}]]*/ ;
+
+      /*]]>*/
+    </script>
+  </body>
+</html>

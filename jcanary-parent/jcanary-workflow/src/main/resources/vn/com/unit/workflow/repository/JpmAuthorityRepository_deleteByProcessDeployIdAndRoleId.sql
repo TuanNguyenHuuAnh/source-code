@@ -1,0 +1,5 @@
+DELETE
+	JPM_AUTHORITY
+WHERE
+	ROLE_ID = /*roleId*/
+	AND PROCESS_DEPLOY_ID = /*processDeployId*/

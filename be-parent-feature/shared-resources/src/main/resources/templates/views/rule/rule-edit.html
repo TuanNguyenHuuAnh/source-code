@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<link rel="stylesheet" type="text/css" th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}"/>
+<script type="text/javascript" th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+<!-- EasyUI - Multiple component support -->
+<link rel="stylesheet" type="text/css" th:href="@{/static/cache/plugins/jquery-easyui-1.5/easyui.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/static/cache/plugins/jquery-easyui-1.5/icon.css}" />
+<script type="text/javascript" id="script-easyui" th:src="@{/static/cache/plugins/jquery-easyui-1.5/jquery.easyui.min.js}"></script>    
+
+<div class="title-head clearfix">
+   <div class="col-sm-9 col-xs-7 no-padding">
+		<h3>
+			<i class="fa fa-table"></i>
+			<span th:text="#{rule.title}">Edit rule</span>
+		</h3>
+   </div>
+   <div class="col-sm-3 col-xs-5 icon-head">
+        <div class="pull-right">
+			<a>
+				<i class="fa fa-arrow-circle-left icon-head-red" th:title="#{icon.back}" id="linkList"></i> 					
+			</a> 
+        </div>
+   </div>
+</div>	
+
+<div id="id-main-account">
+<form th:action="@{/rule/edit}"  method="POST" class="form-horizontal u-for-page-top j-form-validate" th:object="${ruleDto}" id="id-form-account">
+	<th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+	<div class="bg-content clearfix">
+		<div data-toggle="collapse" data-target="#search-box-1" class="header-box">
+        	<h2 class="title-box" th:text="#{rule.info}">Thông tin rule</h2>
+        	<i class="fa fa-minus pull-right" aria-hidden="true"></i>
+        </div>
+        <div class="collapse in row m-0" id="search-box-1">
+        <div class="col-sm-6">
+	        <div class="form-group" th:if="${companyList.size()>1}">
+		    	<label for="companyId" class="col-sm-4" th:text="#{repository.companyName}">Company</label>
+		    	<div class="col-md-8">
+		            <select id="companyId" onchange="loadBusiness()" class="form-control select2">
+		                <option th:if="${#authentication?.principal?.companyAdmin}" th:value="${NULL}" th:text="#{company.all}"></option>
+		                <option th:each="company : ${companyList}" 
+		                    th:value="${company.id}"
+		                    th:selected="${#strings.equals(companyId, company.id)}"
+		                    th:text="${company.text}">
+		                </option>
+		             </select>
+		     	</div>
+		 	</div>
+        </div>
+        <div class="col-sm-6">
+	        <div class="form-group">
+	        	<input type="hidden" id="companyId" th:value="${companyId}"/>
+                <label for="businessId" class="required col-sm-4 align-top" th:text="#{rule.label.business}">Business</label>
+                <div class="col-sm-8">
+                    <select id="businessId" class="form-control select2 j-required">
+                        <option th:each="business : ${businessList}" 
+                                th:value="${business.id}"
+                                th:text="${business.text}">
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+	    </div>
+    </div>
+
+	<div class="bg-content clearfix bg-content-tbl" id="id-org-for-account">
+	</div>
+	
+</form>
+</div>
+
+<script type="text/javascript" th:src="@{/static/cache/js/rule/rule-edit.js}"></script>
+</html>
+

@@ -1,0 +1,152 @@
+# ===================================================================
+# Spring Boot configuration for the "prod" profile.
+#
+# ===================================================================
+
+# ===================================================================
+# Standard Spring Boot properties.
+# Full reference is available at:
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+logging:
+  level:
+    ROOT: ERROR
+    vn.com.unit.mbal: ERROR
+    vn.com.unit.dts: ERROR
+    org.activiti.engine: ERROR
+    vn.com.unit.sla: ERROR
+    vn.com.unit.ies.logstash: ERROR
+
+spring:
+  profiles:
+    active: dev
+  jackson:
+    serialization:
+      indent-output: true
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+#    driver-class-name: oracle.jdbc.driver.OracleDriver
+#    url: jdbc:oracle:thin:@192.168.1.1:11251:orcl
+#    username: user_pass
+#    password: user_pass
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://192.168.1.1:9090;databaseName=MBAL_UAT
+    username: aaaa
+    password: xxxx
+    jndi-name: java:/datasources/erc_PRO
+    hikari:
+      poolName: Hikari
+      auto-commit: true
+      register-mbeans: true
+      idle-timeout: 10000
+      minimum-idle: 10
+      maximum-pool-size: 500
+      connection-timeout: 20000
+      max-lifetime: 10000
+  datasource-db2:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.ibm.db2.jcc.DB2Driver
+    url: jdbc:db2://192.168.1.1:9090:50001/AGENCY
+    username: username
+    password: password
+    jndi-name: java:/datasources/dsuccessDb2
+    hikari:
+      poolName: HikariDb2
+      auto-commit: true
+      register-mbeans: true
+      idle-timeout: 10000
+      minimum-idle: 10
+      maximum-pool-size: 500
+      connection-timeout: 20000
+      max-lifetime: 10000
+  thymeleaf:
+    cache: false
+    
+  # activiti default configuration
+  activiti:
+    database-schema-update: true
+    check-process-definitions: false
+# process-definition-location-prefix: classpath:/processes/
+# process-definition-location-suffixes:
+# - **.bpmn
+# - **.bpmn20.xml
+    history-level: audit
+    async-executor-activate: false
+    
+jcanary:
+  # CORS is only enabled by default with the "dev" profile, so BrowserSync can access the API
+  cors:
+    allowed-origins: '*'
+    allowed-methods: '*'
+    allowed-headers: '*'
+    exposed-headers: 'Authorization,Link,X-Total-Count'
+#    allow-credentials: true
+    max-age: 1800
+    
+#   FIX CORS
+    allow-credentials: false
+  security:
+    authentication:
+      jwt:
+        # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
+        base64-secret: NzRlNWU5Y2VkNTRhMmVmZDAwMjNlMjE5Mjk0NjFkZjA0MDdlZjU5MGJkYzU5ZTRmZmJmMzIwYWIyOTEwZjNhOThhOGQ1OWY3YTkwN2MyNGVjMThkNGJiMDQ5Y2I0NjM1ZWMxNWNhZThmODExMzRiMTY4Nzk1YzY0OWFkNjJiMTk=
+        # Token is valid 24 hours
+        token-validity-in-seconds: 86400
+        token-validity-in-seconds-for-remember-me: 2592000
+
+server:
+  port: 8081
+  
+app:
+  firebase-configuration-file: firebase-config/daiichi-success-firebase-adminsdk.json
+  
+management:
+  endpoints:
+    web:
+      base-path: /management
+      exposure:
+        include: "*"
+      cors:
+        allowed-methods: "GET,POST"
+    jmx:
+      exposure:
+        include: "*"
+  
+  health:
+    db:
+      enabled: true
+    jms:
+      enabled: true
+    
+  metrics:
+    export:
+      # Prometheus is the default metrics backend
+      prometheus:
+        enabled: true
+        step: 60
+    enable:
+      http: true
+      jvm: true
+      logback: true
+      process: true
+      system: true
+    distribution:
+      percentiles-histogram:
+        all: true
+      percentiles:
+        all: 0, 0.5, 0.75, 0.95, 0.99, 1.0
+    web:
+      server:
+        request:
+          autotime:
+            enabled: true
+
+            
+
+            #jca-quartz
+jca-quartz:
+  config:
+    overwrite-existing-jobs: true
+    scheduler-name: ERS_API
+    wait-for-jobs-to-complete-on-shutdown: true
+    auto-startup: false

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+  <body>
+    <div class="title-head clearfix">
+      <div class="col-sm-9 col-xs-7 no-padding">
+        <h3>
+          <i class="fa fa-table"></i>
+          <span th:text="#{p2passetlocation.title}">Tiêu đề trang</span>
+        </h3>
+      </div>
+      <div class="col-sm-3 col-xs-5 icon-head">
+        <div class="pull-right">
+          <a>
+            <i
+              class="fa fa-arrow-circle-left icon-head-red"
+              id="linkList"
+              th:title="#{icon.back}"
+            ></i>
+          </a>
+          <a>
+            <i
+              class="fa fa-plus-circle icon-head-red"
+              id="add"
+              th:title="#{icon.add}"
+              th:if="${#authorization.expression('hasAuthority(''__${@roleEp2p.ROLE_OFFLICE_LOCATION}__:Edit'')')}"
+            ></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <form
+      class="form-horizontal u-for-page-top j-form-validate"
+      id="form-edit"
+      th:action="@{/}"
+      th:object="${p2pAssetLocation}"
+      method="post"
+      role="form"
+    >
+      <th:block
+        th:include="/views/ASSET_MANAGEMENT_MODULE/commons/message-alert.html :: content(${messageList})"
+      />
+      <div class="bg-content clearfix bg-content-tbl">
+        <div class="header-box">
+          <h2
+            class="title-box"
+            th:text="#{p2passetlocation.edit.title}"
+            th:if="${p2pAssetLocation.id != null}"
+          >
+            Update
+          </h2>
+          <h2
+            class="title-box"
+            th:text="#{p2passetlocation.create.title}"
+            th:if="${p2pAssetLocation.id == null}"
+          >
+            Create
+          </h2>
+        </div>
+        <input type="hidden" th:field="*{id}" />
+        <div class="col-sm-12 p-0">
+          <div class="form-group">
+            <div
+              class="col-sm-6"
+              th:classappend="${#fields.hasErrors('code')} ? has-error : ''"
+            >
+              <label
+                class="col-sm-4"
+                for="code"
+                th:text="#{p2passetlocation.code}"
+                >Code</label
+              >
+              <div class="col-sm-8">
+                <input
+                  type="text"
+                  th:field="*{code}"
+                  class="form-control"
+                  maxlength="255"
+                  disabled="disabled"
+                />
+                <span
+                  class="help-block"
+                  th:if="${#fields.hasErrors('code')}"
+                  th:errors="*{code}"
+                ></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div
+              class="col-sm-6"
+              th:classappend="${#fields.hasErrors('name')} ? has-error : ''"
+            >
+              <label
+                class="col-sm-4 required"
+                for="name"
+                th:text="#{p2passetlocation.name}"
+                >Name</label
+              >
+              <div class="col-sm-8">
+                <input
+                  type="text"
+                  th:field="*{name}"
+                  class="form-control j-required"
+                  disabled="disabled"
+                />
+                <span
+                  class="help-block"
+                  th:if="${#fields.hasErrors('name')}"
+                  th:errors="*{name}"
+                ></span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label
+                class="col-sm-4"
+                for="activeFlag"
+                th:text="#{p2passetlocation.activeFlag}"
+                >Active flag</label
+              >
+              <div class="col-sm-8">
+                <input
+                  type="checkbox"
+                  checked="checked"
+                  th:field="*{activeFlag}"
+                  disabled="disabled"
+                />
+                <span
+                  class="help-block"
+                  th:if="${#fields.hasErrors('activeFlag')}"
+                  th:errors="*{activeFlag}"
+                ></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-6">
+              <label
+                class="col-sm-4"
+                for="regionId"
+                th:text="#{p2passetlocation.region}"
+                >Region</label
+              >
+              <div class="col-sm-8">
+                <select
+                  type="text"
+                  th:field="*{regionId}"
+                  class="form-control"
+                  disabled="disabled"
+                >
+                  <option value=""></option>
+                  <option
+                    th:each="item : ${regionList}"
+                    th:text="${item.text}"
+                    th:value="${item.id}"
+                    th:selected="${item.id} == *{regionId}"
+                  ></option>
+                </select>
+                <span
+                  class="help-block"
+                  th:if="${#fields.hasErrors('regionId')}"
+                  th:errors="*{regionId}"
+                ></span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label
+                class="col-sm-4"
+                for="establishmentDate"
+                th:text="#{p2passetlocation.establishmentDate}"
+                >Establishment date?</label
+              >
+              <div class="col-sm-8">
+                <div class="input-group date datepicker">
+                  <input
+                    th:field="*{establishmentDate}"
+                    class="form-control"
+                    type="text"
+                    placeholder="dd/mm/yyyy"
+                    autocomplete="off"
+                    disabled="disabled"
+                  />
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-12">
+              <label
+                class="col-sm-2"
+                for="address"
+                th:text="#{p2passetlocation.address}"
+                >Address</label
+              >
+              <div class="col-sm-10" style="padding-left: 10px">
+                <input
+                  type="text"
+                  id="pac-input"
+                  th:field="*{address}"
+                  class="form-control"
+                  disabled="disabled"
+                />
+                <input type="hidden" id="street_number" />
+                <input type="hidden" id="route" />
+                <input type="hidden" id="locality" />
+                <input type="hidden" id="country" />
+                <input type="hidden" id="administrative_area_level_1" />
+                <input type="hidden" id="administrative_area_level_2" />
+                <span
+                  class="help-block"
+                  th:if="${#fields.hasErrors('address')}"
+                  th:errors="*{address}"
+                ></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-6">
+              <label
+                class="col-sm-4"
+                for="isHeadOffice"
+                th:text="#{p2passetlocation.isHeadOffice}"
+                >Is head office</label
+              >
+              <div class="col-sm-8">
+                <input
+                  type="checkbox"
+                  th:field="*{isHeadOffice}"
+                  disabled="disabled"
+                />
+                <span
+                  class="help-block"
+                  th:if="${#fields.hasErrors('isHeadOffice')}"
+                  th:errors="*{isHeadOffice}"
+                ></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-12">
+              <label
+                class="col-sm-2"
+                for="note"
+                th:text="#{p2passetlocation.note}"
+                >Note</label
+              >
+              <div class="col-sm-10" style="padding-left: 10px">
+                <textarea
+                  th:field="*{note}"
+                  class="form-control"
+                  rows="2"
+                  disabled="disabled"
+                ></textarea>
+                <span
+                  class="help-block"
+                  th:if="${#fields.hasErrors('note')}"
+                  th:errors="*{note}"
+                ></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group hidden">
+            <div class="col-sm-6">
+              <label class="col-sm-4" for="latitude" th:text="#{map.latitude}"
+                >Vĩ độ</label
+              >
+              <div class="col-sm-8">
+                <input type="text" id="latitude" class="form-control" />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label
+                class="col-sm-4"
+                for="longtitude"
+                th:text="#{map.longtitude}"
+                >Kinh độ</label
+              >
+              <div class="col-sm-8">
+                <input type="text" id="longtitude" class="form-control" />
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="col-xs-12 col-sm-12 form-control hidden"
+            id="map"
+            style="height: 480px"
+          ></div>
+        </div>
+      </div>
+      <input type="hidden" th:field="*{code}" />
+      <input type="hidden" th:field="*{regionName}" />
+    </form>
+    <input
+      type="hidden"
+      id="url"
+      name="url"
+      th:value="${p2pAssetLocation.url}"
+    />
+
+    <script
+      type="text/javascript"
+      th:src="@{/static/ASSET_MANAGEMENT_MODULE/js/p2passetlocation/p2passetlocation-edit.js}"
+    ></script>
+    <script
+      type="text/javascript"
+      th:src="@{/static/ASSET_MANAGEMENT_MODULE/js/j-google-map-api.js}"
+    ></script>
+    <script
+      th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyCs2ue2KZmNdxY_9QCX-hNoELD0l70-g-8&amp;libraries=places&amp;callback=initMap}"
+      type="text/javascript"
+    ></script>
+  </body>
+</html>

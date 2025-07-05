@@ -1,0 +1,35 @@
+SELECT
+	doc.*
+	,doc.ID							AS DOC_ID
+	, mainFile.ID					AS MAIN_FILE_ID
+	, mainFile.MAJOR_VERSION		AS MAIN_FILE_MAJOR_VERSION
+	, mainFile.MINOR_VERSION		AS MAIN_FILE_MINOR_VERSION
+	
+	,commonStatus.STATUS_CODE		AS COMMON_STATUS_CODE
+	,act.COMMON_STATUS_ID			AS COMMON_STATUS_ID
+	,processStatus.STATUS_CODE		AS PROCESS_STATUS_CODE
+	,processStatus.ID				AS PROCESS_STATUS_ID
+	,act.PROCESS_DEPLOY_ID			AS PROCESS_DEPLOY_ID
+	,act.BUSINESS_ID				AS BUSINESS_ID
+FROM
+	EFO_DOC doc
+LEFT JOIN
+	EFO_OZ_DOC_MAIN_FILE mainFile
+ON 
+	mainFile.DOC_ID = doc.ID AND mainFile.DELETED_ID = 0
+LEFT JOIN 
+	JPM_PROCESS_INST_ACT act
+ON 
+    doc.ID = act.reference_id
+	AND act.reference_type = 1
+LEFT JOIN
+  JPM_STATUS_DEPLOY processStatus
+ON
+  processStatus.ID = act.PROCESS_STATUS_ID
+LEFT JOIN
+  JPM_STATUS_COMMON commonStatus
+ON
+  commonStatus.ID = act.COMMON_STATUS_ID
+WHERE 
+	doc.ID = /*id*/0
+	AND doc.DELETED_ID = 0

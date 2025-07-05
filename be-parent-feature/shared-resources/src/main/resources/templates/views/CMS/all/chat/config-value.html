@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <div class="">
+    <div class="col-xs-12 col-sm-12" style="float: right"></div>
+    <form
+      method="POST"
+      class="form-horizontal j-form-validate"
+      id="valueForm"
+      th:object="${valuesDto}"
+    >
+      <div class="col-xs-12 col-sm-12 no-padding">
+        <div class="form-group">
+          <label class="col-sm-2 control-label" th:text="#{news.type.language}"
+            >Ngôn ngữ</label
+          >
+          <div class="col-sm-10 no-padding gr-tab">
+            <ul class="nav nav-tabs" id="tabLanguageSub">
+              <th:block th:each="language, i : ${languageList}">
+                <li
+                  role="presentation"
+                  th:classappend="${i.index == 0}  ? 'active' : ''"
+                  th:id="tabLanguage + ${i.index}"
+                >
+                  <a
+                    th:href="'#languageSub' + ${i.index}"
+                    th:text="${language.name}"
+                  ></a>
+                </li>
+              </th:block>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <input type="hidden" th:value="${valuesDto.field}" th:name="field" />
+      <input
+        type="hidden"
+        th:value="${valuesDto.controlCode}"
+        th:name="controlCode"
+      />
+      <div class="tab-content" style="margin: 10px 0">
+        <th:block
+          th:each="language, i : ${languageList}"
+          th:with="index=${i.index}"
+        >
+          <input
+            type="hidden"
+            th:field="*{controlValues[__${index}__].mLanguageCode}"
+            th:value="${language.code}"
+          />
+          <div
+            th:id="'languageSub' + ${index}"
+            class="tab-pane fade row unit-bg-table no-margin"
+            th:classappend="${index == 0}  ? 'in active' : ''"
+          >
+            <div class="pull-right">
+              <h3 class="mar-tb-no no-margin">
+                <i
+                  class="
+                    glyphicon glyphicon-plus-sign
+                    icon-tbl
+                    add-control-value
+                  "
+                  id="addRowControlValue"
+                  th:if="${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.CHAT_CONFIG_ONLINE}__:Edit'')')}
+									and ${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.CHAT_CONFIG_OFFLINE}__:Edit'')')}"
+                >
+                </i>
+              </h3>
+            </div>
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th class="u_t_no">#</th>
+                  <th class="text-center">Code</th>
+                  <th class="text-center">Value</th>
+                  <th class="text-center">Text</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <th:block
+                  th:each="row,j : ${valuesDto.controlValues[__${index}__].listControlValue}"
+                >
+                  <tr th:attr="data-row-value-id=${row.id}">
+                    <td class="text-center" style="display: none">
+                      <input
+                        type="hidden"
+                        th:field="*{controlValues[__${index}__].listControlValue[__${j.index}__].id}"
+                        th:value="${row.id}"
+                      />
+                    </td>
+                    <td class="text-center" th:text="${j.index+1}">1.</td>
+                    <td class="text-center">
+                      <input
+                        type="text"
+                        class="
+                          form-control
+                          j-required j-code j-setting-control-value-textbox-sync
+                        "
+                        th:name="controlValues[__${index}__].listControlValue[__${j.index}__].idField"
+                        th:value="${row.idField}"
+                      />
+                      <span
+                        class="help-block"
+                        th:if="${#fields.hasErrors('controlValues[__${index}__].listControlValue[__${j.index}__].idField')}"
+                        th:errors="*{controlValues[__${index}__].listControlValue[__${j.index}__].idField}"
+                      >
+                      </span>
+                    </td>
+                    <td class="text-center">
+                      <input
+                        type="text"
+                        class="form-control j-required"
+                        th:name="controlValues[__${index}__].listControlValue[__${j.index}__].valueField"
+                        th:value="${row.valueField}"
+                      />
+                      <span
+                        class="help-block"
+                        th:if="${#fields.hasErrors('controlValues[__${index}__].listControlValue[__${j.index}__].valueField')}"
+                        th:errors="*{controlValues[__${index}__].listControlValue[__${j.index}__].valueField}"
+                      >
+                      </span>
+                    </td>
+                    <td class="text-center">
+                      <input
+                        type="text"
+                        class="form-control j-required"
+                        th:name="controlValues[__${index}__].listControlValue[__${j.index}__].textField"
+                        th:value="${row.textField}"
+                      />
+                      <span
+                        class="help-block"
+                        th:if="${#fields.hasErrors('controlValues[__${index}__].listControlValue[__${j.index}__].textField')}"
+                        th:errors="*{controlValues[__${index}__].listControlValue[__${j.index}__].textField}"
+                      >
+                      </span>
+                    </td>
+                    <td class="text-center">
+                      <a
+                        class="
+                          glyphicon glyphicon-remove-sign
+                          font-size-20
+                          red
+                          j-control-delete j-btn-delete
+                        "
+                        th:if="${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.CHAT_CONFIG_ONLINE}__:Edit'')')}
+														and ${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.CHAT_CONFIG_OFFLINE}__:Edit'')')}"
+                      >
+                      </a>
+                    </td>
+                  </tr>
+                </th:block>
+              </tbody>
+            </table>
+          </div>
+        </th:block>
+      </div>
+      <div class="col-xs-12 col-sm-12 unit-button no-padding">
+        <button type="button" class="btn-cancel" id="btncancelValue">
+          <i class="fa fa-times"></i>
+          <span th:text="#{cancel.button}">Thoát</span>
+        </button>
+        <button
+          type="button"
+          class="btn-common"
+          id="btnSaveValue"
+          th:if="${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.CHAT_CONFIG_ONLINE}__:Edit'')')}
+									or ${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.CHAT_CONFIG_OFFLINE}__:Edit'')')}"
+        >
+          <i class="fa fa-save"></i>
+          <span th:text="#{save.button}">Lưu</span>
+        </button>
+      </div>
+    </form>
+  </div>
+  <script th:inline="javascript">
+    	/*<![CDATA[*/
+    	var LANGUAGE_LIST = /*[[${languageList}]]*/;
+    /*]]>*/
+  </script>
+  <script
+    type="text/javascript"
+    th:src="@{/web-app/views/chat/config-value.js}"
+  ></script>
+</html>

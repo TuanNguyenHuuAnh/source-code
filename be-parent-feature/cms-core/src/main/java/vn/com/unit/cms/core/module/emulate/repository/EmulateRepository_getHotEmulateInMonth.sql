@@ -1,0 +1,21 @@
+SELECT top 1
+	tb.ID															AS ID
+	, tb.MEMO_NO													AS MEMO_CODE
+	, tb.CONTEST_NAME												AS TITLE
+	, tb.description 												AS description
+FROM M_CONTEST_SUMMARY tb
+INNER JOIN M_CONTEST_APPLICABLE_DETAIL detail
+on tb.id=detail.CONTEST_ID
+WHERE
+	tb.DELETED_DATE is null
+	AND tb.ENABLED=1
+	AND CONVERT(DATE, tb.START_DATE) <= CONVERT(DATE, GETDATE())
+	AND CONVERT(DATE, ISNULL(tb.END_DATE, GETDATE())) >= CONVERT(DATE, GETDATE())
+	AND CONVERT(DATE, tb.EFFECTIVE_DATE) <= CONVERT(DATE, GETDATE())
+	AND CONVERT(DATE, ISNULL(tb.EXPIRED_DATE, GETDATE())) >= CONVERT(DATE, GETDATE())
+	AND tb.ENABLED = 1
+	AND tb.IS_HOT=1
+	/*IF searchDto.agentCode != null && searchDto.agentCode != ''*/
+	AND detail.AGENT_CODE=/*searchDto.agentCode*/
+	/*END*/
+	ORDER BY tb.EFFECTIVE_DATE DESC

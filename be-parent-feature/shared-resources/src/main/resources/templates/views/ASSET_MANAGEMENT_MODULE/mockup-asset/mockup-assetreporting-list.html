@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <script
+    type="text/javascript"
+    th:src="@{/static/jquery/multiple-select/js/jquery.multiselect.js}"
+  ></script>
+  <link
+    rel="stylesheet"
+    type="text/css"
+    th:href="@{/static/jquery/multiple-select/css/jquery.multiselect.css}"
+  />
+  <!-- BODY START -->
+  <body>
+    <div class="title-head clearfix">
+      <div class="col-sm-9 col-xs-7 no-padding">
+        <h3><i class="fa fa-table"></i> Asset Reporting</h3>
+      </div>
+      <!-- <div class="col-sm-3 col-xs-5 icon-head">
+            <div class="pull-right">
+                <a><i class="fa fa-plus-circle icon-head-red" id="add"></i></a>
+            </div>
+        </div> -->
+    </div>
+    <!-- TITLE AND BUTTON ADD END -->
+    <!-- FORM SEARCH START -->
+
+    <form
+      class="form-horizontal u-for-page-top j-formSearch"
+      method="POST"
+      role="form"
+    >
+      <th:block
+        th:include="/views/ASSET_MANAGEMENT_MODULE/commons/message-alert.html :: content(${messageList})"
+      />
+      <!-- SEARCH AREA START-->
+      <div class="bg-content clearfix">
+        <div
+          data-toggle="collapse"
+          data-target="#search-box"
+          class="header-box"
+        >
+          <h5 class="title-box">
+            <span th:text="#{search.title}">Vùng tìm kiếm</span>
+          </h5>
+          <i class="fa fa-minus pull-right" aria-hidden="true"></i>
+        </div>
+        <div class="collapse in row m-0" id="search-box">
+          <div class="col-xs-12 col-sm-12">
+            <div class="form-group">
+              <label class="col-sm-2 label-custom">Name of the Asset</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" />
+              </div>
+
+              <label class="col-sm-2 label-custom">Asset Status</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-12">
+            <div class="form-group">
+              <label class="col-sm-2 label-custom">Asset Tag</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" />
+              </div>
+
+              <label class="col-sm-2 label-custom">Asset Serial No</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-12">
+            <div class="form-group">
+              <label class="col-md-2">Register Date From</label>
+              <div class="col-md-4">
+                <div class="input-group date datepicker">
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="dd/mm/yyyy"
+                    autocomplete="off"
+                  />
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                </div>
+              </div>
+
+              <label class="col-md-2">Register Date To</label>
+              <div class="col-md-4">
+                <div class="input-group date datepicker">
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="dd/mm/yyyy"
+                    autocomplete="off"
+                  />
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-12">
+            <div class="form-group">
+              <label class="col-md-2">Vendor</label>
+              <div class="col-md-4">
+                <input type="text" class="form-control" />
+              </div>
+
+              <label class="col-md-2">PO No</label>
+              <div class="col-md-4">
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Advance -->
+          <div class="collapse row m-0" id="search-box-advance">
+            <div class="col-xs-12 col-sm-12">
+              <div class="form-group">
+                <label class="col-md-2">Receipt No</label>
+                <div class="col-md-4">
+                  <input type="text" class="form-control" />
+                </div>
+
+                <label class="col-md-2">Asset Owner</label>
+                <div class="col-md-4">
+                  <input type="text" class="form-control" />
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12">
+              <div class="form-group">
+                <label class="col-md-2">Receipt Date From</label>
+                <div class="col-md-4">
+                  <div class="input-group date datepicker">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="dd/mm/yyyy"
+                      autocomplete="off"
+                    />
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                  </div>
+                </div>
+
+                <label class="col-md-2">Receipt Date To</label>
+                <div class="col-md-4">
+                  <div class="input-group date datepicker">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="dd/mm/yyyy"
+                      autocomplete="off"
+                    />
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12">
+              <div class="form-group">
+                <label class="col-md-2">Office Location</label>
+                <div class="col-md-4">
+                  <input type="text" class="form-control" />
+                </div>
+
+                <label class="col-md-2">Warehouse</label>
+                <div class="col-md-4">
+                  <input type="text" class="form-control" />
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12">
+              <div class="form-group">
+                <label class="col-md-2">Transaction Type</label>
+                <div class="col-md-4">
+                  <input type="text" class="form-control" />
+                </div>
+
+                <label class="col-md-2">Transaction Date</label>
+                <div class="col-md-4">
+                  <div class="input-group date datepicker">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="dd/mm/yyyy"
+                      autocomplete="off"
+                    />
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12">
+              <div class="form-group">
+                <label class="col-md-2">Asset Category</label>
+                <div class="col-md-4">
+                  <select class="form-control">
+                    <option></option>
+                  </select>
+                </div>
+
+                <label class="col-md-2">Asset Sub Category</label>
+                <div class="col-md-4">
+                  <select class="form-control">
+                    <option></option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12">
+              <div class="form-group">
+                <label class="col-md-2">Purchase Date From</label>
+                <div class="col-md-4">
+                  <div class="input-group date datepicker">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="dd/mm/yyyy"
+                      autocomplete="off"
+                    />
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                  </div>
+                </div>
+
+                <label class="col-md-2">Purchase Date To</label>
+                <div class="col-md-4">
+                  <div class="input-group date datepicker">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="dd/mm/yyyy"
+                      autocomplete="off"
+                    />
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12">
+              <div class="form-group">
+                <label class="col-md-2">Invoice Number</label>
+                <div class="col-md-4">
+                  <select class="form-control">
+                    <option></option>
+                  </select>
+                </div>
+
+                <label class="col-md-2">PR No.</label>
+                <div class="col-md-4">
+                  <select class="form-control">
+                    <option></option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12">
+              <div class="form-group">
+                <label class="col-md-2">Contract No.</label>
+                <div class="col-md-4">
+                  <select class="form-control">
+                    <option></option>
+                  </select>
+                </div>
+
+                <label class="col-md-2">Dept.</label>
+                <div class="col-md-4">
+                  <select class="form-control">
+                    <option></option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END Advance -->
+
+          <div align="center">
+            <div class="position-label col-xs-12 col-sm-12">
+              <a id="btnSearch" class="btn-common">
+                <i class="fa fa-search"></i> <span>Search</span></a
+              >
+              <a id="btnExport" class="btn-common">
+                <i class="fa fa-download"></i> <span>Export</span>
+              </a>
+
+              <div
+                class="pull-right collapse-search"
+                data-toggle="collapse"
+                data-target="#search-box-advance"
+                id="box-advance"
+              >
+                <i class="fa fa-plus" id="iconShow" aria-hidden="true"></i>
+                <span>Advance search</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- SEARCH AREA END -->
+      <!-- TABLE RESULT START -->
+      <div class="bg-content clearfix bg-content-tbl" id="tableList">
+        <th:block
+          th:include="/views/ASSET_MANAGEMENT_MODULE/mockup-asset/mockup-assetreporting-table.html :: content"
+        />
+      </div>
+      <!-- TABLE RESULT END -->
+    </form>
+  </body>
+  <!-- BODY END -->
+  <script>
+    // multiple select
+    $("select[multiple]").multiselect({
+      columns: 1,
+      placeholder: "search filter",
+      search: true,
+    });
+
+    $(".j-btn-edit").on("click", function (event) {
+      event.preventDefault();
+      var url = BASE_URL + "mockup?view-id=mockup.assetreporting.edit";
+
+      // Redirect to page list
+      ajaxRedirect(url);
+    });
+
+    $("#add").on("click", function (event) {
+      event.preventDefault();
+      var url = BASE_URL + "mockup?view-id=mockup.assetreporting.edit";
+
+      // Redirect to page list
+      ajaxRedirect(url);
+    });
+
+    // date picker
+    $(".date").datepicker({
+      autoclose: true,
+      format: "dd/mm/yyyy",
+      todayHighlight: true,
+    });
+
+    var idEffectedDate = $("#fromDate").val();
+    var idExpiredDate = $("#toDate").val();
+    changeDatepickerById(idEffectedDate, idExpiredDate, "#fromDate", "#toDate");
+
+    $("#box-advance").on("click", function (event) {
+      if ($("#iconShow").hasClass("fa fa-plus")) {
+        $("#iconShow").removeClass("fa fa-plus").addClass("fa fa-minus");
+      } else {
+        $("#iconShow").removeClass("fa fa-minus").addClass("fa fa-plus");
+      }
+    });
+  </script>
+</html>

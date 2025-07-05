@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+
+<script type="text/javascript"
+	th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}" />
+
+<div class="title-head">
+	<div class="row">
+		<div class="col-md-5">
+			<h3>
+				<span th:text="#{sla.page.edit.title}">Tiêu đề trang</span>
+			</h3>
+		</div>
+	   	<div class="col-md-7">
+	        <div class="pull-right">
+				 <a class="u-btn u-btn-back" id="linkList">
+				 	<img th:src="@{/static/images/icon-down.png}" alt="" width="17px" class="rotate-ico"/>
+				 	<span>Trở lại</span>
+				 </a>
+				 <a class="btn-save u-btn u-btn-primary" id="btnSaveHead"> 
+					<img th:src="@{/static/images/icon-save.png}" alt="" width="19px"/>
+					<span th:text="#{save.button}">Lưu</span>
+				</a>
+	        </div>
+	   </div>
+	</div>	
+</div>
+
+<form
+	class="form-horizontal u-for-page-top j-form-validate j-formSearch"
+	id="form-j-edit" th:object="${slaInfoDto}" method="post" role="form">
+	<input type="hidden" name="id" th:field="*{id}" />
+	<input type="hidden" name="companyId" th:field="*{companyId}"
+							th:if="${slaInfoDto.id ne null and companyList.size() le 2}" />
+	<th:block
+		th:include="views/commons/message-alert.html :: content(${messageList})" />
+	<div class="bg-content clearfix">
+		<div class="col-sm-12 p-0">
+			<h2 class="title-box" th:text="#{sla.page.list.title}">SLA
+				reminders</h2>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 p-0" th:if="${companyList.size() >= 2}">
+				<div class="form-group">
+					<div class="col-sm-6 p-0">
+						<div class="form-group">
+							<label for="companyId" class="col-sm-4 align-top"
+								th:text="#{company.detail}">Company</label>
+							<div class="col-sm-8">
+								<select class="col-sm-9 form-control select2 select-company"
+									th:disabled="${slaInfoDto.id}" id="companyId" name="companyId" th:field="*{companyId}">
+									<option value=""></option>
+									<option th:each="company : ${companyList}"
+										th:value="${company.id}" th:text="${company.name}"></option>
+								</select>
+							</div>
+						</div>
+					</div> 
+					<div class="col-sm-6">
+	
+						<label class="col-sm-4 required" th:text="#{sla.label.name}">SLA
+							name</label>
+						<div class="col-sm-8"
+							th:classappend="${#fields.hasErrors('name')} ? has-error : ''">
+							<input class="form-control  j-maxlength j-required j-specialCharacters" type="text"
+								name="name" th:field="*{name}" maxlength="100"
+								autocomplete="off" /> <span class="help-block"
+								th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+						</div>
+	
+					</div>
+	
+				</div>
+			</div>
+	
+			<div class="col-xs-12 col-sm-12 p-0" th:if="${companyList.size() >= 2}">
+				<div class="form-group">
+					<div class="col-sm-6 p-0">
+						<label class="col-sm-4 required"
+							th:text="#{jpm.process.business.id}">Business</label>
+						<div class="col-sm-8"
+							th:classappend="${#fields.hasErrors('businessId')} ? has-error : ''">
+							<select class="form-control j-required" th:disabled="${slaInfoDto.id}" th:field="*{businessId}">
+								<option value=""></option>
+								<!-- <option th:each="i : ${businessList}" th:value="${ i.id }"
+									th:text="${ i.name }" th:selected="${i.id} == *{businessId}"></option> -->
+								<option th:value="*{businessId}" th:text="*{businessName}"></option>
+							</select> <input type="hidden" name="businessId" th:value="*{businessId}"
+								th:if="${slaInfoDto.id}" />
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<label class="col-sm-4 required"
+							th:text="#{system.config.jbpm.process}">Process</label>
+						<div class="col-sm-8"
+							th:classappend="${#fields.hasErrors('processDeployId')} ? has-error : ''">
+							<select class="form-control j-required" th:disabled="${slaInfoDto.id}" th:field="*{processDeployId}">
+								<option value=""></option>
+								<!-- <option th:each="i : ${processList}" th:value="${ i.id }"
+									th:text="${ i.text }" th:selected="${i.id} == *{processDeployId}"></option> -->
+								<option th:value="*{processDeployId}" th:text="*{processDeployName}"></option>
+							</select> <input type="hidden" name="processDeployId" th:field="*{processDeployId}"
+								th:if="${slaInfoDto.id}" />
+						</div>
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-xs-12 col-sm-12 p-0" th:if="${companyList.size() >= 2}">
+				<div class="form-group">
+					<div class="col-sm-6 p-0">
+						<label class="col-sm-4 required"
+							th:text="#{sla.label.calendar.type}">Calendar type</label>
+						<div class="col-sm-8"
+							th:classappend="${#fields.hasErrors('slaCalendarTypeId')} ? has-error : ''">
+							<select class="form-control j-required" th:disabled="${slaInfoDto.id}" th:field="*{slaCalendarTypeId}">
+								<option value=""></option>
+								<!-- <option th:each="i : ${calendarList}" th:value="${ i.id }"
+									th:text="${ i.text }" th:selected="${i.id} == *{slaCalendarTypeId}"></option> -->
+								<option th:value="*{slaCalendarTypeId}" th:text="*{slaCalendarType}"></option>
+							</select>
+							
+							<input type="hidden" name="slaCalendarTypeId" th:field="*{slaCalendarTypeId}" th:if="${slaInfoDto.id}" />
+	
+	                       	<label id="slaCalendarTypeId-error" class="error" for="slaCalendarTypeId" style="display: none"></label>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- add screen for users with only a company -->
+			<div class="col-xs-12 col-sm-12 p-0" th:if="${companyList == null || companyList.size() == 1}">
+				<input type="hidden" name="companyId" th:field="*{companyId}"
+								th:if="${slaInfoDto.id} == null" />
+				<div class="form-group">
+					<div class="col-sm-6 p-0">
+						<label class="col-sm-4 required" th:text="#{sla.label.name}">SLA
+							name</label>
+						<div class="col-sm-8"
+							th:classappend="${#fields.hasErrors('name')} ? has-error : ''">
+							<input class="form-control  j-maxlength j-required j-specialCharacters" type="text"
+								name="name" th:field="*{name}" maxlength="100"
+								autocomplete="off" /> <span class="help-block"
+								th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+						</div>
+					</div>
+					<div class="col-sm-6 p-0">
+						<label class="col-sm-4 required"
+							th:text="#{jpm.process.business.id}">Business</label>
+						<div class="col-sm-8"
+							th:classappend="${#fields.hasErrors('businessId')} ? has-error : ''">
+							<select class="form-control j-required" th:field="*{businessId}"
+								 th:disabled="${slaInfoDto.id}">
+								<option value=""></option>
+								<!-- <option th:each="i : ${businessList}" th:value="${ i.id }"
+									th:text="${ i.name }" th:selected="${i.id} == *{businessId}"></option> -->
+								<option th:value="*{businessId}" th:text="*{businessName}"></option>
+							</select> <input type="hidden" name="businessId" th:field="*{businessId}"
+								th:if="${slaInfoDto.id}" />
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-xs-12 col-sm-12 p-0" th:if="${companyList == null || companyList.size() == 1}">
+				<div class="form-group">
+					<div class="col-sm-6 p-0">
+						<label class="col-sm-4 required"
+							th:text="#{sla.label.calendar.type}">Calendar type</label>
+						<div class="col-sm-8"
+							th:classappend="${#fields.hasErrors('slaCalendarTypeId')} ? has-error : ''">
+							<select class="form-control j-required" th:field="*{slaCalendarTypeId}" th:disabled="${slaInfoDto.id}">
+								<option value=""></option>
+								<option th:value="*{slaCalendarTypeId}" th:text="*{slaCalendarType}"></option>
+								<option th:each="item : ${slaTypeList}" 
+									th:value="${ item.id }"
+									th:text="${ item.text }" 
+									th:selected="${item.id} == *{slaCalendarTypeId}">
+								</option>
+							</select>
+							
+							<input type="hidden" name="slaCalendarTypeId" th:field="*{slaCalendarTypeId}" th:if="${slaInfoDto.id}" />
+							
+	                        <label id="slaCalendarTypeId-error" class="error" for="slaCalendarTypeId" style="display: none"></label>
+						</div>
+					</div>
+					<div class="col-sm-6  p-0">
+						<label class="col-sm-4 required"
+							th:text="#{system.config.jbpm.process}">Process</label>
+						<div class="col-sm-8"
+							th:classappend="${#fields.hasErrors('processDeployId')} ? has-error : ''">
+							<select class="form-control" th:field="*{processDeployId}" th:disabled="${slaInfoDto.id}">
+								<option value=""></option>
+								<!-- <option th:each="i : ${processList}" th:value="${ i.id }"
+									th:text="${ i.text }" th:selected="${i.id} == *{processDeployId}"></option> -->
+								<option th:value="*{processDeployId}" th:text="*{processDeployName}"></option>
+							</select> <input type="hidden" name="processDeployId" th:field="*{processDeployId}"
+								th:if="${slaInfoDto.id}" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end -->
+		</div>
+		<div class="row m-0 pos-gr-btn">
+					<a id="btnCancel" class="u-btn u-btn-back" >
+		            	<img th:src="@{/static/images/icon-down.png}" alt="" width="17px" class="rotate-ico"/>
+					 	<span th:text="#{cancel.button}">Trở lại</span>
+		            </a>
+						
+		            <a type="button" class="u-btn u-btn-primary btnSave" id="btnSave">
+		                <img th:src="@{/static/images/icon-save.png}" alt="" width="19px"/>
+						<span th:text="#{save.button}">Lưu</span>
+		            </a>
+		</div>
+
+	</div>
+
+	<div class="bg-content-tbl">
+		<div class="row m-0">
+			<div class="header-box">
+				<div class="row">
+					<div class="col-md-4">
+						<h2 class="title-box" th:text="#{sla.detail.table.title}">Kết Quả Tìm Kiếm </h2>
+					</div>
+					<div class="col-md-8 align-right">
+						<button type="button" class="btn-ico btn-in-table" id="btn-add-item" th:if="${isShowActionStep}">
+							<img th:src="@{/static/images/icon-plus-blue.png}" alt="" width="13px">
+						</button>
+					</div>
+				</div>
+				
+			</div>
+			<th:block th:include="views/sla/sla-step-detail-table.html :: content" />
+	
+		</div>
+	</div>
+</form>
+
+
+<script type="text/javascript" th:src="@{/static/cache/js/sla/sla-edit.js}"></script>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<script type="text/javascript" th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+<link rel="stylesheet" type="text/css" th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/static/cache/plugins/datetimepicker/bootstrap-datetimepicker.min.css}" />
+<script type="text/javascript"
+	th:src="@{/static/cache/plugins/datetimepicker/bootstrap-datetimepicker.min.js}"></script>
+<body>
+	<form class="form-horizontal j-form-validate" th:object="${systemConfigDto}" id="form-config">
+		<div class="title-head clearfix">
+			<div class="row">
+				<div class="col-md-7">
+					<h3>
+						<span th:text="#{system.config.title}"> System parameters </span>
+					</h3>
+				</div>
+				
+				<div class="col-md-5">
+					<div class="pull-right">
+						<a class="btn-save u-btn u-btn-primary"  th:if="${#authorization.expression('hasAuthority(@roleConstant.SYSTEM_CONFIG)')}"> 
+							<img th:src="@{/static/images/icon-save.png}" alt="" width="19px"/>
+							<span th:text="#{save.button}">Lưu</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<!-- ========================= Start view box System Configure ========================= -->
+		<div class="box-top" th:if="${companyList.size()>0}">
+			<div class="row m-0">
+				<div class="col-md-12 form-group">
+					<label for="companyId" class="col-md-1 col-sm-3" th:text="#{company.detail}">Company</label>
+					<div class="col-md-4 col-sm-6">
+						<select class="col-sm-9 form-control select2 select-company" th:field="*{companyId}">
+							<option th:each="company : ${companyList}" 
+										th:value="${company.id}"
+										th:text="${company.text}">
+							</option>
+						</select>
+					</div>
+					<input type="hidden" th:field="*{companyId}" th:unless="${companyList.size()>0}" />
+				</div>
+			</div>
+		</div>
+    <div id='msg-error' style="margin-top: 16px;"></div>
+		<div id="system-config-detail">
+			<th:block th:include="views/system-config/system-config-detail.html :: content" />
+		</div>
+		<script th:inline="javascript">
+			var filesImage = {};
+		</script>
+	</form>
+	<script type="text/javascript" th:src="@{/static/cache/js/system-config/system-config.js}"></script>
+</body>
+</html>

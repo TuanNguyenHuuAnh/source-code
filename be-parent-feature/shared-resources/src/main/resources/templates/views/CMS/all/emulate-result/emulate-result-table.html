@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+	<div class="row m-0">
+		<div class="header-box">
+			<div class="row">
+				<div class="col-sm-4">
+					<h2 class="title-box" th:text="#{search.results.title}">Kết
+						Quả Tìm Kiếm</h2>
+				</div>
+				<div class="col-sm-8 align-right">
+				<!-- 
+					Sắp xếp lại
+					<button id="btnSort" type="button" class="btn-ico"
+						th:title="#{searchfield.disp.sort.order}"
+						th:if="${hasRoleForListSort}">
+						<img th:src="@{/static/images/sort-icon.png}" alt="" width="19px">
+					</button> -->
+
+					<!-- Export Excel -->
+					<!-- <button class="btn-ico" type="button" id="btnExport" th:title="#{searchfield.disp.export.excel}">
+							<img th:src="@{/static/images/icon-excel.png}" alt="" width="19px">
+						</button> -->
+
+					<!-- Hiển thị cột -->
+					<div class="button-group drop-setting pull-right">
+							<button type="button" class="btn-ico dropdown-toggle" data-toggle="dropdown" th:title="#{searchfield.disp.column.show}">
+							<img th:src="@{/static/images/icon-cog.png}" alt="" width="18px"/>
+								
+							</button>
+							
+							   <ul class="dropdown-menu dropdown-filter-sort sort">
+								 <th:block th:each="orderColumn : ${order}">
+								 	<li>
+										<a class="small">
+											<input type="checkbox" th:checked="${orderColumn.isChecked()}" th:disabled="${orderColumn.isPrimary()}" 
+											    th:attr="data-name=${orderColumn.field} + 'Show', data-column=${orderColumn.column}" onchange="showAndHideColum(this)">
+											<label th:text="${orderColumn.fieldName}"></label>
+										</a>
+									</li>
+								</th:block>
+							</ul>
+						</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="table-responsive no-padding col-sm-12" id="idDivTable">
+			<table class="table table-bordered table-striped table-hover"
+				id="tbl-list" style="white-space: normal">
+				<thead>
+					<tr>
+						<th class="u_t_no">#</th>
+						<th class="u_t_action" th:text="#{action.label}">Thao tác</th>
+
+						<th:block th:each="orderColumn : ${order}">
+							<th
+								th:class="${orderColumn.field} + 'Show' + ${orderColumn.isChecked() ? ' text-center' : ' text-center hidden'}"
+								th:attr="data-column=${orderColumn.column}, data-sort='NULL'"
+								th:onclick="sortColumn(this, setConditionBySort(), PAGE_URL + '/ajaxList', C_NAME)">
+								<span th:text="${orderColumn.fieldName}">Header</span> <i
+								th:class="'fa fa-sort ' + ${orderColumn.field}"
+								aria-hidden="true" th:attr="data-name=${orderColumn.field}"></i>
+							</th>
+						</th:block>
+					</tr>
+				</thead>
+				<tbody>
+					<th:block th:each="dataRow,i : ${pageWrapper.data}"
+						th:with="startIndex=${pageWrapper.startIndexCurrent}">
+						<tr th:attr="data-id=${dataRow.id}, data-code=${dataRow.memoNo}"
+							class="trEdit">
+							<td class="text-center" th:text="${i.index + startIndex}"></td>
+							<td class="align-center">
+								<!-- Export excel --> 
+								<i
+								class="glyphicon glyphicon-save font-size-20 custom-icon btn-export"
+								th:title="#{searchfield.disp.export.excel}"
+								th:if="${hasRoleForDetail} AND ${dataRow.statusCode == null || dataRow.statusCode == '000'}
+																AND ${dataRow.countUsed == 0}">
+								</i>
+							 <!-- Update --> 
+							<i class="glyphicon glyphicon glyphicon-refresh"th:if="${dataRow.isOds == '1'}"></i>
+							</td>
+
+							<th:block th:each="orderColumn : ${order}">
+
+								<th:block th:if="${orderColumn.field == 'code'}">
+									<td th:text="${dataRow.code}"
+										th:class="${orderColumn.field} + 'Show' + ${orderColumn.isChecked() ? '' : ' hidden'}">
+
+									</td>
+								</th:block>
+								<th:block th:if="${orderColumn.field == 'memoNo'}">
+									<td th:text="${dataRow.memoNo}"
+										th:class="${orderColumn.field} + 'Show' + ${orderColumn.isChecked() ? '' : ' hidden'}">
+									</td>
+								</th:block>
+								<th:block th:if="${orderColumn.field == 'contestName'}">
+
+									<td
+										th:class="${orderColumn.field} + 'Show' + ${orderColumn.isChecked() ? '' : ' hidden'}">
+										<a th:text="${dataRow.contestName}"
+										class="img_banner_text btn-export"></a>
+									</td>
+								</th:block>
+								<th:block th:if="${orderColumn.field == 'startDate'}">
+									<td
+										th:text="${dataRow.startDate} ? ${#dates.format(dataRow.startDate, 'dd/MM/yyyy')}"
+										th:class="${orderColumn.field} + 'Show' + ${orderColumn.isChecked() ? ' text-center' : ' text-center hidden'}"></td>
+								</th:block>
+
+
+								<th:block th:if="${orderColumn.field == 'endDate'}">
+									<td
+										th:text="${dataRow.endDate } ? ${#dates.format(dataRow.endDate, 'dd/MM/yyyy')}"
+										th:class="${orderColumn.field} + 'Show' + ${orderColumn.isChecked() ? ' text-center' : ' text-center hidden'}"></td>
+								</th:block>
+
+								<th:block th:if="${orderColumn.field == 'contestType'}">
+									<td th:text="${dataRow.contestType}"
+										th:class="${orderColumn.field} + 'Show' + ${orderColumn.isChecked() ? '' : ' hidden'}">
+									</td>
+								</th:block>
+
+								<th:block th:if="${orderColumn.field == 'enabled'}">
+									<td
+										th:class="${orderColumn.field} + 'Show' +' '+ 'text-center'+ ${orderColumn.isChecked() ? '' : ' hidden'} ">
+										<input type="checkbox" disabled="disabled"
+										th:checked="${dataRow.enabled == 1 ? true : false}" />
+									</td>
+								</th:block>
+
+
+
+								<th:block th:if="${orderColumn.field == 'isHot'}">
+									<td
+										th:class="${orderColumn.field} + 'Show' +' '+ 'text-center' + ${orderColumn.isChecked() ? '' : ' hidden'} ">
+										<input type="checkbox" disabled="disabled"
+										th:checked="${dataRow.isHot == '1' ? true : false}" />
+									</td>
+								</th:block>
+
+								<th:block th:if="${orderColumn.field == 'effectiveDate'}">
+									<td
+										th:text="${dataRow.effectiveDate} ? ${#dates.format(dataRow.effectiveDate, 'dd/MM/yyyy')}"
+										th:class="${orderColumn.field} + 'Show' + ${orderColumn.isChecked() ? ' text-center' : ' text-center hidden'}"></td>
+								</th:block>
+
+
+								<th:block th:if="${orderColumn.field == 'expiredDate'}">
+									<td
+										th:text="${dataRow.expiredDate} ? ${#dates.format(dataRow.expiredDate, 'dd/MM/yyyy')}"
+										th:class="${orderColumn.field} + 'Show' + ${orderColumn.isChecked() ? ' text-center' : ' text-center hidden'}"></td>
+								</th:block>
+
+								<th:block th:if="${orderColumn.field == 'createBy'}">
+									<td th:text="${dataRow.createBy}"
+										th:class="${orderColumn.field} + 'Show' + ${orderColumn.isChecked() ? '' : ' hidden'}"></td>
+								</th:block>
+
+								<th:block th:if="${orderColumn.field == 'createDate'}">
+									<td
+										th:text="${dataRow.createDate } ? ${#dates.format(dataRow.createDate, 'dd/MM/yyyy')}"
+										th:class="${orderColumn.field} + 'Show' + ${orderColumn.isChecked() ? ' text-center' : ' text-center hidden'}"></td>
+								</th:block>
+
+								<th:block th:if="${orderColumn.field == 'updateBy'}">
+									<td th:text="${dataRow.updateBy}"
+										th:class="${orderColumn.field} + 'Show' + ${orderColumn.isChecked() ? '' : ' hidden'}"></td>
+								</th:block>
+
+								<th:block th:if="${orderColumn.field == 'updateDate'}">
+									<td
+										th:text="${dataRow.updateDate } ? ${#dates.format(dataRow.updateDate, 'dd/MM/yyyy')}"
+										th:class="${orderColumn.field} + 'Show' + ${orderColumn.isChecked() ? ' text-center' : ' text-center hidden'}"></td>
+								</th:block>							
+							</th:block>
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<th:block th:include="views/commons/pagination.html :: content" />
+<script th:inline="javascript">
+			/*<![CDATA[*/
+		        SEARCH_DTO = [[${searchDto}]];
+		    /*]]>*/
+       </script>
+	<script type="text/javascript"
+		th:src="@{/static/CMS/all/emulate-result/emulate-result-list.js}"></script>
+</body>
+</html>

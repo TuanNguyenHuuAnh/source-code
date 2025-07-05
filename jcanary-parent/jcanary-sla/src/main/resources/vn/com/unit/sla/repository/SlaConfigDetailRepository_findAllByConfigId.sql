@@ -1,0 +1,21 @@
+SELECT  detail.ID                  			AS ID
+		, detail.SLA_CONFIG_ID				AS SLA_CONFIG_ID
+		, detail.ALERT_TYPE					AS ALERT_TYPE
+		, detail.ALERT_TIME					AS ALERT_TIME
+		, detail.ALERT_UNIT_TIME			AS ALERT_UNIT_TIME
+		, detail.EMAIL_TEMPLATE_ID			AS EMAIL_TEMPLATE_ID
+		, detail.EMAIL_SEND_FLAG			AS EMAIL_SEND_FLAG
+		, detail.NOTI_TEMPLATE_ID			AS NOTI_TEMPLATE_ID
+		, detail.NOTI_SEND_FLAG				AS NOTI_SEND_FLAG
+		, detail.ACTIVED					AS ACTIVED
+	    , config.CALENDAR_TYPE_ID			AS CALENDAR_TYPE_ID
+	    , config.SLA_DUE_TIME				AS SLA_DUE_TIME
+	    , config.SLA_TIME_TYPE				AS SLA_TIME_TYPE
+FROM 
+	SLA_CONFIG_DETAIL detail
+LEFT JOIN 
+	SLA_CONFIG config 
+	ON detail.SLA_CONFIG_ID = config.ID AND config.DELETED_ID = 0 AND config.ACTIVED = 1
+WHERE detail.SLA_CONFIG_ID = /*slaConfigId*/
+	AND detail.DELETED_ID = 0
+	AND detail.ACTIVED = 1

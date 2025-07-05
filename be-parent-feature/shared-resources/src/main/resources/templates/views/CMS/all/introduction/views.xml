@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+	"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+	
+<tiles-definitions>
+	<definition name="hdb.admin.introduction.list" extends="unit">
+    	<put-attribute name="body" value="views/introduction/introduction-list.html"/>
+  	</definition>
+  	<definition name="hdb.admin.introduction.ajax.table" extends="ajax">
+    	<put-attribute name="body" value="views/introduction/introduction-table.html"/>
+  	</definition>
+  	<definition name="hdb.admin.introduction.list.sort" extends="unit">
+    	<put-attribute name="body" value="views/introduction/introduction-list-sort.html"/>
+  	</definition>
+  	
+  	<definition name="hdb.admin.introduction.list.sort.table" extends="ajax">
+    	<put-attribute name="body" value="views/introduction/introduction-table-sort.html"/>
+  	</definition>
+  	<definition name="hdb.admin.introduction.edit" extends="unit">
+    	<put-attribute name="body" value="views/introduction/introduction-edit.html"/>
+  	</definition>
+  	<definition name="hdb.admin.introduction.detail" extends="unit">
+    	<put-attribute name="body" value="views/introduction/introduction-detail.html"/>
+  	</definition>
+  	  	
+</tiles-definitions>
+

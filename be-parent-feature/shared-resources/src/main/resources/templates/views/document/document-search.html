@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}"/>
+<script type="text/javascript" th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+<body th:fragment="content">
+    <form class="form-horizontal u-for-page-top j-formSearch" th:object="${search}" method="POST" role="form" id="formSearch">
+        <div class="bg-content clearfix">
+            <div data-toggle="collapse" data-target="#search-box" class="header-box">
+                <h2 class="title-box" th:text="#{search.title}">Vùng tìm kiếm</h2>
+                <i class="fa fa-minus pull-right" aria-hidden="true"></i>
+            </div>
+            <div class="collapse in row m-0" id="search-box">
+            	<div class="col-xs-12 col-sm-12 p-0">
+            		<div class="col-sm-6 p-0">
+            			<div class="form-group">
+  							<div class="col-sm-12">
+            					<input type="text" class="col-sm-12 form-control"  th:placeholder="#{search.key}" th:field="*{searchValue}"/>
+            				</div>	           	
+            			</div>
+            			<div class="form-group">
+							<label for="priority" class="col-sm-3 align-top" th:text="#{searchfield.document.priority}" >Ưu tiên</label>
+							<div class="col-sm-9">
+								<select class="form-control ico-urgent selectpicker" title="" th:field="*{priority}">
+									<option value=""></option>
+			                     	<option th:each="item : ${priorityList}" 
+			                     		class="ico-urgent"
+			                     		th:attr="data-icon=${'fa ' + item.kind}"
+			                      	  	th:value="${item.cat}"
+			                       	 	th:text="#{${item.code}}">
+			                       	 </option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="fromDate" class="col-sm-3 align-top" th:text="#{searchfield.document.created.date}">Ngày tạo</label>
+							<div class="col-sm-9">
+								<div class="input-group date datepicker-from-date">
+									<input class="form-control" th:field="*{fromDate}"/>
+									<div class="input-group-addon">
+										<i class="fa fa-calendar"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group" th:if="${#authentication?.principal?.companyAdmin == true or
+								companyList.size() > 1}">
+							<label for="companyId" class="col-sm-3 align-top" th:text="#{searchfield.document.company}">Công ty</label>
+							<div class="col-sm-9">
+								<select class="form-control selectpicker"  th:field="*{companyId}" >
+									<!-- <option th:value="0" th:text="#{common.all}"></option> -->
+									<!-- <option th:value="${NULL}"></option> -->
+									<option th:each="company : ${companyList}" 
+											th:value="${company.id}"
+											th:text="${company.text}">
+									</option>
+								</select>
+							</div>
+						</div>
+						  <div class="form-group" th:if="${companyList.size()==1}">
+		                	<input type="hidden" th:field="*{companyId}"/>
+		                </div>
+						<div class="form-group">
+							<label for="companyId" class="col-sm-3 align-top" th:text="#{searchfield.document.status}">Trạng thái yêu cầu</label>
+							<div class="col-sm-9">
+								<select class="form-control" th:field="*{statusCode}">
+									<!-- <option  th:value="${NULL}" th:text="#{searchfield.document.all.status}" style="color:#999"></option> -->
+										<option th:each="item : ${statusList}" th:value="${item.code}"
+											th:text="${item.catAbbrName}"></option>
+								</select>
+							</div>
+						</div>
+            		</div>
+            		<div class="col-sm-6 p-0">
+            			<div class="form-group">
+							<label for="companyId" class="col-sm-3 align-top" th:text="#{searchfield.document.filter.condition}">Điều kiện lọc</label>
+							<div class="col-sm-9">
+								<select class="form-control" th:field="*{searchKeyIds}" multiple="multiple" id="search-filter">
+									<th:block th:each="searchKey : ${searchKeyList}">
+										<option th:value="${searchKey.fieldId}"
+												th:selected="${search.searchKeyIds} ? ${#arrays.contains(search.searchKeyIds,searchKey.fieldId)}: false"
+												th:text="${searchKey.dispName}">
+										</option>
+									</th:block>
+								</select>
+							</div>
+						</div>
+						<div class="form-group" th:if="${#authentication?.principal?.companyAdmin == true or
+								companyList.size() > 1}">
+							<label for="companyId" class="col-sm-3 align-top" th:text="#{searchfield.document.request.type}">Loại yêu cầu</label>
+							<div class="col-sm-9">
+								<select class="form-control" id="formId" th:field="*{formId}" th:disabled="${#authentication?.principal?.companyAdmin == true or companyList.size() >= 1} ? false : true">
+									<option th:value="${NULL}"></option>
+									<option th:value="${search.formId}" th:text="${search.formName}"></option>								
+								</select>
+							</div>
+						</div>
+						<div class="form-group" th:unless="${#authentication?.principal?.companyAdmin == true or
+								companyList.size() > 1}">
+							<label for="companyId" class="col-sm-3 align-top" th:text="#{searchfield.document.request.type}">Loại yêu cầu</label>
+							<div class="col-sm-9">
+								<select class="form-control" th:field="*{formId}" th:disabled="${#authentication?.principal?.companyAdmin == true or companyList.size() >= 1} ? false : true">
+									<option th:value="${NULL}"></option>
+									<option th:value="${search.formId}" th:text="${search.formName}"></option>							
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="toDate" class="col-sm-3 align-top" th:text="#{searchfield.document.to.date}">Đến ngày</label>
+							<div class="col-sm-9">
+								<div class="input-group date datepicker-to-date">
+									<input class="form-control" th:field="*{toDate}"/>
+									<div class="input-group-addon">
+										<i class="fa fa-calendar"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- <div class="form-group">
+							<label for="approveDate" class="col-sm-4 align-top" th:text="#{search.to.date}">To date</label>
+							<div class="col-sm-8">
+								<div class="input-group date datepicker">
+									<input class="form-control" id="toDate"/>
+									<div class="input-group-addon">
+										<i class="fa fa-calendar"></i>
+									</div>
+								</div>
+							</div>
+						</div> -->
+						
+						<div class="form-group">
+							<label for="companyId" class="col-sm-3 align-top" th:text="#{searchfield.document.process}">Quy trình</label>
+							<div class="col-sm-9">
+								<select class="form-control" th:field="*{processId}" th:disabled="${search.formId == null ? true : false}">
+									<option th:value="${search.processName}" th:text="${search.processName}" th:if="${search.processName}"></option>
+								</select>
+							</div>
+						</div>
+						<!--/* <div class="form-group">
+		                    <label class="col-sm-3" th:text="#{searchfield.document.archive}">Archive</label>
+		                    <div class="col-sm-4">
+		                       <input type="checkbox" id="hasArchive" th:field="*{hasArchive}"/>
+		                    </div>
+		                </div> */-->
+            		</div>
+            	</div>
+            	
+            	<div class="btn-footer">
+					<div class="col-xs-12 col-sm-12 text-center" style="margin-top: 10px;">
+						<span class="button">
+							<a class="btn btn-common" id="btnSearch" th:title="#{search.button}">
+								<i class="fa fa-search"></i> <span th:text="#{search.button}"></span>
+							</a>
+						</span>
+					</div>
+				</div>
+            </div>
+            
+        </div>
+        <input type="hidden" th:value="${sortWrapper.sortName}" id="sortNameSearchHidden"/>
+    	<input type="hidden" th:value="${sortWrapper.sortType}" id="sortTypeSearchHidden"/>
+<!--        	<input type="hidden" th:field="*{companyId}" /> -->
+</form>
+<input type="hidden" id="fieldSearchHidd"/>
+<input type="hidden" id="fieldValuesHidd"/>
+
+<script type="text/javascript" th:src="@{/static/cache/js/document/document-search.js}"></script>
+<script type="text/javascript" th:inline="text">
+	var COMPANY_PLACEHOLDER = '[[#{jpm.process.company}]]';
+	var PRIORITY_PLACEHOLDER = '[[#{searchfield.document.priority}]]';
+	var FORM_PLACEHOLDER = '[[#{doc.doc.type}]]';
+	var PROCESS_PLACEHOLDER = '[[#{doc.process.code.search}]]';
+	var STATUS_PLACEHOLDER = '[[#{searchfield.document.all.status}]]';
+	var USER_LOGIN_COMPANY_ID = '[[${#authentication?.principal?.companyId}]]';
+</script>
+</body>
+</html>

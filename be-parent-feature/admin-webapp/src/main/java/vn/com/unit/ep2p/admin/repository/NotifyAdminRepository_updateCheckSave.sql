@@ -1,0 +1,2 @@
+UPDATE M_NOTIFYS SET SAVE_DETAIL = 'false'
+WHERE ID = /*id*/'437'

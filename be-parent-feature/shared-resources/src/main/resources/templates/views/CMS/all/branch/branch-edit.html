@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{templates/unit-layout}" layout:fragment="body">
+<body>
+	<script type="text/javascript"
+		th:src="@{/static/jquery/vendor/jquery.ui.widget.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/static/js/plupload-2.1.2/plupload.full.min.js}"></script>
+
+	<div class="title-head">
+		<div class="row">
+			<div class="col-md-5">
+				<h3>
+					<span th:text="#{branch.edit.page}">Tiêu đề trang</span>
+				</h3>
+			</div>
+		   	<div class="col-md-7">
+		        <div class="pull-right">
+		        	 <a class="u-btn u-btn-back" id="linkList">
+					 	<img th:src="@{/static/images/icon-down.png}" alt="" width="17px" class="rotate-ico"/>
+					 	<span>Trở lại</span>
+					 </a>
+					 <a class="u-btn u-btn-primary" id="addNew" th:if="${editDto.id != null}">
+		            	<img th:src="@{/static/images/ico-plus-white.png}" alt="" />
+		                <span>Thêm mới</span>
+		             </a>
+		        </div>
+		   </div>
+		</div>
+	</div>
+
+	<form class="form-horizontal u-for-page-top j-form-validate"
+		id="form-branch-edit" th:object="${editDto}" method="post"
+		role="form">
+		<th:block
+			th:include="views/commons/message-alert.html :: content(${messageList})" />
+
+		<div class="bg-content clearfix">
+
+			<div class="header-box" style="padding: 0 15px;">
+			</div>
+
+		    <input type="hidden" th:field="*{id}" /> 
+
+			<div class="row">
+				<div class="col-md-6 no-padding">
+					<div class="form-group">
+						<label class="col-sm-4 required control-label" for="name" th:text="#{branch.name}">Tên địa điểm</label>
+						<div class="col-sm-8">
+							<input type="text"
+							    th:field="*{name}"
+								th:placeholder="#{branch.name}"
+								class="form-control j-required j-maxlength"
+								data-rule-maxlength="255" maxlength="255"/>
+						</div>
+					</div>
+				</div>	
+				<div class="col-md-6 no-padding">
+					<div class="form-group">
+						<label for="type" class="col-sm-4 required" th:text="#{branch.type}">Loại địa điểm</label>
+						<div class="col-sm-8">
+							<select class="form-control select2 j-required" th:field="*{type}"
+								th:data-placeholder="#{branch.type}">
+								<option value = ""></option>
+								<option
+				                  th:each="constantDisplay : ${listDataType}"
+				                  th:value="${constantDisplay.id}"
+				                  th:text="${constantDisplay.name}"
+				                ></option> 
+							</select>
+							<label id="type-error" class="error" for="type" style="display: none"></label>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-6 no-padding">
+					<div class="form-group">
+						<label for="type" class="col-sm-4 required control-label" th:text="#{branch.city}">Tỉnh/thành phố</label>
+						<div class="col-sm-8">
+							<select class="form-control select2 j-required" th:field="*{city}"
+									th:data-placeholder="#{branch.city}">
+								<option value = ""></option>
+								<option
+										th:each="constantDisplay : ${listDataCity}"
+										th:value="${constantDisplay.id}"
+										th:text="${constantDisplay.text}"
+										th:selected="${constantDisplay.id} == *{city}"
+								></option>
+							</select>
+							<label id="city-error" class="error" for="city"></label>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-6 no-padding">
+					<div class="form-group">
+						<label for="type" class="col-sm-4 required control-label" th:text="#{branch.district}">Quận/huyện</label>
+						<div class="col-sm-8">
+							<select class="form-control select2 j-required" th:field="*{district}"
+									th:data-placeholder="#{branch.district}">
+								<option value = ""></option>
+								<option th:each="constantDisplay : ${listDataDistrict}"
+										th:value="${constantDisplay.id}"
+										th:text="${constantDisplay.text}"
+										th:selected="${constantDisplay.id} == *{district}"
+								></option>
+							</select>
+							<label id="region-error" class="error" for="district"></label>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+
+			<div class="row">
+				<div class="form-group">
+						<label class="col-md-2 required control-label" id="address" for="code" th:text="#{branch.address}">Địa Chỉ</label>
+						<div class="col-sm-10" style="margin-bottom:10px;">						
+							<textarea cols="80" rows="3"
+									th:field="*{address}"
+									id="pac-input"
+									th:placeholder="#{branch.address}"
+									class="form-control j-required j-maxlength"
+									data-rule-maxlength="500" maxlength="500" ></textarea>
+						</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6 no-padding">
+					<div class="form-group">
+						<label class="col-sm-4 control-label" for="code" th:text="#{map.longtitude}" >Kinh độ</label>
+						<div class="col-sm-8">
+							<input type="text"
+									th:field="*{longtitude}"
+									id="longtitude"
+									th:placeholder="#{map.longtitude}"
+									class="form-control j-maxlength"
+									data-rule-maxlength="38" maxlength="38"/>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-6 no-padding">
+					<div class="form-group">
+						<label class="col-sm-4 control-label" for="code" th:text="#{map.latitude}" >Vĩ độ</label>
+						<div class="col-sm-8">
+							<input type="text"
+									th:field="*{latitude}"
+									id="latitude"
+									th:placeholder="#{map.latitude}"
+									class="form-control j-maxlength"
+									data-rule-maxlength="38" maxlength="38"/>
+						</div>
+					</div>
+				</div>
+			</div>
+							
+			<div class="row">
+				<div class="col-md-6 no-padding">
+					<div class="form-group">
+						<label class="col-sm-4 control-label" for="code" th:text="#{branch.phone}" >Điện thoại</label>
+						<div class="col-sm-8">
+							<input type="text"
+									th:field="*{phone}"
+									th:placeholder="#{branch.phone}"
+									class="form-control j-maxlength j-phone"
+									data-rule-maxlength="50" maxlength="50"/>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-6 no-padding">
+					<div class="form-group">
+						<label class="col-sm-4 control-label" for="code" th:text="#{branch.email}">Email</label>
+						<div class="col-sm-8">
+							<input type="text"
+									th:field="*{email}"
+									th:placeholder="#{branch.email}"
+									class="form-control j-maxlength j-email"
+									data-rule-maxlength="255" maxlength="255"/>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6 no-padding">
+					<div class="form-group">
+						<label class="col-sm-4 control-label" for="code" th:text="#{branch.fax}">Fax</label>
+						<div class="col-sm-8">
+							<input type="text"
+									th:field="*{fax}"
+									th:placeholder="#{branch.fax}"
+									class="form-control j-maxlength"
+									data-rule-maxlength="50" maxlength="50"/>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-6 no-padding">
+					<div class="form-group">
+						<label class="col-sm-4 control-label" for="code" th:text="#{branch.workinghours}">Giờ làm việc</label>
+						<div class="col-sm-8">
+							<input type="text"
+									th:field="*{workingHours}"
+									th:placeholder="#{branch.workinghours}"
+									class="form-control j-maxlength"
+									data-rule-maxlength="255" maxlength="255"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+			<div class="row">
+				<div class="form-group">
+						<label class="col-md-2 control-label" id="note" for="note" th:text="#{branch.note}">Ghi chú</label>
+						<div class="col-sm-10" style="margin-bottom:10px;">						
+							<textarea cols="80" rows="3"
+									th:field="*{note}"
+									id="pac-input"
+									th:placeholder="#{branch.note}"
+									class="form-control j-maxlength"></textarea>
+						</div>
+				</div>
+			</div>
+		
+ 			<div class="form-group">
+ 				<label class="col-md-2"></label>
+					<div class="col-md-4">
+              			<input type="checkbox" id="activeFlagF" th:checked="${editDto.activeFlag == 1 or editDto.id == null}" /> 
+              			<label class="control-label" th:text="#{branch.enable}">Kích hoạt</label> 
+              			<input type="hidden" th:field="*{activeFlag}" />
+            		</div>
+				</div> 
+				
+			<div class="form-group">
+     				 <div class="col-sm-12" id="map" style="height: 480px"></div>
+    		</div>
+				
+			<div class="row m-0 pos-gr-btn" th:if="${editDto.hasEdit}">
+				<button type="button" class="u-btn u-btn-primary" id="btn-save" >
+					   <img th:src="@{/static/images/icon-save.png}" alt="" width="19px"/> <span th:text="#{save.button}">Lưu</span>
+				</button>
+			</div>
+			<input th:field="*{hasEdit}" type="hidden"/>	
+</form>
+	
+    <script type="text/javascript" th:src="@{/static/CMS/all/branch/branch-edit.js}"></script> 
+    <script type="text/javascript" th:src="@{/static/js/j-google-map-api.js}"></script>
+<!--     <script
+      th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyAlXh1EaUP6QP4qHVbi5fv5mMqYkISJIwE;libraries=places&amp;callback=initMap}"
+      type="text/javascript"
+    ></script> -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlXh1EaUP6QP4qHVbi5fv5mMqYkISJIwE&callback=initMap&libraries=places"
+      async
+    ></script>
+</body>
+</html>

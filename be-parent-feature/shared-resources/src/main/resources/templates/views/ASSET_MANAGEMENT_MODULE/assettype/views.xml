@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+    <definition name="assettype.edit" extends="unit">
+        <put-attribute name="body" value="/views/ASSET_MANAGEMENT_MODULE/assettype/assettype-edit.html" />
+    </definition>
+    <definition name="assettype.list" extends="unit">
+        <put-attribute name="body" value="/views/ASSET_MANAGEMENT_MODULE/assettype/assettype-list.html" />
+    </definition>
+    <definition name="assettype.table" extends="ajax">
+        <put-attribute name="body" value="/views/ASSET_MANAGEMENT_MODULE/assettype/assettype-table.html" />
+    </definition>
+     <definition name="assettype.detail" extends="unit">
+        <put-attribute name="body" value="/views/ASSET_MANAGEMENT_MODULE/assettype/assettype-detail.html" />
+    </definition>
+</tiles-definitions>

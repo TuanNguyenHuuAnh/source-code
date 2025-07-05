@@ -1,0 +1,15 @@
+SELECT 
+	bus.ID                	AS BUSINESS_ID
+	, bus.BUSINESS_CODE     AS BUSINESS_CODE
+	, bus.BUSINESS_NAME     AS BUSINESS_NAME
+	, bus.DESCRIPTION       AS DESCRIPTION
+	, bus.ACTIVED           AS ACTIVED
+	, bus.COMPANY_ID        AS COMPANY_ID
+	, bus.PROCESS_TYPE      AS PROCESS_TYPE
+	, bus.AUTHORITY         AS AUTHORITY
+FROM  
+	JPM_BUSINESS bus
+WHERE
+	bus.DELETED_ID = 0
+	AND bus.COMPANY_ID = /*companyId*/
+	AND bus.BUSINESS_CODE = /*businessCode*/

@@ -1,0 +1,12 @@
+SELECT
+    FR.ID AS id,
+    FR.NAME AS name,
+    FR.NAME AS text
+FROM
+    EFO_FORM FR
+WHERE 
+	FR.DELETED_ID = 0
+	AND FR.COMPANY_ID = /*companyId*/
+ORDER BY 
+	FR.DISPLAY_ORDER
+	, FR.NAME

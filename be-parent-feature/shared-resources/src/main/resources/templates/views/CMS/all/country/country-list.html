@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+	<script type="text/javascript" th:src="@{/static/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/static/jquery/multiple-select/css/jquery.multiselect.css}" />
+<body>	
+	
+	<!-- <div class="row main-heading ">
+		<div class="row unit-border-bottom">
+			<div class="col-sm-8 col-xs-6">
+				<h3 class="mar-tb-no red" th:text="#{country.page}">Tiêu đề trang</h3>
+			</div>
+			<div class="col-sm-4 col-xs-6 align-right ml-auto">
+				<a class="u-btn-head"  id="add">
+					<img th:src="@{/static/icons/icon-plus-white.png}"/>
+					<span>Thêm mới</span>
+				</a>
+
+			</div>
+		</div>
+	</div> -->
+	<div class="title-head clearfix">
+	   <div class="col-sm-9 col-xs-7 no-padding">
+			<h3><i class="fa fa-table"></i> <span th:text="#{country.page}">Tiêu đề trang</span></h3>
+	   </div>
+	   <div class="col-sm-3 col-xs-5 icon-head">
+           <div class="pull-right">
+              <a>
+              	<!-- th:if="${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.PAGE_BANNER_LIST}__:Edit'')')}" -->
+              	<i class="fa fa-plus-circle icon-head-red" id="add" title="Add"></i>
+			 </a>
+           </div>
+       </div>
+	</div>
+	
+	<form class="form-horizontal u-for-page-top j-formSearch" th:action="@{/country/list}" th:object="${countrySearch}" method="POST" role="form">		
+		<th:block th:include="views/commons/message-alert.html :: content(${messageList})" />
+
+
+
+		<!-- <div class="row unit-bg-com"> -->
+		<div class="bg-content clearfix">
+
+
+
+			<!-- <div data-toggle="collapse" data-target="#search-box" class="header-box cursor-point">							
+				<h2 class="sub-header section-heading hide-title" th:text="#{search.title}">Vùng tìm kiếm</h2>
+			
+			</div> -->
+			<div data-toggle="collapse" data-target="#search-box" class="header-box"> 
+               <h2 class="title-box" th:text="#{search.title}">Vùng tìm kiếm</h2>
+               <i class="fa fa-minus pull-right" aria-hidden="true"></i> 
+            </div>
+
+
+
+			<div class="collapse in row m-0" id="search-box">
+				<div class="col-xs-12 col-sm-12">
+					<div class="col-md-1"></div>
+					<div class="col-md-4 form-group">
+						<input type="text" class="form-control" th:field="*{fieldSearch}" placeholder="Search key..."/>
+					</div>
+			     	<div class="col-md-3 form-group">
+						<select th:field="*{fieldValues}" multiple="multiple" class="form-control" id="search-filter">
+							<th:block th:each="item : ${fieldSelect}">
+								<option th:value="${item.value}"
+									th:selected="${countrySearch.fieldValues} ? ${#arrays.contains(countrySearch.fieldValues,item.value)}: false"   
+									th:text="#{${item.name}}"></option>
+							</th:block>
+						</select>
+			     	</div>
+			     	<div class="col-md-3">
+				        <a class="btn-common" id="btnSearch">
+				        	<i class="fa fa-search"></i> 
+				       		<span th:text="#{search.button}"> Tìm kiếm</span>
+				        </a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="row unit-bg-table" id="tableList">
+		<th:block th:include="views/CMS/all/country/country-table.html :: content"/>
+	</div>
+
+	<input type="hidden" id="fieldSearchHidden"/>
+	<input type="hidden" id="fieldValuesHidden"/> 
+	<input type="hidden" id="url" name="url" th:value="${countrySearch.url}"/>
+	</body>
+</html>

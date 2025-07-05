@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<body th:fragment="content">
+	<div class="header-box">
+		<h3 class="title-box" >
+			<span th:text="#{custom.role.menu}">Danh sách chức năng theo quyền</span>
+		</h3>
+	</div>
+	<div>
+		<form id="formAuthority" th:action="@{/custom/role/ajax/edit}"
+			method="POST">
+			<input type="hidden" id ="roleId" name="roleId" th:value="${roleIdSelected}" />
+			<div>
+				<div class="table-responsive">
+					<table id="menuByFunctionTableId"
+						class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th class="u_t_no ">#</th>
+								<th class="u_t_name"><input type="text" id="functionName"
+									class="form-control input-sm"
+									th:placeholder="#{authority.detail.menu.name}" /></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="item,iterStat : ${menuList}"
+								th:attr="data-menu-id=${item.menuId}">
+								<td class="text-center" th:text="${iterStat.index+1}">1.</td>
+								<td th:text="${item.menuName}" data-tfilter="true">Function
+									name</td>
+								<td class="text-center"><input type="radio"
+									name="menuId" class="check-access" th:value="${item.menuId}"
+									th:checked="${item.menuId==defaultMenuId}"/></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script type="text/javascript"
+		th:src="@{/static/cache/js/role-custom/role-custom-menu-table.js}"></script>
+</body>
+
+</html>

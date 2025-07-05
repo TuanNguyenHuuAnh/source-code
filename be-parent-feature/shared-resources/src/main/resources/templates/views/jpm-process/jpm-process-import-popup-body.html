@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+    <form class="form-horizontal u-for-page-top j-form-validate" role="form" id="import-form" method="POST" autocomplete="off" th:object="${objectDto}" th:action="@{/}">
+        <div class="bg-content clearfix">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h2 class="title-box" id="import-modal-label" th:text="#{jpm.process.import.title}">import</h2>
+            </div>
+            <div class="modal-body">
+		
+                <div id="messageError">
+                </div>
+                
+                <div class="form-group col-sm-12">
+					<label class="col-sm-3 align-top" th:text="#{company.detail}">Company</label>
+					<div class="input-group col-sm-9">
+						<select class="col-sm-9 form-control select2 select-company" th:field="*{companyId}">
+							<option th:each="company : ${companyList}" 
+								th:value="${company.id}"
+								th:text="${company.text}">
+							</option>
+						</select>
+					</div>
+				</div>
+				
+				<div class="form-group col-sm-12">
+					<label class="col-sm-3 align-top required" th:text="#{jpm.process.import.file}">File import</label>
+					<div class="input-group col-sm-9">
+							<input class="form-control j-required" type="text" id="fileImportName" th:value="${fileImportName}" maxlength="255" readonly="readonly" />
+							<label class="input-group-addon" style="cursor: pointer;">
+								<i class="fa fa-folder-open"></i>
+								<input type="file" th:field="*{importFile}" class="hide"/>
+							</label>
+					</div>
+						<span class="error alert-importFile" style="display: none;"></span>
+				</div>
+				
+				<div class="form-group col-sm-12">
+					<label class="col-sm-6">
+						<input  type="checkbox" th:field="*{isOverride}">
+							<span  th:text="#{jpm.process.is.override}">Override.</span>
+						</input>
+					</label>
+				</div>
+	        </div>
+        </div>
+        <div class="modal-footer">
+                <span class="button">
+                    <a href="#" class="btn btn-cancel" data-dismiss="modal" th:text="#{close.button}">Close</a>
+                </span>
+            <button id="btn-import-submit" class="btn btn-common btn-in-tablet" type="button" th:text="#{ok.button}">Save</button>
+        </div>
+    </form>
+<script th:inline="text" type="text/javascript">
+	var NOT_AN_ACCEPTED_FILE_TYPE = '[[#{message.not.an.accepted.file.type}]]';
+</script>
+<script type="text/javascript" th:src="@{/static/cache/js/jpm-process/jpm-process-import.js}"></script>
+</body>
+</html>

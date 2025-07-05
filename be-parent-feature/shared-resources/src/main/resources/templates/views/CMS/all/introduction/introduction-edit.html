@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<script type="text/javascript" th:src="@{/static/ckfinder/ckfinder.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/bootbox/bootbox.js}"></script>
+<script type="text/javascript" th:src="@{/static/ckeditor_4.4.3_full/ckeditor.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/plupload-2.1.2/plupload.full.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/ckeditor_4.4.3_full/samples/plugins/htmlwriter/assets/outputforflash/swfobject.js}"></script>
+<script type="text/javascript">
+		$(document).ready(function() {
+			$('#tabLanguage a').click(function(e) {
+				e.preventDefault();
+				$(this).tab('show');
+			});
+			CKFinder.setupCKEditor( null, { basePath : BASE_URL + 'static/ckfinder/', rememberLastFolder : false } );
+		});
+		
+</script>
+<script th:inline="javascript">
+	 	/*<![CDATA[*/
+		var CUSTOMER_ALIAS = [[${customerAlias}]];
+		var HEIGHT = 120;
+		/*]]>*/
+</script>
+<body>
+<script th:inline="javascript">
+		/*<![CDATA[*/
+		var LANGUAGE_LIST = /*[[${updateDto.infoByLanguages}]]*/;
+		/*]]>*/
+</script>
+
+	<div class="row main-heading ">
+		<div class="row unit-border-bottom">
+			<div class="col-sm-8 col-xs-6">
+				<h3 class="mar-tb-no red" th:text="#{introduction.edittitle}">Tiêu đề trang</h3>
+			</div>
+			<div class="col-sm-4 col-xs-6 align-right ml-auto">
+	           <a class="u-btn-head" id="listIntroduction">
+					<img th:src="@{/static/icons/icon-back.png}"/>
+					<span th:title="#{icon.back}">Trở lại</span>
+				</a>
+	          		<a class="u-btn-head" id="addNew" th:if=" ${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.BUTTON_INTRODUCTION_EDIT}__:Edit'')')}">
+					<img th:src="@{/static/icons/icon-plus-white.png}"/>
+					<span>Thêm mới</span>
+				</a>
+				
+			</div>
+
+		</div>
+	</div>
+	
+	<form id="id-form-intro-edit" class="form-horizontal u-for-page-top j-form-validate" th:object="${updateDto}" method="POST">
+		<th:block th:include="views/commons/message-alert.html" />
+		<div class="row unit-bg-com">
+			<div class="col-md-12 no-padding">
+				<div class="col-md-6">
+					<div class="form-group" th:classappend="${#fields.hasErrors('code')} ? has-error : ''">
+						<label th:Text="#{introduction.code}"
+							for="code" class="col-sm-4 control-label required">Mã</label>
+						<div class="col-sm-8">
+							<input th:if="(${updateDto.id}!=null)" th:field="*{code}" type="hidden" class="form-control"
+								placeholder=""/>
+							<input  th:field="*{code}" type="text" class="form-control text-uppercase j-maxlength"  data-rule-maxlength="30" th:classappend="${#fields.hasErrors('code')} ? has-error : ''"
+								placeholder="" th:disabled="(${updateDto.id}!=null)" th:readonly="true" tabindex="1"/>
+							<span class="help-block" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></span>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group"  th:classappend="${#fields.hasErrors('categoryId')} ? has-error : ''">
+						<label for="categoryId" class="col-sm-4 control-label required" th:text="#{introduction.categoryname}">Danh mục</label>
+						<div class="col-md-8 col-sm-8">
+							<select class="form-control j-required" id="categoryId" th:field="*{categoryId}" onchange="getLstSort(true);">
+								<option value=""></option>
+								<th:block th:each="item : ${listIntroductionCatgoryDto}">
+									<option th:value="${item.id}" th:text="${item.title}"
+										th:selected="${item.id} == *{categoryId}">
+									</option>
+								</th:block>
+							</select>
+						</div>
+						<span class="help-block" th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}"></span>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-xs-12 col-sm-12">
+				<label class="col-sm-4  col-md-2" th:text="#{introduction.language}">Ngôn ngữ</label>
+				<div class="col-sm-8  col-md-10 pleft-10 gr-tab">
+					<ul class="nav nav-tabs" id="tabLanguage">
+						<th:block th:each="detailByLang,status : ${updateDto.infoByLanguages}" th:with="index=${status.index}">
+							<li role="presentation" th:id="tabLanguage + ${status.index}"
+									th:classappend="${status.index == updateDto.indexLangActive}  ? 'active' : ''">
+								<a th:href="'#language' + ${status.index}" th:text="${detailByLang.languageDispName}"></a>
+							</li>
+						</th:block>
+					</ul>
+				</div>
+			</div>
+			<div class="tab-content" >
+				<th:block th:each="detailByLang,status : ${updateDto.infoByLanguages}" th:with="index=${status.index}">
+					<div th:id="${'language' + status.index}" class="tab-pane fade " th:classappend="${index == updateDto.indexLangActive}  ? 'in active' : ''">
+						<input type="hidden" th:field="*{infoByLanguages[__${status.index}__].id}"  th:value="${detailByLang.id}"/> 
+						<input type="hidden" th:field="*{infoByLanguages[__${status.index}__].languageDispName}"/> 
+						<input type="hidden" th:field="*{infoByLanguages[__${status.index}__].languageCode}"  th:value="${detailByLang.languageCode}"/> 
+						<div class="col-xs-12 col-sm-12">
+							<div class="form-group">
+								<label 
+									class="col-sm-4 col-md-2 control-label required" th:text="#{introduction.name}">Tên hiển thị</label>
+								<div class="col-sm-8  col-md-10 pleft-10">
+									<input type="text" class="form-control j-required" th:classappend="${#fields.hasErrors('infoByLanguages[__${status.index}__].title')} ? has-error : ''"
+											th:field="*{infoByLanguages[__${status.index}__].title}" placeholder="Thông tin giới thiệu"/>
+									<span class="help-block" th:if="${#fields.hasErrors('infoByLanguages[__${status.index}__].title')}" th:errors="*{infoByLanguages[__${status.index}__].title}"></span>
+								</div>
+							</div>
+							<div class="form-group" >
+								<label th:text="#{product.seo}" for="name"
+										class="col-sm-2 control-label required">Từ khóa SEO</label>
+								<div class="col-sm-10 pleft-10">
+									<input th:field="*{infoByLanguages[__${status.index}__].linkAlias}" type="text"
+										class="form-control j-required j-maxlength j-link-alias"
+										data-rule-maxlength="255" placeholder="thong-tin-gioi-thieu" tabindex="7" /> 
+									<span class="help-block error" th:if="${#fields.hasErrors('infoByLanguages[__${status.index}__].linkAlias')}"
+										th:errors="*{infoByLanguages[__${status.index}__].linkAlias}"></span>
+								</div>
+							</div>	
+						</div>
+						<div class="col-xs-12 col-sm-12">
+							<div class="form-group">
+								<label 
+									class="col-sm-4 col-md-2 control-label required" th:text="#{introduction.keyword}">Từ khóa</label>
+								<div class="col-sm-8  col-md-10 pleft-10">
+									<input type="text" class="form-control j-required" th:classappend="${#fields.hasErrors('infoByLanguages[__${status.index}__].keyword')} ? has-error : ''"
+											th:field="*{infoByLanguages[__${status.index}__].keyword}" placeholder="#thongtingioithieu"/>
+									<span class="help-block" th:if="${#fields.hasErrors('infoByLanguages[__${status.index}__].keyword')}" th:errors="*{infoByLanguages[__${status.index}__].}"></span>
+								</div>
+							</div>
+							<div class="form-group" >
+								<label th:text="#{introduction.keyword.description}" for="name"
+										class="col-sm-2 control-label">Mô tả từ khóa</label>
+								<div class="col-sm-10 pleft-10">
+									<input th:field="*{infoByLanguages[__${status.index}__].keywordDescription}" type="text"
+										class="form-control j-maxlength"
+										data-rule-maxlength="255" placeholder="Mô tả từ khóa #thongtingioithieu" tabindex="7" /> 
+									<span class="help-block error" th:if="${#fields.hasErrors('infoByLanguages[__${status.index}__].keywordDescription')}"
+										th:errors="*{infoByLanguages[__${status.index}__].keywordDescription}"></span>
+								</div>
+							</div>	
+						</div>
+						<div class="col-xs-12 col-sm-12">
+							<div class="form-group" th:classappend="${#fields.hasErrors('infoByLanguages[__${status.index}__].content')} ? has-error : ''">
+								<label th:for="infoByLanguages[__${index}__].content" class="col-sm-4 col-md-2 control-label required" th:text="#{introduction.content}">Giới thiệu</label>
+								<div class="col-md-10 col-sm-8 pleft-10">
+									<div class="controls">
+										<textarea cols="80" th:id="'editor' + ${index}" th:name="infoByLanguages[__${index}__].content"
+											rows="20" th:field="*{infoByLanguages[__${index}__].content}" class="form-control j-required">
+										</textarea>
+										<script th:inline="text">
+										var imageUploadUrl = BASE_URL + "introduction/editor/upload?requesttoken=" + '[[${updateDto.requestToken}]]';
+										var fileUploadUrl = BASE_URL + "introduction/editor/file/upload?requesttoken=" + '[[${updateDto.requestToken}]]';
+							            CKEDITOR.replace('editor' + '[[${index}]]', 
+							            		 {
+							            	 		height: 120,
+							            	 		filebrowserBrowseUrl : '',
+							            	 		filebrowserImageBrowseUrl : 'http://localhost:8580/HDBWebsite/web-app',
+									     			filebrowserImageUploadUrl: imageUploadUrl,
+									     			filebrowserUploadUrl: fileUploadUrl,
+									     			extraPlugins				: 	"imagebrowser",
+									     			imageBrowser_listUrl		: 	BASE_URL +  "introduction/path/images/list"
+							            		 }
+							             );
+							            </script>
+							            <label th:for="editor__${index}__" generated="true" class="error"></label>
+							            <span class="help-block" th:if="${#fields.hasErrors('infoByLanguages[__${index}__].content')}" th:errors="*{infoByLanguages[__${index}__].content}"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</th:block>
+			</div>
+			<div class="col-md-12 col-sm-12 no-padding">
+				<div class="col-md-6 no-padding">
+					<div class="col-sm-4 ">							
+					</div>
+					<div class="form-group">					
+						<div class="col-sm-8 ">
+							<input type="checkbox" th:field="*{enabled}" tabindex="2"/>
+							<label class=" control-label" th:text="#{product.category.enabled}">Kích hoạt</label>
+						</div>																	
+					</div>
+				</div>	
+				<div class="col-md-6 no-padding">
+					<div class="form-group">																									
+						<label class="col-sm-4 control-label" th:text="#{product.show.position}">Hiển thị vị trí sau</label>
+						<div class="col-sm-8">
+							<select class="form-control select2" th:field="*{beforeId}" tabindex="13">
+		                           <option value=""></option>
+		                           <option th:each="item: ${lstIntroductionSort}" th:value="${item.id}" th:text="${item.name}"
+		                           		th:selected="${item.id} == *{beforeId}">
+		                           </option>
+		                    </select>
+						</div>
+					</div>				
+				</div>
+			</div>
+			<div class="col-md-12 col-sm-12 no-padding">
+				
+					<label class="col-md-2 col-sm-2 control-label">Trạng thái</label>
+					<div class="col-md-4 col-sm-4">
+						<input th:value="${updateDto.statusName}" type="text" class="form-control j-maxlength " data-rule-maxlength="30" th:readonly="true" tabindex="1" 
+							placeholder="Draft, Wating for Approve, Approved, Waiting for Publish, Pulished, Cancel "/>
+					</div>					
+					
+				<div class="form-group"  >
+					<label class="col-md-2 col-sm-2 control-label" th:text="#{homepage.creater}">Created by</label>
+					<div class="col-md-4 col-sm-4">
+						<input th:field="*{createBy}" type="text" class="form-control j-maxlength " data-rule-maxlength="30" tabindex="1" 
+							placeholder="Người tạo" readonly="readonly"/>
+					</div>					
+				</div>
+			</div>
+			
+			<div class="col-sm-12">
+				<div class="row unit-bg-com bg-comment">
+					<div class="col-xs-12 col-sm-12 no-padding" >
+						<div class="form-group" >
+							<label for="name" class="col-sm-4 col-md-2 control-label" th:text="#{introduction.comment}">Comment</label>
+							<div class="col-sm-8 col-md-10 pleft-10">
+								<textarea cols="80" class="form-control" rows="2" th:field="*{introductionComment}"> </textarea>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- <div class="col-xs-12 col-sm-12 unit-button">
+				<button type="button" class="btn-cancel" id="btnCancel"  ><i class="fa fa-times"></i> <span th:text="#{cancel.button}">Thoát</span></button>
+				
+				<button type="button" class="btn-common process-btn" th:id="${T(vn.com.unit.jcanary.enumdef.StepActionEnum).SAVE.getCode()}"
+				 th:if="(${updateDto.status eq @stepNoStatusConstant.STEP_DRAFT
+						or updateDto.status eq @stepNoStatusConstant.STEP_REJECTED})
+						and ${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.BUTTON_INTRODUCTION_EDIT}__:Edit'')')}">
+					<i class="fa fa-save"></i>
+					<span th:text="#{saveDraft.button}" >Lưu nháp</span>
+				</button>
+				
+				
+	            Button process
+	            <th:block th:each="item : *{stepBtnList}">
+					<button type="button" class="btn-common process-btn" th:id="${item.buttonId}" >
+						<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+						<span th:text="${item.buttonText}" th:attr="data-btn-action=${item.buttonId}, data-curritem=${item.items}">Action</span>
+					</button> 
+				</th:block>
+			</div>
+		</div>
+		
+		<input type="hidden" th:field="*{id}"></input>
+		<input type="hidden" th:field="*{processId}"></input>
+		<input type="hidden" th:field="*{status}"></input>
+		<input type="hidden" th:field="*{url}"></input>
+		<input type="hidden" th:field="*{referenceId}" />  
+        <input type="hidden" th:field="*{referenceType}" />
+        <input type="hidden" id = "requestToken" th:field = "*{requestToken}"/>
+		
+		<input type="hidden" id="buttonAction"	name="buttonAction" />
+        <input type="hidden" id="buttonId" 		name="buttonId" />
+        <input type="hidden" id="currItem" 		name="currItem" />
+        <input type="hidden" id="businessCode"	name="businessCode" th:value="${updateDto.businessCode}"/>
+        
+        <input type="hidden" th:field="*{updateDate}"/>
+		
+		<input type="hidden" th:field="*{codeSearch}" />
+		<input type="hidden" th:field="*{nameSearch}" />
+		<input type="hidden" th:field="*{statusSearch}" />
+		<input type="hidden" th:field="*{enabledSearch}" />
+		<input type="hidden" th:field="*{categoryIdSearch}" />
+		
+		<div class="col-sm-12 no-padding">
+			<div class="row unit-bg-table history-process-table unit-bg-tbl unit-bg-com">
+				<th:block th:include="views/commons/history-process.html :: content"/>			
+			</div>
+		</div> -->
+
+
+
+		<!-- process -->
+		<th:block th:include="/views/commons-process/common-process.html :: content(${updateDto})"/>
+
+	</form>
+	
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var CATEGORY_LIST = /*[[${selectionCategories}]]*/;
+    console.log(CATEGORY_LIST);
+    /*]]>*/
+</script>
+<script type="text/javascript" th:src="@{/web-app/views/introduction/introduction-edit.js}"></script>
+<script type="text/javascript" th:inline="text">
+$(document).ready(function() {
+	$("#linkDelete").on("click", function( event ) {
+		event.preventDefault();
+		var href = $(this).attr('href');
+		var msgConfirm = $(this).data("msg-confirm");
+		
+		popupConfirm( msgConfirm, function(result) {
+    		if(result){
+    			window.location.href = href;
+			}	
+    	});
+	});
+});
+</script>
+</body>
+</html>

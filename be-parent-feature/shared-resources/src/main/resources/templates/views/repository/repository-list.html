@@ -1,0 +1,82 @@
+ <!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+	<script type="text/javascript" th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}" />	
+<body>
+	<div class="title-head">
+		<div class="row">
+			<div class="col-md-5">
+				<h3>
+					<span th:text="#{repository.page}">Tiêu đề trang</span>
+				</h3>
+			</div>
+		   	<div class="col-md-7">
+		        <div class="pull-right">
+					 <a class="u-btn u-btn-primary" id = "add" th:if="${#authorization.expression('hasAuthority(@roleConstant.REPOSITORY)')}">
+		            	<img th:src="@{/static/images/ico-plus-white.png}" alt="" />
+		                <span>Thêm mới</span>
+		             </a>
+		        </div>
+		   </div>
+		</div>	
+	</div>
+	
+	<form class="form-horizontal u-for-page-top j-formSearch" th:action="@{/repository/list}" th:object="${searchDto}" method="POST" role="form">
+		<div id="msg">
+			<th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+		</div>
+		<div class="bg-content clearfix">
+			<div data-toggle="collapse" data-target="#search-box" class="header-box">
+				 <h5 class="title-box"><span th:text="#{search.title}">VÃ¹ng tÃ¬m kiáº¿m</span> </h5>
+		         <i class="fa fa-minus pull-right" aria-hidden="true"></i> 
+			</div>
+			<div class="collapse in" id="search-box">		
+				<div class="row">
+					<div class="col-md-4 form-group">
+						<input type="text" class="form-control" th:field="*{fieldSearch}" th:placeholder="#{search.key}" autocomplete="off"/>
+					</div>
+			     	<div class="col-md-4 form-group">
+						<select th:field="*{fieldValues}" multiple="multiple" class="form-control" id="search-filter">
+							<th:block th:each="item : ${fieldSelect}">
+								<option th:value="${item.value}"
+									th:selected="${searchDto.fieldValues} ? ${#arrays.contains(searchDto.fieldValues,item.value)}: false"
+									th:text="#{${item.name}}"></option>
+							</th:block>
+						</select>
+			     	</div>
+			     	<div class="col-md-4 form-group">
+						<label for="companyId" class="col-sm-3 align-top no-padding" style="min-width: 60px" th:text="#{company.detail}">Company</label>
+						<div class="col-sm-9 no-padding">
+							<select class="col-sm-9 form-control select2 select-company" th:field="*{companyId}">
+								<option th:value="0" th:text="#{common.all}"></option>
+								<option th:each="company : ${companyList}" 
+										th:value="${company.id}"
+										th:text="${company.text}">
+								</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row m-0 pos-gr-btn">
+					<button type="submit" class="u-btn u-btn-primary" id="btnSearch">
+				       <i class="fa fa-search"></i>
+				       <span th:text="#{search.button}"></span>
+				   </button>
+				</div>
+			</div>	
+		</div>		
+	</form>
+	<div class="bg-content-tbl" id="tableList">
+		<th:block th:include="views/repository/repository-table.html :: content"/>
+	</div>
+
+	<input type="hidden" id="fieldSearchHidden"/>
+	<input type="hidden" id="fieldValuesHidden"/> 
+	<input type="hidden" id="url" name="url" th:value="${searchDto.url}"/>
+			<input type="hidden"id="urlSearch"/>
+	
+	<script type="text/javascript" th:src="@{/static/cache/js/repository/repository-list.js}"></script>
+	</body>
+</html>

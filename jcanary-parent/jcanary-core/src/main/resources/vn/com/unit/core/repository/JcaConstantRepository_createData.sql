@@ -1,0 +1,2 @@
+INSERT INTO JCA_CONSTANT(GROUP_ID, GROUP_CODE, KIND, CODE,DISPLAY_ORDER,NAME,LANG_ID,LANG_CODE, ACTIVED, CREATED_ID, CREATED_DATE)
+VALUES(/*entity.groupId*/'',/*entity.groupCode*/'',/*entity.kind*/'',/*entity.code*/'',/*entity.displayOrder*/'',/*entity.name*/'',/*entity.langId*/'',/*entity.langCode*/'',/*entity.actived*/'',/*entity.createdId*/'',GETDATE());

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/cache/plugins/jquery-easyui-1.5/easyui.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/static/cache/plugins/jquery-easyui-1.5/icon.css}" />
+	<script type="text/javascript" id="script-easyui" th:src="@{/static/cache/plugins/jquery-easyui-1.5/jquery.easyui.min.js}"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#tabLanguage a').click(function(event) {
+				event.preventDefault();
+				$(this).tab('show');
+			});
+		});
+	</script>
+	<body>		
+		<div class="title-head clearfix">
+		   <div class="col-sm-10 col-xs-12 no-padding">
+				<h3><i class="fa fa-table"></i> <span th:text="#{menu.management}">MENU MANAGEMENT</span></h3>
+		   </div>
+		   <div class="col-sm-2 col-xs-10 icon-head">
+	            <div class="pull-right">
+					 <a id="linkList">
+						<i class="fa fa-arrow-circle-left icon-head-red"></i>
+					</a>
+					<a id="add" th:if="${#authorization.expression('hasAuthority(''SM1#01_MenuList:Edit'')')}">
+						<i class="glyphicon glyphicon-plus-sign  icon-head-red"></i>
+					</a> 
+	            </div>
+	       </div>
+		</div>			
+		<form id = "form-menu-approve" th:object="${menuModel}" method="post" role="form" class="j-form-validate form-horizontal u-for-page-top">
+				<th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+				<input type="hidden" th:field = "*{menuId}"/>
+				<input type="hidden" th:field = "*{viMenuId}"/>
+				<input type="hidden" th:field = "*{enMenuId}"/>
+				<input type="hidden" th:field = "*{statusCode}" /> 
+				<input type="hidden" th:field = "*{processId}" />     
+            	<input type="hidden" th:field = "*{referenceType}" />
+            	<input type="hidden" th:field = "*{referenceId}" />
+            	<input type="hidden" th:field = "*{action}" />
+	          	<div class="col-sm-12 p-0">
+					<div class="bg-content clearfix">
+						<div class="col-md-6">
+							<div class="form-group" >
+								<label for="menuCode" class="col-sm-4" th:text="#{menu.left.code}"></label>
+								<div class="col-sm-8">								
+									<label class="form-control form-detail" th:text="*{menuCode}" > </label>		
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4" th:text="#{news.language}">Ngôn ngữ</label>
+								<div class="col-sm-8">
+									<ul class="nav nav-tabs" id="tabLanguage">
+										<th:block th:each="language, i : ${languageList}">
+											<li role="presentation" th:classappend="${i.index == 0}  ? 'active' : ''" th:id="tabLanguage + ${i.index}">
+												<a th:href="'#language' + ${i.index}" th:text="${language.name}"></a>
+											</li>
+										</th:block>
+									</ul>
+								</div>
+							</div>
+							<div class="tab-content form-group">						
+								<th:block th:each="language, i : ${languageList}" th:with="index=${i.index}">	
+								
+									<div th:id="'language' + ${index}" class="tab-pane fade " th:classappend="${index == 0}  ? 'in active' : ''">									
+										<div class="row form-group">
+											
+											<input type="hidden" th:field="*{listMenuLanguage[__${index}__].languageCode}"/>									
+											<input type="hidden" th:name="'listMenuLanguage[' + ${index} + '].languageId'" th:value="${language.id}"/>	
+											<input type="hidden" th:field="*{listMenuLanguage[__${index}__].menuLanguageId}"/>
+										
+											<label for="name" class="col-sm-4 " th:text="#{menu.left.name}"></label>
+											<div class="col-sm-8">											
+												<label class="form-control form-detail" th:text="*{listMenuLanguage[__${index}__].languageName}" > </label>		
+											</div>
+										</div>
+										<div class="row form-group">
+											<label for="alias" class="col-sm-4 " th:text="#{menu.left.alias}"></label>
+											<div class="col-sm-8">											
+												<label class="form-control form-detail" th:text="*{listMenuLanguage[__${index}__].alias}" > </label>
+											</div>
+										</div>									
+									</div>
+								</th:block>
+							</div>						
+							<div class="form-group">
+								<label for="type" class="col-sm-4" th:text="#{menu.left.type}"></label>
+								<div class="col-sm-8">
+									<select th:field="*{menuType}" class="form-control select2  form-detail" disabled="disabled">
+										<option th:each="type : ${menuTypeSelect2Dto}" 
+											th:value="${type.id}"
+											th:text="#{${type.text}}">
+										</option>								
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="parentId" class="col-sm-4" th:text="#{menu.left.parent}"></label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control form-detail" th:field="*{parentId}" id="menuList" disabled="disabled" />								
+								</div>
+							</div>																														
+						</div>																														
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="urlId" class="col-sm-4 " th:text="#{menu.left.url}"></label>
+								<div class="col-sm-8">								
+									<label class="form-control form-detail" th:text="*{url}" > </label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="sort" class="col-sm-4" th:text="#{menu.left.sort}"></label>
+								<div class="col-sm-8">								
+									<label class="form-control form-detail" th:text="*{sort}" id="sort"> </label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="icon" class="col-sm-4" th:text="#{menu.left.icon}"></label>
+								<div class="col-sm-8">
+									<select th:field="*{icon}" class="form-control form-detail" disabled="disabled">
+										<option th:each="constantDisplay : ${menuIconList}" th:value="${constantDisplay.code}" th:text="${constantDisplay.name}" th:selected=${#strings.equals(constantDisplay.code,icon)}></option>								
+									</select>
+								</div>
+							</div>						
+							<!-- Function Code -->
+							<div class="form-group">
+								<label for="type" class="col-sm-4" th:text="#{menu.left.permission.link}"></label>
+								<div class="col-sm-8">
+									<select th:field="*{itemId}" class="form-control form-detail" disabled="disabled">
+									      <option th:value="*{itemId}" th:text="*{itemName}"></option>
+									</select>
+								</div>
+							</div>
+							
+                            <div class="form-group">
+                                <label for="type" class="col-sm-4">Menu Module</label>
+                                <div class="col-sm-8">
+                                    <select th:field="*{menuModule}" class="form-control form-detail" disabled="disabled">
+                                        <option th:each="type : ${menuModule}" 
+                                            th:value="${type.code}"
+                                            th:text="${type.name}"
+                                            th:selected="(${type.code} == *{menuModule})">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+							<!-- <div class="form-group">
+								<label for="icon" class="col-sm-4" th:text="#{menu.left.open}"></label>
+								<div class="col-sm-8 ">
+									<input type="checkbox" th:checked="*{checkOpen}" th:field="*{checkOpen}" disabled="disabled" />
+								</div>
+							</div>	 -->
+	<!-- 						<div class="form-group" > -->
+	<!-- 				            <label for="comment" class="col-sm-4 control-label required" th:classappend="${#fields.hasErrors('comment')} ? has-error : ''" th:text="#{job.comment}">Ghi chú</label> -->
+	<!-- 				            <div class="col-sm-8">			            		  -->
+	<!-- 				            	<textarea rows="3" th:field="*{comment}" class="col-sm-8 form-control j-maxlength j-required" data-rule-maxlength="65535" ></textarea>                 -->
+	<!-- 				                <span class="help-block" th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}"></span> -->
+	<!-- 				            </div> -->
+	<!-- 				        </div>						 -->
+						</div>
+					<div class="col-xs-12 col-sm-12 " id = "box-job-confirm" >			    																			
+						<div class = "footer-box-bg" >
+							<a type="button" class="btn-cancel" th:href="@{/menu/list}" >
+								<i class="fa fa-times"></i>
+								<span th:text="#{cancel.button}">Thoát</span>
+							</a>	
+	<!-- 					 	<a class="btn btn-common" id="btn-approve" th:text="#{approve.button}"  -->
+	<!-- 					 		th:if="${#authorization.expression('hasAuthority(''SM1#01#B07_APPROVE:Disp:__*{statusCode}__:__*{processId}__'')')}">Phê duyệt</a> -->
+	<!-- 					 	<a class="btn btn-common" id="btn-return" th:text="#{return.button}"  -->
+	<!-- 					 		th:if="${#authorization.expression('hasAuthority(''SM1#01#B06_REJECT:Disp:__*{statusCode}__:__*{processId}__'')')}">Trả lại hồ sơ</a> -->
+						 		
+	<!-- 					 	<a class="btn btn-common" id="btn-approve" th:text="#{approve.button}" >Phê duyệt</a> -->
+	<!-- 					 	<a class="btn btn-common" id="btn-return" th:text="#{return.button}" >Trả lại hồ sơ</a>											 -->
+						</div>			
+					</div>
+				</div>			
+				</div>
+			<input type="hidden" id="url" name="url" th:value="${menuModel.urlHidden}"/>	
+			<input type="hidden" id="ajaxHistoryUrl" name="ajaxHistoryUrl" value="menu/ajaxHistory"/>
+		</form>
+<!-- 		<div class="row unit-bg-table"> -->
+<!-- 			<th:block th:include="views/commons/history-process.html :: content"/>					 -->
+<!-- 		</div> -->
+	</body>
+	<script th:inline="javascript">
+	    /*<![CDATA[*/
+	    var MENU_LIST = /*[[${menuList}]]*/;
+	    var LANGUAGE_LIST = /*[[${languageList}]]*/;
+	    /*]]>*/
+	</script>
+	<script type="text/javascript" th:src="@{/static/cache/js/menu/menu-detail.js}"></script>
+
+ </html>

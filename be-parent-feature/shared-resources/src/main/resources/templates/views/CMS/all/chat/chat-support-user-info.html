@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+	<script type="text/javascript" th:src="@{/static/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+	
+	<body th:fragment="content">
+		<h5 class="username-chating title-top-chat clearfix">
+		    <span>
+		        <div class="col-sm-6">
+		            <span>&nbsp;</span>
+		            <span style="color: #333" class="pull-right"><b>Khách hàng: </b></span>
+		        </div>
+		        
+		        <div class="col-sm-6 no-padding">
+		            <span>&nbsp;</span>
+		            <span style="font-weight: bold" id="infoUser" class="pull-left" class="color-blue-1" th:text="${userInfoSupport.fullname}"></span>
+		            <i id="iconClose" title="Đóng" style="margin-right: 5px" class="fa fa-times pull-right" aria-hidden="true"></i>
+		        </div>
+		    </span>
+		</h5>
+		
+		<div class="time-line time-line-bottom clearfix" >
+		    <div class="col-sm-12 no-padding">
+		        <div class="col-sm-4 align-center">
+		            <b><span style="color: #333">Danh xưng :</span></b>
+		            <span>&nbsp;</span>
+		            <span class="color-blue-1"><b id="nickname" th:text="${userInfoSupport.nickname}"></b></span>
+		        </div>
+		        <div class="col-sm-4  align-center">
+		            <b><span style="color: #333">Dịch vụ cần hỗ trợ : </span></b>
+	                         <span>&nbsp;</span>
+		            <span class="color-blue-1"><b id="service" th:text="${userInfoSupport.service}"></b></span>
+		        </div><b>
+		        </b>
+		        <div class="col-sm-4  align-center">
+		            <b><span style="color: #333">SDT : </span></b>
+	                         <span>&nbsp;</span>
+		             <span class="color-blue-1"><b id="phone" th:text="${userInfoSupport.phone}"></b></span>
+		        </div>
+		    </div>
+		</div>
+	</body>
+</html>	

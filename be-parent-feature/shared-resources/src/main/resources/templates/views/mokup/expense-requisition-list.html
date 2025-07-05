@@ -1,0 +1,239 @@
+ <!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+	<script type="text/javascript" th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}" />	
+	
+	<!-- <link rel="stylesheet" type="text/css" th:href="@{https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css}" />	
+	<link rel="stylesheet" type="text/css" th:href="@{https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css}" />	
+	<link rel="stylesheet" type="text/css" th:href="@{https://cdn.datatables.net/colreorder/1.5.4/css/colReorder.dataTables.min.css}" />	 -->
+	
+<body>
+	<div class="title-head clearfix">
+	   <div class="col-sm-9 col-xs-7 no-padding">
+			<h3>
+				<i class="fa fa-table"></i>
+				<span>Expense Requisition</span>
+			</h3>
+	   </div>
+	   <div class="col-sm-3 col-xs-5 icon-head">
+	  	 <div class="pull-right">
+	  		 <a >
+				<i class="glyphicon glyphicon-import icon-head-red" id="import" title="Export excel"></i> 
+				<i class="fa fa-import"></i>
+			</a>
+	        <div class="pull-right">
+				 <a><i class="fa fa-plus-circle icon-head-red" id = "add" title="Create new ER"></i></a>
+	        </div>	
+	      </div>          
+	   </div>
+	   
+	</div>			
+	<form class="form-horizontal u-for-page-top j-formSearch" method="POST" role="form">				
+		<div class="bg-content clearfix">
+			<div data-toggle="collapse" data-target="#search-box" class="header-box">
+				 <h5 class="title-box"><span >Search Filter</span> </h5>
+		         <i class="fa fa-minus pull-right" aria-hidden="true"></i> 
+			</div>
+			<div class="collapse in row m-0" id="search-box">		
+				<div class="col-xs-12 col-sm-12">
+					<div class="col-sm-8 form-group">
+						<input type="text" class="form-control"  th:placeholder="#{search.key}" autocomplete="off"/>
+					</div>
+			     	<div class="col-sm-2 form-group">
+						<div class="pull-right">
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="button-group" style="margin-right: 50px; padding-bottom: 10px;">
+										<button type="button"
+											class="btn btn-default btn-sm dropdown-toggle"
+											data-toggle="dropdown">
+											<span class="glyphicon glyphicon-menu-hamburger"></span> <span
+												class="caret"></span>
+										</button>
+										<ul class="dropdown-menu">
+											<li><a class="small"><input type="checkbox" id="cbErNumber">&nbsp;ER Number</a></li>
+											<li><a class="small"><input type="checkbox" id="cbErDate">&nbsp;ER Date</a></li>
+											<li><a class="small"><input type="checkbox" id="cbErCreator">&nbsp;ER Creator</a></li>
+											<li><a class="small"><input type="checkbox" id="cbCurrency">&nbsp;Currency</a></li>
+											<li><a class="small"><input type="checkbox" id="cbAmount">&nbsp;ER Amount</a></li>
+											<li><a class="small"><input type="checkbox" id="cbErStatus">&nbsp;ER Status</a></li>
+											<li><a class="small"><input type="checkbox" id="cbPendingAt">&nbsp;Pending at</a></li>
+										</ul>
+									</div>
+								</div>
+						</div>
+			     	</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-12 erNumber">
+                    <label class="col-md-2">ER Number</label>
+                        <div class="col-md-6">
+							<input type="text" class="form-control"/>
+                        </div> 
+                </div>
+                <div class="col-xs-12 col-sm-12 erDate" style="padding-top:5px;">
+                    <label class="col-md-2">ER Date</label>
+                        <div class="col-md-4">
+							<div class="input-group date datepicker-from">
+								<input name="startDate" class="form-control"	/>
+								<div class="input-group-addon">
+									<i class="fa fa-calendar"></i>
+								</div>
+							</div>
+                        </div> 
+                </div>
+                <div class="col-xs-12 col-sm-12 erCreator" style="padding-top:5px;">
+                    <label class="col-md-2">ER Creator</label>
+                        <div class="col-md-6">
+							<input type="text" class="form-control"/>
+                        </div> 
+                </div>
+                <div class="col-xs-12 col-sm-12 erCurrency" style="padding-top:5px;">
+                    <label class="col-md-2">Currency</label>
+                        <div class="col-md-6">
+							<input type="text" class="form-control" />
+                        </div> 
+                </div>
+                <div class="col-xs-12 col-sm-12 erAmount" style="padding-top:5px;">
+                    <label class="col-md-2">ER Amount</label>
+                        <div class="col-md-6">
+							<input type="text" class="form-control" />
+                        </div> 
+                </div>
+                <div class="col-xs-12 col-sm-12 erStatus" style="padding-top:5px;">
+                    <label class="col-md-2">ER Status</label>
+                        <div class="col-md-6">
+							<select class="form-control select2 select-company">
+								<option >0</option>
+								<option>1</option>
+							</select>
+                        </div> 
+                </div>
+                <div class="col-xs-12 col-sm-12 pendingAt" style="padding-top:5px;">
+                    <label class="col-md-2">Pending at</label>
+                        <div class="col-md-6">
+							<input type="text" class="form-control" />
+                        </div> 
+                	</div>
+                </div>
+				<div class="col-xs-12 col-sm-12 text-center" style="margin-top: 10px;">
+				
+			         <a id="btnClear" class="btn-common" >
+			        	<i class="fa fa-refresh"></i>
+			        	<span >Clear</span>
+			        </a>
+			        <a class="btn-common" >
+			        	<i class="fa fa-search"></i>
+			        	<span th:text="#{search.button}">Tìm kiếm</span>
+			        </a>
+				</div>
+			</div>	
+		</div>		
+	</form>
+	<div class="bg-content clearfix bg-content-tbl" id="tableList">
+		<th:block th:include="views/mokup/expense-requisition-table.html :: content"/>
+	</div>
+		<script type="text/javascript">
+			// multiselect
+			$('#search-filter').multiselect({
+			    columns: 1,
+			    placeholder: SEARCH_LABEL,
+			    search: true
+			});
+			
+			//chuyển đến trang select item
+			$('#add').on('click', function (event) {
+				event.preventDefault();
+				var url = BASE_URL + "mockup/select-item";
+		
+				// Redirect to page list
+				ajaxRedirect(url);
+			});
+			//clear page
+			$('#btnClear').on('click', function (event) {
+				window.location.reload();
+			});
+			
+			$('.erNumber').hide();
+			$('.erCreator').hide();
+			$('.erDate').hide();
+			$('.erCurrency').hide();
+			$('.erAmount').hide();
+			$('.erStatus').hide();
+			$('.pendingAt').hide();
+			
+			// show/hide input search
+			$('#cbErNumber').on('change', function(){
+			    if ( $(this).is(':checked') ) {
+			        $('.erNumber').show();
+			    } else {
+			        $('.erNumber').hide();
+			    }
+			});
+			$('#cbErCreator').on('change', function(){
+			    if ( $(this).is(':checked') ) {
+			        $('.erCreator').show();
+			    } else {
+			        $('.erCreator').hide();
+			    }
+			});
+			$('#cbErDate').on('change', function(){
+			    if ( $(this).is(':checked') ) {
+			        $('.erDate').show();
+			    } else {
+			        $('.erDate').hide();
+			    }
+			});
+			$('#cbCurrency').on('change', function(){
+			    if ( $(this).is(':checked') ) {
+			        $('.erCurrency').show();
+			    } else {
+			        $('.erCurrency').hide();
+			    }
+			});
+			$('#cbAmount').on('change', function(){
+			    if ( $(this).is(':checked') ) {
+			        $('.erAmount').show();
+			    } else {
+			        $('.erAmount').hide();
+			    }
+			});
+			$('#cbErStatus').on('change', function(){
+			    if ( $(this).is(':checked') ) {
+			        $('.erStatus').show();
+			    } else {
+			        $('.erStatus').hide();
+			    }
+			});
+			$('#cbPendingAt').on('change', function(){
+			    if ( $(this).is(':checked') ) {
+			        $('.pendingAt').show();
+			    } else {
+			        $('.pendingAt').hide();
+			    }
+			});
+			
+			// tự động check các column
+			 $('#er_date').trigger('click');
+			 $('#currency').trigger('click');
+			 $('#er_amount').trigger('click');
+			 $('#er_status').trigger('click');
+			 $('#pending_at').trigger('click');
+			 
+			 //datepicker
+			 $('.datepicker-from').datepickerUnit({
+				format : DATE_FORMAT,
+				changeMonth : true,
+				changeYear : true,
+				autoclose : true,
+				keyboardNavigation : true,
+				weekStart : 1,
+				todayHighlight : true,
+				autoclose : true
+			})
+	
+		</script>
+	</body>
+</html>

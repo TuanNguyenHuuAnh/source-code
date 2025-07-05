@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+
+<!-- EasyUI - Multiple component support -->
+<link rel="stylesheet" type="text/css" th:href="@{/static/cache/plugins/jquery-easyui-1.5/easyui.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/static/cache/plugins/jquery-easyui-1.5/icon.css}" />
+<script type="text/javascript" id="script-easyui" th:src="@{/static/cache/plugins/jquery-easyui-1.5/jquery.easyui.min.js}"></script>
+
+<div class="title-head clearfix">
+	<div class="col-sm-9 col-xs-7 no-padding">
+		<h3><i class="fa fa-table"></i> <span th:text="#{role.for.display.email.page}">Tiêu đề trang</span></h3>
+	</div>
+	<div class="col-sm-3 col-xs-5 icon-head">
+       <div class="pull-right">
+       		<a id="btnSaveAutho">
+				<i class="fa fa-save"  
+				th:if="${#authorization.expression('hasAuthority(@roleConstant.ROLE_FOR_DISPLAY_EMAIL)')}"></i>
+			</a>
+        </div>
+    </div>
+</div>
+<div class="j-message-alert" id = "msg">
+    <th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+</div>
+<div class="row unit-bg-com">
+    <div class="col-md-5">
+    	<div class="bg-content clearfix bg-content-tbl">
+    		<div class="">
+    			<h2 class="title-box" th:text="#{authority.role.list}">Danh sách quyền</h2>
+    		</div>
+            <div class="col-md-12 p-0" th:if="${companyList?.size()>1}">
+	             <div class="row form-group">
+					<label for="companyId" class="col-md-3 align-top" th:text="#{company.detail}">Company</label>
+					<div class="col-md-9">
+						<select class="form-control select2 select-company" id="companyId" name="companyId">
+							<option th:if="${#authentication?.principal?.companyAdmin}" th:value="${NULL}" th:text="#{company.all}"></option>
+							<option th:each="company : ${companyList}" 
+									th:value="${company.id}"
+									th:text="${company.text}"
+									th:selected="${company.id} == ${companyId}">
+							</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			
+			<div th:if="${null == companyList || !companyList?.size() > 1}">
+				<h1 style="margin-top: 10px; margin-bottom: 20px; background-color: yellow; color: red">Error: can't load list company</h1>
+			</div>
+			
+			<input type="hidden" id="companyId" name="companyId" th:value="${companyId}" th:unless="${companyList?.size()>1}" />
+        	<div id ="roleList" class="col-md-12 p-0"></div>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div id="companyList">
+            <!-- Load ajax <th:block th:include="views/authority/iauthority-detail.html :: content"/> -->
+        </div>
+    </div>
+</div>	
+    <script type="text/javascript" th:src="@{/static/cache/js/role-display-email/role-display-email-list.js}"></script>
+</html>

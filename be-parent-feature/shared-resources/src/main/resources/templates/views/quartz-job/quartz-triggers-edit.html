@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<link rel="stylesheet" type="text/css" th:href="@{/static/cache/plugins/cron/jquery-cron.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/static/cache/css/data-tip.css}"/>
+<script type="text/javascript" th:src="@{/static/cache/plugins/cron/jquery-cron.js}"></script>
+<script type="text/javascript" th:src="@{/static/cache/plugins/cRonstrue/dist/cronstrue.min.js}"></script>
+
+<div class="title-head clearfix">
+   <div class="col-sm-9 col-xs-7 no-padding">
+		<h3>
+			<i class="fa fa-table"></i>
+			<span>Edit Scheduler</span>
+		</h3>
+   </div>
+   <div class="col-sm-3 col-xs-5 icon-head">
+        <div class="pull-right">
+			 <a>
+				<i class="fa fa-arrow-circle-left icon-head-red linkList" th:title="#{icon.back}"></i> 					
+			</a>
+			<a class="font17 btnSaveCron" th:if="${#authorization.expression('hasAuthority(@roleConstant.ROLE)')}" onclick="saveCron();"> 
+				<i class="fa fa-save"></i>
+			</a>
+        </div>
+   </div>
+</div>
+	
+		
+<form th:if="${quartzTriggersDto!=null}" class="form-horizontal u-for-page-top j-form-validate" id="form-quarts" th:object="${quartzTriggersDto}" method="post" role="form">
+
+	<th:block th:include="views/commons/message-alert-v2.html :: content(${messageList})" />
+	<div class="bg-content clearfix">
+		<div class="col-sm-12">
+			<div class="col-md-6 form-group">
+				<label class="col-sm-4">Scheduler Name</label> 
+				<div class="col-sm-8">
+					<input type="text" class="form-control" th:value="*{schedName}" readonly="readonly" name="schedName"/>
+				</div>
+			</div>
+			<div class="col-md-6 form-group">
+				<label class="col-sm-4" >Trigger Name</label> 
+				<div  class="col-sm-8">
+					<input type="text" class="form-control" th:value="*{triggerName}" readonly="readonly" name="triggerName"/>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12">
+			<div class="col-md-6 form-group">
+				<label class="col-sm-4">Cron Expression</label> 
+				<div class="col-sm-6">
+					<input type="text" class="form-control" th:value="*{cronExpression}" name="cronExpression" id="cron_expression" onchange="translateCron();"/>
+					<label id="crontooltip" style="font-style: italic;"></label>
+				</div>
+				<div class="col-sm-2">
+					<button type="button" class="btn-common" onclick="showCronExpressionMakerModal();" title="Cron Generator">
+						<i class="fa fa fa-cogs" ></i>
+					</button>
+					
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 footer-box-bg">
+			<button type="button" class="btn-cancel linkList" id="btnCancel" >
+				<i class="fa fa-times"></i>
+				<span th:text="#{cancel.button}">Thoát</span>
+			</button>
+			<button type="button" class="btn-common btnSaveCron" th:if="${#authorization.expression('hasAuthority(@roleConstant.ROLE)')}" onclick="saveCron()">
+				<i class="fa fa-floppy-o" aria-hidden="true"></i> 
+				<span th:text="#{save.button}">Lưu</span>
+			</button>
+		</div>
+		
+	</div>
+	<input type="hidden" th:field="*{url}"></input>
+</form>
+
+ <div class="modal fade" id="cronExpressionMakerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Cron Expression Generator</h4>
+            </div>
+            <div class="modal-body">
+				<div class="form-group">
+	            	<div id='selector'></div>
+	            	<div>
+						Cron Expression: <span id="cron-val"></span>
+	            	</div>
+            	</div>
+            </div>
+            <div class="modal-footer">
+            	<a href="#" class="btn-common btn-in-tablet" data-dismiss="modal" id="btnOK"><i class="fa fa-check"></i> OK</a>
+                <a href="#" class="btn-cancel" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
+	
+<script type="text/javascript" th:src="@{/web-app/views/quartz-job/quartz-triggers-edit.js}"></script>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content" id="history-modal-content">
+		    <form class="form-horizontal u-for-page-top j-form-validate" role="form" id="revert-document-form" method="POST" autocomplete="off" th:action="@{/}">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModal">
+		                    <span aria-hidden="true">&times;</span>
+		                </button>
+		                <h2 class="title-box" id="revertTitle"><span th:text="#{document.history.popup.title}">Revert to version </span> <span id="revertToVersion"></span></h2>
+		            </div>
+		            <div class="modal-body" style="padding: 0px 15px !important;">
+		            	<input type="hidden" id="mainFileHistoryId" name="mainFileHistoryId"/>
+						<div class="collapse in">
+							<div class="form-group">
+								<label for="business-code-id" class="col-sm-12" th:text="#{document.history.popup.revert}">Revert as:</label>
+								<div class="col-sm-1"></div>
+								<div class="col-sm-9">
+									<label>
+										<input type="radio" name="isMajor" value="true" checked="checked">
+											<span th:text="#{document.history.popup.major.version}">Major Version</span>
+										</input>
+									</label>
+										<br/>
+									<label>
+			  							<input type="radio" name="isMajor" value="false"> 
+			  								<span th:text="#{document.history.popup.minor.version}">Minor Version</span>
+			  							</input>
+			  						</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<!-- <label for="business-code-id" class="col-sm-2" th:text="#{document.history.popup.comments}">Comments:</label> -->
+								<textarea name="comments" class="form-control" id="widgetApprovalComment" style="min-height: 70px" th:placeholder="#{document.history.popup.comments}"></textarea>
+							</div>
+				        </div>
+			        </div>
+			        <div class="modal-footer">
+			                <span class="button">
+			                    <a href="#" class="btn btn-cancel" data-dismiss="modal" th:text="#{close.button}" th:title="#{close.button}">Close</a>
+			                </span>
+			            <button id="btn-revert-submit" class="btn btn-common btn-in-tablet" type="button" th:text="#{ok.button}" th:title="#{ok.button}">Ok</button>
+			        </div>
+		    </form>			
+		</div>
+	</div>
+</body>
+</html>

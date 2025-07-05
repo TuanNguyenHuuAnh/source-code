@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <body th:fragment="content">
+
+
+
+    <!-- <div class="col-sm-12"> -->
+    <div class="col-sm-12 p-0">
+
+
+
+      <!-- <h2 class="sub-header section-heading" th:text="#{search.results.title}">
+        Kết quả tìm kiếm
+      </h2> -->
+		<div class="col-sm-8 p-0">
+			<h2 class="title-box"  th:text="#{search.results.title}">Kết quả tìm kiếm</h2>
+		</div>
+
+
+
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th class="u_t_no">#</th>
+              <th class="u_t_action" th:text="#{action.label}">Thao tác</th>
+              <th th:text="#{banner.page}">Trang hiển thị</th>
+              <th th:text="#{banner.PC.text}">PC</th>
+              <th th:text="#{banner.mobile.text}">Mobile</th>
+              <th class="u_t_date" th:text="#{homepage.setting.fromDate}">
+                Ngày bắt đầu
+              </th>
+              <th class="u_t_date" th:text="#{homepage.setting.endDate}">
+                Ngày kết thúc
+              </th>
+              <th th:text="#{job.status}">Trạng thái</th>
+              <th class="u_t_date" th:text="#{homepage.creater}">Người tạo</th>
+              <th class="u_t_date" th:text="#{homepage.creater.date}">
+                Ngày tạo
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <th:block
+              th:each="homepageDto,i : ${pageWrapper.data}"
+              th:with="startIndex=${pageWrapper.startIndexCurrent}"
+            >
+              <tr
+                th:attr="data-homepage-setting-id=${homepageDto.id}"
+                class="trEdit"
+              >
+                <td class="text-center" th:text="${i.index + startIndex}"></td>
+                <!-- 	                    	<td th:text="${homepageDto.status}"></td> -->
+                <td class="text-center">
+                  <!-- Edit -->
+                  <a
+                    class="glyphicon glyphicon-edit custom-icon j-btn-edit"
+                    th:if="${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.PAGE_HOME_LIST}__'')')}"
+                  >
+                  </a>
+                  <!-- Delete -->
+                  <a
+                    class="
+                      glyphicon glyphicon-remove-sign
+                      font-size-20
+                      red
+                      j-btn-delete
+                    "
+                    th:if="(${homepageDto.status eq @stepNoStatusConstant.STEP_DRAFT}
+											or ${homepageDto.status eq @stepNoStatusConstant.STEP_REJECTED})
+											and ${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.PAGE_HOME_LIST}__:Edit'')')}"
+                  >
+                  </a>
+                </td>
+                <td
+                  th:text="${homepageDto.bannerPageName} ? #{${homepageDto.bannerPageName}} : ''"
+                ></td>
+                <td>
+                  <th:block
+                    th:each="banner,i : ${homepageDto.bannerTopList}"
+                    th:with="index=${i.index}"
+                  >
+                    <div
+                      th:if="${homepageDto.bannerTopList.size() == 1}"
+                      class="tbl-img"
+                    >
+                      <img
+                        class="img_banner"
+                        th:src="@{/ajax/download?fileName=} + ${banner.bannerPhysicalImg}"
+                        style="max-height: 200px; max-width: 320px"
+                      />
+                      <div class="img_banner_big">
+                        <img
+                          th:src="@{/ajax/download?fileName=} + ${banner.bannerPhysicalImg}"
+                          style="max-height: 200px; max-width: 320px"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      th:if="${index &lt; 3} and ${homepageDto.bannerTopList.size() > 1}"
+                      class="tbl-img"
+                    >
+                      <span
+                        th:text="${banner.title}"
+                        class="img_banner_text"
+                      ></span>
+                      <img
+                        class="img_banner_big"
+                        th:src="@{/ajax/download?fileName=} + ${banner.bannerPhysicalImg}"
+                        style="max-height: 200px; max-width: 320px"
+                      />
+                      <br />
+                    </div>
+                  </th:block>
+                </td>
+                <td>
+                  <th:block
+                    th:each="banner,i : ${homepageDto.bannerTopMobileList}"
+                    th:with="index=${i.index}"
+                  >
+                    <div
+                      th:if="${homepageDto.bannerTopMobileList.size() == 1}"
+                      class="tbl-img"
+                    >
+                      <img
+                        class="img_banner"
+                        th:src="@{/ajax/download?fileName=} + ${banner.bannerPhysicalImg}"
+                        style="max-height: 200px; max-width: 320px"
+                      />
+                      <div class="img_banner_big">
+                        <img
+                          th:src="@{/ajax/download?fileName=} + ${banner.bannerPhysicalImg}"
+                          style="max-height: 200px; max-width: 320px"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      th:if="${index &lt; 3} and ${homepageDto.bannerTopMobileList.size() > 1}"
+                      class="tbl-img"
+                    >
+                      <span
+                        th:text="${banner.title}"
+                        class="img_banner_text"
+                      ></span>
+                      <img
+                        class="img_banner_big"
+                        th:src="@{/ajax/download?fileName=} + ${banner.bannerPhysicalImg}"
+                        style="max-height: 200px; max-width: 320px"
+                      />
+                      <br />
+                    </div>
+                  </th:block>
+                </td>
+                <td
+                  class="text-center"
+                  th:text="${homepageDto.effectiveDateFrom }? ${#dates.format(homepageDto.effectiveDateFrom, 'dd/MM/yyyy')}"
+                ></td>
+                <td
+                  class="text-center"
+                  th:text="${homepageDto.effectiveDateTo }? ${#dates.format(homepageDto.effectiveDateTo, 'dd/MM/yyyy')}"
+                ></td>
+                <td th:text="${homepageDto.statusName}"></td>
+                <td th:text="${homepageDto.createBy}"></td>
+                <td
+                  class="text-center"
+                  th:text="${homepageDto.createDate }? ${#dates.format(homepageDto.createDate, 'dd/MM/yyyy')}"
+                ></td>
+              </tr>
+            </th:block>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- script for paging -->
+    <th:block th:include="views/commons/pagination.html :: content" />
+    <!-- end script -->
+    <script
+      type="text/javascript"
+      th:src="@{/static/CMS/all/homepage-setting/homepage-setting-list.js}"
+    ></script>
+  </body>
+</html>

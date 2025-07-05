@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+	
+	<div class="col-sm-12">
+		<div class="table-responsive">
+			<form id="id-sort-form" th:object="${sortPageModel}">
+				<table id="tb-sort-list" class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th class="u_t_no">#</th>							
+							<th th:text="#{introduction.name}">Tên giới thiệu</th>							
+							<th class="u_t_date" th:text="#{introduction.createdate}">Ngày tạo</th>							
+						</tr>
+					</thead>
+					<tbody>
+						<th:block th:each="dataRow,i : ${sortList}" th:with="startIndex=1">
+							<tr th:attr="data-row-id=${dataRow.id}">		
+								<input type="hidden" class="sort-object-id" th:field="${sortPageModel.sortList[__${i.index}__].objectId}"/>
+								<input type="hidden" class="sort-value" th:field="${sortPageModel.sortList[__${i.index}__].sortValue}"/>											
+								<td th:text="${i.index + startIndex}"></td>								
+								<td th:text="${dataRow.name}">Tên</td>																
+								<td th:text="${dataRow.createDate} ? ${#dates.format(dataRow.createDate, 'dd-MM-yyyy')}" class="align-center"></td>								
+							</tr>
+						</th:block>
+					</tbody>
+				</table>
+			</form>
+		</div>		
+	</div>
+	<script th:inline="javascript">
+	    /*<![CDATA[*/
+	    var CATEGORY_LIST = /*[[${selectionCategories}]]*/;
+	    console.log("CATEGORY_LIST : " + CATEGORY_LIST);
+	    /*]]>*/
+	</script>
+	<script type="text/javascript" th:src="@{/web-app/views/introduction/introduction-table-sort.js}"></script>
+	<script type="text/javascript">
+		var table = document.getElementById("tb-sort-list");
+		RowSorter(table, {
+		    handler: 'td'
+		});
+	</script>
+	
+</body>
+</html>

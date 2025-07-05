@@ -1,0 +1,14 @@
+SELECT 	TBL_MAIN.ID,
+       	TBL_LANG.TITLE AS name,
+       	TBL_MAIN.SORT
+FROM 	M_FAQS_TYPE TBL_MAIN
+JOIN 	M_FAQS_TYPE_LANGUAGE TBL_LANG
+ON 		TBL_MAIN.ID = TBL_LANG.M_FAQS_TYPE_ID
+WHERE   TBL_MAIN.DELETE_DATE IS NULL
+        AND TBL_MAIN.ENABLED = 1
+        AND TBL_LANG.M_LANGUAGE_CODE = UPPER(/*languageCode*/'VI')
+        AND TBL_MAIN.M_CUSTOMER_TYPE_ID = /*faqsTypeEditDto.customerTypeId*/
+        /*IF faqsTypeEditDto.id != null*/
+        AND TBL_MAIN.ID != /*faqsTypeEditDto.id*/
+        /*END*/
+ORDER BY TBL_LANG.TITLE ASC, TBL_MAIN.SORT ASC;

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+	"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	<definition name="p2passetlocation.list" extends="unit">
+		<put-attribute name="body" value="/views/ASSET_MANAGEMENT_MODULE/p2passetlocation/p2passetlocation-list.html" />
+	</definition>
+
+	<definition name="p2passetlocation.table" extends="ajax">
+    	<put-attribute name="body" value="/views/ASSET_MANAGEMENT_MODULE/p2passetlocation/p2passetlocation-table.html"/>
+  	</definition>
+	
+	<definition name="p2passetlocation.edit" extends="unit">
+		<put-attribute name="body" value="/views/ASSET_MANAGEMENT_MODULE/p2passetlocation/p2passetlocation-edit.html" />
+	</definition>	
+	
+	<definition name="p2passetlocation.detail" extends="unit">
+		<put-attribute name="body" value="/views/ASSET_MANAGEMENT_MODULE/p2passetlocation/p2passetlocation-detail.html" />
+	</definition>
+</tiles-definitions>

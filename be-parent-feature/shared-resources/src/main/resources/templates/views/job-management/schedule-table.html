@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+	<div class="header-box">
+		<h2 class="title-box" th:text="#{search.results.title}">Kết quả tìm kiếm</h2>
+	</div>
+	<div class="col-sm-12 no-padding">
+		<div class="table-responsive">
+			<table id="data" class="table table-bordered table-striped table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th th:text="#{table.label.action}">Action</th>
+						<th th:text="#{company.detail}" th:if="${#authentication?.principal?.companyIdList.size()>1 or #authentication?.principal?.companyAdmin}">Company</th>
+						<th th:text="#{quartz.field.schedule.code}">Schedule Code</th>
+						<th th:text="#{quartz.table.schedule.name}">Schedule Name</th>
+						<th th:text="#{quartz.field.cron}">Cron expression</th>
+						<th th:text="#{quartz.field.table.description}">Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<th:block th:if="${schedules.data.size() > 0}">
+						<th:block th:each="schedule, i : ${schedules.data}"
+							th:with="startIndex=${schedules.startIndexCurrent}">
+							<tr th:attr="data-schedule-id=${schedule.id}">
+								<td align="left" th:text="${i.index + startIndex}"></td>
+								<td class="text-center">
+									<div class="btn-group">
+										<a class="j-btn-edit glyphicon glyphicon-edit custom-icon" title="Update" th:if="${#authorization.expression('hasAuthority(@jobConstant.SC1_S04_SCHEDULEMASTER)')}"></a>
+										<a class="j-btn-delete glyphicon glyphicon-remove-sign font-size-20 red" title="Delete" th:if="${#authorization.expression('hasAuthority(@jobConstant.SC1_S04_SCHEDULEMASTER)')}"></a>
+									</div>
+								</td>
+								<td align="left" th:if="${#authentication?.principal?.companyIdList.size()>1 or #authentication?.principal?.companyAdmin}" th:text="${schedule.companyName}"></td>
+								<td align="left" th:text="${schedule.schedCode}"></td>
+								<td align="left" th:text="${schedule.schedName}"></td>
+								<td align="left" th:text="${schedule.cronExpression}"></td>
+								<td align="left" th:text="${schedule.description}"></td>
+							</tr>
+						</th:block>
+					</th:block>
+					<th:block th:if="${schedules.data.size() == 0}">
+						<tr>
+							<td colspan="100%" th:text="#{table.emptyTable.label}">No
+								data found</td>
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+		</div>
+		<th:block th:include="views/commons/pagination.html :: content(pageWrapper=${schedules})" />
+	</div>
+	<script type="text/javascript" th:inline="javascript">
+	/*<![CDATA[*/
+		var MSG_SCHEDULE_DELETE_CONFIRM= /*[[#{quartz.message.schedule.delete.confirmation}]]*/
+	/*]]>*/
+	</script>
+	<script type="text/javascript"
+		th:src="@{/static/cache/js/job-management/schedule-table.js}"></script>
+</body>
+
+</html>

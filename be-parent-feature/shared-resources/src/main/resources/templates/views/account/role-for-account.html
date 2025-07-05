@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+	<div class="col-sm-12 p-0">
+	
+	    <div class="row">
+		    <div class="col-sm-10">
+				<h2 class="title-box" th:text="#{account.role.for.account.lable}">Role for account</h2>
+			</div>
+			<div class="col-sm-2 align-right">
+				<div class="icon-head">
+					<!-- <div id="id-btn-group-edit">
+		        		<a id="id-cancel-role-for-account" class="fa fa-arrow-circle-left icon-head-red" type="button"></a>
+		        		<a id="id-update-role-for-account" class="fa fa-save" type="button"
+		            		th:if="${#authorization.expression('hasAuthority(@roleConstant.ACCOUNT)')}"></a>
+		        	</div> -->
+		        	<a id="id-cancel-role-for-account" class="fa fa-arrow-circle-left icon-head-red" type="button"></a>
+		        	<a id="id-add-role-for-account" class="fa fa-plus-circle icon-head-red" type="button"></a>
+		        	<a id="id-update-role-for-account" class="fa fa-save" type="button"
+		            	th:if="${#authorization.expression('hasAuthority(@roleConstant.ACCOUNT)')}"></a>
+				</div>
+			</div>
+			 <div class="col-sm-10">
+			 	<h4 class="text-success" th:text="${messageAccountForRole}"></h4>
+			 </div>
+	    </div>
+	    <div class="table-responsive">
+			<table id="roleForAccountTable" class="table table-bordered table-striped">
+			    <input type="hidden" id="result_size" th:value="${not #lists.isEmpty(accountDto.listRoleForAccount) ? #lists.size(accountDto.listRoleForAccount) : 0 }"/>
+				<thead>
+					<tr>
+						<th class="u_t_no">#</th>
+						<th class="u_t_name" th:text="#{account.role.for.account.table.name}" >Role name</th>
+	                   	<!-- <th class="no-date" th:text="#{account.role.for.account.table.start.date}">StartDate</th>
+	                   	<th class="no-date" th:text="#{account.role.for.account.table.end.date}" >EndDate</th> -->
+	                   	<th class="no-action" th:text="#{table.label.action}" >Action</th>
+					</tr>
+				</thead>
+				<tbody>
+				    <th:block th:each="roleForAccountDto,iterStat : ${accountDto.listRoleForAccount}"  th:with="startIndex=1">
+						<tr th:attr="data-role-id=${roleForAccountDto.roleId}">
+							<input type="hidden" th:name="listRoleForAccount[__${iterStat.index}__].id" th:value="${roleForAccountDto.roleForAccountId}" />
+							<input type="hidden" th:name="listRoleForAccount[__${iterStat.index}__].userId" th:value="${roleForAccountDto.userId}" />
+							<td  class="text-center" th:text="${iterStat.index + startIndex}"></td>
+							<td>
+							   <div class="input-group input-group-sm col-md-12">
+							        <select class="form-control select2" th:field="${accountDto.listRoleForAccount[__${iterStat.index}__].roleId}">
+				                        <option th:each="role1 : ${listRole}" 
+				                                th:value="${role1.id}"
+				                                th:text="${role1.name}">
+				                        </option>
+				                    </select>
+							    </div>       
+		                    </td>
+							<!-- <td>
+							   <div class="input-group input-group-sm col-md-12">
+							   		 <div class="input-group date datepicker">
+							   		 	<input type="text" class="form-control input-sm"
+			                                     th:name="listRoleForAccount[__${iterStat.index}__].startDate" 
+			                                     th:value="${roleForAccountDto.startDate} ? ${#dates.format(roleForAccountDto.startDate, session.formatDate)}"/>
+		                              	<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+							   		 </div>
+							   </div>
+							</td>
+							<td>
+							   <div class="input-group input-group-sm col-md-12">
+								   <input type="text" class="form-control input-sm datepicker"
+		                                  th:name="listRoleForAccount[__${iterStat.index}__].endDate" 
+		                                  th:value="${roleForAccountDto.endDate} ? ${#dates.format(roleForAccountDto.endDate, session.formatDate)}"/>
+		                           <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+		                          </div>
+							</td> -->
+							<td class="td-action text-center">
+		                           <a class="glyphicon glyphicon-remove-sign font-size-20 red delete-role-for-account"
+		                           th:if="${#authorization.expression('hasAuthority(@roleConstant.ACCOUNT)')}"> </a> 
+		<!--                                       th:attr="data-msg-confirm=#{message.confirm.delete.content}"> -->
+							</td>
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+			<div class="table-footer">
+			 	<th:block th:include="views/commons/pagination.html :: content"/>
+			</div>	
+		</div>
+	</div>
+	<!-- role-for-account.js -->
+</body>
+<script type="text/javascript" th:src="@{/static/cache/js/account/role-for-account.js}"></script>
+</html>

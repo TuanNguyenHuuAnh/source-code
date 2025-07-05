@@ -1,0 +1,4 @@
+DELETE JCA_ROLE_FOR_POSITION
+WHERE 
+	POSITION_ID = /*positionId*/
+	AND ROLE_ID = /*roleId*/

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<body>
+    <div class="title-head clearfix">
+        <div class="col-sm-9 col-xs-7 no-padding">
+            <h3>
+                <i class="fa fa-table"></i>
+                <span th:text="#{ca.management.list.page.name}">Page name</span>
+            </h3>
+        </div>
+        <div class="col-sm-3 col-xs-5 icon-head">
+            <div class="pull-right">
+                <a id="btnBack">
+                    <i class="fa fa-arrow-circle-left icon-head-red"></i>
+                </a>
+                <a id="btnCreate">
+                    <i class="fa fa-plus-circle icon-head-red"></i>
+                </a>
+                <!--th:if="${@roleConfig.hasRole(@CommonConstant.TODO +':Edit')}"-->
+                <a class="font17 btn-save" id="btnSaveHead">
+                    <i class="fa fa-save"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <form class="form-horizontal u-for-page-top j-form-validate" method="POST" role="form" autocomplete="off" th:object="${objectDto}" id="form-detail">
+        <th:block th:include="views/commons/message-alert.html :: content(${messageList})" />
+        <div class="bg-content clearfix">
+            <div class="header-box">
+                <h2 class="title-box" th:if="${objectDto.caManagementId == null}" th:text="#{ca.management.detail.page.name.add}">Add</h2>
+                <h2 class="title-box" th:unless="${objectDto.caManagementId == null}" th:text="#{ca.management.detail.page.name}">Update</h2>
+            </div>
+            <input type="hidden" th:field="*{caManagementId}" />
+            <input type="hidden" th:field="*{storeType}"/>
+            <input type="hidden" id="url" name="url" th:value="${urlRedirect}" />
+            <div class="col-sm-12 p-0">
+            	<div class="col-xs-6 col-sm-6">
+                    <div class="form-group" th:if="${companyList.size()>1}">
+		                <label for="companyId" class="col-sm-4 " th:text="#{company.detail}">Company</label>
+		                <div class="col-sm-8">
+		                    <select class="form-control select2" th:field="*{companyId}">
+		                        <option th:each="company : ${companyList}" 
+		                                th:value="${company.id}"
+		                                th:text="${company.text}">
+		                        </option>
+		                    </select>
+		                </div>
+		            </div>
+		            <div th:unless="${companyList.size()>1}">
+		                <input type="hidden" id="companyId" name="companyId" th:value="*{companyId}" />
+		            </div>
+	                <div class="form-group">
+		                <label for="accountId" class="col-sm-4" th:text="#{ca.management.account}">Account</label>
+		                <div class="col-sm-8">
+		                    <select class="form-control select2" th:field="*{accountId}">
+		                    	<option th:value="*{accountId}" th:text="*{accountName}"></option>
+		                    </select>
+		                </div>
+		            </div>
+		            <div class="form-group" th:classappend="${#fields.hasErrors('caName')} ? has-error : ''">
+                        <label class="col-sm-4 required" for="caName" th:text="#{ca.management.ca.name.detail}">caName</label>
+                        <div class="col-sm-8" >
+                            <input type="text" th:field="*{caName}" class="form-control j-required"/>
+                            <span class="help-block" th:if="${#fields.hasErrors('caName')}" th:errors="*{caName}"></span>                                                   
+                        </div>
+                    </div>
+	                <div class="form-group" id="divPass">
+						<label for="caPassword" class="col-sm-4" th:text="#{ca.management.ca.password}"
+							th:classappend="${#fields.hasErrors('caPassword')} ? has-error : ''">Password</label>
+						<div class="col-sm-6 ">
+							<input id="caPassword" type="text" class="form-control dotsfont" name="caPassword" autocomplete="off"
+								th:value="*{(caPassword == null or caPassword == '') ? '' : T(vn.com.unit.common.constant.CommonConstant).PASSWORD_ENCRYPT}" />
+							<span class="help-block"
+								th:if="${#fields.hasErrors('caPassword')}" th:errors="*{caPassword}"></span>
+						</div>
+						<div class="col-sm-2 ">
+							<input id="showPass" type="checkbox" style="margin-top: 12px"/>
+							<span th:text=" #{system.config.url.email.pass.show}">&nbsp;Show</span>
+						</div>
+					</div>
+	             </div>
+                 <div class="col-xs-6 col-sm-6">
+                 	<div class="form-group" th:classappend="${#fields.hasErrors('caSlot')} ? has-error : ''">
+                        <label class="col-sm-4 required" for="caSlot" th:text="#{ca.management.ca.slot}">caSlot</label>
+                        <div class="col-sm-8" >
+                            <input type="number" th:field="*{caSlot}" class="form-control j-required" min="0"/>
+                            <span class="help-block" th:if="${#fields.hasErrors('caSlot')}" th:errors="*{caSlot}"></span>                                                   
+                        </div>
+                    </div>
+                 	<div class="form-group" th:classappend="${#fields.hasErrors('caLabel')} ? has-error : ''">
+                        <label class="col-sm-4 required" for="caLabel" th:text="#{ca.management.ca.label}">caLabel</label>
+                        <div class="col-sm-8" >
+                            <input type="text" th:field="*{caLabel}" class="form-control j-code j-required"/>
+                            <span class="help-block" th:if="${#fields.hasErrors('caLabel')}" th:errors="*{caLabel}"></span>                                                   
+                        </div>
+                    </div>
+	                <div class="form-group">
+						<label class="col-sm-4" th:text="#{ca.management.ca.default}">caDefault</label>
+						<div class="col-sm-8">
+						   <input type="checkbox" th:field="*{caDefault}"/>
+					    </div>
+					</div>
+            	</div>
+            </div>
+           
+            <div class="col-xs-12 col-sm-12 footer-box-bg">
+                <a class="btn-cancel" id="btnCancel">
+                    <i class="fa fa-times"></i>
+                    <span th:text="#{cancel.button}">Thoát</span>
+                </a>
+                <!--th:if="${@roleConfig.hasRole(@CommonConstant.TODO +':Edit')}"-->
+                <a class="btn-common btn-save" id="btnSave">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                    <span th:text="#{save.button}">Lưu</span>
+                </a>
+            </div>
+        </div>
+    </form>
+        
+    <script type="text/javascript" th:src="@{/static/cache/js/ca-management/ca-management-detail.js}"></script>
+</body>    
+</html>

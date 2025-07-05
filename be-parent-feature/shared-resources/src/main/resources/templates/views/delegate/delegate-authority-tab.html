@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+	<div class="bg-content clearfix bg-content-tbl"
+		id="oldDelegateAuthorityList" th:if="${oldDataList}">
+		<th:block
+			th:include="views/delegate/delegate-old-authority-detail-table.html :: content" />
+	</div>
+	<div class="bg-content clearfix bg-content-tbl"
+		id="delegateAuthorityList">
+		<th:block
+			th:include="views/delegate/delegate-authority-detail-table.html :: content" />
+	</div>
+</body>
+
+</html>

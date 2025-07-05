@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+
+<!-- Start table fix-->		
+<div class="col-sm-12 p-0">
+
+<h2 class="title-box" th:text="#{search.results.title}">Kết quả tìm kiếm</h2>
+<div class="table-responsive" id="tableList">
+	<table class="table table-bordered table-striped">
+      <thead>
+          <tr>
+              <th class="u_t_no">#</th>
+              <th class="u_t_action" th:text="#{archive.rollback.table.action}">Action</th>
+              <th class="u_t_code" th:text="#{archive.rollback.table.company}">Company</th>
+              <th class="u_t_name" th:text="#{archive.rollback.table.archive.rollback.user}">Archive User</th>
+              <th th:text="#{archive.rollback.table.archive.rollback.date}">Archive Date</th>
+              <th th:text="#{archive.rollback.table.start.date}">Start Date</th>
+              <th th:text="#{archive.rollback.table.end.date}">End Date</th>
+              <th th:text="#{archive.rollback.table.status}">Status</th>
+              <th th:text="#{archive.rollback.table.run.status}">Run Status</th>
+          </tr>
+      </thead>
+      <tbody>
+          <th:block th:each="archiveListDto,i : ${pageWrapper.data}" th:with="startIndex=${pageWrapper.startIndexCurrent}">
+                 <tr th:attr="data-archive-rollback-id=${archiveListDto.id}">
+                     <td class="text-center" th:text="${i.index + startIndex}"></td>
+                     <td class="align-center">
+                     	 <a class="j-btn-detail glyphicon glyphicon-eye-open custom-icon"></a>
+                         <!-- <a class="j-btn-delete glyphicon glyphicon-remove-sign font-size-20 red" 
+                         th:if="${#authorization.expression('hasAuthority(@roleConstant.ARCHIVE)')}"></a> -->
+                         <th:block th:if="${(archiveListDto.status == errorCode or archiveListDto.runStatus == errorCode) and archiveListDto.replayedFlag == false}">
+                         	<a class="j-btn-run glyphicon glyphicon-play custom-icon"></a>
+                         </th:block>
+                     </td>
+                     <td th:text="${archiveListDto.companyName}"></td>
+                     <td th:text="${archiveListDto.archiveUser}"></td>
+                     <td class="align-center" th:text="${#dates.format(archiveListDto.archiveDate, @menuConfig.getFormDate() + ' HH:mm')}"></td>
+                     <td class="align-center" th:text="${#dates.format(archiveListDto.startDate, @menuConfig.getFormDate())}"></td>
+                     <td class="align-center" th:text="${#dates.format(archiveListDto.endDate, @menuConfig.getFormDate())}"></td>
+                     <td class="align-center upper-case">
+                         <th:block th:if="${archiveListDto.status}" th:text="#{${T(vn.com.unit.ppl.enumdef.ArchiveStatus).resolveByValue(archiveListDto.status).getCode()}}" />
+                     </td>
+                     <td class="align-center upper-case">
+                         <th:block th:if="${archiveListDto.runStatus}" th:text="#{${T(vn.com.unit.ppl.enumdef.ArchiveStatus).resolveByValue(archiveListDto.runStatus).getCode()}}" />
+                     </td>
+                 </tr>
+             </th:block>
+             <th:block th:if="${pageWrapper.data.size() == 0}">
+				<tr>
+					<td colspan="100%" th:text="#{table.emptyTable.label}">No
+						data found</td>
+				</tr>
+			</th:block>
+      </tbody>
+  </table>
+	
+</div>
+
+</div>
+<th:block th:include="views/commons/pagination.html :: content"/>
+<script type="text/javascript" th:src="@{/static/cache/js/archive-rollback/archive-rollback-table.js}"></script>
+</body>
+</html>
+

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <script
+    type="text/javascript"
+    th:src="@{/static/jquery/multiple-select/js/jquery.multiselect.js}"
+  ></script>
+  <link
+    rel="stylesheet"
+    type="text/css"
+    th:href="@{/static/jquery/multiple-select/css/jquery.multiselect.css}"
+  />
+  <!-- BODY START -->
+  <body th:fragment="content">
+    <div
+      class="bg-content clearfix form-horizontal u-for-page-top j-formSearch"
+    >
+      <div data-toggle="collapse" data-target="#search-box" class="header-box">
+        <h5 class="title-box">
+          <span th:text="#{search.title}">Vùng tìm kiếm</span>
+        </h5>
+        <i class="fa fa-minus pull-right" aria-hidden="true"></i>
+      </div>
+      <div class="collapse in row m-0" id="search-box">
+        <div class="col-xs-12 col-sm-12">
+          <div class="form-group">
+            <label class="col-md-2">Name of the Asset</label>
+            <div class="col-md-4">
+              <input class="form-control" type="text" />
+            </div>
+
+            <label class="col-md-2">Asset Serial No</label>
+            <div class="col-md-4">
+              <input class="form-control" type="text" />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12">
+          <div class="form-group">
+            <label class="col-md-2">Asset Tag</label>
+            <div class="col-md-4">
+              <input class="form-control" type="text" />
+            </div>
+
+            <label class="col-md-2">IMEI</label>
+            <div class="col-md-4">
+              <input class="form-control" type="text" />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12">
+          <div class="form-group">
+            <label class="col-md-2">Asset Category</label>
+            <div class="col-md-4">
+              <select class="form-control">
+                <option></option>
+              </select>
+            </div>
+
+            <label class="col-md-2">Asset Sub Category</label>
+            <div class="col-md-4">
+              <select class="form-control">
+                <option></option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div align="center">
+          <div class="position-label col-xs-12 col-sm-12">
+            <a id="btnSearch" class="btn-common">
+              <i class="fa fa-search"></i>
+              <span th:text="#{search.button}">Tìm kiếm</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SEARCH AREA END -->
+    <!-- TABLE RESULT START -->
+    <div class="bg-content clearfix bg-content-tbl" id="tableList">
+      <th:block
+        th:include="/views/ASSET_MANAGEMENT_MODULE/mockup-asset/mockup-assetadjustment-model-table.html :: content"
+      />
+    </div>
+    <!-- TABLE RESULT END -->
+  </body>
+  <!-- BODY END -->
+  <script>
+    $(".j-btn-edit").on("click", function (event) {
+      event.preventDefault();
+      var url = BASE_URL + "mockup?view-id=mockup.assetadjustment.edit";
+
+      // Redirect to page list
+      ajaxRedirect(url);
+    });
+
+    $("#add").on("click", function (event) {
+      event.preventDefault();
+      var url = BASE_URL + "mockup?view-id=mockup.assetadjustment.edit";
+
+      // Redirect to page list
+      ajaxRedirect(url);
+    });
+
+    // date picker
+    $(".date").datepicker({ autoclose: true, format: "dd/mm/yyyy" });
+    var idEffectedDate = $("#fromDate").val();
+    var idExpiredDate = $("#toDate").val();
+    changeDatepickerById(idEffectedDate, idExpiredDate, "#fromDate", "#toDate");
+  </script>
+</html>

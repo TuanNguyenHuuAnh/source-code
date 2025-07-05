@@ -1,0 +1,76 @@
+/*header*/
+.bg-vietjet .logo-hdb{
+	display: none;
+}
+.bg-vietjet .navbar-fixed-top{
+	background: url(../images/bg-header-vietjet.jpg);
+	background-size: 100% 100%;
+}
+.bg-vietjet .icon-bar{
+	background: #fff
+}
+.bg-vietjet .logo-phulong,.bg-vietjet .logo-smu{
+	display: none;
+}
+.bg-vietjet .logo-vietjet{
+	display: inline-block;
+}
+.bg-vietjet .main-header .logo:after{
+	background: #ffca08
+}
+.bg-vietjet .main-header .logo{
+    border-bottom-color: #f19a4b!important;
+}
+.bg-vietjet .header-box h5,.bg-vietjet .title-box{
+	border-bottom-color: #e51f20!important
+}
+.bg-vietjet .sidebar li.active>a,.bg-vietjet .sidebar a.active,
+.bg-vietjet .icon-head-red,
+.bg-vietjet .treeview-menu a:hover,.bg-vietjet .treeview-menu a:hover>i,.bg-vietjet .breadcrumb i.fa-home{
+	color: #e51f20!important;
+}
+.bg-vietjet header h3,.bg-vietjet .version-title,.bg-vietjet .text-welcome,.bg-vietjet .name-user,
+.bg-vietjet .dropdown-info-user:before,.bg-vietjet .name-user{
+	color: #fff
+}
+.bg-vietjet .gr-notifi>a>i {
+    color: #fff102;
+}
+.bg-vietjet .navbar-right ul.info-user .notifi{
+	background: #fff;
+    color: #e52f2e;
+}
+.bg-vietjet table tr.highlight{
+	background: #faa00e!important;
+}
+.bg-vietjet .btn-common{
+    background: #e51f20;
+    border-color: #e51f20;
+}
+.bg-vietjet footer {
+    background: url(../images/bg-footer-vietjet.jpg);
+}
+.bg-vietjet .pagination>.active>a,.bg-vietjet .pagination>.active>a:focus, 
+.bg-vietjet .pagination>.active>a:hover, 
+.bg-vietjet .pagination>.active>span,.bg-vietjet .pagination>.active>span:focus, 
+.bg-vietjet .pagination>.active>span:hover,.bg-vietjet .pagination>li>a:focus,.bg-vietjet .pagination>li>a:hover, 
+.bg-vietjet .pagination>li>span:focus,.bg-vietjet .pagination>li>span:hover {
+    background-color: #e51f20!important
+}
+.bg-vietjet .ms-options-wrap > .ms-options > ul li.selected label,
+.bg-vietjet .ms-options-wrap > .ms-options > ul label:hover{
+	background-color: #ececec!important;
+    color: #e51f20;
+}
+.bg-vietjet .item-gradient{
+	background: linear-gradient(to left, rgb(225, 251, 255), rgb(229, 31, 32));
+}
+.bg-vietjet .sla-reminder-escalate-index span{
+	color: #fff
+}
+.bg-vietjet footer{
+	padding: 5px 10px!important;
+}
+.bg-vietjet footer span{
+	top: 0
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+	<div class="col-sm-12 p-0">
+		<div class="col-xs-6 col-sm-8 p-0">
+			<h2 class="title-box" th:text="#{delegate.edit.table.doc.new.label}">Kết quả
+				tìm kiếm</h2>
+		</div>
+		<div class="col-xs-6 col-sm-4">
+			<div class="form-check pull-right">
+				<input class="form-check-input" type="checkbox" value="" id="ckAllRole" th:checked="${check}"/> 
+				<label for="ckAllRole" th:text="#{delegate.layout.check.all.label}">Select all</label>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-12 no-padding">
+		<input type="hidden" id="allCount" th:value="${dataList.countAll}"/>
+		<input type="hidden" id="editMessage" th:value="#{table.emptyTable.label}"/>
+		<div class="table-responsive">
+			<table id="roleData"
+				class="table table-bordered table-striped table-hover">
+				<thead>
+					<tr>
+						<th class="no">#</th>
+						<th>
+							<input id="allRole" name="allRole" class="form-check-input" type="checkbox" value="" />
+						</th>
+						<th th:text="#{authority.detail.role.name}" >Role name</th>
+						<th th:text="#{authority.detail.function.name}" >Function name</th>
+						<th th:text="#{create.date}">Created Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<th:block th:each="_item,i : ${dataList.data}" th:with="startIndex=${dataList.startIndexCurrent}">
+						<tr th:attr="data-role-id=${_item.roleId},data-func-id=${_item.funcId}">
+							<td align="center" th:text="${i.index + startIndex}"></td>
+							<td class="text-center">
+								<input class="form-check-input" type="checkbox" value="" th:checked="${check}"/>
+							</td>
+							<td th:text="${_item.roleName}">HD Bank chi nhánh 1</td>
+							<td th:text="${_item.funcName}">HD Bank chi nhánh 1</td>
+							<td class="text-center" th:text="${_item.createdDate != null} ? ${#dates.format(_item.createdDate, @systemConfig.getConfig('DATE_PATTERN'))}:''">2019/06/25 10:15</td>
+						</tr>
+					</th:block>
+					<th:block th:if="${dataList.data eq null} or ${dataList.data.size() eq 0}">
+						<tr>
+							<td colspan="100%" th:text="#{table.emptyTable.label}"></td>
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+		</div>
+		<th:block th:include="views/commons/pagination.html :: content(pageWrapper=${dataList})" />
+	</div>
+	<script type="text/javascript"
+	th:src="@{/static/cache/js/delegate/delegate-doc-table.js}"></script>
+</body>
+</html>

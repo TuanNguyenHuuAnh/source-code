@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3" pageWidth="355" pageHeight="205" whenNoDataType="NoPages" columnWidth="355" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="552f200e-333e-4743-9d75-9b8357ff1e03">
+	<property name="ireport.zoom" value="2.143588810000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="pathFile" class="java.lang.String"/>
+	<parameter name="background" class="java.lang.String"/>
+	<field name="pos1" class="java.lang.String"/>
+	<field name="pos2" class="java.lang.String"/>
+	<field name="background" class="java.lang.String"/>
+	<field name="pos3" class="java.lang.String"/>
+	<field name="pos4" class="java.lang.String"/>
+	<field name="pos5" class="java.lang.String"/>
+	<field name="pos6" class="java.lang.String"/>
+	<field name="pos7" class="java.lang.String"/>
+	<field name="callIcon" class="java.lang.String"/>
+	<field name="mailIcon" class="java.lang.String"/>
+	<field name="facebookIcon" class="java.lang.String"/>
+	<field name="zaloIcon" class="java.lang.String"/>
+	<field name="avatar" class="java.lang.String"/>
+	<field name="icon1" class="java.lang.String"/>
+	<field name="icon2" class="java.lang.String"/>
+	<field name="icon3" class="java.lang.String"/>
+	<field name="icon4" class="java.lang.String"/>
+	<field name="icon5" class="java.lang.String"/>
+	<field name="icon6" class="java.lang.String"/>
+	<field name="icon7" class="java.lang.String"/>
+	<field name="icon8" class="java.lang.String"/>
+	<field name="icon9" class="java.lang.String"/>
+	<field name="icon10" class="java.lang.String"/>
+	<field name="icon11" class="java.lang.String"/>
+	<field name="icon12" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="205" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="355" height="205" uuid="d6749158-cf4d-4fb6-9826-34c15129babb"/>
+				<imageExpression><![CDATA[$F{background}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="85" y="79" width="270" height="20" forecolor="#000000" uuid="29eb1109-1ba8-4e37-9cf8-e35723efa96c">
+					<printWhenExpression><![CDATA[$F{pos3} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pos3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="85" y="41" width="270" height="20" forecolor="#000000" uuid="0b913379-be2d-4225-a681-6bb5b9702f2a">
+					<printWhenExpression><![CDATA[$F{pos1} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pos1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="85" y="61" width="270" height="18" forecolor="#000000" uuid="1e49589a-64a0-4c7a-89c2-98195fb641a2">
+					<printWhenExpression><![CDATA[$F{pos2} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="10" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pos2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="39" y="105" width="316" height="18" forecolor="#000000" uuid="e7c9d5d7-fb8a-4514-8b6f-7c304e8ddf69">
+					<printWhenExpression><![CDATA[$F{pos4} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pos4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="39" y="158" width="316" height="22" forecolor="#000000" uuid="b3b3dee9-5814-4017-b0e3-3601a593ca38">
+					<printWhenExpression><![CDATA[$F{pos7} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pos7}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="39" y="141" width="316" height="18" forecolor="#000000" uuid="52d4a814-a8ae-4f38-9260-715fb12845e3">
+					<printWhenExpression><![CDATA[$F{pos6} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pos6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="39" y="123" width="316" height="18" forecolor="#000000" uuid="aa1fdf08-5e2d-4b2f-831d-0f799487571d">
+					<printWhenExpression><![CDATA[$F{pos5} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pos5}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="16" y="105" width="18" height="18" uuid="7b1e09f8-64f3-48c0-aadb-81f99cb864fd">
+					<printWhenExpression><![CDATA[$F{icon4} != "" && $F{icon4} != null && $F{pos4} !=null]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{pathFile}  + $F{icon4}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="16" y="123" width="18" height="18" uuid="1cca1e39-4906-49fa-a594-bfb4d0d2cc65">
+					<printWhenExpression><![CDATA[$F{icon5} != "" && $F{icon5} != null && $F{pos5} !=null]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{pathFile}  + $F{icon5}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="16" y="159" width="18" height="18" uuid="ae8b6ef8-19ad-44ff-8c66-5ab521741ad3">
+					<printWhenExpression><![CDATA[$F{icon7} != "" && $F{icon7} != null && $F{pos7} !=null]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{pathFile}  + $F{icon7}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="16" y="141" width="18" height="18" uuid="26f9d839-b7f3-4c5f-9bc2-448f8f20856a">
+					<printWhenExpression><![CDATA[$F{icon6} != "" && $F{icon6} != null && $F{pos6} !=null]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{pathFile}  + $F{icon6}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="16" y="29" width="69" height="74" uuid="3a3be57b-41ee-434b-a7f5-01cf255e3282"/>
+				<imageExpression><![CDATA[$F{avatar}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="67" y="42" width="18" height="18" uuid="c06286f6-562f-4e85-af0a-972af7e6eccd">
+					<printWhenExpression><![CDATA[$F{icon1} != "" && $F{icon1} != null && $F{pos1} !=null]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{pathFile}  + $F{icon1}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="67" y="60" width="18" height="18" uuid="07390ebc-685b-472c-844a-d0c7de164e08">
+					<printWhenExpression><![CDATA[$F{icon2} != "" && $F{icon2} != null && $F{pos2} !=null]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{pathFile}  + $F{icon2}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="67" y="79" width="18" height="18" uuid="f1313a6b-6455-4fc7-b6be-40ebed027613">
+					<printWhenExpression><![CDATA[$F{icon3} != "" && $F{icon3} != null && $F{pos3} !=null]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{pathFile}  + $F{icon3}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="113" y="99" width="24" height="28" uuid="c5ced192-41fb-4576-91eb-1a2699cbfcd9">
+					<printWhenExpression><![CDATA[$F{icon8} != "" && $F{icon8} != null]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{pathFile}  + $F{icon8}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="161" y="99" width="24" height="28" uuid="53e8bc9a-57a2-4da6-809a-5e4ca624d645">
+					<printWhenExpression><![CDATA[$F{icon10} != "" && $F{icon10} != null]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{pathFile}  + $F{icon10}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="137" y="99" width="24" height="28" uuid="af410d41-0cca-435f-948f-47249417db6d">
+					<printWhenExpression><![CDATA[$F{icon9} != "" && $F{icon9} != null]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{pathFile}  + $F{icon9}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="185" y="99" width="24" height="28" uuid="1a9c70b2-d367-44de-9cc3-884b9a9cef49">
+					<printWhenExpression><![CDATA[$F{icon11} != "" && $F{icon11} != null]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{pathFile}  + $F{icon11}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="209" y="99" width="24" height="28" uuid="ef75db79-e130-4d3d-a9bd-334f9f39a277">
+					<printWhenExpression><![CDATA[$F{icon12} != "" && $F{icon12} != null]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{pathFile}  + $F{icon12}]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+</jasperReport>

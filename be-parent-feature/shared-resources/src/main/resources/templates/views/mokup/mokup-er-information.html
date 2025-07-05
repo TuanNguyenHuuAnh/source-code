@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{templates/unit-layout}" layout:fragment="body">
+<body>
+	<style type="text/css">
+		.footer-box-bg button, .footer-box-bg a {
+    		margin-left: 0px; 
+		}
+	</style>
+	<div class="title-head clearfix">
+		<!-- <div class="col-sm-9 col-xs-7 no-padding">
+			<h3>
+				<i class="fa fa-table"></i> <span >Budget Initiactive</span>
+			</h3>
+		</div> -->
+		<!-- <div class="col-sm-3 col-xs-5 icon-head">
+			<div class="pull-right">
+				<a> <i class="fa fa-arrow-circle-left icon-head-red"
+					id="linkList"></i>
+				</a>
+				 <a> <i class="fa fa-plus-circle icon-head-red" id="add"></i>
+				</a> <a class="font17 btn-save">
+					<i class="fa fa-save"></i>
+				</a>
+			</div>
+		</div> -->
+	</div>
+	<form class="form-horizontal u-for-page-top j-form-validate"
+		id="form-repository-edit" method="post" role="form">
+		<div class="bg-content clearfix">
+			<div class="col-sm-12 p-0">
+				<div class="col-md-12">
+					<div class="form-group">
+						<div class="header-box col-sm-12">
+							<h2 class="title-box">ER Information</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12 p-0">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label class="col-sm-4" for="code" th:text="#{mokup.er.number}">ER Number</label>
+						<div class="col-sm-12">
+							<input type="text" readonly="readonly"
+								class="form-control j-code j-maxlength"/> 
+						</div>
+					</div>	
+					<div class="form-group">
+						<label class="col-sm-4" for="code" th:text="#{mokup.er.creator}">ER Creator</label>
+						<div class="col-sm-12">
+							<input type="text" value="100001 - Nguyễn Thị Hoàng Mai"
+								class="form-control j-code j-maxlength"/> 
+						</div>
+					</div>	
+					<div class="form-group">
+						<label class="col-sm-4" for="code" th:text="#{mokup.currency}">Currency</label>
+						<div class="col-sm-12">
+							<input type="text" value="VND"
+								class="form-control j-code j-maxlength"/> 
+						</div>
+					</div>	
+					<div class="form-group">
+						<label class="col-sm-6" for="code" th:text="#{mokup.total.amount}">Total Amount(Total Before Tax)</label>
+						<div class="col-sm-12">
+							<input type="text" value="830000000"
+								class="form-control j-code j-maxlength"/> 
+						</div>
+					</div>			
+				</div>
+
+				<div class="col-md-6">
+					<div class="form-group">
+						<label class="col-sm-4" for="code" th:text="#{mokup.er.date}">ER Date</label>
+						<div class="col-sm-12">
+							<input type="text" value="15/07/2021"
+								class="form-control -code j-maxlength"/> 
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4" for="code" th:text="#{mokup.department}">Departments</label>
+						<div class="col-sm-12">
+							<input type="text" value="OPM - Operation Expense"
+								class="form-control j-code j-maxlength"/> 
+						</div>
+					</div>	
+					<div class="form-group">
+						<label class="col-sm-4" for="code" th:text="#{mokup.exchange.rate}">Exchange Rate</label>
+						<div class="col-sm-12">
+							<input type="text" value="1"
+								class="form-control j-code j-maxlength"/> 
+						</div>
+					</div>	
+					<div class="form-group">
+						<label class="col-sm-6" for="code" th:text="#{mokup.total.amount.including}">Total Amount(Total Including Tax)</label>
+						<div class="col-sm-12">
+							<input type="text" value="913000000"
+								class="form-control j-code j-maxlength"/> 
+						</div>
+					</div>	
+				</div>
+				
+				<div class="col-md-12">
+					<div class="form-group">
+						<label class="col-sm-4 " for="code" th:text="#{mokup.er.description}">ER description</label>
+						<div class="col-sm-12">
+							<textarea type="text" rows="2"
+								class="form-control j-code j-maxlength">Request for information and procurement</textarea>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-6">
+					<div class="form-group">
+						<label class="col-sm-4" for="code" th:text="#{mokup.er.status}">ER Status</label>
+						<div class="col-sm-12">
+							<input type="text" value="Draft"
+								class="form-control j-code j-maxlength"/> 
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label class="col-sm-4" for="code" th:text="#{mokup.er.type}">ER type</label>
+						<div class="col-sm-12">
+							<input type="text" value="Procurement / Non-Procurement"
+								class="form-control j-code j-maxlength"/> 
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6 col-sm-6">
+				<div class="col-sm-12" style=" padding-top: 5px;">
+					<a class="btn-cancel" id="cancel"> <i class="fa fa-times"></i> <span
+						>Back</span></a>				
+				</div>
+			</div>
+			<div class="col-xs-6 col-sm-6 footer-box-bg">	
+				<div class="col-sm-12">	
+					<a class="btn-common btn-save">
+						<i class="fa fa-floppy-o" aria-hidden="true"></i> <span
+						th:text="#{save.button}">Lưu</span>
+					</a>
+					<a class="btn-cancel" id="btnNext"> <i class="fa fa-arrow-circle-right"></i> <span
+						>Next</span>
+					</a> 
+				</div>
+			</div>
+		</div>
+	</form>
+	
+	<script type="text/javascript">
+		$('#cancel').on('click', function (event) {
+			event.preventDefault();
+			var url = BASE_URL + "mockup/select-item";
+	
+			// Redirect to page list
+			ajaxRedirect(url);
+		});
+		
+		$('#btnNext').on('click', function (event) {
+			event.preventDefault();
+			var url = BASE_URL + "mockup/supporting-document";
+	
+			// Redirect to page list
+			ajaxRedirect(url);
+		});
+		
+	</script>
+
+</body>
+</html>

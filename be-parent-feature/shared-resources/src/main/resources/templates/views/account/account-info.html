@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<link rel="stylesheet" type="text/css" th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}"/>
+<script type="text/javascript" th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+<!-- EasyUI - Multiple component support -->
+<link rel="stylesheet" type="text/css" th:href="@{/static/cache/plugins/jquery-easyui-1.5/easyui.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/static/cache/plugins/jquery-easyui-1.5/icon.css}" />
+<script type="text/javascript" id="script-easyui" th:src="@{/static/cache/plugins/jquery-easyui-1.5/jquery.easyui.min.js}"></script>    
+
+<div class="title-head clearfix">
+	<div class="row">
+	   <div class="col-md-12">
+			<h3>
+				<span th:text="#{account.info.page}">TiÃªu Ä‘á»� trang</span>
+			</h3>
+	   </div>
+	</div>
+</div>	
+
+<div id="id-main-account">
+<form th:action="@{/account/edit}"  method="POST" class="form-horizontal u-for-page-top j-form-validate" th:object="${accountDto}" id="id-form-account">
+	<th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+	
+	<div class="d-flex">
+       <div class="info-profile col-left">
+           <ul>
+               <li class="center">
+               		<div class="form-group" th:classappend="${#fields.hasErrors('avatar')} ? has-error : ''">
+	                	<div class="box-upload-avata" >
+	                    	<img id="imgAccount" class="image-avatarFile" th:if="*{null != avatar  AND avatar != ''}" th:src="@{/ajax-file/download(filePath=*{avatar}, repositoryId=*{repositoryId})}" th:onerror="|this.onerror=null;this.src='@{/static/cache/images/user-default.png}';|"/>
+			                <img id="imgAccount" class="image-avatarFile" th:if="*{null == avatar OR avatar == ''}" th:src="@{/static/cache/images/user-default.png}"/>
+	     				</div>
+	      				<pre class="imageConsole-avatarFile" style="display: none; color: #f30;"></pre>
+	            	</div>
+                   
+               </li>
+               <li>
+                   <div class="d-flex pb-1">
+                       <span class="mr-auto">
+                           <th:block th:text="#{account.push.notification}" />
+                       </span>
+                       <div class="ml-auto">
+                           <label class="switch">
+                               <input type="checkbox" id="pushNotification" th:field="*{pushNotification}" checked=""/> 
+                               <span class="slider round"></span>
+                           </label>
+                       </div>
+                   </div>
+                   <div class="d-flex pb-1">
+                       <span class="mr-auto">
+                          <th:block th:text="#{account.push.email}" />
+                       </span>
+                       <div class="ml-auto">
+                           <label class="switch">
+                               <input type="checkbox" id="pushEmail" th:field="*{pushEmail}" checked=""/> 
+                               <span class="slider round"></span>
+                           </label>
+                       </div>
+                   </div>
+                   <div class="d-flex pb-1">
+                       <span class="mr-auto">
+                           <th:block th:text="#{account.advanced.search}" />
+                       </span>
+                       <div class="ml-auto">
+                           <label class="switch">
+                               <input type="checkbox" id="archiveFlag" th:field="*{archiveFlag}" checked=""/>
+                               <span class="slider round"></span>
+                           </label>
+                       </div>
+                   </div>
+               </li>
+           </ul>
+       </div>
+       <div class="user-info col-right">
+           <div class="w80">
+               <div class="header-collapse">
+                    <h6 class="tt-collapse" th:text="#{account.edit.info}">ThÃ´ng tin ngÆ°á»�i dÃ¹ng</h6>
+               </div>
+               <div class="row">
+		        	<div class="form-group row" th:classappend="${#fields.hasErrors('code')} ? has-error : ''" >
+		                <label for="code" class="col-md-3" th:text="#{account.code}">MÃ£ nhÃ¢n viÃªn</label>
+		                <div class="col-md-9">
+		                    <input th:field="*{code}" type="text" class="form-control j-minlength j-code" data-rule-minlength="4" maxlength="100" disabled="disabled"/>
+		                    <span class="help-block" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></span>
+		                </div>
+		            </div>
+		            <div class="form-group row">
+		                <label for="username1" class="col-md-3" th:text="#{account.username}">TÃªn Ä‘Äƒng nháº­p</label>
+		                <div class="col-md-9">
+		                    <input id="username1" name="username1" th:value="*{username}" type="text" class="form-control" disabled="disabled"/>
+		                    <span class="help-block" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+		                </div>
+		            </div>
+		            <div class="form-group row" th:classappend="${#fields.hasErrors('fullname')} ? has-error : ''">
+		                <label for="fullname" class="col-md-3" th:text="#{account.fullname}">Há»� vÃ  tÃªn</label>
+		                <div class="col-md-9">
+		                    <input th:field="*{fullname}" type="text" class="form-control" maxlength="255" disabled="disabled"/>
+		                    <span class="help-block" th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}"></span>
+		                </div>
+		            </div>
+		            <div class="form-group row">
+		                <label for="birthday" class="col-md-3" th:text="#{account.birthday}">Birthday</label>
+		                <div class="col-md-9">
+		                    <div class="input-group date datepicker">
+		                        <input class="form-control" th:field="*{birthday}" type="text" placeholder="dd/mm/yyyy" autocomplete="off" disabled="disabled"/>
+		                        <div class="input-group-addon">
+		                            <i class="fa fa-calendar"></i>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="form-group row">
+		                <label for="gender" class="col-md-3" th:text="#{account.gender}">Gender</label>
+		                <div class="col-md-9">
+		                    <select class="form-control select2" th:field="*{gender}" disabled="disabled">
+		                    	<option th:value="${NULL}"></option>
+		                        <option th:each="gender : ${genders}" 
+		                                th:value="${gender.Code}"
+		                                th:text="${gender.name}">
+		                        </option>
+		                    </select>
+		                </div>
+		            </div>
+		            <div class="form-group row" th:classappend="${#fields.hasErrors('email')} ? has-error : ''">
+		                <label for="email" class="col-md-3" th:text="#{account.email}">Email</label>
+		                <div class="col-md-9">
+		                    <input th:field="*{email}" type="text" class="form-control j-required j-email" maxlength="255" disabled="disabled"/>
+		                    <span class="help-block" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+		                </div>
+		            </div>
+		            <div class="form-group row" th:classappend="${#fields.hasErrors('phone')} ? has-error : ''">
+		                <label for="phone" class="col-md-3" th:text="#{account.phone}">Sá»‘ Ä‘iá»‡n thoáº¡i</label>
+		                <div class="col-md-9">
+		                    <input th:field="*{phone}" type="text" class="form-control j-phone" maxlength="20" disabled="disabled"/>
+		                    <span class="help-block" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+		                </div>
+		            </div>
+		            <div class="form-group row" th:classappend="${#fields.hasErrors('cmnd')} ? has-error : ''">
+		                <label for="phone" class="col-md-3" th:text="#{account.cmnd}">chá»©ng minh nhÃ¢n dÃ¢n</label>
+		                <div class="col-md-9">
+		                    <input th:field="*{cmnd}" type="text" class="form-control" maxlength="50"  disabled="disabled" />
+		                    <span class="help-block" th:if="${#fields.hasErrors('cmnd')}" th:errors="*{cmnd}"></span>
+		                </div>
+		            </div>
+		            <input type="hidden" th:field="*{companyId}"/>
+		            <!-- <div class="form-group">
+		                <label for="positionId" class="col-sm-4" th:text="#{account.positionId}">Chá»©c vá»¥</label>
+		                <div class="col-sm-8">
+		                    <select class="form-control select2" th:field="*{positionId}" disabled="disabled">
+		                        <option value=""></option>
+		                        <option value="0" disabled="disabled">Unknown</option>
+		                        <option th:value="*{positionId}" th:text="*{positionName}" th:if="*{positionName}!=''" ></option>
+		                    </select>
+		               	</div>
+		          	</div> -->
+		        </div>
+		        
+		        <input id="id-account-id" type="hidden" th:field="${accountDto.id}" />
+		        <input th:field="*{username}" type="hidden"/>
+
+           </div>
+       </div>
+   </div>
+
+	<div class="bg-content-tbl" id="id-org-for-account">
+		<div class="row m-0">
+		    <div class="header-box">
+			    <h2 class="title-box" th:text="#{account.org.for.account.lable}">orgartment for account</h2>
+		    </div>
+		    <div class="table-responsive">
+				<table id="orgForAccountTable" class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th class="u_t_no">#</th>
+							<th class="u_t_name" th:text="#{account.org.for.account.table.name}" >org name</th>
+							<th class="u_t_name" th:text="#{account.positionId}">position</th>
+						</tr>
+					</thead>
+					<tbody>
+					    <th:block th:each="orgForAccountDto,iterStat : ${listOrgForAccount}"  th:with="startIndex=1">
+							<tr th:attr="data-org-for-account-id=${orgForAccountDto.userId}">
+								<td class="text-center" th:text="${iterStat.index + startIndex}"></td>
+								<td th:text="${listOrgForAccount[__${iterStat.index}__].orgName}"></td>
+								<td th:text="${listOrgForAccount[__${iterStat.index}__].positionName}"></td>
+							</tr>
+						</th:block>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</form>
+</div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var NOT_AN_ACCEPTED_FILE_TYPE = /*[[#{message.not.an.accepted.file.type}]]*/;
+	var FILESIZE_IS_BIGGER = /*[[#{message.file.size.bigger}]]*/;
+    /*]]>*/
+</script>
+<script type="text/javascript" th:src="@{/static/js/account/account-info.js}"></script>
+</html>
+

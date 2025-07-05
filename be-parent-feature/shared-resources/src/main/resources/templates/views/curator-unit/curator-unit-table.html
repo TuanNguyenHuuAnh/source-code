@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+	<div class="col-sm-12 p-0">
+		<div class="col-xs-6 col-sm-8 p-0">
+			<h2 class="title-box" th:text="#{search.results.title}">Kết quả
+				tìm kiếm</h2>
+		</div>
+	</div>
+	<div class="col-sm-12 p-0">
+	    <div class="table-responsive">
+			<table id="orgPersonTable" class="table table-bordered table-striped">
+			    <input type="hidden" id="result_size" th:value="${not #lists.isEmpty(listOrgForAccount) ? #lists.size(listOrgForAccount) : 0 }"/>
+				<thead>
+					<tr>
+						<th class="u_t_no">#</th>
+						<th th:text="#{company.detail}" 
+						th:if="${#authentication?.principal?.companyIdList.size() gt 1 or #authentication?.principal?.companyAdmin}">Company</th>
+						<th th:text="#{curator.unit.org.name.level1}">position</th>					
+						<th th:text="#{curator.unit.org.name.level2}">position</th>
+						<th th:text="#{curator.unit.org.name.level3}">position</th>
+						<th th:text="#{curator.unit.org.name.level4}">position</th>
+						<th class="u_t_name" th:text="#{curator.unit.name.level1}" >org name</th>
+						<th class="u_t_name" th:text="#{curator.unit.name.level2}" >org name</th>
+						<th class="u_t_name" th:text="#{curator.unit.name.level3}" >org name</th>
+						<th class="u_t_name" th:text="#{curator.unit.name.level4}" >org name</th>
+					</tr>
+				</thead>
+				<tbody>
+				    <th:block th:each="_item,i : ${pageWrapper.data}" th:with="startIndex=${pageWrapper.startIndexCurrent}">
+						<tr th:attr="data-curator-unit-id=${_item.id}">
+							<td th:text="${i.index + startIndex}"></td>
+                            <td th:text="${_item.companyName}" th:if="${#authentication?.principal?.companyIdList.size() gt 1 or #authentication?.principal?.companyAdmin}"></td>
+							<td th:text="${_item.orgNameLevel1}"></td>			
+							<td th:text="${_item.orgNameLevel2}"></td>
+							<td th:text="${_item.orgNameLevel3}"></td>
+							<td th:text="${_item.orgNameLevel4}"></td>
+							<td th:text="${_item.curatorNameLevel1}"></td>
+							<td th:text="${_item.curatorNameLevel2}"></td>
+							<td th:text="${_item.curatorNameLevel3}"></td>
+							<td th:text="${_item.curatorNameLevel4}"></td>
+						</tr>
+					</th:block>
+					<th:block th:if="${pageWrapper.data.size() eq 0}">
+                        <tr>
+                            <td colspan="100%" th:text="#{table.emptyTable.label}"></td>
+                        </tr>
+                    </th:block>
+				</tbody>
+			</table>
+		</div>
+		<th:block
+			th:include="views/commons/pagination.html :: content(pageWrapper=${pageWrapper})" />
+	</div>
+	<script type="text/javascript"
+	th:src="@{/static/cache/js/curator-unit/curator-unit-table.js}"></script>
+</body>
+</html>

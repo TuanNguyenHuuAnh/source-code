@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+	
+	<body th:fragment="content">
+		<div class="col-sm-12 p-0">
+			<h2 class="title-box" th:text="#{search.results.title}">Kết quả tìm kiếm</h2>
+			<div class="table-responsive">			
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th class="u_t_no">#</th>
+							<th class="u_t_action" th:text="#{action.label}">Thao tác</th>
+							<th class="u_t_title" th:text="#{ecm.repository.company}">Tên công ty</th>
+							<th class="u_t_title" th:text="#{ecm.repository.code}">Mã</th>
+							<th class="u_t_title" th:text="#{ecm.repository.name}">Tên lưu trữ</th>
+							<th class="u_t_title" th:text="#{ecm.repository.path}">Đường dẫn lưu trữ</th>
+							<th class="u_t_title" th:text="#{ecm.repository.sub.folder.rule}">Thư mục con</th>
+							<th class="u_t_title" th:text="#{ecm.repository.type}">Loại lưu trữ</th>
+							<th class="u_t_title" th:text="#{ecm.repository.status}">Trạng thái</th>
+							<th class="u_t_date" th:text="#{create.date}">Ngày tạo</th>
+						</tr>
+					</thead>
+					<tbody>
+						<th:block th:each="repositoryDto,i : ${pageWrapper.data}" th:with="startIndex=${pageWrapper.startIndexCurrent}">
+		              	<tr th:attr="data-repository-id=${repositoryDto.id}">						
+							<td class="text-center" th:text="${i.index + startIndex}" ></td>
+							<td class="td-action">
+                                <div class="align-left">
+<!--                                    <a class="glyphicon glyphicon-eye-open custom-icon j-btn-detail" ></a>-->
+<!--                                    <a class="glyphicon glyphicon-edit custom-icon j-btn-edit"-->
+<!--                                     th:if="${#authorization.expression('hasAuthority(@roleConstant.ROLE_ADMIN)')}" ></a>-->
+									<a class="glyphicon glyphicon-edit custom-icon j-btn-edit"></a>
+<!--                                    <a class="glyphicon glyphicon-remove-sign font-size-20 red j-btn-delete" -->
+<!--                                    th:if="${#authorization.expression('hasAuthority(@roleConstant.ROLE_ADMIN)')}"></a>-->
+									<a class="glyphicon glyphicon-remove-sign font-size-20 red j-btn-delete"></a>
+                                </div>  
+                            </td>
+                            <td th:text="${repositoryDto.companyName }"></td> 
+							<td th:text="${repositoryDto.code }"></td>
+		                    <td th:text="${repositoryDto.name }"></td>
+		                    <td th:text="${repositoryDto.path }"></td>
+		                    <td th:text="${repositoryDto.subFolderRule }"></td>
+		                    <td th:text="${repositoryDto.typeRepoName }"></td>
+		                    <td>
+		                        <th:block th:if="${repositoryDto.statusCode}" th:text="#{${repositoryDto.statusCode}}" />
+		                    </td>
+		                    <td class="text-center" th:text="${repositoryDto.createdDate }? ${#dates.format(repositoryDto.createdDate, @menuConfig.getFormDate())}"></td>                       
+						</tr>
+						</th:block>																												
+					</tbody>					
+				</table>								
+			</div>			
+		</div>
+		<th:block th:include="views/commons/pagination.html :: content"/>
+		<script type="text/javascript" th:src="@{/static/cache/js/ecm-repository/ecm-repository-table.js}"></script>
+	</body>
+</html>

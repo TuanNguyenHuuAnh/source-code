@@ -1,0 +1,11 @@
+SELECT
+	*
+FROM JCA_ORGANIZATION
+WHERE DELETED_ID = 0
+	/*IF !isAdmin*/
+	AND (COMPANY_ID IN /*companyIds*/()
+		OR COMPANY_ID IS NULL)
+	/*END*/
+	OR PARENT_ORG_ID = 0
+ORDER BY 
+	org_level, order_by;

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <body th:fragment="content">
+    <div class="col-sm-12">
+      <h2 class="sub-header section-heading" th:text="#{search.results.title}">
+        Kết quả tìm kiếm
+      </h2>
+      <span class="pull-right">
+        <button class="btn-common" type="button" id="exportHistory">
+          <i class="fa fa-download" aria-hidden="true"></i>
+          <span th:text="#{document.versionlist.download}">Tải về</span>
+        </button>
+      </span>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th class="u_t_no">#</th>
+              <th class="u_t_action" th:text="#{action.label}">Thao tác</th>
+              <th th:text="#{chat.list.fullname}">Tên khách hàng</th>
+              <th th:text="#{chat.list.email}">Email</th>
+              <th th:text="#{chat.list.phone}">Số điện thoại</th>
+              <th th:text="#{chat.list.nickname}">Danh xưng</th>
+              <th th:text="#{chat.list.title.offline.date}">Ngày Gửi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <th:block
+              th:each="dataRow,i : ${pageWrapper.data}"
+              th:with="startIndex=${pageWrapper.startIndexCurrent}"
+            >
+              <tr th:attr="data-id=${dataRow.id}">
+                <td th:text="${i.index + startIndex}"></td>
+                <td>
+                  <i
+                    class="
+                      glyphicon glyphicon-eye-open
+                      custom-icon
+                      j-btn-detail
+                    "
+                    title="Chi tiết"
+                    th:if="${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.CHAT_LIST_OFFLINE}__'')')}"
+                  >
+                  </i>
+                </td>
+                <td th:text="${dataRow.fullname}"></td>
+                <td th:text="${dataRow.email}"></td>
+                <td th:text="${dataRow.phone}"></td>
+                <td th:text="${dataRow.nickname}"></td>
+                <td style="text-align: center">
+                  <div th:if="${dataRow.createdDate != null}">
+                    <span
+                      th:text="${#dates.format(dataRow.createdDate, 'dd/MM/yyyy HH:mm:ss')}"
+                    ></span>
+                  </div>
+                </td>
+              </tr>
+            </th:block>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <th:block th:include="views/commons/pagination.html :: content" />
+    <script
+      type="text/javascript"
+      th:src="@{/web-app/views/chat/chat-list-offline.js}"
+    ></script>
+  </body>
+</html>

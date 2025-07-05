@@ -1,0 +1,6 @@
+SELECT
+ *
+FROM
+	 EFO_OZ_DOC_FILTER_IN
+WHERE 
+	JPM_TASK_ID = /*jpmTaskId*/

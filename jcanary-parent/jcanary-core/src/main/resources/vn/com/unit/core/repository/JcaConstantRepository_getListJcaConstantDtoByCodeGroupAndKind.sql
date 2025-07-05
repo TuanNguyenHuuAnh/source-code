@@ -1,0 +1,4 @@
+SELECT * FROM JCA_CONSTANT WITH(NOLOCK)
+WHERE GROUP_CODE = /*groupCode*/''
+AND KIND = /*kind*/''
+AND CODE = /*code*/''

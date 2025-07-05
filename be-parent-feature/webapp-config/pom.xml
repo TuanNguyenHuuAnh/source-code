@@ -1,0 +1,111 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+        <groupId>vn.com.unit.ep2p</groupId>
+        <artifactId>be-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+	<artifactId>webapp-config</artifactId>
+    <name>webapp-config</name>
+    <packaging>jar</packaging>
+    
+	<properties>
+		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<main.basedir>${project.basedir}/..</main.basedir>
+	</properties>
+	
+	<!-- <repositories>
+        <repository>
+            <id>in-project</id>
+            <name>In Project Repo</name>
+            <url>file://${main.basedir}/libs</url>
+        </repository>
+    </repositories> -->
+    
+    <dependencies>
+        <dependency>
+            <groupId>vn.com.unit.ep2p</groupId>
+            <artifactId>be-core</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.dropwizard.metrics</groupId>
+            <artifactId>metrics-core</artifactId>
+        </dependency>
+    </dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/jp/xet/springframework/data/mirage/repository</directory>
+				<targetPath>${basedir}/target/classes/jp/xet/springframework/data/mirage/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/ep2p/core/efo/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/ep2p/core/efo/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/ep2p/core/ers/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/ep2p/core/ers/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/ep2p/admin/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/ep2p/admin/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/ep2p/admin/sla/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/ep2p/admin/sla/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources/templates</directory>
+				<targetPath>${basedir}/target/WEB-INF/classes</targetPath>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+			</resource>
+			
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources/templates</directory>
+				<targetPath>${basedir}/target/WEB-INF/static</targetPath>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+			</resource>
+			
+		</resources>
+	</build>
+</project>

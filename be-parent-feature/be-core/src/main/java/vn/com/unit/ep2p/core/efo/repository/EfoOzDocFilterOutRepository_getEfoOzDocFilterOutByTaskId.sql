@@ -1,0 +1,6 @@
+SELECT
+	*
+FROM
+	EFO_OZ_DOC_FILTER_OUT docOut
+WHERE
+	docOut.TASK_ID = /*taskId*/

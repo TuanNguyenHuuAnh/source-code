@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<script type="text/javascript"
+	th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}" />
+
+<div class="title-head clearfix">
+	<div class="col-sm-9 col-xs-7 no-padding">
+		<h3>
+			<i class="fa fa-table"></i> <span th:text="#{delegate.layout.title.edit.label}">Delegation edit</span>
+		</h3>
+	</div>
+	<div class="col-sm-3 col-xs-5 icon-head">
+		<div class="pull-right">
+			<a> <i class="fa fa-arrow-circle-left icon-head-red"
+				th:title="#{icon.back}" id="linkList"></i>
+			</a>
+			<a class="font17 btn-save" id="btnSaveHead">
+                <i class="fa fa-save"></i>
+            </a>
+		</div>
+	</div>
+</div>
+<div id="messages">
+	<th:block
+		th:include="views/commons/message-alert.html :: content(${messageList})" />
+</div>
+<div id="frmSearch">
+	<form class="form-horizontal u-for-page-top j-form-validate"
+		th:object="${delegateSearch}" method="POST" role="form">
+		<input type="hidden" th:field="*{id}"/>
+		<input type="hidden" th:field="*{companyId}" th:if="(${companyList eq null} or ${companyList.size() lt 2}) or (*{id} and *{status} ne ${T(vn.com.unit.jcanary.service.DelegateService.Status).DRAFT.getKey()})"/>
+		<input type="hidden" name="delegatePersonId" th:value="*{delegatePersonId}" th:if="*{id} and *{status} ne ${T(vn.com.unit.jcanary.service.DelegateService.Status).DRAFT.getKey()}"/>
+		<input type="hidden" name="delegatedPersonId" th:value="*{delegatedPersonId}" th:if="*{id} and *{status} ne ${T(vn.com.unit.jcanary.service.DelegateService.Status).DRAFT.getKey()}"/>
+		<input type="hidden" th:field="*{fromDate}" th:if="*{id} and *{status} ne ${T(vn.com.unit.jcanary.service.DelegateService.Status).DRAFT.getKey()}"/>
+		<input type="hidden" th:field="*{toDate}" th:if="*{id} and *{status} ne ${T(vn.com.unit.jcanary.service.DelegateService.Status).DRAFT.getKey()}"/>
+		<input type="hidden" th:field="*{delegatePersonName}"/>
+		<input type="hidden" th:field="*{delegatedPersonName}"/>
+		<input type="hidden" th:field="*{delegateType}" th:if="*{id} and *{status} ne ${T(vn.com.unit.jcanary.service.DelegateService.Status).DRAFT.getKey()}"/>
+		<input type="hidden" th:field="*{status}"/>
+		<input type="hidden" th:field="*{isCurrent}"/>
+		<input type="hidden" th:field="*{deletedBy}"/>
+		<input type="hidden" th:field="*{actived}"/>
+		<input type="hidden" th:field="*{delegateKind}"/>
+		<input type="hidden" th:field="*{showAuthority}"/>
+		<input type="hidden" th:field="*{url}"/>
+		<div class="bg-content clearfix">
+			<div data-toggle="collapse" data-target="#search-box" class="header-box">
+				<h2 class="title-box" th:text="#{delegate.layout.title.edit.label}">Vùng tìm kiếm</h2>
+				<i class="fa fa-minus pull-right" aria-hidden="true"></i>
+			</div>
+			<div class="collapse in row m-0" id="search-box">
+				<div class="col-xs-12 col-sm-12 p-0">
+					<div class="col-sm-6">
+						<div class="form-group"
+							th:if="${companyList ne null} and ${companyList.size() gt 1}">
+							<label class="col-sm-4 align-top"
+								th:text="#{company.detail}">Company</label>
+							<div class="col-sm-8">
+								<select class="col-sm-9 form-control select-company"
+									th:field="*{companyId}" th:disabled="(*{id} and *{status} ne ${T(vn.com.unit.jcanary.service.DelegateService.Status).DRAFT.getKey()}) or (*{deletedBy} ne null and *{deletedBy} ne '')">
+									<option th:each="company : ${companyList}"
+										th:value="${company.id}" th:text="${company.name}"
+										th:selected="*{companyId} eq ${company.id}"></option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 p-0">
+					<div class="form-group col-sm-6">
+						<label class="col-sm-4 align-top required"
+							th:text="#{delegate.layout.field.performer.label}"></label>
+						<div class="col-md-8">
+							<select class="form-control j-required" th:field="*{delegatePersonId}" th:disabled="*{id} and *{status} ne ${T(vn.com.unit.jcanary.service.DelegateService.Status).DRAFT.getKey()} or (*{deletedBy} ne null and *{deletedBy} ne '')">
+								<option th:value="*{delegatePersonId}"
+									th:text="*{delegatePersonName}"
+									th:selected="*{delegatePersonId}"></option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group col-sm-6">
+						<label class="col-sm-4 align-top required"
+							th:text="#{delegate.layout.field.delegator.label}"></label>
+						<div class="col-md-8">
+							<select class="form-control j-required" th:field="*{delegatedPersonId}" th:disabled="*{id} and *{status} ne ${T(vn.com.unit.jcanary.service.DelegateService.Status).DRAFT.getKey()} or (*{deletedBy} ne null and *{deletedBy} ne '')">
+								<option th:value="*{delegatedPersonId}"
+									th:text="*{delegatedPersonName}"
+									th:selected="*{delegatedPersonId}"></option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 p-0">
+					<div class="form-group col-sm-6">
+						<label class="col-sm-4 align-top required"
+							th:text="#{search.from.date}">From</label>
+						<div class="col-sm-8">
+							<div class="input-group date datepicker datepicker-from-date">
+								<input class="form-control j-required" th:field="*{fromDate}" th:readonly="(*{id} and *{status} ne ${T(vn.com.unit.jcanary.service.DelegateService.Status).DRAFT.getKey()} and *{actived}) or (*{deletedBy} ne null and *{deletedBy} ne '')"/>
+								<div class="input-group-addon" style="max-height: 28px;">
+									<i class="fa fa-calendar"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group col-sm-6">
+						<label class="col-sm-4 align-top required"
+							th:text="#{searchfield.document.to.date}">Đến ngày</label>
+						<div class="col-sm-8">
+							<div class="input-group date datepicker datepicker-to-date">
+								<input class="form-control j-required" th:field="*{toDate}" th:readonly="(*{id} and *{status} ne ${T(vn.com.unit.jcanary.service.DelegateService.Status).DRAFT.getKey()} and *{isCurrent}) or (*{deletedBy} ne null and *{deletedBy} ne '')"/>
+								<div class="input-group-addon">
+									<i class="fa fa-calendar"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 p-0">
+					<div class="form-group col-sm-6">
+						<label class="col-sm-4" th:text="#{delegate.layout.field.type.label}">Delegate for</label>
+						<div class="col-sm-8">
+							<select class="form-control" name="classify" id="classify" th:field="*{delegateType}" th:disabled="(*{id} and *{status} ne ${T(vn.com.unit.jcanary.service.DelegateService.Status).DRAFT.getKey()}) or (*{deletedBy} ne null and *{deletedBy} ne '')">
+								<th:block th:each="item : ${T(vn.com.unit.jcanary.service.DelegateService.Classify).values()}">
+									<option th:value="${item.longValue}"   
+										th:text="#{${item.name}}" th:selected="*{delegateType} eq ${item.longValue}"></option>
+								</th:block>
+							</select>
+						</div>
+					</div>
+					<div class="form-group col-sm-6">
+						<label class="col-sm-4 align-top" th:text="#{delegate.layout.field.revoke.label}">Revoking apply</label>
+						<div class="col-sm-8">
+							<input class="form-check-input" type="checkbox" value="" th:field="*{applyActive}" 
+							th:disabled="*{id} eq null or *{status} eq ${T(vn.com.unit.jcanary.service.DelegateService.Status).DRAFT.getKey()} or *{isCurrent} or (*{deletedBy} ne null and *{deletedBy} ne '')" 
+							th:checked="*{status} eq ${T(vn.com.unit.jcanary.service.DelegateService.Status).REVOKED.getKey()}"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 p-0">
+					<div class="col-sm-6">
+						<div id="delegate-kind" class="form-group" th:classappend="*{delegateType} eq '2' ? '' :  hidden">
+							<label class="col-sm-4 align-top" th:text="#{delegate.layout.field.kind.label}">Delegated kind</label>
+							<div class="col-sm-8">
+								<select multiple="multiple" class="form-control col-sm-9" th:field="*{kind}" th:disabled="(*{id} and *{status} ne ${T(vn.com.unit.jcanary.service.DelegateService.Status).DRAFT.getKey()}) or (*{deletedBy} ne null and *{deletedBy} ne '')">
+									<th:block th:each="item: ${T(vn.com.unit.jcanary.service.DelegateService.Delegatekind).values()}">
+										<option th:value="${item.longValue}" th:text="#{${item.name}}" 
+												th:selected="${delegateSearch.kind ne null ? #arrays.contains(delegateSearch.kind,item.longValue) : false}" th:disabled="(*{id} and *{status} ne ${T(vn.com.unit.jcanary.service.DelegateService.Status).DRAFT.getKey()}) or (*{deletedBy} ne null and *{deletedBy} ne '')"></option>
+									</th:block>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group col-sm-6" th:if="*{id}">
+						<label class="col-sm-4" th:text="#{delegate.edit.table.column.status}">Status</label>
+						<div class="col-sm-8">
+							<input class="form-control" th:value="#{${T(vn.com.unit.jcanary.service.DelegateService.Status).getText(delegateSearch.status)}}" readonly="readonly"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12">
+					<div class="col-sm-12">
+						<br />
+						<div class="form-group text-center">
+							<button type="button" class="btn btn-cancel btn-in-table"
+								th:text="#{cancel.button}" id="btn-cancel">Thoát</button>
+
+							<button id="btn-save" type="button" class="btn btn-common btn-in-table" 
+								th:if="${#authorization.expression('hasAuthority(@roleConstant.MY_DOCUMENTS)')}" 
+								th:disabled="(*{isCurrent} and *{status} ne ${T(vn.com.unit.jcanary.service.DelegateService.Status).DRAFT.getKey()}) or (*{deletedBy} ne null and *{deletedBy} ne '')"
+								th:text="#{save.button}">Save</button>
+								
+							<button type="button" class="btn btn-common btn-in-table"
+								id="btn-apply" th:text="#{*{applyLabel}}" th:disabled="(*{id} and *{status} ne ${T(vn.com.unit.jcanary.service.DelegateService.Status).DRAFT.getKey()}) or (*{deletedBy} ne null and *{deletedBy} ne '')" 
+								th:if="${#authorization.expression('hasAuthority(@roleConstant.MY_DOCUMENTS)')}">Apply</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div id="docPopup">
+</div>
+<div id="authorPopup">
+</div>
+<div id="rolePopup">
+</div>
+<div id="partialDetail" class="" th:classappend="${delegateSearch.kind} ? '' : hidden">
+	<th:block th:include="views/delegate/delegate-partial.html :: content" />
+</div>
+<script type="text/javascript"
+	th:src="@{/static/cache/js/delegate/delegate-edit.js}"></script>
+</html>

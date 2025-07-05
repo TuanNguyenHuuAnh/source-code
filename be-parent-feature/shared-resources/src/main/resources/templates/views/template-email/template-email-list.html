@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<script type="text/javascript"
+	th:src="@{/static/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+<link rel="stylesheet" type="text/css"
+	    th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+<link rel="stylesheet" type="text/css"
+	    th:href="@{/static/jquery/multiple-select/css/jquery.multiselect.css}" />
+<body>
+	<div class="title-head">
+		<div class="row">
+			<div class="col-md-9">
+				<h3>
+					<i class="fa fa-table"></i> <span th:text="#{email.template.title}"></span>
+				</h3>
+			</div>
+			 <div class="col-md-3">
+	            <div class="pull-right">
+	            	<a class="u-btn u-btn-primary" id="add">
+	            		<img th:src="@{/static/images/ico-plus-white.png}" alt="" />
+	                    <span>Thêm mới</span>
+	                </a>
+	            </div>
+	       	</div>
+	     </div>
+	</div>
+	<div id="msg">
+		<th:block th:include="views/commons/message-alert.html :: content(${messageList})" />
+	</div>
+	<form class="form-horizontal u-for-page-top j-formSearch" th:action="@{/email/email-list}" th:object="${searchDto}" method="POST" role="form">	
+		<div class="bg-content clearfix">
+			<div data-toggle="collapse" data-target="#search-box" class="header-box"> 
+               <h2 class="title-box" th:text="#{search.title}">Vùng tìm kiếm</h2>
+               <i class="fa fa-minus pull-right" aria-hidden="true"></i> 
+            </div>
+            <div class="collapse in" id="search-box">
+            	<div class="row">
+						<!--  <label class="col-md-1">From</label>
+						<div class="col-md-2">
+							<div class="input-group date">
+								<input class="form-control"  autocomplete="off" th:field="*{fromDate}"/>
+								<span class="input-group-addon fromDate">
+									<i class="fa fa-calendar"></i>
+								</span>
+							</div>
+						</div>
+						<label class="col-md-1">To</label>
+						<div class="col-md-2 form-group">
+							<div class="input-group date">
+								<input class="form-control" autocomplete="off" th:field="*{toDate}"/><span
+								class="input-group-addon toDate"><i
+								class="fa fa-calendar"></i></span>
+							</div>
+						</div>  -->
+						<div class="col-md-4 form-group">
+							<input type="text" class="form-control" th:field="*{fieldSearch}" th:placeholder="#{search.key}" autocomplete="off"/>
+						</div>
+						<div class="col-md-4 form-group">
+							<select th:field="*{fieldValues}" multiple="multiple" class="form-control" id="search-filter">
+							<th:block th:each="item : ${fieldSelect}">
+								<option th:value="${item.value}"
+									th:selected="${searchDto.fieldValues} ? ${#arrays.contains(searchDto.fieldValues,item.value)}: false"   
+									th:text="#{${item.name}}"></option>
+							</th:block>
+							</select>
+						</div>
+						<div class="col-md-4 form-group" th:style="${2 > companyList.size()}?'display:none' : ''">
+							<label for="companyId" class="col-sm-3 align-top no-padding" th:text="#{company.detail}">Company</label>
+							<div class="col-sm-9">
+								<select class="col-sm-9 form-control select2 select-company" th:field="*{companyId}">
+									<option th:value="0" th:text="#{common.all}"></option>
+									<option th:value="${NULL}" th:text="#{company.all}"></option>
+									<option th:each="company : ${companyList}" th:if="${companyList.size() > 1}"
+											th:value="${company.id}"
+											th:text="${company.text}">
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row m-0 pos-gr-btn">
+				        <a class="u-btn u-btn-primary" id="btnSearch">
+							<i class="fa fa-search"></i>
+							<span th:text="#{search.button}"></span>
+						</a>
+					</div>
+			</div>
+			
+		</div>
+	</form>	
+	
+<!-- 	<div class="bg-content clearfix" >
+		<div class="col-sm-12 p-0">
+			<form method="POST" th:action="@{/email/template/import}" enctype="multipart/form-data" id="upload">
+				<th:block th:include="views/commons/message-alert.html :: content(${messageList})" />
+				<div data-toggle="collapse" data-target="#search-box-1" class="header-box"> 
+	               <h2 class="title-box" th:text="#{email.template.upload}">Upload Template</h2>
+	               <i class="fa fa-minus pull-right" aria-hidden="true"></i> 
+	            </div>
+	            <div class="collapse in row m-0" id="search-box-1">
+					<div class="col-sm-12 p-0">
+						<label class="col-sm-1 align-top" th:text="#{email.template.name.file}">Name</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" id="nameFile" name="nameFile"/>
+							<div id="nameFileError"></div>
+						</div>
+
+						<div class="col-sm-4  form-group">
+							<div class="input-group input-upload-1">
+							    <div class="form-control box-list-file" readonly="readonly"  id="fileName">
+							    </div>
+							    <label class="input-group-addon">
+							       <span >
+							       		<span th:text="#{email.template.browser}"></span>
+							            <input type="file" name="file" class="hide" />
+							       </span>
+							   </label>
+							 </div>
+						</div>
+					    <div class="col-sm-2">
+				         	<div class="form-group pull-left">
+								<button class="btn-common" type="button" id="btnImport"><i class="fa fa-upload" aria-hidden="true"></i> Upload</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div> -->
+	<!-- <script th:inline="javascript">
+	 /*<![CDATA[*/
+		var companyId = /*[[${#authentication?.principal?.companyId}]]*/;
+    	var IS_ADMIN = /*[[${#authentication?.principal?.companyAdmin}]]*/;
+    	var NAME_NULL = [[#{message.error.email.template.name}]];
+    	var CODE_NULL = [[#{message.error.email.template.code}]];
+    	var NOT_ACCEPT_FILE_TYPE = [[#{import.file.word}]];
+    	var FILE_SIZE_BIG = [[#{message.error.email.template.file.size}]];
+    	var FILE_NULL= [[#{message.error.email.template.file}]];
+    /*]]>*/
+	</script> -->
+	<div class="bg-content-tbl" id="tableList">
+		<th:block th:include="views/template-email/template-email-table.html :: content"/>
+	</div>
+	<input type="hidden" id="fieldSearchHidden"/>
+	<input type="hidden" id="fieldValuesHidden"/>
+			<input type="hidden"id="urlSearch"/>
+	
+	<!-- <th:block th:include="views/template-email/template-email-detail.html :: content"/> -->
+	<script type="text/javascript" th:src="@{/static/js/template-email/template-email-list.js}"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+SELECT
+	paramConfig.PROCESS_DEPLOY_ID    	AS PROCESS_DEPLOY_ID
+	, paramConfig.PARAM_DEPLOY_ID      	AS PARAM_DEPLOY_ID
+	, paramConfig.STEP_DEPLOY_ID       	AS STEP_DEPLOY_ID
+	, paramConfig.REQUIRED      		AS REQUIRED
+FROM
+	JPM_PARAM_CONFIG_DEPLOY paramConfig
+WHERE
+	paramConfig.PROCESS_DEPLOY_ID = /*processDeployId*/

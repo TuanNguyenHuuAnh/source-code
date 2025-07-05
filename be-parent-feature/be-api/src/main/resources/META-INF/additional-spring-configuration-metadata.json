@@ -1,0 +1,27 @@
+{"properties": [
+  {
+    "name": "app.firebase-configuration-file",
+    "type": "java.lang.String",
+    "description": "A description for 'app.firebase-configuration-file'"
+  },
+  {
+    "name": "jca-quartz.config.overwrite-existing-jobs",
+    "type": "java.lang.String",
+    "description": "A description for 'jca-quartz.config.overwrite-existing-jobs'"
+  },
+  {
+    "name": "jca-quartz.config.wait-for-jobs-to-complete-on-shutdown",
+    "type": "java.lang.String",
+    "description": "A description for 'jca-quartz.config.wait-for-jobs-to-complete-on-shutdown'"
+  },
+  {
+    "name": "jca-quartz.config.auto-startup",
+    "type": "java.lang.String",
+    "description": "A description for 'jca-quartz.config.auto-startup'"
+  },
+  {
+    "name": "jca-quartz.config.scheduler-name",
+    "type": "java.lang.String",
+    "description": "A description for 'jca-quartz.config.scheduler-name'"
+  }
+]}

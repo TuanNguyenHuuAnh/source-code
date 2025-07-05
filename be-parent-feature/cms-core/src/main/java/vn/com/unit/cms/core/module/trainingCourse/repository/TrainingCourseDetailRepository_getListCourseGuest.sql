@@ -1,0 +1,19 @@
+SELECT A.COURSE_ID,
+       A.ID_NUMBER,
+       A.AGENT_CODE,
+       A.EFFECTIVED_DATE,
+       A.AGENT_TYPE,
+       A.UM_CODE,
+       A.UM_NAME,
+       A.BM_CODE,
+       A.BM_NAME,
+       A.NAME,
+       A.OFFICE_CODE,
+       A.OFFICE_NAME,
+       A.REGISTER_TIME,
+       A.ATTENDANCE_TIME,
+       A.REGISTER_TIME,
+       isnull(A.AGENT_CODE,'') + ':' + A.ID_NUMBER as CODE
+FROM M_TRAINING_COURSES_DETAIL A
+WHERE 1=1
+AND A.COURSE_ID = /*courseId*/'134'

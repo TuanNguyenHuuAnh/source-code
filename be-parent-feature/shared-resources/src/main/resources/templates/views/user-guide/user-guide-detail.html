@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+
+    <div class="title-head clearfix">
+        <div class="col-sm-9 col-xs-7 no-padding">
+            <h3>
+                <i class="fa fa-table"></i>
+                <span th:text="#{userGuide.list.page.name}">Page name</span>
+            </h3>
+        </div>
+    </div>
+    
+    <div id="alertAttachedFileClientId" class="alert alert-danger alert-dismissible hidden">
+        <button class="close" type="button" id="btnCloseAlertAttachedFileClientId">×</button>
+            <h4>
+                <i class="icon fa fa-ban"></i><th:block th:text="#{message.title}"></th:block>
+            </h4>
+            
+            <div id="msgAlertAttachedFileClientId"></div>
+            
+     </div>
+
+    <form method="POST" role="form" class="form-horizontal u-for-page-top j-form-validate" th:object="${objectDto}" id="form-detail">
+        <th:block th:include="views/commons/message-alert.html :: content(${messageList})" />
+        <div class="bg-content clearfix">
+            <div class="header-box col-sm-12">
+                <h2 class="title-box" th:if="${objectDto.id == null}" th:text="#{userGuide.detail.page.name.add}">Add</h2>
+                <h2 class="title-box" th:unless="${objectDto.id == null}" th:text="#{category.detail.page.name}">Update</h2>
+            </div>
+            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" id="url" name="url" th:value="${urlRedirect}" />
+            <div class="col-sm-12 p-0">
+             <div class="row form-group">
+                    <div class="form-group">
+		                <label for="companyId" class="col-sm-2 " th:text="#{company.detail}">Company</label>
+		                <div class="col-sm-4" th:if="${companyList.size()>1}">
+		                    <select class="form-control select2" th:field="*{companyId}">
+		                        <option th:each="company : ${companyList}" 
+		                                th:value="${company.id}"
+		                                th:text="${company.text}">
+		                        </option>
+		                    </select>
+		                </div>
+		                <div class="col-sm-4" th:if="${companyList.size()==1}">
+		                	<input class="form-control" th:value="${companyList[0].text}" readonly="readonly"  maxlength="255"  disabled="disabled"/>
+		                	<input type="hidden" th:field="*{companyId}"/>
+		                </div>
+		            </div>
+                </div>
+                <div class="row form-group">
+                    <div class="form-group">
+		                <label class="col-sm-2 " th:text="#{type.system.code}">Loại</label>
+		                <div class="col-sm-4" th:if="${systemList.size()>1}">
+		                    <select class="form-control select2" id="appCode"  th:field="*{appCode}">
+		                        <option th:each="system : ${systemList}" 
+		                              th:value="${system.code}"
+				                      th:text="${system.name}">
+		                        </option>
+		                    </select>
+		                </div>
+		            </div>
+                </div>
+                <div class="row form-group">
+	                <div class="row form-group">
+	                	<label class="col-sm-2" th:text="#{news.language}">Ngôn ngữ</label>
+						<div class="col-sm-4">
+							<ul class="nav nav-tabs" id="tabLanguage">
+								<th:block th:each="language, i : ${languageList}">
+									<li role="presentation"
+										th:classappend="${i.index == 0}  ? 'active' : ''"
+										th:id="tabLanguage + ${i.index}"><a
+										th:href="'#language' + ${i.index}" th:text="${language.name}"></a>
+									</li>
+								</th:block>
+							</ul>
+						</div>
+	                </div>
+	                
+	                <div class="tab-content">
+						<th:block th:each="language, i : ${languageList}"
+							th:with="index=${i.index}">
+	
+							<div th:id="'language' + ${index}" class="tab-pane fade "
+								th:classappend="${index == 0}  ? 'in active' : ''">						
+								<label for="name" class="col-sm-2 required" th:text="#{userGuide.name}">Name</label>          
+			                    <div class="col-sm-4">
+			                    
+							<input type="hidden" th:field="*{listUserGuilde[__${index}__].id}" />
+                            <input type="hidden" id="langCode" th:field="*{listUserGuilde[__${index}__].langCode}" />
+				            <input type="file"  class="hide" id="fileUserGuideType" th:field="*{listUserGuilde[__${index}__].fileUserGuideType}" />
+				             <div class="input-group col-sm-12 fileUploadUs">
+				                 
+								 	<input class="form-control j-required j-specialCharacters fileName"   maxlength="255" readonly="readonly"   th:field="*{listUserGuilde[__${index}__].fileName}"/>
+								    <input class="hide" th:field="*{listUserGuilde[__${index}__].filePath}"/>
+								  	<input class="hide" th:id="idUserGuide  + ${index}" th:field="*{listUserGuilde[__${index}__].id}"/>
+								  	<input class="hide" th:field="*{listUserGuilde[__${index}__].fileRepoId}"/>
+								  	<label class="input-group-addon" style="cursor: pointer;" th:if="${#authorization.expression('hasAuthority(@roleConstant.USER_GUIDE)')}">
+											<i class="fa fa-folder-open"></i>
+											<input type="file" accept=".pdf" name="fileUserGuide" th:if="${#authorization.expression('hasAuthority(@roleConstant.USER_GUIDE)')}" class="hide"  th:field="*{listUserGuilde[__${index}__].fileUserGuide}" multiple="multiple"/>
+								  	</label>
+								  	<a class="input-group-addon btn-download-user-guide"  th:attr="data-file-id=*{listUserGuilde[__${index}__].id}" th:if="*{listUserGuilde[__${index}__].fileName!=null}" style="cursor: pointer;" title="download" >
+										<i class="fa fa-download"></i>
+								  	</a>
+								  	<label class="input-group-addon j-delete-file" th:attr="data-file-id=*{listUserGuilde[__${index}__].id}" style="cursor: pointer;" th:if="${#authorization.expression('hasAuthority(@roleConstant.USER_GUIDE)') and objectDto.listUserGuilde[__${index}__].fileName!=null}">
+								  	<i class="fa fa-trash-o"></i>
+									</label>
+							  </div>       			
+							 	<span class="help-block" th:if="${#fields.hasErrors('listUserGuilde[__${index}__].fileName')}" th:errors="*{listUserGuilde[__${index}__].fileName}"></span>
+							 	<label th:id="listUserGuilde__${index}__.fileName-error" class="error" th:for="listUserGuilde__${index}__.fileName"></label>
+			                  </div>                
+							</div>
+						</th:block>
+					</div>
+                </div>
+               
+            </div>
+            <div class="col-xs-12 col-sm-12 footer-box-bg"> 
+                <!--th:if="${@roleConfig.hasRole(@CommonConstant.TODO +':Edit')}"-->
+                <div class="col-sm-6"> 
+	                <a class="btn-common btn-save" id="btnSave" th:if="${#authorization.expression('hasAuthority(@roleConstant.USER_GUIDE)')}">
+	                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+	                    <span th:text="#{save.button}">Lưu</span>
+	                </a>
+	            </div>
+            </div>
+        </div>
+        
+    </form>
+    
+    <script th:inline="javascript">
+	    /*<![CDATA[*/
+	    var USER_GUIDE_LIST = /*[[${listUserGuilde}]]*/;
+	    var LANGUAGE_LIST = /*[[${languageList}]]*/;
+	    var tabError = $("#tabError").text();
+	    /*]]>*/
+	</script>
+	<script type="text/javascript" th:inline="text">
+	    var NOT_AN_ACCEPTED_FILE_TYPE = '[[#{message.not.an.accepted.file.type}]]';
+	    var UPLOAD_FILE_FAIL = '[[#{message.error.upload.file}]]';
+		var FILESIZE_IS_BIGGER = '[[#{message.file.size.bigger}]]';
+		var FILENAME_IS_MAX_LENGTH = '[[#{message.file.name.max.length}]]';
+		var MES_SUBMIT_HASNT_FILE = '[[#{message.submit.has.not.file}]]';
+	</script>
+        
+    <script type="text/javascript" th:src="@{/static/cache/js/user-guide/user-guide.js}"></script>
+    
+    <script type="text/javascript">
+		$(document).ready(function() {
+			$('#tabLanguage a').click(function(event) {
+				event.preventDefault();
+				$(this).tab('show');
+			});
+		});
+	</script>
+	
+</body>    
+</html>

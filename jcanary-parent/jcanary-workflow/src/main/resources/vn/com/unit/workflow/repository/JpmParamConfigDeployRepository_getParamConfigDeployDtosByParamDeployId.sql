@@ -1,0 +1,15 @@
+SELECT
+	paramConfig.PROCESS_DEPLOY_ID    	AS PROCESS_DEPLOY_ID
+	, paramConfig.PARAM_DEPLOY_ID      	AS PARAM_DEPLOY_ID
+	, paramConfig.STEP_DEPLOY_ID       	AS STEP_DEPLOY_ID
+	, paramConfig.REQUIRED      		AS REQUIRED
+	, step.STEP_NAME 					AS STEP_NAME
+FROM
+	JPM_PARAM_CONFIG_DEPLOY paramConfig
+LEFT JOIN
+	JPM_STEP_DEPLOY step
+ON 
+	step.ID = paramConfig.STEP_DEPLOY_ID
+	AND step.DELETED_ID = 0
+WHERE
+	paramConfig.PARAM_DEPLOY_ID = /*paramDeployId*/

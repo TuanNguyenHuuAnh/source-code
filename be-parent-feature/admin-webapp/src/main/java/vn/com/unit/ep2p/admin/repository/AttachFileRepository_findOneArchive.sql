@@ -1,0 +1,5 @@
+SELECT 
+	*
+FROM 
+	JCA_ATTACHFILE_AR
+WHERE ID = /*id*/

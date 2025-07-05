@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+	<body th:fragment="content(documentDto)">
+		<div class="row m-0">
+			<div class="header-box">
+				<div class="row">
+					<div class="col-sm-4">
+						<h2 class="title-box" th:text="#{document.versionlist.title}">Danh sách phiên bản</h2>
+					</div> 
+				</div>
+			</div>
+			<div class="table-responsive col-sm-12 no-padding">
+				<table class="table table-bordered table-striped">
+					 
+					<thead>
+						<tr>
+							<th class="u_t_no">#</th>
+							<th class="text-center" th:text="#{document.versionlist.filename}">Header</th>
+							<th class="text-center" th:text="#{document.versionlist.version}">Header</th>
+							<th class="text-center" th:text="#{document.versionlist.currentversion}">Header</th>
+							<th class="text-center" th:text="#{action.label}">Header</th>
+						</tr>
+					</thead>
+					<tbody>
+						<th:block  th:each="version, i : ${documentDto.versions}"  
+								th:with="startIndex=1">
+							<tr th:attr="data-version-id=${version.version}">
+								<td class="text-center" th:text="${i.index + startIndex}"></td>
+								<td th:text="${version.fileName}"></td>
+								
+								<td class="text-center" th:text="${version.version}"></td>
+								
+								<td class="text-center">
+									<input type="checkbox" th:disabled="true" th:id="'ckItem' + ${startIndex}" th:checked="${version.currentVersion}" />
+									<label th:for="'ckItem' + ${startIndex}"></label>
+								</td>
+								
+								<td class="text-center">
+									<a class="btn-common versionDownloadLink" th:if="${documentDto.hasEdit}">
+										<i class="fa fa-download" aria-hidden="true"></i>
+										<span th:text="#{document.versionlist.download}"></span>
+									</a>
+									
+									<a th:if="${version.currentVersion} and ${documentDto.enableSharing}" class="btn-common"  id="shareDownloadLink">
+										<i class="fa fa-share-alt" aria-hidden="true"></i>
+										<span  th:text="#{document.versionlist.share}"> share</span>
+									</a>
+								</td>
+							</tr>
+						</th:block>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>
+

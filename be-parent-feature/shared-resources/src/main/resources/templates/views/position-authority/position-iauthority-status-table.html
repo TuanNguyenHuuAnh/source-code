@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+	<input type="hidden" name="roleId" id="popupRoleId" th:value="${roleId}" />
+	<input type="hidden" name="itemId" id="popupItemId" th:value="${itemId}" />
+	<div class="row unit-bg-table">
+		<div class="table-responsive">
+			<table class="table table-bordered table-hover out-tbl">
+			    <thead>
+			        <tr>
+			            <th class="u_t_no">#</th>
+			            <th class="u_t_code" th:text="#{authority.detail.status}">Status</th>
+			            <th class="u_t_name" th:text="#{authority.detail.process.name}">Process step</th>
+			            <th class="u_t_action" th:text="#{authority.detail.access}">Truy cập</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+			        <th:block th:each="statusAuthorityDto,iterStat : ${statusAuthorityDtoList}">
+			            <tr>
+			                <td  th:text="${iterStat.index + 1}">1.</td>
+			                <td  th:text="${statusAuthorityDto.statusCode}">101</td>
+			                <td  th:text="${#messages.msgOrNull('__${statusAuthorityDto.statusCode}__')} ? #{${statusAuthorityDto.statusCode}} : ${statusAuthorityDto.statusName}">Bước 1</td>
+			                <td  class="text-center">
+			                    <input type="checkbox" class="check-disp"
+			                           th:name="data[__${iterStat.index}__].processStatusId"
+			                           th:value="${statusAuthorityDto.processStatusId}"
+			                           th:checked="${statusAuthorityDto.canAccessFlg}" />
+			                </td>
+			            </tr>
+			        </th:block>
+			    </tbody>
+			</table>
+		</div>
+	</div>
+            		
+	
+</body>
+</html>

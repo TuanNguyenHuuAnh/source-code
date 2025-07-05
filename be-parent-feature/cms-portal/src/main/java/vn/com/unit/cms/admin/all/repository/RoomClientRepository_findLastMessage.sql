@@ -1,0 +1,9 @@
+SELECT
+    MESSAGE
+    , CREATED_DATE
+FROM
+    M_MESSAGE
+WHERE
+    CLIENTID = /*clientid*/
+    AND TYPE = /*type*/
+ORDER BY ID DESC, CREATED_DATE  DESC

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body>	
+	<div class="row main-heading ">
+		<div class="row unit-border-bottom">
+			<div class="col-sm-8">
+				<h3 class="mar-tb-no red" th:text="#{branch.list.page}">Tiêu đề trang</h3>
+			</div>
+			<div class="col-sm-4 align-right ml-auto">
+				<a class="u-btn-head" id="linkList" th:if="${#authorization.expression('hasAuthority(''AB2#S01_BranchList:Disp'')')}">
+					<img th:src="@{/static/icons/icon-back.png}"/>
+					<span th:title="#{icon.back}">Trở lại</span>
+				</a>
+           		<a class="u-btn-head" th:if="${#authorization.expression('hasAuthority(''AB2#S01_BranchEdit:Disp'')')}">
+					<img th:src="@{/static/icons/icon-plus-white.png}"/>
+					<span>Thêm mới</span>
+				</a>
+
+			</div>
+		</div>
+	</div>
+
+	<th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+	<div class="row unit-bg-com"> 		  
+		<form class="form-horizontal j-form-validate" th:object="${branchDto}" method="post" role="form">
+			<h2 class="sub-header" th:text="#{branch.information}">Cập nhật mạng lưới chi nhánh</h2>			                           	
+            <input type="hidden" th:field="*{id}" />	  					
+            <div class="col-xs-12 col-sm-12">
+			 	<div class="form-group" >
+					<label class="col-sm-2 control-label " for="code" th:text="#{branch.code}">Mã công việc</label>
+					<div class="col-sm-10" >
+						<label class="form-control" th:text="${branchDto.code}" > </label>																							
+					</div>
+				</div>
+		        <div class="form-group">
+		            <label for="name" class="col-sm-2 control-label " th:text="#{branch.name}">Tên chi nhánh</label>
+		            <div class="col-sm-10">
+		            	<label class="form-control" th:text="${branchDto.name}" > </label>		                
+		            </div>
+		        </div>
+		        <div class="form-group">
+			        <div class="col-sm-12">
+			            <div class="checkbox">
+			                <label>
+			                    <input type="checkbox" th:field="*{isPrimary}" disabled="disabled" /> <th:block th:text="#{branch.isPrimary}" />
+			                </label>	                
+			            </div>	            
+			        </div>
+			    </div>        
+		        <div class="form-group">
+		            <label for="note" class="col-sm-2 control-label " th:text="#{branch.note}">Ghi chú</label>
+		            <div class="col-sm-10">
+		            	<div class="col-sm-10 panel panel" th:field="*{note}">					            						            							            			            						            		              
+			            </div>			            
+		            </div>
+		        </div>		       
+		        <div class="form-group">
+		            <label for="address" class="col-sm-2 control-label" th:text="#{branch.address}">Địa chỉ</label>
+		            <div class="col-sm-10">
+		                <input th:field="*{address}" type="text" id="pac-input" hidden="hidden" />
+		                <label class="form-control" th:text="${branchDto.address}" > </label>	
+		            </div>
+		        </div>
+				<div class="form-group" >					
+					<div class="col-sm-12" id="map" style="height:480px;"></div>
+				</div>						
+		        <div class="form-group" >
+					<label class="col-sm-2 control-label " >latitude</label>
+					<div class="col-sm-10" >
+						<input type="hidden" class="form-control " id = "latitude" th:field="*{latitude}" />
+						<label class="form-control" th:text="${branchDto.latitude}" > </label>																
+					</div>
+				</div>	
+				<div class="form-group" >
+					<label class="col-sm-2 control-label " >longtitude</label>
+					<div class="col-sm-10" >
+						<input type="hidden" class="form-control " id = "longtitude" th:field="*{longtitude}" />
+						<label class="form-control" th:text="${branchDto.longtitude}" > </label>														
+					</div>
+				</div>	
+				<div class="form-group">
+		            <label for="district" class="col-sm-2 control-label" th:text="#{district.name}">Quận/Huyện</label>
+		            <div class="col-sm-10">
+		                <input th:field="*{district}" type="hidden" id="administrative_area_level_2" />
+		                <label class="form-control" th:text="${branchDto.district}" > </label>
+		            </div>
+		        </div> 
+		        <div class="form-group">
+		            <label for="city" class="col-sm-2 control-label" th:text="#{city.name}">Thành phố</label>
+		            <div class="col-sm-10">
+		                <input th:field="*{city}" type="hidden" id="administrative_area_level_1" />
+		                <label class="form-control" th:text="${branchDto.city}" > </label>
+		            </div>
+		        </div> 			
+			    <div class="form-group">
+		            <label for="type" class="col-sm-2 control-label" th:text="#{branch.type}">Kiểu</label>
+		            <div class="col-sm-10">
+		                <select th:field="*{type}" class="form-control-view" disabled="disabled">
+		                    <option th:each="constantDisplay : ${typeList}" th:value="${constantDisplay.cat}" th:text="#{${constantDisplay.code}}"></option>
+		                </select>		                
+		            </div>		            
+		        </div>
+		        <div class="form-group">
+		        	<label for="type" class="col-sm-2 control-label" th:text="#{branch.icon}">Icon</label>
+		            <div class="col-sm-10">
+			            <div class="icon">
+			                <img id="imgIcon" class="img-circle icon-lg" th:if="*{null != icon  AND icon != ''}" th:src="@{/ajax/download(fileName=*{icon})}"/>
+			                <img id="imgIcon" class="img-circle icon-lg" th:if="*{null == icon OR icon == ''}" th:src="@{/static/images/icon-default.png}"/>
+			                <input type="hidden" name="icon" id="icon"/>
+			                <pre id="imgIconConsole" style="display: none; color: #f30;"></pre>		               
+			            </div>   
+			         </div>         
+		        </div>  
+		        <div class="form-group">
+		            <label for="phone" class="col-sm-2 control-label" th:text="#{branch.phone}">Điện thoại</label>
+		            <div class="col-sm-10">		               
+		                <label class="form-control" th:text="${branchDto.phone}" > </label>
+		            </div>
+		        </div> 
+		        <div class="form-group">
+		            <label for="email" class="col-sm-2 control-label" th:text="#{branch.email}">Email</label>
+		            <div class="col-sm-10">		               
+		                <label class="form-control" th:text="${branchDto.email}" > </label>
+		            </div>
+		        </div> 
+		        <div class="form-group">
+		            <label for="fax" class="col-sm-2 control-label" th:text="#{branch.fax}">Fax</label>
+		            <div class="col-sm-10">		               
+		                <label class="form-control" th:text="${branchDto.fax}" > </label>
+		            </div>
+		        </div>       
+		    </div>			
+		</form>
+	</div>		
+	<script type="text/javascript" th:src="@{/web-app/views/branch/branch-detail.js}"></script>
+	<script type="text/javascript" th:src="@{/static/js/j-google-map-api.js}"></script>
+	<script th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyCs2ue2KZmNdxY_9QCX-hNoELD0l70-g-8&amp;libraries=places&amp;callback=initMap}" type="text/javascript">
+	</script>
+</body>	
+</html>

@@ -1,0 +1,11 @@
+UPDATE
+	JCA_ROLE_FOR_ACCOUNT 
+SET
+	DELETED_ID = /*userLoginId*/
+	, DELETED_DATE = /*sysDate*/
+WHERE 
+	DELETED_ID = 0
+	AND ACCOUNT_ID	 IN /*userId*/
+	AND ID	 IN /*ids*/
+	
+	

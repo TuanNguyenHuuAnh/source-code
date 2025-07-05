@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content(referenceId, reference)" >
+	<th:block th:if="${referenceId != null and referenceId != 0}">
+		<div class="comment-plugin j-comment">
+			<input name="commentReference" type="hidden" id="reference" th:value="${reference}" />
+			<input name="commentReferenceId" type="hidden" id="referenceId" th:value="${referenceId}" />
+			<div class="unit-bg-com clearfix col-sm-12">									
+				<div class="form-group">
+					<div class="col-sm-1" style="padding-top:15px">
+						<img th:if ="${#authentication?.principal?.avatar == null or #authentication?.principal?.avatar==''}" th:src="@{/static/cache/images/avata.png}" class="img-avata-full" alt="" />
+						<img th:unless="${#authentication?.principal?.avatar == null or #authentication?.principal?.avatar==''}" th:src="@{/ajax-file/download(filePath=${#authentication.principal.avatar}, repositoryId=${#authentication.principal.avatarRepoId})}" class="img-avata-full"/>
+					</div>
+					<div class="col-sm-11">
+						<textarea name="comments" class="width_area2 form-control j-comment-content" id="widgetApprovalComment" style="min-height: 70px" maxlength="255"></textarea>
+						<span id="widgetApprovalCommentRequired"></span>
+					</div>
+						
+				</div>
+			</div>			
+			<!-- Comments -->
+			<div class="j-comment-list" th:classappend="${reference +'-' + referenceId}">
+				<!-- <th:block th:include="views/document/document-form-comment-table.html :: content" /> -->			
+			</div>
+			
+			<div class="show_hide_right hidden" id="widgetCommentViewAllComment" style="color: #3097b6;">
+				<i class="widgetCommentToggleLog " style="display: none;"><span>Show summary</span></i> <i class="widgetCommentToggleLog"  isFirstClickComment="true"><span>Show all</span></i>
+			</div>
+
+		</div>
+	</th:block>
+	
+	<!-- <div class="box-header">
+        <h3 class="box-title">Attached file</h3>
+        <div class="pull-right" style="margin-left: 5px">
+			<a class="btn btn-primary" id="import-attached-file" href="#"><i class="glyphicon glyphicon-upload icon-head-red" title="Upload attached file"></i></a>
+		</div>
+	</div>
+    <div id="tableList">
+    	<th:block th:include="views/attached-file-module/attached-file-table.html :: content(${lstAttachedFile},${isShowActionAttachedFile})"/>
+    </div>
+    
+    <th:block th:include="views/attached-file-module/popup-attached-file-upload.html :: content(${businessCode},${refAttachement})" /> -->
+</body>	
+</html>

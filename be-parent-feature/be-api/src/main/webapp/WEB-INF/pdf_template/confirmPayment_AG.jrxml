@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="confirmPayment" pageWidth="555" pageHeight="802" whenNoDataType="BlankPage" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isFloatColumnFooter="true" uuid="ddd5e22f-5a08-4c2b-880b-4c2fab67c7bb">
+	<property name="ireport.zoom" value="2.1435888100000047"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Base" isDefault="true" fontName="Arial" fontSize="9"/>
+	<parameter name="agentCode" class="java.lang.String"/>
+	<parameter name="businessHouseholds" class="java.lang.String"/>
+	<parameter name="note2" class="java.lang.String"/>
+	<parameter name="trained" class="java.lang.String"/>
+	<parameter name="agentType" class="java.lang.String"/>
+	<parameter name="agentName" class="java.lang.String"/>
+	<parameter name="bankAccount" class="java.lang.String"/>
+	<parameter name="taxCode" class="java.lang.String"/>
+	<parameter name="note3" class="java.lang.String"/>
+	<parameter name="bankName" class="java.lang.String"/>
+	<parameter name="path" class="java.lang.String"/>
+	<field name="orderNo" class="java.lang.Integer"/>
+	<field name="detailName" class="java.lang.String"/>
+	<field name="amount" class="java.math.BigDecimal"/>
+	<field name="mainName" class="java.lang.String"/>
+	<variable name="sumAmount" class="java.math.BigDecimal" resetType="Group" resetGroup="GroupMainName" calculation="Sum">
+		<variableExpression><![CDATA[$F{amount}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<group name="GroupMainName" isReprintHeaderOnEachColumn="true">
+		<groupExpression><![CDATA[$F{mainName}]]></groupExpression>
+		<groupFooter>
+			<band height="15">
+				<textField>
+					<reportElement x="40" y="0" width="400" height="15" forecolor="#0000FF" uuid="deabc095-1f6e-4277-8f4c-a1e070a06364"/>
+					<box leftPadding="10">
+						<pen lineColor="#000000"/>
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{mainName}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="440" y="0" width="80" height="15" forecolor="#0000FF" uuid="e408a1d3-580f-4804-9b46-2db5fe3639db"/>
+					<box rightPadding="2">
+						<pen lineColor="#000000"/>
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[NumberFormat.getInstance().format($V{sumAmount})]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="256" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="40" y="107" width="480" height="20" uuid="094301f0-0424-4141-91ee-fff3652b7a13"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BIÊN BẢN NGHIỆM THU HỢP ĐỒNG DỊCH VỤ QUẢN LÝ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="213" width="480" height="15" uuid="9cb04555-fbec-4579-bebf-40ca66baed19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[B. Thù lao Dịch vụ Quản lý (Phí dịch vụ) được chi trả như sau:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="40" y="143" width="480" height="27" uuid="13fd4ffe-38a2-455e-b2d6-3672fbc490f7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- Căn cứ Hợp đồng Dịch vụ Quản lý đã ký giữa CÔNG TY TNHH BẢO HIỂM NHÂN THỌ DAI-ICHI VIỆT NAM (DLVN) và " + $P{businessHouseholds} + " (HKD);"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="170" width="480" height="27" uuid="19c41b39-4a2f-4992-be90-8c5c3018e574">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{note2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="231" width="30" height="25" uuid="d08fe9b4-d2ef-45bf-ac3f-1386b9dd0737">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="467e63f4-4232-48be-9b98-2bc9510e167d"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["STT"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="231" width="370" height="25" uuid="3bd677d2-512c-4ed2-ae6e-c8f414fb45ac">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="467e63f4-4232-48be-9b98-2bc9510e167d"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Chi tiết"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="197" width="480" height="15" uuid="124a0e65-8f33-4a18-be12-d8a40db568cb">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA["A. Thực hiện Đào tạo, Huấn luyện và Tuyển dụng đội ngũ Đại lý Bảo hiểm: " + $P{trained}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="231" width="80" height="25" uuid="e163db0e-7e69-41d6-a46f-728f71c13cef">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="467e63f4-4232-48be-9b98-2bc9510e167d"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Thành tiền (VNĐ)"]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame">
+				<reportElement x="420" y="30" width="85" height="50" uuid="fb57263b-ca38-4e75-8368-19ee101b1b4b">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{path} + "/logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="40" y="0" width="30" height="15" uuid="985cb766-375f-4514-bcb6-cbba2b93794e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="467e63f4-4232-48be-9b98-2bc9510e167d"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{orderNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="0" width="370" height="15" uuid="47a507aa-ff64-4943-9887-9627fd464d07">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="39cb47a6-5917-480a-a452-c8f6c215edc9"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="10" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{detailName}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.##">
+				<reportElement x="440" y="0" width="80" height="15" uuid="dd137ae2-c032-4997-94e5-09c5cda14942">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d6422fe6-662f-4126-9154-a2c07969f690"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="200" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="40" y="7" width="480" height="15" uuid="16588922-b1f6-4c96-b446-f3dfc0dae143"/>
+				<textElement verticalAlignment="Middle">
+					<font isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Ghi chú: Thông tin chi tiết vui lòng truy cập bảng kê hàng tháng sau khi nhận thu nhập cuối tháng.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="54" y="44" width="466" height="15" uuid="2527e1da-07df-41f5-ae4b-52b8461d4d5e"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Mã số thuế: " + $P{taxCode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="54" y="62" width="466" height="15" uuid="670b887d-9cc9-408c-9b49-f6c21419a9cf"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Số TK: " + $P{bankAccount} + " " + $P{bankName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="40" y="88" width="480" height="28" uuid="b540f0b4-db46-434e-b444-d1e471acf1d0"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Bằng việc nhấn nút “Đồng ý”, HKD xác nhận đã thực hiện Hợp đồng quản lý và đồng ý với thông tin phí dịch vụ được cung cấp bởi DLVN.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="41" y="25" width="479" height="15" uuid="94a5db47-7ec1-4c21-ba55-dcda102d8425"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["C. Thông tin Hộ kinh doanh: " + $P{agentCode} + " - " + $P{agentType} + " " + $P{agentName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="116" width="480" height="27" uuid="39508866-333e-4e84-ad46-d4ac9343da94"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="none"/>
+				<textFieldExpression><![CDATA[$P{note3}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

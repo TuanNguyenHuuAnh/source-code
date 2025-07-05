@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<script type="text/javascript" th:src="@{/static/cache/ozsfw80/OZViewerHTML5/OZJSViewer.js}" charset="utf-8"></script>
+<style>
+	body {
+	    padding-bottom: 0px;
+	}
+	
+	.oz-form label {
+		font-weight: normal;
+		font-size: 13px;
+	}
+	
+	.ozviewer {
+	    height: calc(100vh - 110px);
+	    position: fixed;
+    	margin-top: 8px;
+    	width: 100%;
+    	padding: 0 10px;
+	}
+	
+	.oz_ui_view {
+		border: 1px solid;
+		overflow-x: hidden !important;
+	}
+
+	.ui-widget-overlay {
+		z-index : 9001 !important;
+	}
+	/* .ui-dialog {
+		z-index : 9002 !important;
+	} */
+
+	label.oz_ui_layout {
+		display: initial;
+	}
+	
+	img {
+	    vertical-align: unset;
+	}
+	
+	button, input, select, textarea {
+	    font-family: inherit;
+	    font-size: inherit;
+	    line-height: normal;
+	}
+	
+	i.fa-table:before {
+	    content: "\f0f6" !important;
+	}
+	
+	.ozsign_div_content {
+		height: 100% !important;
+		width: 100%!important
+	}
+	
+	.ozsign_div_header {
+		height: 40px!important;
+    	max-height: 40px!important;
+    	
+	}
+	
+	.ozsign_div_content canvas {
+		top: 50px !important;
+	}
+	.modal-dialog .ozviewer{
+		position: static!important
+	}
+	/* .ui-dialog {
+		top: auto !important;
+	    position: fixed!important;
+	    bottom: 100px;
+	} */
+	.doc-title{
+		text-overflow: ellipsis; 
+		white-space: nowrap; 
+		overflow: hidden;
+	}
+	
+	.ozviewer div input {
+		border: none;
+	}
+</style>
+
+<body>
+	<form class="j-form-validate" action="" method="post" id="form-mainfile" autocomplete="off" th:object="${objectDto}">
+		<div class="clearfix form-group">
+		   <!-- <div class="col-sm-6 col-xs-6 no-padding inline-headers">
+				<h4 class="doc-title">
+					<i class="fa fa-table"></i> 
+					<span th:text="#{reports.oz.list.page.name}"></span>:  <span th:text="${objectDto.fileNameView}" th:title="${objectDto.fileNameView}"></span>
+				</h4>
+		   </div> -->
+		   <div class="col-sm-12">
+		       <div class="pull-right icon-head" th:unless="${objectDto.historyId}">
+					<!-- <div class="pull-right">
+						<a id="full-screen">
+		                    <i class="glyphicon glyphicon-fullscreen icon-head-red"></i>
+		                </a>
+		                <a id="normal-screen" style="display: none;">
+		                    <i class="glyphicon glyphicon-resize-small icon-head-red"></i>
+		                </a>
+		               </div> -->
+		               <th:block th:if="${actionPdf} and ${objectDto.id != null}">
+						<label class="btn btn-common">
+		       				<span>
+		               			<i class="glyphicon glyphicon-paperclip" aria-hidden="true"></i>
+		               			<span th:text="#{reports.oz.attach.pdf}" th:title="#{reports.oz.attach.pdf}">Attach PDF</span>
+		               			<input type="file" id="pdf_attachment" class="hide" accept=".pdf" />
+		       				</span>
+		  	 			</label>
+		     	 			
+		 	 			<label class="btn btn-common">
+			   				<span>
+			           			<i class="glyphicon glyphicon-erase" aria-hidden="true"></i>
+			           			<span th:text="#{reports.oz.detach.pdf}" th:title="#{reports.oz.detach.pdf}">Detach PDF</span>
+			           			<input type="button" id="pdf_remove" class="hide" />
+		      				</span>
+		 	 			</label>
+		 	 			</th:block>
+		 	 			<label class="btn btn-common" th:if="${objectDto.id != null}">
+			   				<span>
+			           			<i class="glyphicon glyphicon-download-alt"></i>
+			           			<span th:text="#{reports.oz.download.pdf}" 
+			           				th:title="#{reports.oz.download.pdf}">Download PDF</span>
+			           			<input type="button" id="pdf_download" class="hide" />
+		      				</span>
+			 	 		</label>
+		 	 			
+		 	 			<button type="button" id="btnMainFileSave" class="btn btn-common" th:if="${addMemo} or ${actionPdf}">
+							<i class="fa fa-floppy-o" aria-hidden="true"></i>
+							<span th:text="#{save.button}" th:title="#{save.button}">Save</span>
+						</button>
+				</div>
+
+		   </div>
+	   </div>
+	   <div class="form-group" id="alertDiv">
+			<div id="alert-div">
+				<th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+			</div>
+		</div>
+		
+		<input type="hidden" name="id" th:value="*{id}" />
+		<input type="hidden" name="companyId" th:value="*{companyId}" />
+		<input type="hidden" name="formId" th:value="*{formId}" />	
+		<input type="hidden" name="fileName" th:value="*{fileName}" />	
+		<input type="hidden" name="fileNameView" th:value="*{fileNameView}" />
+		<input type="hidden" name="ecmRepositoryId" th:value="*{ecmRepositoryId}" />
+		<input type="hidden" name="docId" th:value="*{docId}" />
+		<input type="hidden" name="majorVersion" th:value="*{majorVersion}" />
+		<input type="hidden" name="minorVersion" th:value="*{minorVersion}" />
+		<input type="hidden" name="validJson" th:value="*{validJson}" />
+		
+		<!-- Only view -->
+		<!-- <input type="hidden" id="url" name="url" th:value="${url}"/>
+		<input type="hidden" id="mode" name="mode" th:value="${mode}"/> -->
+		
+	<!-- 	<div class="row form-group" style="margin-bottom: 0px;">
+			<div class="bg-content col-sm-12" style="margin-bottom: 0px;">
+				<div class="row">
+					<div class="form-group text-center">
+						<button type="button" class="btn btn-cancel btn-in-table" id="btn-cancel">
+							<i class="fa fa-times"></i>
+							<span th:text="#{cancel.button}">Cancel</span>
+						</button>
+						<button th:unless="${onlyView}" type="button" id="btnMainFileSave" class="btn btn-common">
+							<i class="fa fa-floppy-o" aria-hidden="true"></i>
+							<span th:text="#{save.button}">Save</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div> -->
+	</form>
+	
+	<div class="row form-group" th:object="${objectDto}">
+		<div >
+			<th:block th:include="views/oz-viewer-module/oz-viewer.html :: content(${objectDto.formFileName}, ${objectDto.id}, ${objectDto.isCompleted})" />
+		</div>
+	</div>
+
+	<script type="text/javascript" th:inline="text">
+	    var FORM_ID = '[[${objectDto.formId}]]';
+	    var HISTORY_ID = '[[${objectDto.historyId}]]';
+	    var ADD_MEMO = '[[${addMemo}]]';
+		var FILE_NAME_VIEW = '[[${objectDto.fileNameView}]]';
+	    setTimeout(function() {
+            $('#alertDiv').slideUp("slow");
+        }, 2000);
+	</script>
+	<!-- <script type="text/javascript" th:src="@{/static/cache/js/document/document-detail.js}"></script> -->
+	<script type="text/javascript" th:src="@{/static/cache/js/document/document-view-form.js}"></script>
+</body> 
+</html>
+

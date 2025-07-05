@@ -1,0 +1,18 @@
+
+$(function(){
+	// on click add
+	$("#add").on("click", function(event) {
+		var url = BASE_URL + "office-location/edit";
+		// Redirect to page add
+		ajaxRedirect(url);
+	});
+	
+	//on click list
+	$('#linkList').on('click', function (event) {
+		event.preventDefault();
+		var url = BASE_URL + "office-location/list";
+		// Redirect to page list
+		ajaxRedirect(url);
+	});
+
+});

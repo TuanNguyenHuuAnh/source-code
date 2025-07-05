@@ -1,0 +1,18 @@
+SELECT
+	 item.ID				AS ITEM_ID
+	,item.FUNCTION_CODE
+	,item.FUNCTION_NAME
+	,item.DESCRIPTION
+	,item.FUNCTION_TYPE
+	,item.CREATED_ID
+	,item.CREATED_DATE
+	,item.UPDATED_ID
+	,item.UPDATED_DATE
+	,item.DELETED_ID
+	,item.DELETED_DATE
+	,item.DISPLAY_ORDER
+FROM
+	JCA_ITEM item
+WHERE
+	item.DELETED_ID = 0
+	AND item.ID = /*id*/

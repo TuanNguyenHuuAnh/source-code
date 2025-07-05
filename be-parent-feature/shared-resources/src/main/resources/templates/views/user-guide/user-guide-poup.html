@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+    <form class="form-horizontal u-for-page-top j-form-validate" role="form" id="user-guide-form" method="POST" autocomplete="off" th:object="${userGuideDto}" th:action="@{/}">
+        <div class="bg-content clearfix">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h2 class="title-box" id="status-modal-label" th:text="#{jpm.process.status.information}">Status Information</h2>
+            </div>
+            <div class="modal-body">
+
+                <th:block th:include="views/commons/message-alert.html :: content(${messageList})" />
+
+                <input type="hidden" th:field="*{id}"/>
+                <div class="col-sm-12 p-0 form-group">
+					<div class="col-sm-3 form-group" th:if="${#authentication?.principal?.companyAdmin == true or companyList.size() > 1}">
+						<select class="col-sm-9 form-control select2 select-company" th:field="*{companyId}" >
+							<option value=""></option>
+							<option th:each="company : ${companyList}" 
+									th:value="${company.id}"
+									th:text="${company.text}">	
+							</option>
+						</select>
+					</div>
+
+				</div>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+<!--                            <label class="col-md-3" th:text="#{news.language}">Ngôn ngữ</label>-->
+                            <div class="col-md-offset-3 col-md-9">
+                                <ul class="nav nav-tabs" id="tabStatusLanguage">
+                                    <th:block th:each="language, i : ${languageList}">
+                                        <li role="presentation" th:classappend="${i.index == 0}  ? 'active' : ''" th:id="tabStatusLanguage + ${i.index}"><a
+                                                th:href="'#languageStatus-' + ${language.code}" th:text="${language.name}" data-toggle="tab" aria-expanded="true"></a></li>
+                                    </th:block>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content" style="margin-top: 10px">
+                    <th:block th:each="language, i : ${userGuideDto.listUserGuilde}" th:with="index=${i.index}">
+                        <div th:id="'languageUserGuide-' + ${language.langCode}" class="tab-pane fade " th:classappend="${language.langCode == languageList[0].code}  ? 'in active' : ''">
+                            <input type="hidden" th:field="*{listUserGuilde[__${index}__].id}" />
+                            <input type="hidden" th:field="*{listUserGuilde[__${index}__].langCode}" />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label th:for="*{listUserGuilde[__${index}__].fileName}" class="col-md-3 required" th:text="#{jpm.process.status.name}"></label>
+                                        <div class="col-md-9">
+                                            <input th:field="*{listUserGuilde[__${index}__].fileName}" type="text" class="form-control j-maxlength j-required" data-rule-maxlength="255" maxlength="255"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+                <span class="button">
+                    <a href="#" class="btn btn-cancel" data-dismiss="modal" th:text="#{close.button}">Close</a>
+                </span>
+            <button id="btn-status-submit" class="btn btn-common btn-in-tablet" type="button" th:text="#{save.button}">Save</button>
+            <!--                <a href="#" class="btn btn-common btn-in-tablet" data-dismiss="modal" th:text="#{save.button}">Save</a>-->
+        </div>
+    </form>
+<script type="text/javascript"
+		th:src="@{/static/cache/js/user-guide/user-guide.js}"></script>
+</body>
+
+</html>

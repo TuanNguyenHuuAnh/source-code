@@ -1,0 +1,661 @@
+/*******************************************************************************
+ * Class        ：NewsLanguageSearchDto
+ * Created date ：2017/03/03
+ * Lasted date  ：2017/03/03
+ * Author       ：hand
+ * Change log   ：2017/03/03：01-00 hand create a new
+ ******************************************************************************/
+package vn.com.unit.cms.admin.all.dto;
+
+import java.util.Date;
+
+/**
+ * NewsLanguageSearchDto
+ * 
+ * @version 01-00
+ * @since 01-00
+ * @author hand
+ */
+public class NewsLanguageSearchDto {
+
+	/** id */
+	private Long id;
+
+	/** code */
+	private String code;
+
+	/** name */
+	private String name;
+
+	/** subTitle */
+	private String subTitle;
+
+	/** imageUrl */
+	private String imageUrl;
+
+	/** physicalImg */
+	private String physicalImg;
+
+	/** keyWord */
+	private String keyWord;
+
+	/** headlines */
+	private Long headlines;
+
+	/** enabled */
+	private Long enabled;
+
+	/** title */
+	private String title;
+
+	/** shortContent */
+	private String shortContent;
+
+	/** categoryName */
+	private String categoryName;
+
+	/** typeName */
+	private String typeName;
+
+	/** processId */
+	private Long processId;
+
+	private Long processInstanceId;
+
+	/** status */
+	private Integer status;
+
+	/** description */
+	private String description;
+
+	/** createDate */
+	private Date createDate;
+
+	/** status */
+	private String statusName;
+
+	/** customerTypeName */
+	private String customerTypeName;
+
+	private Long customerId;
+
+	private String productName;
+
+	private String productCategoryName;
+
+	private String productCategorySubName;
+
+	private String createBy;
+
+	private Integer stt;
+
+	private boolean latestNews;
+    
+    private boolean pressRelease;
+    
+    private boolean promotion;
+    
+    private Long beforeId;
+    
+	/**
+	 * Get id
+	 * 
+	 * @return Long
+	 * @author hand
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * Set id
+	 * 
+	 * @param id type Long
+	 * @return
+	 * @author hand
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * Get code
+	 * 
+	 * @return String
+	 * @author hand
+	 */
+	public String getCode() {
+		return code;
+	}
+
+	/**
+	 * Set code
+	 * 
+	 * @param code type String
+	 * @return
+	 * @author hand
+	 */
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	/**
+	 * Get name
+	 * 
+	 * @return String
+	 * @author hand
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * Set name
+	 * 
+	 * @param name type String
+	 * @return
+	 * @author hand
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * Get subTitle
+	 * 
+	 * @return String
+	 * @author hand
+	 */
+	public String getSubTitle() {
+		return subTitle;
+	}
+
+	/**
+	 * Set subTitle
+	 * 
+	 * @param subTitle type String
+	 * @return
+	 * @author hand
+	 */
+	public void setSubTitle(String subTitle) {
+		this.subTitle = subTitle;
+	}
+
+	/**
+	 * Get imageUrl
+	 * 
+	 * @return String
+	 * @author hand
+	 */
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	/**
+	 * Set imageUrl
+	 * 
+	 * @param imageUrl type String
+	 * @return
+	 * @author hand
+	 */
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	/**
+	 * Get keyWord
+	 * 
+	 * @return String
+	 * @author hand
+	 */
+	public String getKeyWord() {
+		return keyWord;
+	}
+
+	/**
+	 * Set keyWord
+	 * 
+	 * @param keyWord type String
+	 * @return
+	 * @author hand
+	 */
+	public void setKeyWord(String keyWord) {
+		this.keyWord = keyWord;
+	}
+
+	/**
+	 * Get headlines
+	 * 
+	 * @return Long
+	 * @author hand
+	 */
+	public Long getHeadlines() {
+		return headlines;
+	}
+
+	/**
+	 * Set headlines
+	 * 
+	 * @param headlines type Long
+	 * @return
+	 * @author hand
+	 */
+	public void setHeadlines(Long headlines) {
+		this.headlines = headlines;
+	}
+
+	/**
+	 * Get enabled
+	 * 
+	 * @return Long
+	 * @author hand
+	 */
+	public Long getEnabled() {
+		return enabled;
+	}
+
+	/**
+	 * Set enabled
+	 * 
+	 * @param enabled type Long
+	 * @return
+	 * @author hand
+	 */
+	public void setEnabled(Long enabled) {
+		this.enabled = enabled;
+	}
+
+	/**
+	 * Get title
+	 * 
+	 * @return String
+	 * @author hand
+	 */
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * Set title
+	 * 
+	 * @param title type String
+	 * @return
+	 * @author hand
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	/**
+	 * Get shortContent
+	 * 
+	 * @return String
+	 * @author hand
+	 */
+	public String getShortContent() {
+		return shortContent;
+	}
+
+	/**
+	 * Set shortContent
+	 * 
+	 * @param shortContent type String
+	 * @return
+	 * @author hand
+	 */
+	public void setShortContent(String shortContent) {
+		this.shortContent = shortContent;
+	}
+
+	/**
+	 * Get categoryName
+	 * 
+	 * @return String
+	 * @author hand
+	 */
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	/**
+	 * Set categoryName
+	 * 
+	 * @param categoryName type String
+	 * @return
+	 * @author hand
+	 */
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	/**
+	 * Get typeName
+	 * 
+	 * @return String
+	 * @author hand
+	 */
+	public String getTypeName() {
+		return typeName;
+	}
+
+	/**
+	 * Set typeName
+	 * 
+	 * @param typeName type String
+	 * @return
+	 * @author hand
+	 */
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
+
+	/**
+	 * Get physicalImg
+	 * 
+	 * @return String
+	 * @author hand
+	 */
+	public String getPhysicalImg() {
+		return physicalImg;
+	}
+
+	/**
+	 * Set physicalImg
+	 * 
+	 * @param physicalImg type String
+	 * @return
+	 * @author hand
+	 */
+	public void setPhysicalImg(String physicalImg) {
+		this.physicalImg = physicalImg;
+	}
+
+	/**
+	 * @return the processId
+	 */
+	public Long getProcessId() {
+		return processId;
+	}
+
+	/**
+	 * @param processId the processId to set
+	 */
+	public void setProcessId(Long processId) {
+		this.processId = processId;
+	}
+
+	/**
+	 * @return the status
+	 */
+	public Integer getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	/**
+	 * Get description
+	 * 
+	 * @return String
+	 * @author hand
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * Set description
+	 * 
+	 * @param description type String
+	 * @return
+	 * @author hand
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	/**
+	 * Get createDate
+	 * 
+	 * @return Date
+	 * @author hand
+	 */
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	/**
+	 * Set createDate
+	 * 
+	 * @param createDate type Date
+	 * @return
+	 * @author hand
+	 */
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	/**
+	 * Get statusName
+	 * 
+	 * @return String
+	 * @author hand
+	 */
+	public String getStatusName() {
+		return statusName;
+	}
+
+	/**
+	 * Set statusName
+	 * 
+	 * @param statusName type String
+	 * @return
+	 * @author hand
+	 */
+	public void setStatusName(String statusName) {
+		this.statusName = statusName;
+	}
+
+	/**
+	 * Get processInstanceId
+	 * 
+	 * @return Long
+	 * @author trieunh <trieunh@unit.com.vn>
+	 */
+	public Long getProcessInstanceId() {
+		return processInstanceId;
+	}
+
+	/**
+	 * Set processInstanceId
+	 * 
+	 * @param processInstanceId type Long
+	 * @return
+	 * @author trieunh <trieunh@unit.com.vn>
+	 */
+	public void setProcessInstanceId(Long processInstanceId) {
+		this.processInstanceId = processInstanceId;
+	}
+
+	/**
+	 * Get customerTypeName
+	 * 
+	 * @return String
+	 * @author hand
+	 */
+	public String getCustomerTypeName() {
+		return customerTypeName;
+	}
+
+	/**
+	 * Set customerTypeName
+	 * 
+	 * @param customerTypeName type String
+	 * @return
+	 * @author hand
+	 */
+	public void setCustomerTypeName(String customerTypeName) {
+		this.customerTypeName = customerTypeName;
+	}
+
+	/**
+	 * Get customerId
+	 * 
+	 * @return Long
+	 * @author taitm
+	 */
+	public Long getCustomerId() {
+		return customerId;
+	}
+
+	/**
+	 * Set customerId
+	 * 
+	 * @param customerId type Long
+	 * @return
+	 * @author taitm
+	 */
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
+	}
+
+	/**
+	 * Get productName
+	 * 
+	 * @return String
+	 * @author taitm
+	 */
+	public String getProductName() {
+		return productName;
+	}
+
+	/**
+	 * Set productName
+	 * 
+	 * @param productName type String
+	 * @return
+	 * @author taitm
+	 */
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	/**
+	 * Get productCategorName
+	 * 
+	 * @return String
+	 * @author taitm
+	 */
+	public String getProductCategoryName() {
+		return productCategoryName;
+	}
+
+	/**
+	 * Set productCategorName
+	 * 
+	 * @param productCategorName type String
+	 * @return
+	 * @author taitm
+	 */
+	public void setProductCategoryName(String productCategoryName) {
+		this.productCategoryName = productCategoryName;
+	}
+
+	/**
+	 * Get productCategorySubName
+	 * 
+	 * @return String
+	 * @author taitm
+	 */
+	public String getProductCategorySubName() {
+		return productCategorySubName;
+	}
+
+	/**
+	 * Set productCategorySubName
+	 * 
+	 * @param productCategorySubName type String
+	 * @return
+	 * @author taitm
+	 */
+	public void setProductCategorySubName(String productCategorySubName) {
+		this.productCategorySubName = productCategorySubName;
+	}
+
+	/**
+	 * @return the createBy
+	 * @author taitm
+	 */
+	public synchronized String getCreateBy() {
+		return createBy;
+	}
+
+	/**
+	 * @param createBy the createBy to set
+	 * @author taitm
+	 */
+	public synchronized void setCreateBy(String createBy) {
+		this.createBy = createBy;
+	}
+
+	/**
+	 * @return the stt
+	 */
+	public Integer getStt() {
+		return stt;
+	}
+
+	/**
+	 * @param stt the stt to set
+	 */
+	public void setStt(Integer stt) {
+		this.stt = stt;
+	}
+
+	public boolean isLatestNews() {
+		return latestNews;
+	}
+
+	public void setLatestNews(boolean latestNews) {
+		this.latestNews = latestNews;
+	}
+
+	public boolean isPressRelease() {
+		return pressRelease;
+	}
+
+	public void setPressRelease(boolean pressRelease) {
+		this.pressRelease = pressRelease;
+	}
+
+	public boolean isPromotion() {
+		return promotion;
+	}
+
+	public void setPromotion(boolean promotion) {
+		this.promotion = promotion;
+	}
+
+	/**
+	 * @return the beforeId
+	 * @author taitm
+	 */
+	public Long getBeforeId() {
+		return beforeId;
+	}
+
+	/**
+	 * @param beforeId
+	 *            the beforeId to set
+	 * @author taitm
+	 */
+	public void setBeforeId(Long beforeId) {
+		this.beforeId = beforeId;
+	}
+
+}

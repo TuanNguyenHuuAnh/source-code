@@ -1,0 +1,14 @@
+footer {
+    padding: 5px 10px!important;
+    position: fixed;
+    z-index: 999;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background: url(../images/bg-footer-fwd.jpg);
+    background-size: 100% 100%;
+    /*background: linear-gradient(127deg, #304e50 81%, #e77723 0%);*/
+}
+footer span {
+    color: #fff;
+}

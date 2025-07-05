@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<script type="text/javascript"
+	th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}" />
+
+<div class="title-head">
+		<div class="row">
+			<div class="col-md-5">
+				<h3>
+					<span th:text="#{sla.page.list.title}">Tiêu đề trang</span>
+				</h3>
+			</div>
+		   	<div class="col-md-7">
+		        <div class="pull-right">
+					 <a class="u-btn u-btn-primary" id = "add">
+		            	<img th:src="@{/static/images/ico-plus-white.png}" alt="" />
+		                <span>Thêm mới</span>
+		             </a>
+		        </div>
+		   </div>
+		</div>	
+	</div>
+
+
+<form class="form-horizontal u-for-page-top j-formSearch"
+	th:object="${searchDto}" method="POST" role="form" id="formSearch">
+
+	<th:block
+		th:include="views/commons/message-alert.html :: content(${messageList})" />
+	<div class="bg-content clearfix">
+		<div data-toggle="collapse" data-target="#search-box"
+			class="header-box">
+			<h2 class="title-box" th:text="#{search.title}">Vùng tìm kiếm</h2>
+			<i class="fa fa-minus pull-right" aria-hidden="true"></i>
+		</div>
+
+
+		<div class="collapse in" id="search-box">
+			<div class="row">
+				<div class="col-md-6 p-0">
+					<!-- <div class="form-group" th:if="${companyList.size()>1}">
+						<label for="companyId" class="col-sm-3 align-top"
+							th:text="#{company.detail}">Company</label>
+						<div class="col-sm-9">
+							<select class="col-sm-9 form-control select2 select-company"
+								id="companyId" name="companyId" th:field="*{companyId}">
+								<option value=""></option>
+								<option th:each="company : ${companyList}"
+									th:value="${company.id}" th:text="${company.name}"></option>
+							</select>
+						</div>
+					</div> -->
+					<div class="form-group" th:if="${companyList.size()>1}">
+						<label for="companyId" class="col-sm-3 align-top" th:text="#{company.detail}">Company</label>
+						<div class="col-sm-9">
+							<select class="col-sm-9 form-control select2 select-company" id="companyId" name="companyId" th:field="*{companyId}">
+								<option th:each="company : ${companyList}" 
+									th:value="${company.id}"
+									th:text="${company.text}">
+								</option>
+							</select>
+						</div>
+					</div>
+					<input type="hidden" th:unless="${companyList.size()>1}" th:field="*{companyId}" />
+					<div class="form-group">
+						<label class="col-sm-3" th:text="#{sla.label.name}">SLA
+							name</label>
+						<div class="col-sm-9"
+							th:classappend="${#fields.hasErrors('name')} ? has-error : ''">
+							<input class="form-control  j-maxlength" type="text"
+								name="name" th:field="*{name}" maxlength="100" id="slaName"
+								autocomplete="off" /> <span class="help-block"
+								th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 p-0">
+					<div class="form-group">
+						<label class="col-sm-3" th:text="#{jpm.process.business.id}">Business</label>
+						<div class="col-sm-9"
+							th:classappend="${#fields.hasErrors('businessId')} ? has-error : ''">
+							<select class="form-control" id="businessId" name="businessId" th:field="*{businessId}">
+								<option value=""></option>
+								<option th:each="i : ${businessList}" th:value="${ i.id }"
+								th:text="${ i.name }" th:selected="${i.id} == *{businessId}"></option>
+							</select>
+						</div>
+					</div>
+					<!-- <input type="hidden" id="companyIdList" name="companyIdList"
+					th:field="*{companyIdList}" /> -->
+					<div class="form-group">
+						<label class="col-sm-3" th:text="#{system.config.jbpm.process}">Process</label>
+						<div class="col-sm-9"
+							th:classappend="${#fields.hasErrors('processDeployId')} ? has-error : ''">
+							<select class="form-control" id="processDeployId" name="processDeployId" th:field="*{processDeployId}">
+								<option value=""></option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row m-0 pos-gr-btn">
+				<button type="submit" class="u-btn u-btn-primary" id="btnSearch">
+				   <i class="fa fa-search"></i>
+				   <span th:text="#{search.button}"></span>
+				</button>
+			</div>
+		</div>
+	</div>
+	<!-- /row -->
+</form>
+<div class="bg-content-tbl" id="tableList">
+	<th:block th:include="views/sla/sla-table.html :: content" />
+</div>
+<script type="text/javascript" th:src="@{/static/cache/js/sla/sla-list.js}"></script>
+
+
+</html>

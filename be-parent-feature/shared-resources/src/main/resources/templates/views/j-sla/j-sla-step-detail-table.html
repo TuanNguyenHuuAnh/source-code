@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<body th:fragment="content">
+	<div class="col-xs-12 col-sm-12">
+		<div class="box box-table">
+			<div class="table-responsive div-scroll-h450">
+				<table id="data" class="table table-bordered table-striped table-hover" style="white-space: nowrap;">
+					<thead>
+						<tr>
+							<th class="no">#</th>
+							<th>Step Code</th>
+							<th>Step Name</th>
+							<th>Step No</th>
+							<th>SLA</th>
+							<th>SLA Type</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody id="tableRowDetailId">
+						<th:block th:if="${serviceLevelAgreementDto.serLevAgrStepDtoList != null}">
+							<th:block th:each="_item,i : ${serviceLevelAgreementDto.serLevAgrStepDtoList}">
+								<tr class="db-click" th:attr="data-sla-step-id=${_item.id}">
+									<td class="hidden"><input type="hidden" th:name="'serLevAgrStepDtoList[' +${i.index} + '].id'" th:value="${_item.id}"
+										th:id="'reminderId'+${i.index}" /> <input type="hidden" th:name="'serLevAgrStepDtoList[' +${i.index} + '].stepId'"
+										th:value="${_item.stepId}" th:id="'stepId'+${i.index}" /> <input type="hidden" th:name="'serLevAgrStepDtoList[' +${i.index} + '].stepCode'"
+										th:value="${_item.stepCode}" th:id="'stepCode'+${i.index}" /> <input type="hidden"
+										th:name="'serLevAgrStepDtoList[' +${i.index} + '].stepName'" th:value="${_item.stepName}" th:id="'stepName'+${i.index}" /> <input
+										type="hidden" th:name="'serLevAgrStepDtoList[' +${i.index} + '].stepNo'" th:value="${_item.stepNo}" th:id="'stepNo'+${i.index}" /></td>
+									<td class="text-center" th:text="${i.index + 1 }"></td>
+									<td class="text-center" th:text="${_item.stepCode}"></td>
+									<td class="text-center" th:text="${_item.stepName}"></td>
+									<td class="text-center" th:text="${_item.stepNo}"></td>
+									<td style="width: 100px;"><input class="form-control" type="number" th:value="${_item.sla}"
+										th:name="'serLevAgrStepDtoList[' +${i.index} + '].sla'" /></td>
+									<td style="width: 200px;"><select class="form-control" th:name="'serLevAgrStepDtoList[' + ${i.index} + '].slaType'">
+											<option th:each="choice : ${slaTypeList}" th:value="${choice.code}" th:text="${choice.catOfficialName}"
+												th:selected="${choice.code == serviceLevelAgreementDto.serLevAgrStepDtoList[__i.index__].slaType}"></option>
+									</select></td>
+									<td class="align-center">
+										<div class="btn-group">
+											<a class="glyphicon glyphicon-edit custom-icon j-stf-edit" title="Update" th:if="${_item.id}"></a> <a
+												class="glyphicon glyphicon-remove-sign font-size-20 red j-stf-delete" title="delete" th:if="${_item.id}"></a>
+										</div>
+									</td>
+								</tr>
+							</th:block>
+						</th:block>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

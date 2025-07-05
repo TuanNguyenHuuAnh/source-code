@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<script type="text/javascript" th:src="@{/static/cache/js/common_unit.js}"></script>
+<script type="text/javascript" th:src="@{/static/cache/jquery/vendor/jquery.ui.widget.js}"></script>
+<script type="text/javascript" th:src="@{/static/cache/js/plupload-2.1.2/plupload.full.min.js}"></script>
+    <body>      
+    	<div class="title-head">
+			<div class="row">
+				<div class="col-md-5">
+					<h3>
+						<span th:text="#{group.management}">Tiêu đề trang</span>
+					</h3>
+				</div>
+			   	<div class="col-md-7">
+			        <div class="pull-right">
+						 <a class="u-btn u-btn-back" id="linkList">
+						 	<img th:src="@{/static/images/icon-down.png}" alt="" width="17px" class="rotate-ico"/>
+						 	<span th:text="#{comeback.button}">Trở lại</span>
+						 </a>
+						 <a class="u-btn u-btn-primary" id = "add">
+			            	<img th:src="@{/static/images/ico-plus-white.png}" alt="" />
+			                <span th:text="#{add.new.button}">Thêm mới</span>
+			             </a>
+			             <a class="btn-save u-btn u-btn-primary btnSave" th:if="${#authorization.expression('hasAuthority(@roleConstant.TEAM_MANAGEMENT)')}"> 
+							<img th:src="@{/static/images/icon-save.png}" alt="" width="19px"/>
+							<span th:text="#{save.button}">Lưu</span>
+						</a>
+			        </div>
+			   </div>
+			</div>	
+		</div>
+        <section class="">
+                    
+            <div class=" clearfix">
+                <form class="form-horizontal u-for-page-top j-form-validate" id="form-team-edit"  method="post" role="form" th:action="@{/}" th:object="${teamDto}">   
+                      
+                    <th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+                            
+                        <input type="hidden" th:field="*{teamId}" />
+                        <input type="hidden" th:unless="${companyList.size()>1}" th:field="*{companyId}" />
+                        <div class="bg-content clearfix">
+	                       <div data-toggle="collapse" data-target="#search-box-1" class="header-box">  
+	                            <h2 class="title-box" th:text="#{account.team.detail.group}">Detail Group</h2>  
+								<i class="fa fa-minus pull-right" aria-hidden="true"></i>  
+	                        </div>  
+	                        <div class="collapse in" id="search-box-1">
+	                            <div class="row">
+	                            	<div class="form-group col-md-6 p-0" th:classappend="${#fields.hasErrors('code')} ? has-error : ''">
+	                                    <label class="col-sm-3 required" for="code" th:text="#{account.team.group.code}" >Group code</label>
+	                                    <div class="col-sm-9 " >
+	                                        <input type ="text" th:field="*{code}" id="code" class="form-control j-required j-maxlength j-code" data-rule-maxlength="125"/>
+	                                        <span class="help-block" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></span>
+	                                    </div>
+	                                </div>     
+	                                <div class="form-group col-md-6 p-0" th:classappend="${#fields.hasErrors('nameAbv')} ? has-error : ''">
+	                                    <label class="col-sm-3 required" for="nameAbv" th:text="#{account.team.group.name}" >Group Name</label>
+	                                    <div class="col-sm-9 " >
+	                                        <input type ="text" th:field="*{nameAbv}" id="nameAbv" class="form-control j-required j-maxlength j-specialCharacters" data-rule-maxlength="255"/>
+	                                        <span class="help-block" th:if="${#fields.hasErrors('nameAbv')}" th:errors="*{nameAbv}"></span>
+	                                    </div>
+	                                </div>
+	                          </div>
+	                          <div class="row">
+	                                <div class="form-group col-md-6 p-0" th:if="${companyList.size()>1}">
+						                <label for="companyId" class="col-sm-3 " th:text="#{company.detail}">Company</label>
+						                <div class="col-sm-9" >
+						                    <select class="form-control select2" th:field="*{companyId}" th:disabled="*{teamId}!=null">
+						                        <option th:each="company : ${companyList}" 
+						                                th:value="${company.id}"
+						                                th:text="${company.text}">
+						                        </option>
+						                    </select>
+						                </div>
+						            </div>
+						            <div th:unless="${companyList.size()>1}">
+						                <input type="hidden" id="companyId" name="companyId" th:value="*{companyId}" />
+						            </div>                                    
+	                                <div class="form-group col-md-6 p-0" th:classappend="${#fields.hasErrors('description')} ? has-error : ''">
+	                                    <label class="col-sm-3" for="nameAbv" th:text="#{account.team.description}">Description</label>
+	                                    <div class="col-sm-9" >
+	                                        <textarea  th:field="*{description}" id="description" class="form-control"></textarea>
+	                                        <span class="help-block" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+	                                    </div>
+	                                </div>
+	                                
+	                            </div>
+	                        </div>             
+	                       <input type="hidden" id="url" name="url" th:value="${url}"></input>
+                      </div>
+                </form>  
+                <div class="bg-content-tbl" th:if="${teamDto.teamId != null}">
+					<div class="row m-0">
+						
+                      	<div class="form-group col-sm-12 no-padding">
+                           <div class="form-group" id ="userList">
+       						<!-- 	 <th:block th:include="views/account-team/account-team-user-list.html :: content" /> -->
+                           </div>
+                          </div>
+                      </div>  
+                   </div> 
+            </div>
+        </section>  
+    </body>
+<script type="text/javascript" th:src="@{/static/cache/js/account-team/account-team-edit.js}"></script> 
+</html> 

@@ -1,0 +1,4 @@
+SELECT * FROM M_EMULATE tbl
+LEFT JOIN M_EMULATE_LANGUAGE tblang
+on(tbl.id = tblang.M_EMULATE_ID)
+WHERE tbl.MEMO_CODE = /*memo*/'L2-239-21/Agency/10082021'

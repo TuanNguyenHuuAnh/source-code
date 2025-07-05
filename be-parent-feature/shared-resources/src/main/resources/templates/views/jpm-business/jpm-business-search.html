@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+    <form class="form-horizontal u-for-page-top j-formSearch" th:object="${searchDto}" method="POST" role="form" id="formSearch">
+        <div class="bg-content clearfix">
+            <div data-toggle="collapse" data-target="#search-box" class="header-box">
+                <h2 class="title-box" th:text="#{search.title}">Vùng tìm kiếm</h2>
+                <i class="fa fa-minus pull-right" aria-hidden="true"></i>
+            </div>
+            <div class="collapse in row m-0" id="search-box">
+                <div class="col-xs-12 col-sm-12 p-0">
+					<div class="col-sm-4 form-group">
+						<input type="text" class="form-control" th:field="*{fieldSearch}" th:placeholder="#{search.key}"/>
+					</div>
+			     	<div class="col-sm-2 form-group">
+						<select th:field="*{fieldValues}" multiple="multiple" class="form-control" id="search-filter">
+							<th:block th:each="item : ${fieldSelect}">
+								<option th:value="${item.value}"
+									th:selected="${searchDto.fieldValues} ? ${#arrays.contains(searchDto.fieldValues,item.value)}: false"   
+									th:text="#{${item.name}}"></option>
+							</th:block>
+						</select>
+			     	</div>
+			     	<div class="col-sm-4 form-group" th:if="${companyList.size()>1}">
+						<label for="companyId" class="col-sm-3 align-top no-padding" th:text="#{company.detail}">Company</label>
+						<div class="col-sm-9">
+							<select class="col-sm-9 form-control select2 select-company" id="companyId" name="companyId" th:field="*{companyId}">
+								<option th:value="0" th:text="#{common.all}"></option>
+								<option th:each="company : ${companyList}" 
+									th:value="${company.id}"
+									th:text="${company.text}">
+								</option>
+							</select>
+						</div>
+					</div>
+					<input type="hidden" th:unless="${companyList.size()>1}" th:field="*{companyId}" />
+			    </div>
+                <div class="row m-0 pos-gr-btn">
+					<button type="submit" class="u-btn u-btn-primary" id="btnSearch">
+				       <i class="fa fa-search"></i>
+				       <span th:text="#{search.button}"></span>
+				   </button>
+				</div>
+            </div>
+        </div>
+</form>
+
+    <script type="text/javascript" th:src="@{/static/cache/js/jpm-business/jpm-business-search.js}"></script>
+</body>
+</html>

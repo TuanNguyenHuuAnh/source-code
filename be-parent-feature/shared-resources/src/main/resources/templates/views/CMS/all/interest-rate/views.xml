@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+	"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+	
+<tiles-definitions>
+	<definition name="interestRate.list" extends="unit">
+    	<put-attribute name="body" value="views/interest-rate/interest-rate-list.html"/>
+  	</definition>
+  	<definition name="interestRate.edit" extends="unit">
+    	<put-attribute name="body" value="views/interest-rate/interest-rate-edit.html"/>
+  	</definition>
+  	<definition name="interestRate.detail" extends="unit">
+    	<put-attribute name="body" value="views/interest-rate/interest-rate-detail.html"/>
+  	</definition>
+  	<definition name="interestRate.table" extends="ajax">
+    	<put-attribute name="body" value="views/interest-rate/interest-rate-table.html"/>
+  	</definition>
+  	<definition name="interestRate.table.history" extends="ajax">
+    	<put-attribute name="body" value="views/interest-rate/interest-rate-table-history.html"/>
+  	</definition>
+  	<definition name="interestRate.add" extends="unit">
+    	<put-attribute name="body" value="views/interest-rate/interest-rate-add.html"/>
+  	</definition>
+  	<definition name="interestRate.history.paging" extends="ajax">
+    	<put-attribute name="body" value="views/interest-rate/interest-rate-table-history-paging.html"/>
+  	</definition>
+  	<definition name="interestRate.expression.edit" extends="unit">
+    	<put-attribute name="body" value="views/interest-rate/interest-rate-expression-edit.html"/>
+  	</definition>
+</tiles-definitions>

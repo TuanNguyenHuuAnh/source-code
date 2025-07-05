@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+	<div class="col-sm-12 p-0">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <th:block th:each ="item,i : ${headerDetails}">
+						<tr>
+							<th class="u_t_no" style="width:30px">#</th>						
+							<th:block th:each ="item2 : ${item.detail}">
+								<th:block th:if="${item2.columnWidth == 0}">
+									<th:block th:if="${item2.isVisible == true}">										
+										<th th:text="${item2.displayName}"  th:rowspan = "${item2.rowSpan}" th:colspan = "${item2.colSpan}"></th>
+									</th:block>	
+								</th:block>
+								<th:block th:unless="${item2.columnWidth == 0}">
+									<th:block th:if="${item2.isVisible == true}">
+										<th th:text="${item2.displayName}" th:style="'width:' + ${item2.columnWidth} + 'px'" th:rowspan = "${item2.rowSpan}" th:colspan = "${item2.colSpan}"></th>
+									</th:block>
+								</th:block>				
+							</th:block>						
+						</tr>
+					</th:block>
+                </thead>
+                <tbody>
+                    <th:block th:if="${pageWrapper.data.size() > 0}" th:each="detail,i : ${pageWrapper.data}" th:with="startIndex=${pageWrapper.startIndexCurrent}">													
+						<tr>
+							<td class="text-center" th:text="${i.index + startIndex}"></td>										
+							<th:block th:each="item : ${detail.detail}">
+								<th:block th:include="views/rpt-master/rpt-master-table-column.html :: content(item=${item})" />																						
+							</th:block>
+						</tr>
+					</th:block>
+                    <th:block th:unless="${pageWrapper.data.size() > 0}">
+                        <tr>
+                            <td colspan="100%" th:text="#{table.emptyTable.label}"></td>
+                        </tr>
+                    </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>        
+    <th:block th:include="views/commons/pagination.html :: content" />
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+			$(function(e){
+				var boxMain = /*[[${boxMain}]]*/;
+				//var boxTableId = /*[[${boxTableId}]]*/;
+				//var CONTROLLER_NAME = $("#"+boxTableId).find('.controllerName').val();
+				var controller = /*[[${rptController}]]*/;
+		    	var functionCode = /*[[${functionCode}]]*/;
+		    	var boxSearch = /*[[${boxSearch}]]*/;
+				var boxTable =  /*[[${boxTable}]]*/;
+				var sessionKey = /*[[${sessionKey}]]*/;
+				
+				$("#" + boxTable).datatables({
+					url : BASE_URL + controller + '/get-data-import',		
+					type : 'POST',
+					setData : setConditionSearch2
+				});
+				
+				function setConditionSearch2() {
+					var condition = {};
+					condition["fieldDatas"] = $("#" + boxMain).find(".inptFieldDatasHidden").val();
+					condition["fieldValues"] = $("#" + boxMain).find(".inptFieldValuesHidden").val();
+					condition["boxTable"] = boxTable;
+					condition["controller"] = controller;
+					condition["functionCode"] = functionCode;
+					condition["sessionKey"] = sessionKey;
+					
+					return condition;
+				}
+				
+				/* // call to agent-change-list.js
+				$("#" + boxTableId).datatables({
+					url : BASE_URL + CONTROLLER_NAME + '/ajaxListForTab',		
+					type : 'POST',
+					setData : setConditionSearch2,
+					boxTableId : boxTableId,
+					boxMain	   : boxMain,
+					"scrollX": true,
+					"autoWidth": true,
+					"scrollCollapse": true,
+					"scrollY": "800px"
+				});
+				// HUNGHT - REM tableHeadFixer
+				/* $("#" + boxTableId).find('table').tableHeadFixer({"head" : false, "left" : 5}); */
+
+				/*function setConditionSearch2() {
+					var condition = {};
+					condition["fieldDatas"] = $("#" + boxMain).find(".inptFieldDatasHidden").val();
+					condition["fieldValues"] = $("#" + boxMain).find(".inptFieldValuesHidden").val();
+					condition["pageSize"] = parseInt($("#" + boxMain).find(".pageSizeHidden").val());	
+					return condition;
+				} */
+			})			
+		/*]]>*/
+	</script>
+</body>
+</html>

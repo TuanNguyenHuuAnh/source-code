@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<body th:fragment="content">
+	<div class="col-xs-12 col-sm-12 p-0">
+		<div class="box box-table">
+			<div class="table-responsive div-scroll-h450">
+				<table id="data" class="table table-bordered table-striped table-hover" style="white-space: nowrap;">
+					<thead>
+						<tr>
+							<th class="no">#</th>
+							<th th:text = "#{j.process.step.name}">Step Name</th>
+							<th th:text = "#{sla.time.label}">SLA</th>
+							<th th:text = "#{sla.type.label}">SLA Type</th>
+							<th th:text = "#{status.common.activated}">Active</th>
+							<th th:text="#{table.label.action}">Action</th>
+						</tr>
+					</thead>
+					<tbody id="tableRowDetailId">
+						<th:block th:if="${slaInfoDto.stepList != null}">
+							<th:block th:each="_item,i : ${slaInfoDto.stepList}">
+								<tr class="db-click" th:attr="data-sla-step-id=${_item.jpmSlaConfigId}">
+									<td class="hidden">
+									<input type="hidden" th:name="'stepList[' +${i.index} + '].id'" th:value="${_item.id}" th:id="'id'+${i.index}" />
+									<input type="hidden" th:name="'stepList[' +${i.index} + '].jpmSlaConfigId'" th:value="${_item.jpmSlaConfigId}" th:id="'jpmSlaConfigId'+${i.index}" /> 
+									<input type="hidden" th:name="'stepList[' +${i.index} + '].stepDeployId'" th:value="${_item.stepDeployId}" th:id="'stepDeployId'+${i.index}" /> 
+									<input type="hidden" th:name="'stepList[' +${i.index} + '].stepDeployCode'" th:value="${_item.stepDeployCode}" th:id="'stepDeployCode'+${i.index}" /> 
+									<input type="hidden" th:name="'stepList[' +${i.index} + '].stepDeployName'" th:value="${_item.stepDeployName}" th:id="'stepDeployName'+${i.index}" /> 
+									<!-- <input type="hidden" th:name="'stepList[' +${i.index} + '].stepNo'" th:value="${_item.stepNo}" th:id="'stepNo'+${i.index}" /> -->
+									<input type="hidden" th:name="'stepList[' +${i.index} + '].businessId'" th:value="${_item.businessId}" th:id="'businessId'+${i.index}" />
+									<input type="hidden" th:name="'stepList[' +${i.index} + '].processDeployId'" th:value="${_item.processDeployId}" th:id="'processDeployId'+${i.index}" />
+									</td>
+									<td class="text-center" th:text="${i.index + 1 }"></td>
+									<td th:text="${_item.stepDeployName}"></td>
+									<td style="width: 100px;">
+									<input class="form-control" type="number" min="0" th:value="${_item.slaDueTime}"
+										th:name="'stepList[' +${i.index} + '].slaDueTime'" readonly="readonly" />
+									</td>
+									<td style="width: 200px;">
+									<select class="form-control" th:name="'stepList[' + ${i.index} + '].slaTimeType'" th:value="${_item.slaTimeType}" disabled="disabled">
+										<option></option>
+										<option th:each="choice : ${slaTypeList}" th:value="${choice.id}" th:text="#{${choice.text}}"
+										th:selected="${#strings.equals(choice.id, #strings.toString(_item.slaTimeType))}"></option>
+									</select>
+									</td>
+									<td class="text-center">
+									<input type="checkBox" disabled="disabled" th:checked="${_item.actived}" th:name="'stepList[' + ${i.index} + '].actived'" />
+									</td>
+									<td class="align-center">
+										<div class="btn-group">
+											<a class="glyphicon glyphicon-edit custom-icon j-stf-edit" title="Update" th:if="${_item.jpmSlaConfigId}"></a> 
+											<a class="glyphicon glyphicon-repeat font-size-20 j-stf-reset" title="reset" th:if="${_item.jpmSlaConfigId} and ${_item.actived}"></a>
+										</div>
+									</td>
+								</tr>
+							</th:block>
+						</th:block>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<body th:fragment="content">
+	<div class="row m-0">
+		<div class="header-box">
+			<h2 class="title-box" th:text="#{search.results.title}">Kết quả
+				tìm kiếm</h2>
+		</div>
+		<div class="">
+			<div class="table-responsive">
+				<table id="data" class="table table-bordered table-striped table-hover">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th th:text="#{table.label.action}">Action</th>
+							<th th:text="#{company.detail}" th:if="${#authentication?.principal?.companyIdList.size()>1 or #authentication?.principal?.companyAdmin}">Company</th>
+							<th th:text="#{quartz.table.job.name}">Job Name</th>
+							<th th:text="#{quartz.table.schedule.name}">Schedule Name</th>
+							<th th:text="#{quartz.field.table.status}">Status</th>
+							<th th:text="#{quartz.field.table.date.create}">Date Create</th>
+							<th th:text="#{quartz.field.table.date.start}">Date Start</th>
+							<!-- <th th:text="#{quartz.field.table.date.end}">Date End</th> -->
+							<th th:text="#{quartz.field.table.description}">Description</th>
+							<th th:text="#{quartz.field.table.error.message}">Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<th:block th:each="jobSchedule, i : ${jobSchedules.data}"
+							th:with="startIndex=${jobSchedules.startIndexCurrent}">
+							<tr align="center"
+								th:attr="data-jobSchedule-id=${jobSchedule.id}">
+								<td class="text-center" th:text="${i.index + startIndex}"></td>
+								<td style="min-width: 140px" align="center" class="text-center">
+									<a class="btn-run" th:title="#{quartz.field.table.immediate}"
+									th:attr="data-id=${jobSchedule.id}"
+									th:if="${#authorization.expression('hasAuthority(@jobConstant.SC1_S02_JOBSCHEDULE)')} and ${jobSchedule.status} != ${T(vn.com.unit.ep2p.admin.schedule.ScheduleTask.JobStatus).RUNNING.getLongValue()}">
+										<span class="fa fa-bolt"></span>
+								</a> <th:block
+										th:if="${jobSchedule.validflag} != ${T(vn.com.unit.quartz.job.enumdef.ValidFlagEnum).DELETED.toLong()}
+												and (${jobSchedule.status} == ${T(vn.com.unit.ep2p.admin.schedule.ScheduleTask.JobStatus).WAITING.getLongValue()}
+												or ${jobSchedule.status} == ${T(vn.com.unit.ep2p.admin.schedule.ScheduleTask.JobStatus).PAUSED.getLongValue()})">
+										&nbsp;
+										<a class="btn-update"
+											th:title="#{quartz.field.table.edit.job}"
+											th:attr="data-id=${jobSchedule.id}" th:if="${#authorization.expression('hasAuthority(@jobConstant.SC1_S02_JOBSCHEDULE)')}">
+											<span class="fa fa-pencil"></span>
+										</a>
+										&nbsp;
+										<a class="btn-resume" th:title="#{quartz.field.table.resume}"
+											th:attr="data-id=${jobSchedule.id}"
+											th:classappend="${jobSchedule.status} == ${T(vn.com.unit.ep2p.admin.schedule.ScheduleTask.JobStatus).WAITING.getLongValue()} ? a-disabled : ''" 
+											th:if="${#authorization.expression('hasAuthority(@jobConstant.SC1_S02_JOBSCHEDULE)')}">
+											<span class="fa fa-play"
+											th:classappend="${jobSchedule.status} == ${T(vn.com.unit.ep2p.admin.schedule.ScheduleTask.JobStatus).WAITING.getLongValue()} ? icon-disabled : ''">
+										</span>
+										</a>
+										&nbsp;
+										<a class="btn-pause" th:title="#{quartz.field.table.pause}"
+											th:attr="data-id=${jobSchedule.id}"
+											th:classappend="${jobSchedule.status} == ${T(vn.com.unit.ep2p.admin.schedule.ScheduleTask.JobStatus).PAUSED.getLongValue()} ? a-disabled : ''" 
+											th:if="${#authorization.expression('hasAuthority(@jobConstant.SC1_S02_JOBSCHEDULE)')}">
+											<span class="fa fa-pause"
+											th:classappend="${jobSchedule.status} == ${T(vn.com.unit.ep2p.admin.schedule.ScheduleTask.JobStatus).PAUSED.getLongValue()} ? icon-disabled : ''">
+										</span>
+										</a>
+										&nbsp;
+									</th:block> <a class="btn-stop"
+									th:title="#{quartz.field.table.delete.job}"
+									th:attr="data-id=${jobSchedule.id}"
+									th:if="${#authorization.expression('hasAuthority(@jobConstant.SC1_S02_JOBSCHEDULE)')} and ${jobSchedule.status} != ${T(vn.com.unit.ep2p.admin.schedule.ScheduleTask.JobStatus).RUNNING.getLongValue()}">
+										<span class="fa fa-trash"></span>
+								</a>
+								</td>
+								
+								<td th:if="${#authentication?.principal?.companyIdList.size()>1 or #authentication?.principal?.companyAdmin}" th:text="${jobSchedule.companyName}"></td>
+								
+								<td align="left" th:text="${jobSchedule.jobName}"></td>
+								
+								<td align="left"
+									th:text="${jobSchedule.schedName} ?: 'Run at ' + ${#dates.format(jobSchedule.startTime, @systemConfig.getConfig('DATE_PATTERN') + ' HH:mm:ss')}"></td>
+								
+								<td align="center"><th:block
+										th:each="item: ${T(vn.com.unit.ep2p.admin.schedule.ScheduleTask.JobStatus).values()}"
+										th:text="${item.toString()}"
+										th:if="${item.getLongValue().toString() == jobSchedule.status}"></th:block>
+								</td>
+								
+								<td align="center" th:text="${#dates.format(jobSchedule.startTime, @systemConfig.getConfig('DATE_PATTERN') + ' HH:mm:ss')}"></td>
+								<td align="center" th:text="${jobSchedule.endTime}"></td>
+								<td align="left" th:text="${jobSchedule.description}"></td>
+								<td align="left" th:text="${jobSchedule.errorMessage}"></td>
+							</tr>
+						</th:block>
+						<th:block th:if="${jobSchedules.data == null or jobSchedules.data.size() == 0}">
+							<tr>
+								<td colspan="100%" th:text="#{table.emptyTable.label}">No
+									data found</td>
+							</tr>
+						</th:block>
+					</tbody>
+				</table>
+			</div>
+			<th:block th:include="views/commons/pagination.html :: content(pageWrapper=${jobSchedules})" />
+		</div>
+
+	</div>
+	<script type="text/javascript"
+		th:src="@{/static/cache/js/job-management/job-schedule-table.js}"></script>
+</body>
+
+</html>

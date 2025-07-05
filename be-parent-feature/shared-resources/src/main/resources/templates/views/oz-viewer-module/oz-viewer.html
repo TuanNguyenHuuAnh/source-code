@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content(formFileName, docId, isCompleted)">
+	
+	<!-- OZ Toto Framework -->
+	<link rel="stylesheet" th:href="@{/static/cache/ozsfw80/OZViewerHTML5/jquery-ui.css}" type="text/css"/>
+	
+	<!-- OZCustom -->
+	<link rel="stylesheet" th:href="@{/static/cache/ozsfw80_custom/OZViewerHTML5/jquery-ui.css}" type="text/css"/>
+	
+	<link rel="stylesheet" th:href="@{/static/cache/ozsfw80/OZViewerHTML5/ui.dynatree.css}" type="text/css"/>
+	<script type="text/javascript" th:src="@{/static/cache/ozsfw80/OZViewerHTML5/jquery.dynatree.js}" charset="utf-8"></script>
+	<script type="text/javascript" th:src="@{/static/js/jquery-ui.min.js}"></script>
+	
+	<div class="oz-viewer-module">
+		<!-- Attach PDF -->
+		<!-- <div class="pull-right icon-head" th:unless="${isCompleted} or ${onlyView}">
+			<div class="pull-right">
+				<a id="full-screen">
+                    <i class="glyphicon glyphicon-fullscreen icon-head-red"></i>
+                </a>
+                <a id="normal-screen" style="display: none;">
+                    <i class="glyphicon glyphicon-resize-small icon-head-red"></i>
+                </a>
+               </div>
+				<label class="btn btn-common">
+       				<span>
+               			<i class="glyphicon glyphicon-paperclip" aria-hidden="true"></i>
+               			<span th:text="#{reports.oz.attach.pdf}">Attach PDF</span>
+               			<input type="file" id="pdf_attachment" class="hide" accept=".pdf" />
+       				</span>
+  	 			</label>
+     	 			
+ 	 			<label class="btn btn-common">
+	   				<span>
+	           			<i class="glyphicon glyphicon-erase" aria-hidden="true"></i>
+	           			<span th:text="#{reports.oz.detach.pdf}">Detach PDF</span>
+	           			<input type="button" id="pdf_remove" class="hide" />
+      				</span>
+ 	 			</label>
+ 	 			
+ 	 			<button type="button" id="btnMainFileSave" class="btn btn-common">
+					<i class="fa fa-floppy-o" aria-hidden="true"></i>
+					<span th:text="#{save.button}">Save</span>
+				</button>
+		</div> -->
+	
+		<div id="OZViewer" class="ozviewer"></div>
+		<script type="text/javascript" th:inline="text">
+			var STATIC_OZJSV = '[[@{/static/cache/ozsfw80/OZViewerHTML5/}]]';
+		    var OZ_DOC_ID = '[[${docId}]]';
+		    var OZ_DOC_FORM_FILE_NAME = '[[${formFileName}]]';
+		</script>
+		<script type="text/javascript" th:inline="javascript">
+         	var INPUT_JSON = [[${inputJson}]];
+		</script>
+	</div>
+	
+	<script type="text/javascript" th:src="@{/static/js/oz-viewer-module/oz-viewer.js}"></script>
+</body>
+</html>

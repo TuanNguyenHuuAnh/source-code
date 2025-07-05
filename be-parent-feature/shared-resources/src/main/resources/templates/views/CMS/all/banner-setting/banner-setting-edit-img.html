@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+	<div class="col-sm-12">
+		<div style="width: 100%">
+			<th:block th:if="${bannerEditDto} != null">
+				<th:block
+					th:if="${bannerEditDto.bannerLanguageList[0].bannerPhysicalImg} != null">
+					<th:block th:if="${bannerEditDto.bannerType == '1'}">
+						<img style="width: 100%;"
+							th:src="@{/cmsAjax/download?fileName=__${bannerEditDto.bannerLanguageList[0].bannerPhysicalImg}__}" />
+					</th:block>
+				</th:block>
+				<!-- <div th:utext="${bannerEditDto.bannerLanguageList[0].bannerTextLeft}"></div> -->
+				<th:block th:if="${bannerEditDto.bannerType != '1'}">
+					<video class="videoContent img_banner" controls="controls" style="width: 800px;"
+						th:if="${bannerEditDto.bannerLanguageList[0].bannerVideoType == 1}">
+						<source
+							th:src="@{/cmsAjax/download?fileName=} + ${bannerEditDto.bannerLanguageList[0].bannerPhysicalVideo}"
+							type="video/mp4" />
+						<source
+							th:src="@{/cmsAjax/download?fileName=} + ${bannerEditDto.bannerLanguageList[0].bannerPhysicalVideo}"
+							type="video/ogg" />
+					</video>
+				</th:block>
+			</th:block>
+			<th:block th:if="${bannerEditDto} == null">
+				<img style="width: 100%;" src="" />
+			</th:block>
+		</div>
+	</div>
+</body>
+</html>

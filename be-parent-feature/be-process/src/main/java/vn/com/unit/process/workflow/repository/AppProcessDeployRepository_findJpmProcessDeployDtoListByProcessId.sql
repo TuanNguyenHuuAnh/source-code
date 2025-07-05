@@ -1,0 +1,13 @@
+SELECT 
+	pro.*
+	, pro.PROCESS_NAME AS NAME
+	, pro.PROCESS_CODE AS CODE
+FROM 
+	JPM_PROCESS_DEPLOY pro
+WHERE  
+	pro.PROCESS_ID = /*processId*/
+    AND pro.DELETED_ID = 0
+	AND CAST(pro.EFFECTIVE_DATE as datetime2) <= CAST(GETDATE() as datetime2)
+ORDER BY pro.EFFECTIVE_DATE DESC
+      , pro.MAJOR_VERSION DESC
+      , pro.MINOR_VERSION DESC

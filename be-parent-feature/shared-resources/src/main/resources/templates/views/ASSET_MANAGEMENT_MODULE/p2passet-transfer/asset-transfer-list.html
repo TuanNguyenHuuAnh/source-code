@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+  <script
+    type="text/javascript"
+    th:src="@{/static/jquery/multiple-select/js/jquery.multiselect.js}"
+  ></script>
+  <script
+    type="text/javascript"
+    th:src="@{/static/plugins/daterangepicker/moment.js}"
+  ></script>
+  <link
+    rel="stylesheet"
+    type="text/css"
+    th:href="@{/static/jquery/multiple-select/css/jquery.multiselect.css}"
+  />
+  <!-- BODY START -->
+  <body>
+    <div class="title-head clearfix">
+      <div class="col-sm-9 col-xs-7 no-padding">
+        <h3><i class="fa fa-table"></i> Asset Transfer</h3>
+      </div>
+      <div class="col-sm-3 col-xs-5 icon-head">
+        <div class="pull-right">
+          <a>
+            <i
+              class="fa fa-plus-circle icon-head-red"
+              id="add"
+              th:title="#{add.button}"
+              th:if="${#authorization.expression('hasAuthority(''__${@roleEp2p.ROLE_ASSET_MANAGEMENT_SUBMIT}__'')')}"
+            ></i
+          ></a>
+        </div>
+      </div>
+    </div>
+    <!-- TITLE AND BUTTON ADD END -->
+    <!-- FORM SEARCH START -->
+
+    <form
+      class="form-horizontal u-for-page-top j-formSearch"
+      method="POST"
+      role="form"
+      th:object="${searchDto}"
+    >
+      <th:block
+        th:include="/views/ASSET_MANAGEMENT_MODULE/commons/message-alert.html :: content(${messageList})"
+      />
+      <!-- SEARCH AREA START-->
+      <div class="bg-content clearfix">
+        <div
+          data-toggle="collapse"
+          data-target="#search-box"
+          class="header-box"
+        >
+          <h5 class="title-box">
+            <span th:text="#{search.title}">Vùng tìm kiếm</span>
+          </h5>
+          <i class="fa fa-minus pull-right" aria-hidden="true"></i>
+        </div>
+        <div class="collapse in row m-0" id="search-box">
+          <div class="col-xs-12 col-sm-12">
+            <div class="form-group">
+              <label class="col-md-2">Transfer No</label>
+              <div class="col-md-4">
+                <input
+                  class="form-control"
+                  type="text"
+                  th:field="*{transferNo}"
+                />
+              </div>
+
+              <label class="col-md-2">Status</label>
+              <div class="col-md-4">
+                <select class="form-control j-required" th:field="*{status}">
+                  <option value="">All</option>
+                  <option
+                    th:each="item : ${lstTransferStatus}"
+                    th:value="${item.cat}"
+                    th:text="${item.catOfficialName}"
+                  ></option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-12">
+            <div class="form-group">
+              <label class="col-md-2">Transfer Date From</label>
+              <div class="col-md-4">
+                <div class="input-group date datepicker">
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="dd/mm/yyyy"
+                    autocomplete="off"
+                    th:field="*{fromDate}"
+                  />
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                </div>
+              </div>
+
+              <label class="col-md-2">Transfer Date To</label>
+              <div class="col-md-4">
+                <div class="input-group date datepicker">
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="dd/mm/yyyy"
+                    autocomplete="off"
+                    th:field="*{toDate}"
+                  />
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-12">
+            <div class="form-group">
+              <label class="col-md-2">From Office Location</label>
+              <div class="col-md-4">
+                <input
+                  type="text"
+                  class="form-control"
+                  th:field="*{fromOfficeLocation}"
+                />
+              </div>
+
+              <label class="col-md-2">To Office Location</label>
+              <div class="col-md-4">
+                <input
+                  type="text"
+                  class="form-control"
+                  th:field="*{toOfficeLocation}"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="collapse" id="search-box-advance">
+            <div class="col-xs-12 col-sm-12">
+              <div class="form-group">
+                <label class="col-md-2">Asset Transfer</label>
+                <div class="col-md-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    th:field="*{assetTransfer}"
+                  />
+                </div>
+
+                <label class="col-md-2">Requester Transfer</label>
+                <div class="col-md-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    th:field="*{requester}"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12">
+              <div class="form-group">
+                <label class="col-md-2">Asset Tag</label>
+                <div class="col-md-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    th:field="*{assetTag}"
+                  />
+                </div>
+
+                <label class="col-md-2">Serial No</label>
+                <div class="col-md-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    th:field="*{serialNo}"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12">
+              <div class="form-group">
+                <label class="col-md-2">Receiver</label>
+                <div class="col-md-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    th:field="*{receiver}"
+                  />
+                </div>
+
+                <label class="col-md-2">Property Of</label>
+                <div class="col-md-4">
+                  <select class="form-control" th:field="*{propertyOf}">
+                    <option
+                      th:if="(!${#authorization.expression('hasAuthority( @roleEp2p.ROLE_ASSET_MANAGEMENT_VIEW_PM )')} and !${#authorization.expression('hasAuthority( @roleEp2p.ROLE_ASSET_MANAGEMENT_VIEW_IT )')})
+                            					or (${#authorization.expression('hasAuthority( @roleEp2p.ROLE_ASSET_MANAGEMENT_VIEW_PM )')} and ${#authorization.expression('hasAuthority( @roleEp2p.ROLE_ASSET_MANAGEMENT_VIEW_IT )')})
+                            					or ${#authorization.expression('hasAuthority( @roleEp2p.ROLE_ASSET_MANAGEMENT_VIEW_ALL )')}"
+                      value=""
+                    >
+                      --
+                    </option>
+                    <option
+                      th:each="item : ${lstPropertyOf}"
+                      th:if="(${#authorization.expression('hasAuthority( @roleEp2p.ROLE_ASSET_MANAGEMENT_VIEW_IT )')} and ${item.cat == 'IT'})
+                                or (${#authorization.expression('hasAuthority( @roleEp2p.ROLE_ASSET_MANAGEMENT_VIEW_PM )')} and ${item.cat == 'PM'})
+                                or (!${#authorization.expression('hasAuthority( @roleEp2p.ROLE_ASSET_MANAGEMENT_VIEW_PM )')} and !${#authorization.expression('hasAuthority( @roleEp2p.ROLE_ASSET_MANAGEMENT_VIEW_IT )')})
+                                or ${#authorization.expression('hasAuthority( @roleEp2p.ROLE_ASSET_MANAGEMENT_VIEW_ALL )')}"
+                      th:value="${item.cat}"
+                      th:text="${item.catOfficialName}"
+                    ></option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div align="center">
+            <div class="position-label col-xs-12 col-sm-12">
+              <a id="btnSearch" class="btn-common">
+                <i class="fa fa-search"></i>
+                <span th:text="#{search.button}">Tìm kiếm</span>
+              </a>
+
+              <div
+                class="pull-right collapse-search"
+                data-toggle="collapse"
+                data-target="#search-box-advance"
+                id="box-advance"
+              >
+                <i class="fa fa-plus" id="iconShow" aria-hidden="true"></i>
+                <span>Advance search</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- SEARCH AREA END -->
+      <!-- TABLE RESULT START -->
+      <div class="bg-content clearfix bg-content-tbl" id="tableList">
+        <th:block
+          th:include="/views/ASSET_MANAGEMENT_MODULE/p2passet-transfer/asset-transfer-table.html :: content"
+        />
+      </div>
+      <!-- TABLE RESULT END -->
+    </form>
+  </body>
+  <!-- BODY END -->
+  <script
+    type="text/javascript"
+    th:src="@{/static/ASSET_MANAGEMENT_MODULE/js/p2passet-transfer/asset-transfer-list.js}"
+  ></script>
+</html>

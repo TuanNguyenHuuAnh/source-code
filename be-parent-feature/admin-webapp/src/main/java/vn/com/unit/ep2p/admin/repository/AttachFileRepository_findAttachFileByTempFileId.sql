@@ -1,0 +1,8 @@
+SELECT
+	*
+FROM
+	JCA_ATTACHFILE item
+WHERE 
+	item.DELETED_ID = 0
+	AND item.TEMP_ATTACH_LIST = /*tempId*/
+	

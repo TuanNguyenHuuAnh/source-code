@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+	<div id="message-client" class="hidden">
+		<div class="alert alert-success alert-dismissible"
+			id="message-client-success">
+			<button aria-hidden="true" class="message-client-hidden close" type="button">×</button>
+			<h4>
+				<i class="icon fa fa-check"></i>
+				<span class="message-client-title" th:text="#{message.title}">Alert</span>
+			</h4>
+			<div class="message-client-content"></div>
+		</div>
+		<div class="alert alert-danger alert-dismissible"
+			id="message-client-error">
+			<button aria-hidden="true" class="message-client-hidden close" type="button">×</button>
+			<h4>
+				<i class="icon fa fa-ban"></i>
+				<span class="message-client-title" th:text="#{message.title}">Alert</span>
+			</h4>
+			<div class="message-client-content"></div>
+		</div>
+		<div class="alert alert-info alert-dismissible"
+			id="message-client-info">
+			<button aria-hidden="true" class="message-client-hidden close" type="button">×</button>
+			<h4>
+				<i class="icon fa fa-info"></i>
+				<span class="message-client-title" th:text="#{message.title}">Alert</span>
+			</h4>
+			<div class="message-client-content"></div>
+		</div>
+		<div class="alert alert-warning alert-dismissible"
+			id="message-client-warning">
+			<button aria-hidden="true" class="message-client-hidden close" type="button">×</button>
+			<h4>
+				<i class="icon fa fa-warning"></i>
+				<span class="message-client-title" th:text="#{message.title}">Alert</span>
+			</h4>
+			<div class="message-client-content"></div>
+		</div>
+	</div>
+	<script type="text/javascript" th:inline="text">
+	    var TITLE_DEFAULT = '[[#{message.title}]]';
+    </script>
+	<script type="text/javascript" th:src="@{/static/js/common/message-alert-client.js}"></script>
+</body>
+</html>

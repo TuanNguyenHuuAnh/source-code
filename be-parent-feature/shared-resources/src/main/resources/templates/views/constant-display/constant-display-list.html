@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<script type="text/javascript" th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+<link rel="stylesheet" type="text/css" th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}" />
+<body th:fragment="content">
+
+	<div class="title-head">
+		<div class="row">
+			<div class="col-md-5">
+				<h3>
+					<i class="fa fa-table"></i>
+					<span th:text="#{const.list.page}">Tiêu đề trang</span>
+				</h3>
+			</div>
+		   	<div class="col-md-7">
+		        <div class="pull-right">
+					 <a class="u-btn u-btn-primary" th:href="@{/constant-display/edit(action=1)}">
+		            	<img th:src="@{/static/images/ico-plus-white.png}" alt="" />
+		                <span>Thêm mới</span>
+		             </a>
+		        </div>
+		   </div>
+		</div>	
+	</div>
+    <form class="u-for-page-top" method="POST" role="form" id="form-list" th:object="${searchDto}">
+        <th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+        <div class="bg-content clearfix">
+            <div data-toggle="collapse" data-target="#search-box" class="header-box">
+                <h2 class="title-box" th:text="#{search.title}">VÃ¹ng tÃ¬m kiáº¿m </h2>
+                <i class="fa fa-minus pull-right" aria-hidden="true"></i>
+            </div>
+            <div class="collapse in" id="search-box">
+                <div class="content-box">
+                    <div class="row form-group align-items-center">
+                    	<label class="col-md-2" th:text="#{const.type}"></label>
+						<div class="col-md-4">
+							<input class="form-control" type="text" th:field="*{groupCode}"/>
+						</div>
+                    	<label class="col-md-2" th:text="#{const.kind}"></label>
+						<div class="col-md-4">
+							<input class="form-control" type="text" th:field="*{kind}"/>
+						</div>
+                    </div>
+                    
+                    <div class="row form-group align-items-center col-12">
+                    	<label class="col-md-2" th:text="#{const.name}"></label>
+						<div class="col-md-4">
+							<input class="form-control" type="text" th:field="*{name}"/>
+						</div>
+                    	<label class="col-md-2" th:text="#{const.code}"></label>
+						<div class="col-md-4">
+							<input class="form-control" type="text" th:field="*{code}"/>
+						</div>
+                    </div>
+
+                    <!-- Button Footer -->
+                    <div class="row m-0 pos-gr-btn">
+                       <button type="button" class="u-btn u-btn-primary" id="btnSearchConstant">
+		                   <i class="fa fa-search"></i>
+		                   <span th:text="#{search.button}"></span>
+		               </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    		<input type="hidden"id="urlSearch"/>
+    
+    <div class="bg-content-tbl" id="constantTableList">
+        <th:block th:include="views/constant-display/constant-display-table.html :: content"/>
+    </div>
+</body>
+</html>

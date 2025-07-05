@@ -1,0 +1,2 @@
+INSERT INTO M_SETTING_CHAT_LANGUAGE(FIELD_CODE, M_LANGUAGE_CODE, FIELD_NAME, LABEL_NAME, PLACEHOLDER_NAME, CREATE_DATE, CREATE_BY)
+VALUES (/*field*/'', /*language*/, /*field_name*/, /*label*/, /*placeHolder*/, CURRENT_DATE, /*username*/);

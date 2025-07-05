@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+	<div class="form-group">
+        <div class="col-12 center">
+            <div class="box-btn-footer" 
+            th:with="showButtonSubmit=${!searchDto.isError()} and ${pageWrapper.countAll > 0} and ${!searchDto.isSubmit()}">
+                <a id="btnCancel" onclick="popupConfirm(MSG_CONFIRM_BACK, (result) => { if (result){ ajaxRedirect(BASE_URL + CONTROLLER_URL.replace('-import', '') + '/list'); } })" class="btn-cancel">
+                    <i class="fa fa-times"></i> <span th:text="#{common.import.btn.cancel}">Cancel</span>
+                </a>
+                <a id="btnSave" th:class="${showButtonSubmit ? '' : 'not-active'} + ' btn-common'">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                    <span th:text="#{common.import.btn.submit}">Submit</span>
+                </a>
+            </div>
+        </div>
+    </div>
+<script th:inline="javascript">
+ /*<![CDATA[*/
+     var MSG_CONFIRM_BACK = /*[[#{common.import.confirm.back}]]*/;
+ /*]]>*/
+</script>
+</body>
+</html>

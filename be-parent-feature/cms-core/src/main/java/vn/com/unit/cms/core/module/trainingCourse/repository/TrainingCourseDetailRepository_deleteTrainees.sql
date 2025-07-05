@@ -1,0 +1,3 @@
+DELETE FROM M_TRAINING_COURSES_DETAIL
+WHERE COURSE_ID = /*courseId*/
+AND isnull(AGENT_CODE,'') + ':' + ID_NUMBER IN /*keys*/()

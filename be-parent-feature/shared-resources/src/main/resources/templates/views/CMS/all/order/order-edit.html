@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{templates/unit-layout}" layout:fragment="body">
+<body>
+
+	<link rel="stylesheet" type="text/css"
+		th:href="@{/static/cache/plugins/jquery-easyui-1.5/easyui.css}" />
+	<link rel="stylesheet" type="text/css"
+		th:href="@{/static/cache/plugins/jquery-easyui-1.5/icon.css}" />
+	<script type="text/javascript"
+		th:src="@{/static/cache/plugins/jquery-easyui-1.5/jquery.easyui.min.js}"></script>
+
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		var LIST_CATEGORY_TYPE = /*[[${listCategoryType}]]*/;
+		var EDIT_DTO = /*[[${editDto}]]*/;
+		var LANGUAGE_LIST = /*[[${languageList}]]*/;
+		var MSG_ERROR_MIN_SIZE_DESKTOP = [[#{message.confirm.upload.image.banner.desktop.error}]];
+		var MSG_ERROR_MIN_SIZE_MOBILE = [[#{message.confirm.upload.image.banner.mobile.new.error}]];
+		var MSG_ERROR_MIN_SIZE_VIDEO = [[#{message.confirm.upload.image.banner.desktop.error}]];
+		var TEXT_DESKTOP = [[#{message.text.image.banner.desktop}]];
+		var TEXT_MOBILE =  [[#{message.text.image.banner.mobile}]];
+		var TEXT_MOBILE_APP =  [[#{message.text.banner.mobileapp}]];
+		
+		var ERROR_FILE_EXTENSTION =  [[#{message.error.file.extention}]];
+		var ERROR_VIDEO_SIZE =  [[#{message.error.video}]];
+		var ERROR_IMG_SIZE_3MB =  [[#{message.error.img}]];
+		var ERROR_IMG_SIZE_1MB=  [[#{message.error.img_1mb}]];
+	    var ERROR_IMG_LENGHT =  [[#{message.error.img.heigh.and.width}]];
+	    var ERROR_SPECIAL_CHARACTERS =  [[#{data.validate.specialCharacters}]];
+		/*]]>*/
+	</script>
+
+	<div class="title-head">
+		<div class="row">
+			<div class="col-md-5">
+				<h3>
+					<span th:text="#{order.edit.title}">Tiêu đề
+						trang</span>
+				</h3>
+			</div>
+			<div class="col-md-7">
+				<div class="pull-right">
+					<a class="u-btn u-btn-back" id="linkList"> <img
+						th:src="@{/static/images/icon-down.png}" alt="" width="17px"
+						class="rotate-ico" /> <span>Trở lại</span>
+					</a> 
+					<!-- <a class="u-btn u-btn-primary" id="addNew"
+						th:if="${editDto.id != null}"> <img
+						th:src="@{/static/images/ico-plus-white.png}" alt="" /> <span>Thêm
+							mới</span>
+					</a> -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<form th:action="@{/banner/edit}" th:object="${editDto}" method="POST"
+		class="form-horizontal u-for-page-top j-form-validate" id="bannerForm">
+		<th:block
+			th:include="views/commons/message-alert.html :: content(${messageList})" />
+
+		<div class="bg-content">
+			<div class="row">
+				<div class="col-md-6 no-padding">
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('code')} ? has-error : ''">
+						<label for="code" class="col-sm-4 col-md-4"
+							>Mã đơn hàng</label>
+						<div class="col-sm-8 col-md-4">
+							<input type="text" th:field="*{code}"
+								class="form-control text-uppercase  j-maxlength"
+								data-rule-maxlength="30" readonly="readonly" /> <span
+								class="help-block" th:if="${#fields.hasErrors('code')}"
+								th:errors="*{code}"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 no-padding">
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('agentCode')} ? has-error : ''">
+						<label for="agentCode" class="col-sm-4 col-md-4"
+							>Mã người mua hàng</label>
+						<div class="col-sm-8 col-md-4">
+							<input type="text" th:field="*{agentCode}"
+								class="form-control text-uppercase  j-maxlength"
+								data-rule-maxlength="30" readonly="readonly" /> <span
+								class="help-block" th:if="${#fields.hasErrors('agentCode')}"
+								th:errors="*{agentCode}"></span>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 no-padding">
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('agentName')} ? has-error : ''">
+						<label for="agentName" class="col-sm-4 col-md-4"
+							>Tên người mua hàng</label>
+						<div class="col-sm-8 col-md-6">
+							<input type="text" th:field="*{agentName}"
+								class="form-control text-uppercase  j-maxlength"
+								data-rule-maxlength="30" readonly="readonly"/> <span
+								class="help-block" th:if="${#fields.hasErrors('agentName')}"
+								th:errors="*{agentCode}"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 no-padding">
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('officeCode')} ? has-error : ''">
+						<label for="officeCode" class="col-sm-4 col-md-4"
+							>Văn phòng/GA</label>
+						<div class="col-sm-8 col-md-8">
+							<input type="text" th:field="*{officeCode}"
+								class="form-control text-uppercase  j-maxlength"
+								data-rule-maxlength="30" readonly="readonly"/> <span
+								class="help-block" th:if="${#fields.hasErrors('officeCode')}"
+								th:errors="*{officeCode}"></span>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 no-padding">
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('phone')} ? has-error : ''">
+						<label for="code" class="col-sm-4 col-md-4"
+							>Số điện thoại</label>
+						<div class="col-sm-8 col-md-4">
+							<input type="text" th:field="*{phone}"
+								class="form-control text-uppercase  j-maxlength"
+								data-rule-maxlength="30" readonly="readonly"/> <span
+								class="help-block" th:if="${#fields.hasErrors('phone')}"
+								th:errors="*{phone}"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-content" style="margin-top: 10px">
+				<th:block th:each="language, i : ${languageList}"
+					th:with="index=${i.index}">
+					<div th:id="language__${index}__" class="tab-pane fade "
+						th:classappend="${index == 0}  ? 'in active' : ''">
+						<div class="row">
+							<label class="lb_language col-sm-4 col-md-3">Ảnh đơn hàng</label>
+							<img th:id="img_banner__${index}__" class="img_banner" style="width: 100%" />
+							<input class="j-required" type="hidden"
+                                                    th:id="physicalImg__${index}__"
+                                                    th:field="*{attachmentPhysicalImg}" />
+						</div>
+						<div class="row">
+							<div class="col-md-6 no-padding">
+								<div class="form-group"
+								th:classappend="${#fields.hasErrors('statusOrder')} ? has-error : ''">
+									<label class="col-sm-4 col-md-4 required" >Trạng thái đơn hàng</label>
+									<div class="col-sm-8 col-md-8">
+										<select class="form-control" th:field="*{statusOrder}"
+										th:data-placeholder="#{banner.device}">
+											<option th:each="obj : ${listStatusOrder}" th:value="${obj.id}"
+											th:text="${obj.name}"
+											th:selected="(${obj.id} == *{statusOrder})"></option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 no-padding">
+								<div class="form-group"
+								th:classappend="${#fields.hasErrors('notes')} ? has-error : ''">
+									<label class="col-sm-4 col-md-4 required" >Diễn giải</label>
+									<div class="col-sm-8 col-md-8">
+										<!-- <input type="text" th:field="*{notes}"
+											class="form-control text-uppercase  j-maxlength"
+											data-rule-maxlength="1000"/> <span
+											class="help-block" th:if="${#fields.hasErrors('notes')}"
+											th:errors="*{notes}"></span> -->
+										<textarea cols="80" rows="3"
+											th:field="*{notes}"
+											id="pac-input"
+											th:placeholder="#{branch.note}"
+											class="form-control j-maxlength required"></textarea>
+											<span class="help-block" th:if="${#fields.hasErrors('notes')}"
+											th:errors="*{notes}"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</th:block>
+			</div>
+
+			<div class="row m-0 pos-gr-btn" th:if="${editDto.hasEdit}">
+
+				<button type="button" class="u-btn u-btn-primary" id="btnSave">
+					<img th:src="@{/static/images/icon-save.png}" alt="" width="19px" />
+					<span th:text="#{save.button}">Lưu</span>
+				</button>
+			</div>
+
+		</div>
+
+		<input type="hidden" th:field="*{id}" /> <input type="hidden"
+			id="url" name="url" th:value="${editDto.url}" /> <input
+			type="hidden" id="requestToken" th:field="*{requestToken}" /> <input
+			type="hidden" th:field="*{referenceType}" /> <input type="hidden"
+			th:field="*{referenceId}" /> <input type="hidden" id="buttonAction"
+			name="buttonAction" /> <input type="hidden" id="fieldSearchHidd" />
+		<input type="hidden" id="fieldValuesHidd" /> <input type="hidden" />
+			<!-- th:field="*{codeSearch}" /> <input type="hidden"
+			th:field="*{nameSearch}" /> <input type="hidden"
+			th:field="*{statusSearch}" /> <input type="hidden"
+			th:field="*{updateDate}" /> <input type="hidden"
+			th:field="*{hasEdit}" /> -->
+	</form>
+
+	<script type="text/javascript"
+		th:src="@{/static/CMS/all/order/order-edit.js}"></script>
+</body>
+</html>
+

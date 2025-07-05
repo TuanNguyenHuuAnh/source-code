@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content(survey)">
+	<th:block th:if="${survey}">
+		<input type="hidden" id="surveyId" name="surveyId"
+			th:field="${survey.surveyId}" />
+		<input type="hidden" id="" name="stepName"
+			th:field="${survey.stepName}" />
+		<input type="hidden" id="actionName" name="actionName"
+			th:field="${survey.actionName}" />
+		<input type="hidden" id="" name="userName"
+			th:field="${survey.userName}" />
+		<input type="hidden" id="executeDate" name="executeDate"
+			th:field="${survey.executeDate}" />
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h2 class="title-box">
+				<span th:text="#{document.filelist.text.edit}">Edit</span>
+			</h2>
+
+			<div id="surveyMessage" class="form-group">
+				<th:block th:include="views/commons/message-alert.html :: content(${messageList})" />
+			</div>
+		</div>
+		<div class="modal-body" style="padding: 0px 15px !important;">
+			<!-- Like form -->
+			<div class="col-xs-12 col-sm-12">
+				<div class="form-group">
+					<label class="col-sm-2 p-0" th:text="#{j.process.step.name}">Step</label>
+					<div class="col-sm-4">
+						<input
+							class="form-control  j-maxlength j-required j-specialCharacters"
+							type="text" name="" th:field="${survey.stepName}" maxlength="500"
+							autocomplete="off" th:disabled="${survey.surveyId}" />
+					</div>
+					<label class="col-sm-2 p-0 required" th:text="#{action.label}">Action</label>
+					<div class="col-sm-4">
+						<!-- <select class="form-control j-required"
+							id="companyId" name="companyId" th:field="${survey.actionName}" th:disabled="!${(survey.executor eq null or survey.executor eq '') and survey.actTaskId eq survey.actParentTaskId}">
+							<option value=""></option>
+							<option th:each="button : ${buttonList}"
+								th:value="${button.id}" th:text="${button.name}"></option>
+						</select> -->
+						<select class="form-control j-required" th:field="${survey.actionId}" 
+							th:disabled="(${survey.executor} ne null and ${survey.executor} ne '') or ${actTaskId} ne ${survey.actTaskParentId}">
+							<option value=""></option>
+							<option th:each="button : ${buttonList}" th:value="${button.id}"
+								th:text="${button.name}"
+								th:selected="${button.id} eq ${survey.actionId}"></option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 p-0" th:text="#{approval.plugin.owner}">Owner</label>
+					<div class="col-sm-4">
+						<input
+							class="form-control  j-maxlength j-required j-specialCharacters"
+							type="text" name="" th:field="${survey.userName}" maxlength="500"
+							autocomplete="off" th:disabled="${survey.surveyId}" />
+					</div>
+					<label class="col-sm-2 p-0"
+						th:text="#{j.process.step.survey.executor.label}">Executor</label>
+					<div class="col-sm-4">
+						<input
+							class="form-control  j-maxlength j-required j-specialCharacters"
+							type="text" name="executor" th:field="${survey.executor}"
+							maxlength="500" autocomplete="off" th:disabled="${survey.surveyId}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 p-0" th:text="#{comment.title}">Comment</label>
+					<div class="col-sm-10">
+						<textarea class="form-control padding-left-0"
+							name="commentContent" th:field="${survey.commentContent}"
+							maxlength="1500" autocomplete="off"
+							th:disabled="(${survey.executor} ne null and ${survey.executor} ne '') or ${actTaskId} ne ${survey.actTaskParentId}"></textarea>
+					</div>
+				</div>
+			</div>
+			<!-- <div class="col-xs-12 col-sm-12">
+				<div class="form-group">
+					<label class="col-sm-2"
+						th:text="#{j.process.step.survey.opinion.label}">Opinion</label>
+					<div class="col-sm-10">
+						<textarea class="form-control col-xs-12 col-sm-12" name="opinion"
+							th:field="${survey.opinion}" maxlength="1500" autocomplete="off"></textarea>
+					</div>
+				</div>
+			</div> -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-common" data-dismiss="modal">
+					<span th:text="#{close.button}">Thoát</span>
+				</button>
+				<button type="button" id="btnSurvey"
+					class="btn-survey-confirm btn btn-common" th:if="(${survey.executor} eq null or ${survey.executor} eq '') and ${actTaskId} eq ${survey.actTaskParentId}">
+					<span th:text="#{save.button}">Save</span>
+				</button>
+			</div>
+		</div>
+	</th:block>
+</body>
+</html>

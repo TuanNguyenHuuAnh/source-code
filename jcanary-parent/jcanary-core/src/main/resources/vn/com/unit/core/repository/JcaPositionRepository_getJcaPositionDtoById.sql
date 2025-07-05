@@ -1,0 +1,29 @@
+SELECT
+	  pos.ID						AS ID		
+	, pos_path.ANCESTOR_ID			AS POSITION_PARENT_ID		
+	, pos.ID						AS POSITION_ID		
+	, pos.NAME						AS NAME
+	, pos.NAME_ABV					AS NAME_ABV
+	, pos.DESCRIPTION				AS DESCRIPTION
+	, pos.ACTIVED					AS ACTIVED
+	, pos.CODE						AS CODE
+	, pos.COMPANY_ID				AS COMPANY_ID
+	, pos.CREATED_ID				AS CREATED_ID
+	, pos.CREATED_DATE				AS CREATED_DATE
+  , com.NAME as   COMPANY_NAME
+FROM
+	JCA_POSITION pos 
+JOIN
+	JCA_POSITION_PATH pos_path
+ON
+
+   pos_path.DESCENDANT_ID = pos.ID
+	AND pos_path.DEPTH = 1
+	AND pos.DELETED_ID = 0
+  JOIN
+  JCA_COMPANY com
+  ON 
+   com.ID = pos.COMPANY_ID
+WHERE
+	pos.DELETED_ID = 0	
+	AND pos.ID = /*id*/

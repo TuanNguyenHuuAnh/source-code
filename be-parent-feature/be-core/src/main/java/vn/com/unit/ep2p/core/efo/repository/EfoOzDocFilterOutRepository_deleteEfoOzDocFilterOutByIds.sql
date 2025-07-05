@@ -1,0 +1,4 @@
+DELETE 
+	EFO_OZ_DOC_FILTER_IN
+WHERE
+	ID IN /*ids*/()

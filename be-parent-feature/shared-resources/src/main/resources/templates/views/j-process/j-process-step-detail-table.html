@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<body th:fragment="content">
+	<div class="col-xs-12 col-sm-12 no-padding">
+		<div class="box box-table no-shadow">
+			<div class="box-body no-padding">
+
+				<div class="table-responsive div-scroll-h450">
+					<table id="data" class="table table-bordered table-hover out-tbl">
+						<thead>
+							<tr>
+								<th class="no index">#</th>
+								<th class="min-wd-30" th:text="#{j.process.step.no}">Step no</th>
+								<th class="min-wd-150" th:text="#{j.process.step.name}">Step name</th>
+								<th class="min-wd-150" th:text="#{j.process.step.status}">Status</th>
+								<th class="min-wd-50" th:text="#{j.process.step.auto.check}">Auto check</th>
+								<!-- 								<th class="min-wd-200">Code</th> -->
+								<!-- 								<th class="min-wd-150">Name</th> -->
+								<th class="min-wd-200" th:text="#{j.process.step.button}">Button</th>
+								<th class="min-wd-30" th:text="#{j.process.step.save}">Is save</th>
+								<th class="min-wd-30" th:text="#{j.process.step.partial}">Is partial</th>
+								<th class="min-wd-30" th:text="#{j.process.step.check.condition}">Is check condition</th>
+								<th class="min-wd-30" th:text="#{j.process.step.condition}">Condition</th>
+								<th class="min-wd-30" th:text="#{j.process.step.no.true}">Step no if true</th>
+								<th class="min-wd-30" th:text="#{j.process.step.no.false}">Step no if false</th>
+								<!-- <th>Step no if reject</th> -->
+								<th class="min-wd-150">
+									<span th:text="#{j.process.step.function.permission}"></span>
+									<div class="btn-group">
+										<a class="glyphicon glyphicon glyphicon-plus-sign font-size-20" style="color: #c0972d;" th:title="#{item.management.add}" th:id="${!isShowActionStep ? '1':'add-role-item'}" th:disabled="${!isShowActionStep}"></a>
+									</div>
+								</th>
+								<th class="min-wd-50" th:text="#{action.label}">Action</th>
+							</tr>
+						</thead>
+						<tbody id="tableRowDetailId" class="">
+							<th:block th:if="${processDto.lstSteps!= null}">
+
+								<th:block th:each="_item,i : ${processDto.lstSteps}">
+
+									<tr class="db-click" th:attr="data-process-step-id=${i.index}">
+
+										<td class="hidden">
+											<input type="hidden" th:name="'lstSteps[' +${i.index} + '].id'" th:value="${_item.id}" th:id="'stepId'+${i.index}" />
+											<input type="hidden" th:name="'lstSteps[' +${i.index} + '].hasDisabled'" th:value="${_item.hasDisabled}" />
+											<input type="hidden" th:name="'lstSteps[' +${i.index} + '].hasButtonDisabled'" th:value="${_item.hasButtonDisabled}" />
+										</td>
+	
+										<td class="text-center index " th:text="${i.index + 1 }"></td>
+
+										<td><input class="form-control same-step" type="number" th:value="${_item.stepNo}" th:name="'lstSteps[' +${i.index} + '].stepNo'"
+											th:readOnly="${_item.hasDisabled}" th:disabled="${!isShowActionStep}"/></td>
+											
+										<td><textarea class="form-control same-step-name" style="resize: vertical;" th:text="${_item.name}"
+											th:name="'lstSteps[' +${i.index} + '].name'" maxlength="255" th:readOnly="${_item.hasDisabled}"
+											th:disabled="${!isShowActionStep}"></textarea></td>
+										
+										<td><select class="form-control" th:classappend="${ _item.hasDisabled ? '':'same-status'}" th:name="'lstSteps[' + ${i.index} + '].status'"
+											th:disabled="${!isShowActionStep or _item.hasDisabled}">
+												<option th:each="choice : ${lstStepStatus}" th:value="${choice.value}" th:text="${choice.name}"
+													th:selected="${choice.value == processDto.lstSteps[__i.index__].status}"></option>
+										</select><input class="same-status" type="hidden" th:name="'lstSteps[' +${i.index} + '].status'" th:if="${_item.hasDisabled}" th:value="${_item.status}" /></td>
+										
+										<td class="text-center"><input type="checkBox" th:class="${!isShowActionStep ? '':'check-access is-auto'}"  th:checked="${_item.isAuto}"
+											th:name="'lstSteps[' +${i.index} + '].isAuto'" th:if="${!_item.hasDisabled}" th:disabled="${!isShowActionStep}"/></td>
+
+										<!-- 										<td><input type="text" class="form-control text-center" th:name="'lstSteps[' +${i.index} + '].code'" th:value="${_item.code}" th:readOnly="${_item.hasDisabled}"/></td> -->
+
+										<!-- 										<td><input type="text" class="form-control text-center" th:name="'lstSteps[' +${i.index} + '].name'" th:value="${_item.name}" th:readOnly="${_item.hasDisabled}"/></td> -->
+
+
+
+										<td><select class="form-control step-button" th:name="'lstSteps[' + ${i.index} + '].buttonId'" th:disabled="${!isShowActionStep}"
+											th:if="${!_item.hasButtonDisabled}" >
+												<option value=""></option>
+												<th:block th:each="choice : ${lstHTMLObject}">
+													<option th:value="${choice.htmlId}" th:text="${choice.htmlText}"
+														th:selected="${#strings.contains(#strings.isEmpty(_item.buttonId)?'':_item.buttonId,choice.htmlId)}"></option>
+												</th:block>
+										</select></td>
+										
+										<td class="text-center"><input type="checkBox" class="is-save" th:checked="${_item.isSave}"
+											th:name="'lstSteps[' +${i.index} + '].isSave'" th:if="${!_item.hasButtonDisabled}" th:disabled="${!isShowActionStep}"/></td>
+											
+										<td class="text-center"><input type="checkBox" class="is-partial" th:checked="${_item.isPartial}"
+											th:name="'lstSteps[' +${i.index} + '].isPartial'" th:if="${!_item.hasButtonDisabled}" th:disabled="${!isShowActionStep}"/></td>
+											
+										<td class="text-center"><input type="checkBox" class="check-condition" th:checked="${_item.checkCondition}"
+											th:name="'lstSteps[' +${i.index} + '].checkCondition'" th:if="${!_item.hasButtonDisabled}" th:disabled="${!isShowActionStep}"/></td>
+
+										<td class="text-center"><button class="btn btn-common btn-in-table fa fa-edit"
+											th:onclick="'event.preventDefault(); editCondition('+${_item.conditionId}+','+${i.index}+');'" th:if="${!_item.hasButtonDisabled}"></button> <input type="hidden" class="condition-hidden"
+											th:name="'lstSteps[' +${i.index} + '].conditionId'" th:value="${_item.conditionId}" th:id="'conditionId'+${i.index}" /></td>
+
+										<td><input class="form-control" type="number" th:value="${_item.conditionTrueStep}"
+											th:name="'lstSteps[' +${i.index} + '].conditionTrueStep'" th:placeholder="#{j.process.step.min.step.no}" th:if="${_item.stepNo != 99 and _item.stepNo != 100}" th:disabled="${!isShowActionStep}"/></td>
+
+										<td><input class="form-control" type="number" th:value="${_item.conditionFalseStep}"
+											th:name="'lstSteps[' +${i.index} + '].conditionFalseStep'" th:if="${!_item.hasButtonDisabled}" th:disabled="${!isShowActionStep}"/></td>
+
+										<!-- <td>
+											<input class="form-control" type="number" th:value="${_item.rejectStep}"
+												th:name="'lstSteps[' +${i.index} + '].rejectStep'" />
+										</td> -->
+
+										<td>
+											<div style="width: 200px;">
+												<select th:name="'lstSteps[' + ${i.index} + '].items'" class="form-control" th:classappend="${!isShowActionStep ? '':'item-permission'}" th:if="${!_item.hasButtonDisabled}" th:disabled="${!isShowActionStep}">
+													<option value=""></option>
+													<th:block th:each="item : ${lstItem}">
+														<option th:value="${item.functionCode}" th:text="${item.functionName}"
+															th:selected="${#strings.contains(#strings.isEmpty(_item.items)?'':_item.items,item.functionCode)}"></option>
+													</th:block>
+												</select>
+
+											</div>
+										</td>
+										
+										<td class="text-center">
+											<div class="btn-group" th:if="${!_item.hasDisabled}">
+												<a th:if="${isShowActionStep}" class="glyphicon glyphicon-remove-sign font-size-20 red j-stf-delete" title="delete"></a>
+											</div>
+										</td>
+									</tr>
+								</th:block>
+							</th:block>
+						</tbody>
+					</table>
+				</div>
+				<p class="text-note">
+					<b th:text="#{j.process.step.note}">Note:</b> &nbsp; &nbsp;
+					<i>
+						<span th:text="#{j.process.step.note.0}"></span>
+						&nbsp;
+						<span th:text="#{j.process.step.0.name}"></span>
+						<span> - </span>
+						
+						<span th:text="#{j.process.step.note.99}"></span>
+						&nbsp;
+						<span th:text="#{j.process.step.99.name}"></span>
+						<span> - </span>
+						<span th:text="#{j.process.step.note.100}"></span>
+						&nbsp;
+						<span th:text="#{j.process.step.100.name}"></span>
+					</i>
+				</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

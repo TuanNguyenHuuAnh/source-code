@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+
+<div class="title-head clearfix">
+	<div class="col-sm-9 col-xs-7 no-padding">
+		<h3><i class="fa fa-table"></i> <span th:text="#{position.page}">Tổ chức</span></h3>
+	</div>
+	<div class="col-sm-3 col-xs-5 icon-head">
+        <div class="pull-right"></div>
+     </div>
+</div>
+<input type="hidden" id="id-current-org-id" />
+<input type="hidden" id="parent-org-id" />
+<div class="clearfix">
+	<div class="col-sm-3 placeholders bg-content">
+		<div class="unit-menu-tree">
+			<div id="id-box-org-tree">
+				<div class="unit-tree height-tree">
+					<ul id="id-organization-tree" class="easyui-tree"></ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-sm-9 col-right-tree">
+		<div id="id-box-org-detail">
+			<!-- Load from Ajax
+			th:block th:include="views/organization/organization-detail.html :: content" -->
+		</div>
+		
+	</div>
+</div>
+
+<!-- EasyUI - Multiple component support -->
+<link rel="stylesheet" type="text/css" th:href="@{/static/cache/plugins/jquery-easyui-1.5/easyui.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/static/cache/plugins/jquery-easyui-1.5/icon.css}" />
+<script type="text/javascript" id="script-easyui" th:src="@{/static/cache/plugins/jquery-easyui-1.5/jquery.easyui.min.js}"></script> 
+
+<link rel="stylesheet" type="text/css" th:href="@{/static/cache/plugins/datepicker/css/bootstrap-datepicker.css}"/>
+<script type="text/javascript" th:src="@{/static/cache/plugins/datepicker/js/bootstrap-datepicker.js}"></script>
+<script type="text/javascript" th:src="@{/static/cache/jquery/vendor/jquery.ui.widget.js}"></script>
+<script type="text/javascript" th:src="@{/static/cache/js/position-tree/position-main.js}"></script>
+</html>

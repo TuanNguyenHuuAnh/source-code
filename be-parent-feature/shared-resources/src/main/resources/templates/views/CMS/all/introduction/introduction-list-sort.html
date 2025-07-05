@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <link
+    rel="stylesheet"
+    type="text/css"
+    th:href="@{/static/jquery/row-sorter/style/row-sorter.css}"
+  />
+  <script
+    type="text/javascript"
+    th:src="@{/static/jquery/row-sorter/row-sorter.js}"
+  ></script>
+  <script type="text/javascript" th:src="@{/static/js/common_unit.js}"></script>
+  <body>
+    <div class="row main-heading">
+      <div class="row unit-border-bottom">
+        <div class="col-sm-8 col-xs-6">
+          <h3 class="mar-tb-no red" th:text="#{introduction.commontitle}">
+            Tiêu đề trang
+          </h3>
+        </div>
+        <div class="col-sm-4 col-xs-6 align-right ml-auto">
+          <a class="u-btn-head" id="linkList">
+            <img th:src="@{/static/icons/icon-back.png}" />
+            <span th:title="#{icon.back}">Trở lại</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <form
+      class="form-horizontal u-for-page-top j-formSearch"
+      th:action="@{/introduction/list}"
+      th:object="${introductionDto}"
+      method="POST"
+      role="form"
+    >
+      <th:block
+        th:include="views/commons/message-alert.html :: content(${messageList})"
+      />
+      <div class="row unit-bg-com">
+        <div class="header-box">
+          <h2 class="sub-header section-heading" th:text="#{search.title}">
+            Vùng tìm kiếm
+          </h2>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group col-md-6 no-padding">
+            <label
+              class="col-sm-4 control-label"
+              th:text="#{introduction.category.list}"
+              >Danh mục</label
+            >
+            <div class="col-md-8 col-sm-8">
+              <select
+                class="form-control j-required"
+                id="categoryId"
+                th:field="*{categoryId}"
+              >
+                <th:block th:each="item : ${listIntroductionCatgoryDto}">
+                  <option
+                    th:value="${item.id}"
+                    th:text="${item.title}"
+                    th:selected="${item.id} == *{categoryId}"
+                  ></option>
+                </th:block>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="row unit-bg-table" id="tableList">
+      <th:block
+        th:include="views/introduction/introduction-table-sort.html :: content"
+      />
+    </div>
+    <input type="hidden" id="url" th:value="${pageUrl}" />
+
+    <div class="col-xs-12 col-sm-12 unit-button">
+      <button
+        id="btnSave"
+        type="button"
+        class="btn-common"
+        th:if="${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.BUTTON_INTRODUCTION_EDIT}__:Edit'')')}"
+      >
+        <i class="fa fa-save"></i> <span th:text="#{save.button}">Lưu</span>
+      </button>
+    </div>
+  </body>
+</html>

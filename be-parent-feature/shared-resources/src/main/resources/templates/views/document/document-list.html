@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<head>
+    <script type="text/javascript" th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}" />
+</head>
+<body>
+    <div class="title-head clearfix">
+        <div class="col-sm-9 col-xs-7 no-padding">
+            <h3>
+                <i class="fa fa-table"></i>
+                <span th:text="#{doc.list.page.name}">Page name</span>
+            </h3>
+        </div>
+<!--         <div class="col-sm-3 col-xs-5 icon-head">
+           <div class="pull-right">
+               <a id="btnCreate" th:if="${#authorization.expression('hasAuthority(@roleConstant.MY_DOCUMENTS)')}" th:style="${search.formId == null}  ? 'display: none;' : ''">
+                    <i class="fa fa-plus-circle icon-head-red"></i>
+                </a>
+            </div>
+        </div> -->
+    </div>
+    <div id="frmSearch">
+        <div id="error-message">
+        	<th:block th:include="views/commons/message-alert.html :: content(${messageList})" />
+        </div>     
+        <th:block th:include="views/document/document-search.html :: content" />
+    </div>
+    <div class="bg-content clearfix bg-content-tbl" id="tableList">
+        <th:block th:include="views/document/document-table.html :: content(${sortWrapper})" />
+    </div>
+
+	<div id="popupProcessHistory"></div>
+    <script type="text/javascript" th:src="@{/static/cache/js/document/document-list.js}"></script>
+</body>
+</html>

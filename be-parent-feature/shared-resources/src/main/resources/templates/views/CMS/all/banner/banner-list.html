@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+
+	<script type="text/javascript">
+		var C_NAME = "BANNER_SEARCH";
+	 	var DATE_FORMATE_TYPE = "FULL_DATE";
+	    var SEARCH_DTO = [[${searchDto}]];
+	</script>
+	<div class="title-head">
+		<div class="row">
+			<div class="col-md-5">
+				<h3>
+					<span th:text="#{banner.list.title}">Tiêu đề trang</span>
+				</h3>
+			</div>
+		   	<div class="col-md-7">
+		        <div class="pull-right">
+					 <a class="u-btn u-btn-primary" id="addNew" title="Add" th:if="${hasRoleForEdit}">
+		            	<img th:src="@{/static/images/ico-plus-white.png}" alt="" />
+		                <span>Thêm</span>
+		             </a>
+		        </div>
+		   </div>
+		</div>	
+	</div>
+
+	<form class="u-for-page-top" th:object="${searchDto}" method="POST" role="form">
+		
+		<th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+		
+		<!-- <div class="row unit-bg-com"> -->
+		<div class="clearfix">
+            <th:block th:include="/views/commons/common-search-filter.html :: content(${listSearchFilter})"/>
+		</div>
+	</form>
+
+	<div class="bg-content-tbl" id="tableList">
+		<th:block th:include="views/CMS/all/banner/banner-table.html :: content"/>
+	</div>
+
+	<input type="hidden" id="fieldSearchHidd"/>
+	<input type="hidden" id="fieldValuesHidd"/>
+	<input type="hidden" id="conditionHidd" value="{}"/>
+	<input type="hidden" id="url" name="url" th:value="${searchDto.url}"/>
+	<input type="hidden"id="urlSearch"/>
+	<script  type="text/javascript" th:src="@{/static/js/flv.min.js}"></script>
+</html>

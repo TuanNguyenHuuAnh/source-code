@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+<div class="row m-0">
+	<div class="header-box">
+    	<h2 class="title-box" th:text="#{search.results.title}">Kết quả tìm kiếm</h2>
+    </div>
+    <div class="table-responsive">
+        <table id="tblDataTable" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th style="text-align:center" >#</th>
+                <th style="text-align:center" th:text="#{const.action}">Action</th>
+                <th style="text-align:center" th:text="#{const.type}">Type</th>
+                <th style="text-align:center" th:text="#{const.kind}">Kind</th>
+                <th style="text-align:center" th:text="#{const.code}">Cat</th>
+                <th style="text-align:center" th:text="#{const.display.order}">Resource String Code</th>
+                <th style="text-align:center" th:text="#{const.name.en}">Display Order</th>
+                <th style="text-align:center" th:text="#{const.name.vi}">Display Order</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="item,i : ${pageWrapper.data}" th:with="startIndex=${pageWrapper.startIndexCurrent}">
+                <tr class="db-click" th:attr="data-const-id=${item.kind}">
+                    <td class="text-center" th:text="${i.index + startIndex}"></td>
+                    <td class="td-action" style="width: 80px;">
+                        <div class="btn-group ">
+                        	<!-- Edit web-->
+                            <a class="glyphicon glyphicon-edit custom-icon j-btn-edit" title="update"
+                               th:href="@{/constant-display/edit(groupCode=${item.groupCode},action=2)}">
+                             </a>
+                            <!--  <a th:if="${#authorization.expression('hasAuthority(@roleConstant.CONSTANT_DISPLAY)')}"
+                            class="j-btn-delete glyphicon glyphicon-remove-sign font-size-20 red menudelete" title="delete"></a>
+                        	-->
+                        	
+                        	<!-- Delete web-->             	
+                        	<a class="j-btn-delete glyphicon glyphicon-remove-sign font-size-20 red menudelete" 
+                        	   title="delete"
+                        	   th:if="${item.canDelete != true}" >
+                        	</a>
+                        </div>
+                    </td>
+                    <td id="groupCode" th:text="${item.groupCode}"></td>
+                    <td id="kind" th:text="${item.kind}"></td>
+                    <td id="code" th:text="${item.code}"></td>
+                    <td th:text="${item.displayOrder}"></td>
+                    <td th:text="${item.nameEn}"></td>
+                    <td th:text="${item.nameVi}"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+    <th:block th:include="views/commons/pagination.html :: content(pageWrapper=${pageWrapper})"/>
+</div>
+<script type="text/javascript" th:src="@{/static/cache/js/constant-display/constant-display-table.js}"></script>
+</body>
+</html>
+

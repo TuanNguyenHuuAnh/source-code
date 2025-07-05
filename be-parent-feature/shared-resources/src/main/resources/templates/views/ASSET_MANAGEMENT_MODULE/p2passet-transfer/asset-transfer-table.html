@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <body th:fragment="content">
+    <div class="col-sm-12 p-0">
+      <h2 class="title-box">Search Result</h2>
+      <div class="box-tools pull-right">
+        <a
+          class="btn-common pull-right"
+          id="btnExport"
+          onclick="doExportExcel();"
+        >
+          <i class="fa fa-download" aria-hidden="true"></i>
+          <span th:text="' '+#{common.export.data}"></span>
+        </a>
+      </div>
+      <div class="table-responsive">
+        <table id="tblDataTable" class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th rowspan="2" style="width: 25px">#</th>
+              <th rowspan="2" style="width: 80px">Action</th>
+              <th rowspan="2">Transfer No</th>
+              <th colspan="2">From</th>
+              <th colspan="2">To</th>
+              <th rowspan="2">Created Date</th>
+              <th rowspan="2">Transferred Date</th>
+              <!-- <th rowspan="2">Transfer Type</th> -->
+              <th rowspan="2">Status</th>
+              <th rowspan="2">Pending At</th>
+            </tr>
+            <tr>
+              <th>Location</th>
+              <th>Warehouse</th>
+              <th>Location</th>
+              <th>Warehouse</th>
+            </tr>
+          </thead>
+          <tbody>
+            <th:block
+              th:if="${not #lists.isEmpty(pageWrapper.data)}"
+              th:each="transferDto,i : ${pageWrapper.data}"
+              th:with="startIndex=${pageWrapper.startIndexCurrent}"
+            >
+              <tr th:attr="data-transfer-id=${transferDto.id}">
+                <td class="text-center" th:text="${i.index + startIndex}"></td>
+                <td class="td-action text-center" style="white-space: nowrap">
+                  <div class="text-center">
+                    <a
+                      class="
+                        glyphicon glyphicon-eye-open
+                        custom-icon
+                        j-btn-detail
+                      "
+                      th:title="#{view.button}"
+                    ></a>
+                    <th:block th:if="${transferDto.deleteFlag != 1}">
+                      <a
+                        class="glyphicon glyphicon-edit custom-icon j-btn-edit"
+                        th:title="#{edit.button}"
+                        th:if="
+									(${#authorization.expression('hasAuthority( @roleEp2p.ROLE_ASSET_MANAGEMENT_VERIFY )')} and ${transferDto.processStatusCode} == 1 )
+									or (${#authentication.getPrincipal().getUsername() == transferDto.requesterUserName} and (${transferDto.processStatusCode} == 0 or ${transferDto.processStatusCode} == 98)) 
+									or (${#authorization.expression('hasAuthority( @roleEp2p.ROLE_ASSET_MANAGEMENT_HOD_APPROVE )')} and ${transferDto.processStatusCode} == 2) 
+									or (${#authorization.expression('hasAuthority( @roleEp2p.ROLE_ASSET_MANAGEMENT_CEO_APPROVE )')} and ${transferDto.processStatusCode} == 3) 
+									or (${transferDto.processStatusCode} == 99 and ${transferDto.confirmedFlag == 0} and ${transferDto.transferType == 'Stock'} and ${#authentication.getPrincipal().getUsername() == transferDto.receiverUserName})
+                                    "
+                      ></a>
+                    </th:block>
+                    <th:block th:if="${transferDto.deleteFlag != 1}">
+                      <a
+                        class="
+                          glyphicon glyphicon-remove-sign
+                          font-size-20
+                          red
+                          j-btn-delete
+                        "
+                        th:title="#{delete.button}"
+                        th:if="${#authentication.getPrincipal().getUsername() == transferDto.requesterUserName} and (${transferDto.processStatusCode} == 0 or ${transferDto.processStatusCode} == 98)"
+                      ></a>
+                    </th:block>
+                  </div>
+                </td>
+                <td
+                  class="text-left"
+                  th:text="${transferDto.transferNo}"
+                  style="white-space: nowrap"
+                ></td>
+                <td
+                  class="text-left"
+                  th:text="${transferDto.fromLocationName}"
+                  style="white-space: nowrap"
+                ></td>
+                <td
+                  class="text-left"
+                  th:text="${transferDto.fromWarehouseName}"
+                  style="white-space: nowrap"
+                ></td>
+                <td
+                  class="text-left"
+                  th:text="${transferDto.toLocationName}"
+                  style="white-space: nowrap"
+                ></td>
+                <td
+                  class="text-left"
+                  th:text="${transferDto.toWarehouseName}"
+                  style="white-space: nowrap"
+                ></td>
+                <td
+                  class="text-center"
+                  th:text="${transferDto.createdDate} ? ${#dates.format(transferDto.createdDate, @menuConfig.getFormDate())}"
+                  style="white-space: nowrap"
+                ></td>
+                <td
+                  class="text-center"
+                  th:text="${transferDto.transferredDate} ? ${#dates.format(transferDto.transferredDate, @menuConfig.getFormDate())}"
+                  style="white-space: nowrap"
+                ></td>
+                <!-- <td class="text-left" 	th:text="${transferDto.transferType}" style="white-space: nowrap;">		</td> -->
+                <td
+                  class="text-left"
+                  th:text="${transferDto.deleteFlag != 1 ? transferDto.status : '__#{item.status.delete}__'}"
+                  style="white-space: nowrap"
+                ></td>
+                <td class="text-left" th:text="${transferDto.pendingAt}"></td>
+              </tr>
+            </th:block>
+            <th:block th:if="${#lists.isEmpty(pageWrapper.data)}">
+              <tr class="odd">
+                <td class="dataTables_empty" valign="top" colspan="11">
+                  No data available in table
+                </td>
+              </tr>
+            </th:block>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- PAGINATION -->
+      <th:block
+        th:include="/views/ASSET_MANAGEMENT_MODULE/commons/pagination.html :: content(pageWrapper=${pageWrapper})"
+      />
+    </div>
+    <script
+      type="text/javascript"
+      th:src="@{/static/ASSET_MANAGEMENT_MODULE/js/p2passet-transfer/asset-transfer-list.js}"
+    ></script>
+  </body>
+</html>

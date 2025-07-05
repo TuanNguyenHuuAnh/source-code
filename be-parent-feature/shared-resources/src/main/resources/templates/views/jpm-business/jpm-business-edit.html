@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<script type="text/javascript" th:src="@{/static/cache/jquery/jquery.autocomplete.js}"></script>
+
+<div class="title-head">
+	<div class="row">
+		<div class="col-md-5">
+			<h3>
+				<span th:text="#{jpm.business.page}">TiÃªu Ä‘á»� trang</span>
+			</h3>
+		</div>
+	   	<div class="col-md-7">
+	        <div class="pull-right">
+				 <a class="u-btn u-btn-back" id="btnBack">
+				 	<img th:src="@{/static/images/icon-down.png}" alt="" width="17px" class="rotate-ico"/>
+				 	<span th:text="#{comeback.button}">Trá»Ÿ láº¡i</span>
+				 </a>
+				 <a class="u-btn u-btn-primary" id="btnCreate" th:if="${#authorization.expression('hasAuthority(@roleConstant.BUSINESS)')}">
+	            	<img th:src="@{/static/images/ico-plus-white.png}" alt="" />
+	                <span th:text="#{add.new.button}">ThÃªm má»›i</span>
+	             </a>
+	             <a class="u-btn u-btn-primary" id="btnSave" th:if="${#authorization.expression('hasAuthority(@roleConstant.PROCESS)') and (#authentication?.principal?.companyAdmin or objectDto.id == null or (objectDto.companyId != null and #lists.contains(#authentication?.principal?.companyIdList, objectDto.companyId))) and objectDto.isSystem == false}">
+	            	<img th:src="@{/static/images/icon-save.png}" alt="" width="19px"/>
+	                <span th:text="#{save.button}">LÆ°u</span>
+	             </a>
+	        </div>
+	   </div>
+	</div>	
+</div>
+
+<form class="form-horizontal u-for-page-top j-form-validate" id="form-detail" th:object="${objectDto}" method="post" role="form">
+
+	<th:block th:include="views/commons/message-alert.html :: content(${messageList})" />
+
+	<input type="hidden" th:field="*{id}"/>
+	<input type="hidden" id="url" name="url" th:value="${url}" />
+	
+	<div class="bg-content clearfix">
+		<div data-target="#business-detail" class="header-box">
+			<h2 class="title-box" th:if="${objectDto.id == null}" th:text="#{jpm.business.page.name.add}">Add</h2>
+            <h2 class="title-box" th:unless="${objectDto.id == null}" th:text="#{jpm.business.page.name}">Update</h2>
+<!--			<i class="fa fa-minus pull-right" aria-hidden="true"></i>-->
+		</div>
+		<div class="collapse in row m-0" id="business-detail">
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="business-code-id" class="required col-sm-4 align-top" th:text="#{jpm.business.code}">Business code</label>
+					<div class="col-sm-8" th:classappend="${#fields.hasErrors('code')} ? has-error : ''">
+						<input class="form-control j-maxlength j-required j-code" type="text" th:field="*{code}" maxlength="100" th:readonly="${objectDto.id != null}" />
+						<span class="help-block" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></span>
+					</div>
+				</div>
+	            <div class="form-group" th:if="${companyList.size()>1}">
+	                <label for="companyId" class="required col-sm-4 align-top" th:text="#{company.detail}">Company</label>
+	                <div class="col-sm-8">
+	                    <select class="form-control select2 j-required" th:field="*{companyId}" th:disabled="${objectDto.id != null}">
+	                    	<option value=""></option>
+	                        <option th:each="company : ${companyList}"
+	                                th:value="${company.id}"
+	                                th:text="${company.text}">
+	                        </option>
+	                    </select>
+	                </div>
+	            </div>
+	            <input th:unless="${objectDto.id == null and companyList.size()>1}" type="hidden" th:field="*{companyId}" />
+	            <!-- <input th:unless="${#authentication?.principal?.companyAdmin}" type="hidden" name="companyId" id="companyId" th:value="${#authentication?.principal?.companyId}" />-->
+	            <div class="form-group">
+					<label for="description" class="col-sm-4 align-top" th:text="#{jpm.business.description}">Description</label>
+					<div class="col-sm-8" th:classappend="${#fields.hasErrors('description')} ? has-error : ''">
+						<textarea class="form-control" rows="3" data-rule-maxlength="1000" maxlength="1000" th:inline="text" th:field="*{description}" th:disabled="${objectDto.isSystem}"></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="name" class="required col-sm-4 align-top" th:text="#{jpm.business.name}">Business name</label>
+					<div class="col-sm-8" th:classappend="${#fields.hasErrors('name')} ? has-error : ''">
+						<input class="form-control  j-maxlength j-required j-specialCharacters" type="text" th:field="*{name}" maxlength="255" th:disabled="${objectDto.isSystem}" />
+						<span class="help-block" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+					</div>
+				</div>
+				<div class="form-group">
+	                <label for="process-type" class="required col-sm-4" th:text="#{jpm.process.type}">process type</label>
+	                <div class="col-sm-8">
+	                    <select class="form-control select2 j-required" th:field="*{processType}" th:disabled="${objectDto.id != null}">
+	                    	<!-- <option value="activity">Activity</option>
+	                    	<option value="internal">Internal</option>
+	                    	<option value="freeform">Freeform</option> -->
+	                    	<option value=""></option>
+	                        <option th:each="processType : ${processTypeList}" 
+	                                th:value="${processType.cat}"
+	                                th:text="${processType.catOfficialNameVi}"> 
+	                        </option>
+	                    </select>
+	                </div>
+	            </div>
+				<div class="form-group">
+					<label for="isActive" class="col-sm-4 align-top" th:text="#{jpm.business.is.active}">Is active</label>
+					<div class="col-sm-8">
+						<input type="checkbox" name="isActive" th:field="*{isActive}" th:disabled="${objectDto.isSystem}"/>
+					</div>
+				</div>
+				<div id = "isAuthorityDiv" class="form-group" th:classappend="${objectDto.processType == 'FREE'} ? null : hidden">
+					<label for="isAuthority" class="col-sm-4 align-top" th:text="#{jpm.business.is.authority}">Is authority</label>
+					<div class="col-sm-8">
+						<input type="checkbox" name="isAuthority" th:field="*{isAuthority}" th:disabled="${objectDto.id}"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<script type="text/javascript" th:src="@{/static/cache/js/jpm-business/jpm-business-edit.js}"></script>
+</html>

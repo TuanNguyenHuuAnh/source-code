@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+	<div class="col-sm-12 p-0">
+		<div class="form-group">
+			<th:block th:include="views/commons/message-alert.html :: content(${messageList})" />
+		</div>
+		<div class="col-xs-4 col-sm-2 p-0">
+			<h2 class="title-box" th:text="#{delegate.edit.role.old.label}">Kết quả tìm kiếm</h2>
+		</div>
+		<div class="col-sm-10 col-xs-8 p-0">
+			<div class="col-sm-10">
+				<div class="col-sm-3 pull-right" align="center"  style="margin-top: -5px;">
+					<span class="button">
+						<a class="btn btn-common" id="btn-old-role-Search"> 
+							<i class="fa fa-search"> </i> <span th:text="#{search.button}"></span>
+						</a>
+					</span>
+				</div>
+				<div class="col-sm-6 pull-right" style="margin-top: -5px;">
+					<input type="text" class="form-control" 
+						th:placeholder="#{authority.detail.role.name} + ', ' + #{authority.detail.function.name}" autocomplete="off" id="roleFuncName" th:value="${fieldSearch}"/>
+				</div>
+			</div>
+			<div class="col-sm-2 pull-right p-0">
+				<i class="pointer glyphicon glyphicon-plus-sign icon-head-red pull-right" th:title="#{icon.add}" id="addRolePopup" th:if="${#authorization.expression('hasAuthority(@roleConstant.MY_DOCUMENTS)')}"></i>
+				<i class="pointer glyphicon glyphicon-remove-sign icon-remove-form pull-right btn-role-Delete" style="font-size: 25px;" th:title="#{icon.delete}" th:if="${#authorization.expression('hasAuthority(@roleConstant.MY_DOCUMENTS)')}"></i>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-12 no-padding">
+		<input type="hidden" id="oldRoles" value=""/>
+		<input type="hidden" id="role-Count" th:value="${oldDataList.countAll}"/>
+		<div class="table-responsive">
+			<table id="oldRoleData"
+				class="table table-bordered table-striped table-hover">
+				<thead>
+					<tr>
+						<th class="no">#</th>
+						<th>
+							<input id="allRoleHis" name="allRoleHis" class="form-check-input" type="checkbox" value=""/>
+						</th>
+						<th th:text="#{authority.detail.role.name}" >Role name</th>
+						<th th:text="#{authority.detail.function.name}" >Function name</th>
+						<th th:text="#{delegate.edit.table.column.three.label}">Delegate date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<th:block th:each="_item,i : ${oldDataList.data}" th:with="startIndex=${oldDataList.startIndexCurrent}">
+						<tr th:attr="data-role-id=${_item.roleId},data-act-id=${_item.id}">
+							<td align="center" th:text="${i.index + startIndex}"></td>
+							<td class="text-center">
+								<input class="form-check-input" type="checkbox" value=""/>
+							</td>
+							<td th:text="${_item.roleName}">HD Bank chi nhánh 1</td>
+							<td th:text="${_item.funcName}">HD Bank chi nhánh 1</td>
+							<td th:text="${_item.createdDate != null} ? ${#dates.format(_item.createdDate, @systemConfig.getConfig('DATE_PATTERN'))}:''">2019/06/25 10:15</td>
+						</tr>
+					</th:block>
+					<th:block th:if="${oldDataList.data eq null} or ${oldDataList.data.size() eq 0}">
+						<tr>
+							<td colspan="100%" th:text="#{table.emptyTable.label}"></td>
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+		</div>
+		<th:block th:include="views/commons/pagination.html :: content(pageWrapper=${oldDataList})" />
+	</div>
+	<script type="text/javascript"
+	th:src="@{/static/cache/js/delegate/delegate-role-table.js}"></script>
+</body>
+
+</html>

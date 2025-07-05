@@ -1,0 +1,347 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+        <groupId>vn.com.unit.ep2p</groupId>
+        <artifactId>be-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <groupId>vn.com.unit.cms</groupId>
+	<artifactId>cms-core</artifactId>
+    <name>cms-core</name>
+    <packaging>jar</packaging>
+    
+	<properties>
+		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<main.basedir>${project.basedir}/..</main.basedir>
+	</properties>
+	
+	<!-- <repositories>
+        <repository>
+            <id>in-project</id>
+            <name>In Project Repo</name>
+            <url>file://${main.basedir}/libs</url>
+        </repository>
+    </repositories> -->
+    
+    <dependencies>
+        <dependency>
+            <groupId>vn.com.unit.ep2p</groupId>
+            <artifactId>be-core</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        
+        <!-- JPA / Hibernate validator -->
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+    </dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/cms/core/module/payment/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/payment/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+		
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/jp/xet/springframework/data/mirage/repository</directory>
+				<targetPath>${basedir}/target/classes/jp/xet/springframework/data/mirage/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/ep2p/core/efo/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/ep2p/core/efo/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/ep2p/core/ers/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/ep2p/core/ers/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/ep2p/admin/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/ep2p/admin/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/ep2p/admin/sla/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/ep2p/admin/sla/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/java/vn/com/unit/cms/core/module/banner/repository</directory>
+                <targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/banner/repository</targetPath>
+                <includes>
+                    <include>**/*.sql</include>
+                </includes>
+            </resource>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/java/vn/com/unit/cms/core/module/zipcode/repository</directory>
+                <targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/zipcode/repository</targetPath>
+                <includes>
+                    <include>**/*.sql</include>
+                </includes>
+            </resource>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/java/vn/com/unit/cms/core/module/notify/repository</directory>
+                <targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/notify/repository</targetPath>
+                <includes>
+                    <include>**/*.sql</include>
+                </includes>
+            </resource>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/java/vn/com/unit/cms/core/module/favorite/repository</directory>
+                <targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/favorite/repository</targetPath>
+                <includes>
+                    <include>**/*.sql</include>
+                </includes>
+            </resource>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/java/vn/com/unit/cms/core/module/db2</directory>
+                <targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/db2</targetPath>
+                <includes>
+                    <include>**/*.sql</include>
+                </includes>
+            </resource>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/java/vn/com/unit/cms/core/module/news/repository</directory>
+                <targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/news/repository</targetPath>
+                <includes>
+                    <include>**/*.sql</include>
+                </includes>
+            </resource>
+            
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/cms/core/module/contact/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/contact/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/cms/core/module/faqs/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/faqs/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/cms/core/module/events/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/events/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/cms/core/module/events/imports/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/events/imports/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/cms/core/module/emulate/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/emulate/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/cms/core/module/document/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/document/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/cms/core/module/ecard/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/ecard/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/cms/core/module/libraryMaterial/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/libraryMaterial/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/cms/core/module/customer/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/customer/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources/templates</directory>
+				<targetPath>${basedir}/target/WEB-INF/classes</targetPath>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+			</resource>
+			
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources/templates</directory>
+				<targetPath>${basedir}/target/WEB-INF/static</targetPath>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+			</resource>
+			
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/cms/core/module/order/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/order/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/cms/core/module/product/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/product/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/cms/core/module/sam/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/sam/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/cms/core/module/payment/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/payment/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/cms/core/module/ag/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/ag/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			
+			<resource>
+                <filtering>true</filtering>
+                <directory>src/main/java/vn/com/unit/cms/core/module/logApi/repository</directory>
+                <targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/logApi/repository</targetPath>
+                <includes>
+                    <include>**/*.sql</include>
+                </includes>
+            </resource>
+            
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/java/vn/com/unit/cms/core/module/usersLogin/repository</directory>
+                <targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/usersLogin/repository</targetPath>
+                <includes>
+                    <include>**/*.sql</include>
+                </includes>
+            </resource>
+
+            <resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/cms/core/module/income/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/income/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/cms/core/module/agentbank/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/agentbank/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/cms/core/module/trainingCourse/repository</directory>
+				<targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/trainingCourse/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/java/vn/com/unit/cms/core/module/appointment/repository</directory>
+                <targetPath>${basedir}/target/classes/vn/com/unit/cms/core/module/appointment/repository</targetPath>
+				<includes>
+					<include>**/*.sql</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+</project>

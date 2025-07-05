@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body"
+>
+  <link
+    rel="stylesheet"
+    type="text/css"
+    th:href="@{/static/css/fixed-table.css}"
+  />
+  <style>
+    .readonly {
+      background-color: #f4f4f4;
+      pointer-events: none;
+    }
+
+    .disabled-a {
+      background-color: #cec8c4;
+      border-color: #cec8c4;
+      cursor: default;
+    }
+  </style>
+
+  <body>
+    <!-- header page start -->
+    <div class="title-head clearfix">
+      <div class="col-sm-9 col-xs-7 no-padding">
+        <h3>
+          <i class="fa fa-table"></i
+          ><label th:text="#{asset.regist.edit.header.registration.asset}"
+            >Registration Asset</label
+          >
+        </h3>
+      </div>
+      <div class="col-sm-3 col-xs-5 icon-head">
+        <div class="pull-right">
+          <a
+            class="pdf-icon pos-label"
+            id="btnExportPdf"
+            title="Export PDF"
+            th:if="${'99' == editDto.processStatusCode}"
+          >
+            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;
+          </a>
+          <a>
+            <i
+              class="fa fa-arrow-circle-left icon-head-red"
+              id="linkList"
+              th:title="#{back.button}"
+            ></i>
+          </a>
+          <a>
+            <i
+              class="fa fa-plus-circle icon-head-red"
+              id="add"
+              th:if="${#authorization.expression('hasAuthority(@roleEp2p.ROLE_ASSET_MANAGEMENT_SUBMIT)')}"
+              th:title="#{add.button}"
+            ></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- DETAIL -->
+    <form
+      class="form-horizontal u-for-page-top j-form-validate"
+      id="form-asset-regis"
+      method="post"
+      role="form"
+      th:object="${editDto}"
+    >
+      <input type="hidden" id="url" name="url" th:value="${editDto.url}" />
+      <input type="hidden" th:field="*{id} " />
+
+      <input
+        type="hidden"
+        th:name="refAttachment"
+        th:value="${refAttachment}"
+      />
+      <input type="hidden" th:field="*{processId}" />
+      <input type="hidden" th:field="*{id}" id="abtract-reference-id" />
+      <input
+        type="hidden"
+        th:name="createdDate"
+        th:value="*{createdDate!=null}? ${#dates.format(editDto.createdDate, session.formatDate)}"
+      />
+      <input type="hidden" th:field="*{createdBy}" />
+      <input type="hidden" th:field="*{stepNo}" id="stepNo" />
+      <input type="hidden" th:field="*{comments}" id="commentsId" />
+      <input type="hidden" th:field="*{owner}" id="ownerId" />
+      <input type="hidden" th:field="*{assignee}" id="assigneeId" />
+      <input type="hidden" th:field="*{stepId}" id="abtract-step-id" />
+      <input type="hidden" th:name="businessCode" th:value="${businessCode}" />
+      <input
+        type="hidden"
+        th:value="((*{stepNo} == null or *{stepNo} == 0 or *{stepNo} == 98) and (*{createdBy   == #authentication.getPrincipal().getUsername()} or *{createdBy} == null or *{createdBy} == '' ) )   and ${onlyView} == false"
+        id="isEnabled"
+      />
+      <input id="enableHiddenBeforeSend" type="hidden" value="true" />
+      <th:block
+        th:include="/views/ASSET_MANAGEMENT_MODULE/commons/message-alert.html :: content(${messageList})"
+      />
+      <input
+        type="hidden"
+        th:name="${_csrf.parameterName}"
+        th:value="${_csrf.token}"
+      />
+      <!-- process Title, Code, Name, Description start -->
+      <div class="bg-content clearfix bg-content-tbl">
+        <div class="header-box">
+          <h2
+            class="title-box"
+            th:text="#{asset.regist.edit.title.registration.asset}"
+          >
+            Registration Asset
+          </h2>
+        </div>
+
+        <div class="col-sm-12 p-0">
+          <div class="form-group">
+            <div class="col-sm-6">
+              <label
+                class="col-sm-4"
+                th:text="#{asset.regist.edit.registration.no}"
+                >Registration No</label
+              >
+              <div class="col-sm-8">
+                <input
+                  type="text"
+                  class="form-control"
+                  readonly="readonly"
+                  th:field="*{registrationNo}"
+                />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label
+                class="col-sm-4"
+                th:text="#{asset.regist.edit.register.date}"
+                >Register Date</label
+              >
+              <div class="col-sm-8">
+                <div class="input-group date datepicker">
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="dd/mm/yyyy"
+                    autocomplete="off"
+                    disabled="disabled"
+                    th:field="*{registrationDate}"
+                  />
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-6">
+              <label
+                class="col-sm-4 required"
+                th:text="#{asset.regist.edit.property.of}"
+                >Property of</label
+              >
+              <div class="col-sm-8">
+                <select
+                  class="form-control required-custom-header"
+                  th:field="*{propertyOf}"
+                >
+                  <th:block th:each="item : ${propOf}">
+                    <option
+                      th:selected="${item.cat == propertyOf}"
+                      th:text="${item.cat}"
+                      th:value="${item.cat}"
+                    ></option>
+                  </th:block>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label class="col-sm-4" th:text="#{asset.regist.edit.register.by}"
+                >Register By</label
+              >
+              <div class="col-sm-8">
+                <input
+                  type="text"
+                  class="form-control"
+                  disabled="disabled"
+                  th:field="*{registerFullname}"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-6">
+              <label
+                class="col-sm-4 required"
+                th:text="#{asset.regist.edit.office.location}"
+                >Office Location</label
+              >
+              <div class="col-sm-8">
+                <!-- 	                        <input type="text" class="form-control" th:field="*{assetLocationCode}"/> -->
+                <select
+                  th:field="*{assetLocationCode}"
+                  class="form-control select2 required-custom-header"
+                >
+                  <option value="">--</option>
+                  <th:block th:each="location : ${locationList}">
+                    <option
+                      th:value="${location.code}"
+                      th:text="${location.name}"
+                      th:attr="data-name=${location.name}"
+                    ></option>
+                  </th:block>
+                </select>
+
+                <input type="hidden" th:field="*{assetLocationName}" />
+                <input
+                  type="hidden"
+                  id="assetLocationCodeHidden"
+                  th:value="${editDto.assetLocationCode}"
+                />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label
+                class="col-sm-4 required"
+                th:text="#{asset.regist.edit.warehouse.name}"
+                >Warehouse Name</label
+              >
+              <div class="col-sm-8">
+                <!-- 	                        <input type="text" class="form-control auto-complete-warehouse" th:field="*{assetWarehouseCode}"/> -->
+                <!-- 	                        <input type="hidden" id="warehouseCode" name="assetWarehouseCode" />  -->
+
+                <select
+                  class="form-control select2 required-custom-header"
+                  th:field="*{assetWarehouseCode}"
+                ></select>
+                <input type="hidden" th:field="*{assetWarehouseName}" />
+                <input
+                  type="hidden"
+                  id="assetWarehouseCodeHidden"
+                  th:value="${editDto.assetWarehouseCode}"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="form-group">
+	                <div class="col-sm-6">
+	                    <label class="col-sm-4">Warehouse Keeper</label>
+	                    <div class="col-sm-8 ">
+	                        <input type="text" class="form-control"/>
+	                    </div>
+	                </div>
+	                <div class="col-sm-6">
+	                    <label class="col-sm-4">Active</label>
+	                    <div class="col-sm-1">
+	                        <input type="checkbox" checked="checked"/>
+	                    </div>
+	                </div>
+	            </div> -->
+
+          <div class="form-group no-padding">
+            <div class="col-sm-12">
+              <label class="col-sm-2" th:text="#{asset.regist.edit.note}"
+                >Note</label
+              >
+              <div class="col-sm-10" style="padding-left: 10px">
+                <textarea
+                  type="text"
+                  maxlength="1023"
+                  class="form-control j-maxlength"
+                  th:field="*{note}"
+                >
+                </textarea>
+              </div>
+            </div>
+          </div>
+          <!-- button Exit, Save start-->
+        </div>
+      </div>
+      <div class="bg-content clearfix bg-content-tbl">
+        <!--BEGIN Detail of bank account -->
+        <div class="header-box col-md-2 p-0">
+          <h2
+            class="title-box"
+            th:text="#{asset.regist.edit.title.asset.detail.information}"
+          >
+            Asset Detail Information
+          </h2>
+        </div>
+
+        <input
+          type="hidden"
+          th:value="*{createdBy == #authentication.getPrincipal().getUsername()}"
+        />
+
+        <input type="hidden" th:value="*{stepNo}" />
+
+        <input type="hidden" th:value="${onlyView}" />
+
+        <div class="col-md-10 p-0">
+          <a
+            class="btn-common"
+            id="btnClearData"
+            th:if="((*{stepNo} == null or *{stepNo} == 0 or *{stepNo} == 98) and *{createdBy   == #authentication.getPrincipal().getUsername()} or *{createdBy} == null or *{createdBy} == '' )   and ${onlyView} == false"
+          >
+            <i class="fa fa-remove" aria-hidden="true"></i>
+            <span>Clear Data</span>
+          </a>
+
+          <div
+            th:if="((*{stepNo} == null or *{stepNo} == 0 or *{stepNo} == 98) and *{createdBy   == #authentication.getPrincipal().getUsername()} or *{createdBy} == null or *{createdBy} == '' )   and ${onlyView} == false"
+            class="pull-right"
+            id="functionTableDetailEdit"
+          >
+            <div class="inline" style="position: relative; top: -3px; vertical-align: middle;">
+              <span th:text="#{asset.regist.edit.no.po}">No PO</span>
+              <input type="checkbox" id="isNoPO" th:field="*{noPo}" />
+            </div>
+
+            <a class="btn-common" id="btnAdd">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+              <span th:text="#{add.button}">Add</span>
+            </a>
+
+            <a class="btn-common" id="btnImport" onclick="clickImport()">
+              <i class="fa fa-upload" aria-hidden="true"></i>
+              <span th:text="#{import.button}">Import</span>
+            </a>
+          </div>
+          <div class="pull-right">
+            <a
+              class="btn-common"
+              id="btnExport"
+              th:if="*{stepNo != null and stepNo != 0 and stepNo != 98}"
+            >
+              <i class="fa fa-download" aria-hidden="true"></i>
+              <span th:text="#{common.export.data}">Export</span>
+            </a>
+          </div>
+        </div>
+        <div class="clearfix" id="tableDetail">
+          <th:block
+            th:include="/views/ASSET_MANAGEMENT_MODULE/asset-regist/asset-regist-edit-table.html :: content"
+          />
+        </div>
+      </div>
+      <!-- END Detail of bank account -->
+      <!--        process -->
+      <!-- 	    <th:block th:include="views/mockup/mockup-process.html :: content" /> -->
+    </form>
+    <th:block
+      th:include="/views/ASSET_MANAGEMENT_MODULE/attached-file-module/attached-file-plugin.html :: content(${lstAttachedFile},${businessCode},${refAttachment})"
+    />
+
+    <input
+      type="hidden"
+      th:value="${approvalModuleDto.isShowView}"
+      id="isShowView"
+    />
+    <th:block
+      th:include="/views/ASSET_MANAGEMENT_MODULE/approval-module/approval-plugin.html :: content(${approvalModuleDto},'form-asset-regis','asset-regist', ${@roleEp2p.ROLE_ASSET_MANAGEMENT_SUBMIT},'')"
+    />
+
+    <th:block
+      th:include="/views/ASSET_MANAGEMENT_MODULE/asset-regist/popup-import-excel.html :: content('asset-regist')"
+    />
+
+    <div
+      class="modal fade"
+      id="myModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myModalLabel"
+    >
+      <div
+        class="modal-dialog"
+        role="document"
+        style="width: 80%; max-width: 80%"
+      >
+        <div class="modal-content model-content-max-height">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Goods Description</h4>
+          </div>
+          <div class="modal-body">
+            <div class="col-sm-12 p-0">
+              <th:block
+                th:include="/views/ASSET_MANAGEMENT_MODULE/asset-regist/assetregistration-model-list.html :: content"
+              />
+            </div>
+          </div>
+          <div align="center">
+            <input type="hidden" id="goodDescriptionHidden" />
+            <input type="hidden" id="poNoHidden" />
+            <input type="hidden" id="prNoHidden" />
+            <input type="hidden" id="receiptNoHidden" />
+            <input type="hidden" id="receiptDateFromHidden" />
+            <input type="hidden" id="receiptDateToHidden" />
+
+            <!-- Tranlth 27/05/2019 thêm mới add và bỏ Ok + Cancel Task #23724 -->
+            <!--                     <a href="#" class="btn-common btn-in-tablet" data-dismiss="modal" id="btnOKGR"><i class="fa fa-plus-circle"></i> Add</a> -->
+            <div
+              class="modal-footer"
+              style="text-align: center; padding-top: 4px; padding-bottom: 4px"
+            >
+              <a
+                class="btn-common btn-in-tablet"
+                data-dismiss="modal"
+                id="btnOKGR"
+              >
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                <span th:text="#{add.button}">Add</span>
+              </a>
+              <a class="btn-common btn-in-tablet disabled-a" id="btnOKGR_hide">
+                <i class="fa fa-plus"></i>
+                <span th:text="#{add.button}">Add</span>
+              </a>
+              <a href="#" class="btn-cancel" data-dismiss="modal"
+                ><i class="fa fa-times"></i> Close</a
+              >
+            </div>
+
+            <!-- End -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="myModalPayment"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myModalLabel"
+    >
+      <div
+        class="modal-dialog"
+        role="document"
+        style="width: 80%; max-width: 80%"
+      >
+        <div class="modal-content model-content-max-height">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Payment Description</h4>
+          </div>
+          <div class="modal-body">
+            <div class="col-sm-12 p-0">
+              <th:block
+                th:include="/views/ASSET_MANAGEMENT_MODULE/asset-regist/assetregistration-payment-model-list.html :: content"
+              />
+            </div>
+          </div>
+          <div align="center">
+            <input type="hidden" id="paymentNoHidden" />
+            <input type="hidden" id="requesterHidden" />
+            <input type="hidden" id="paymentDateFromHidden" />
+            <input type="hidden" id="paymentDateToHidden" />
+            <!-- Tranlth 27/05/2019 thêm mới add và bỏ Ok + Cancel Task #23724 -->
+            <div
+              class="modal-footer"
+              style="text-align: center; padding-top: 4px; padding-bottom: 4px"
+            >
+              <a
+                class="btn-common btn-in-tablet"
+                data-dismiss="modal"
+                id="btnOKGE"
+              >
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                <span th:text="#{add.button}">Add</span>
+              </a>
+              <a class="btn-common btn-in-tablet disabled-a" id="btnOKGE_hide">
+                <i class="fa fa-plus"></i>
+                <span th:text="#{add.button}">Add</span>
+              </a>
+
+              <a href="#" class="btn-cancel" data-dismiss="modal"
+                ><i class="fa fa-times"></i> Close</a
+              >
+            </div>
+
+            <!-- End -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <form id="form-export-detail" method="post">
+      <input type="hidden" id="idheaderExport" th:value="${editDto.id}" />
+    </form>
+    <script
+      type="text/javascript"
+      id="srcScript"
+      th:src="@{/static/ASSET_MANAGEMENT_MODULE/js/asset-regist/asset-regist-edit.js} + ${'?rev=' + @systemConfig.getRev()}"
+    ></script>
+    <script type="text/javascript">
+      var map_select_gr = new Map();
+      var map_select_ge = new Map();
+      map_select_gr.clear();
+      map_select_ge.clear();
+    </script>
+    <script th:inline="javascript">
+         /*<![CDATA[*/
+         	var MAPBYLOCATION = /*[[${mapByLocation}]]*/;
+      	var MAPBYCATEGORY = /*[[${mapCategory}]]*/;
+      	var MAPBYPROP = /*[[${mapCateByProp}]]*/;
+      /*]]>*/
+    </script>
+
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+
+      //default value sort
+      var SORT_ROWNUM = "ASC";
+      var SORT_MESSAGE = "ASC";
+      var OPTION_SORT = "DEFAULT";
+      /*]]>*/
+    </script>
+  </body>
+</html>

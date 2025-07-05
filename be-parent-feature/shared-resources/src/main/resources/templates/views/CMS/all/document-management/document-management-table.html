@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+	<body th:fragment="content">
+
+
+
+		<form class="ajax-form-submit" th:action="@{/document-management/create-folder}" method="POST">
+			<div class="modal fade" id="documentManagementModal" tabindex="-1" role="dialog" aria-labelledby="documentManagementModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="documentManagementModalLabel">Create new folder</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<label class="col-sm-4 align-top">Name</label>
+								<div class="col-sm-8">
+									<input class="form-control" type="text" name="name" required />
+								</div>
+
+								<input class="form-control" type="hidden" id="parentIdCreateFolder" name="id" />
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">Save</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+
+
+
+		<form class="ajax-form-submit" th:action="@{/document-management/upload-file}" method="POST" enctype="multipart/form-data">
+			<div class="modal fade" id="documentManagementUploadFileModal" tabindex="-1" role="dialog" aria-labelledby="documentManagementUploadFileModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="documentManagementUploadFileModalLabel">Upload file</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<label class="col-sm-4 align-top">File</label>
+								<div class="col-sm-8">
+									<input class="form-control" type="file" name="file" multiple required />
+								</div>
+
+								<input class="form-control" type="hidden" id="parentIdUploadFile" name="id" />
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">Save</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+
+
+
+		<div class="col-sm-12 no-padding">
+            <!-- <div class="form-group">
+    			<h5 class="title-box">
+    				<span th:text="#{search.results.title}">Kết quả tìm kiếm</span> 
+    			</h5>
+    			<div class="pull-right">
+    				<button id="btnSort" type="button" style = "margin: 0px; padding: 6px 20px;" th:attr="data-company-id=${menuModel.companyId}" class="btn-common" th:text="#{common.btn.title.list.order}" >Sắp sếp lại</button>
+    			</div>
+            </div> -->
+
+			<div class="table-search-result">
+				<div class="table-responsive" id="idDivTable">
+					<!-- table table-bordered table-striped -->
+					<!-- class="table" -->
+
+					<style>
+						.treegrid-expanded > * >.fa-folder {
+							display: none !important;
+						}
+
+						.treegrid-expanded > * > .fa-folder-open {
+							display: inline-block !important;
+						}
+					</style>
+
+					<table id="documentManagementTreeGrid">
+
+						<!-- <th class="u_t_no">#</th> -->
+						<!-- <th class="u_t_title" th:text="#{document.management.code}">Code</th> -->
+						<!-- <th class="u_t_title" th:text="#{document.management.name}">Name</th> -->
+
+						<!--
+						<thead>
+							<tr>
+								<th class="u_t_title" th:text="#{document.management.name}">Name</th>
+								<th class="u_t_action" th:text="#{document.management.action}">Action</th>
+								<th class="u_t_date" th:text="#{document.management.created.date}">Created date</th>
+								<th class="u_t_date" th:text="#{document.management.updated.date}">Updated date</th>
+							</tr>
+						</thead>
+						-->
+
+						<tbody>
+							<th:block th:each="objectItem, i : ${pageWrapper.data}" th:with="startIndex=${pageWrapper.startIndexCurrent}">
+								<tr th:class="'treegrid-' + ${objectItem.id} + (${objectItem.parentId} != 0 ? (' treegrid-parent-' + ${objectItem.parentId}) : '')"
+									th:attr="data-document-id=${objectItem.id}">
+									<!-- <td class="u_t_no" th:text="${i.index + startIndex}"></td> -->
+
+									<td style="min-width: 300px; border: none !important;">
+										<i class="fa fa-folder" aria-hidden="true" th:if="${objectItem.isFolder} == 1"></i>
+										<i class="fa fa-folder-open d-none" style="display: none" aria-hidden="true" th:if="${objectItem.isFolder} == 1"></i>
+										<i class="fa fa-file" aria-hidden="true" th:if="${objectItem.isFolder} != 1"></i>
+										<span th:text="${objectItem.name}" style="margin-left: 8px;">Name</span>
+									</td>
+									<td class="td-action" style="min-width: 100px; border: none !important;">  
+										<div class="btn-group pull-right">
+											<!-- <a class="glyphicon glyphicon-eye-open custom-icon j-btn-detail" style="padding: 0 3px;" th:title="${objectItem.parentId}"></a> -->
+
+											<a
+												class="glyphicon glyphicon-plus-sign btn-create-folder"
+												style="padding: 0 3px; top: -4.45px;" th:if="${objectItem.isFolder} == 1"
+												title="Create new folder"
+											></a>
+
+											<!-- th:if="${#authorization.expression('hasAuthority(@roleConstant.MENU)')}" -->
+											<!-- <a class="glyphicon glyphicon-edit custom-icon j-btn-edit" style="padding: 0 3px;" title="Edit"></a> -->
+
+											<a class="glyphicon glyphicon-upload btn-upload-file" style="padding: 0 3px;" th:if="${objectItem.isFolder} == 1" title="Upload"></a>
+											<a
+												class="glyphicon glyphicon-download"
+												style="padding: 0 3px;"
+												th:if="${objectItem.isFolder} != 1"
+												title="Download"
+												th:href="@{/document-management/download-file/} + ${objectItem.id}"
+											></a>
+
+											<!-- th:if="${#authorization.expression('hasAuthority(@roleConstant.MENU)')} and ${objectItem.deleteFlag}" -->
+											<a class="glyphicon glyphicon-remove-sign btn-delete" style="padding: 0 3px;" th:if="${objectItem.parentId} != 0" title="Delete"></a>
+										</div>
+									</td>
+
+									<!-- <td th:text="${objectItem.code}">Code</td> -->
+									<!-- <td th:text="${objectItem.name}">Name</td> -->
+
+									<!-- <td class="text-center" style="border-bottom: none !important;" th:text="${objectItem.createdDate } ? ${#dates.format(objectItem.createdDate, 'dd/MM/yyyy')} : '-'">Created date</td> -->
+									<!-- <td class="text-center" style="border-bottom: none !important;" th:text="${objectItem.updatedDate } ? ${#dates.format(objectItem.updatedDate, 'dd/MM/yyyy')} : '-'">Updated date</td> -->
+								</tr>
+							</th:block>
+
+	                        <th:block th:if="${pageWrapper.data.size() == 0}">
+				              <tr>
+				                  <td colspan="100%" th:text="#{table.emptyTable.label}"></td>
+				              </tr>
+				          </th:block>         
+	                    </tbody>
+	                </table>				
+				</div>			
+			</div>
+		</div>
+
+		<th:block th:include="views/commons/pagination.html :: content"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/static/cache/css/treegrid.css}"/>
+		<script type="text/javascript" th:src="@{/static/cache/js/jquery.treegrid.min.js}"></script>
+		<script type="text/javascript" th:src="@{/static/CMS/all/document-management/document-management-table.js}"></script>
+	</body>
+</html>

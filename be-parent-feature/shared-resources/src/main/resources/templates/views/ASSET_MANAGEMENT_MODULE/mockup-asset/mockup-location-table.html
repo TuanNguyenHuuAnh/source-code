@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+    <div class="col-sm-12 p-0">
+        <h2 class="title-box"> Search Result </h2>
+        <div class="box-tools pull-right">
+			<a class="btn-common pull-right" id="btnExport">
+				<i class="fa fa-download" aria-hidden="true"></i>
+          			<span th:text="' '+#{common.export.data}"></span> 
+       		</a>
+		</div>
+        <div class="table-responsive">
+            <table id="tblDataTable" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th style="width: 20px;">#</th>
+                        <th th:text="#{receipt.action}" style="width: 80px;">Action</th>
+                        <th >Location Name</th>
+                        <th >Address</th>
+                        <th> Region Name</th>
+                        <th> Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td class="td-action">
+                            <div class="align-left">
+                                <a class="glyphicon glyphicon-eye-open custom-icon j-btn-detail" ></a>
+                                <a class="glyphicon glyphicon-edit custom-icon j-btn-edit"></a>
+                                <a class="glyphicon glyphicon-remove-sign font-size-20 red j-btn-delete"></a>  
+                            </div>
+                        </td>
+                        <td class="text-left">Kho Diamond Plaza</td>
+                        <td class="text-left">34 Lê Duẩn, Bến Nghé, District 1, Ho Chi Minh City, Vietnam</td>
+                        <td class="text-left">Southeat</td>
+                        <td class="text-center">Active</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="text-center">2</td>
+                        <td class="td-action">
+                            <div class="align-left">
+                                <a class="glyphicon glyphicon-eye-open custom-icon j-btn-detail" ></a>
+                                <a class="glyphicon glyphicon-edit custom-icon j-btn-edit"></a>
+                                <a class="glyphicon glyphicon-remove-sign font-size-20 red j-btn-delete"></a>  
+                            </div>
+                        </td>
+                        <td class="text-left">Kho Golden Tower</td>
+                        <td class="text-left">6 Nguyễn Thị Minh Khai, Da Kao, District 1, Ho Chi Minh City, Vietnam</td>
+                        <td class="text-left">North Center Coast</td>
+                        <td class="text-center">Active</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="text-center">3</td>
+                        <td class="td-action">
+                            <div class="align-left">
+                                <a class="glyphicon glyphicon-eye-open custom-icon j-btn-detail" ></a>
+                                <a class="glyphicon glyphicon-edit custom-icon j-btn-edit"></a>
+                                <a class="glyphicon glyphicon-remove-sign font-size-20 red j-btn-delete"></a>  
+                            </div>
+                        </td>
+                        <td class="text-left">Kho VCCI</td>
+                        <td class="text-left">9 Đào Duy Anh, Phương Liên, Đống Đa, Hà Nội, Vietnam</td>
+                        <td class="text-left">Red River Delta</td>
+                        <td class="text-center">Active</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- PAGINATION -->
+        <div class="col-sm-12 p-0">
+            <div class="col-sm-12 bg-table-navigation">
+                <nav>
+                    <ul class="pagination pagination-sm mar-tb-no pull-right">
+                        
+                        <li>
+                            <a href="#" data-page="1" th:text="#{table.page.first}" class="j-page"></a>
+                        </li>
+                    
+                    
+                        <li>
+                            <a href="#" class="j-page">«</a>
+                        </li>
+                        
+                        <li class="active"><span>1</span></li>
+                        
+                        <li>
+                            <a href="javascript:void(0)" class="j-page" data-page="2">2</a>
+                        </li>
+                        
+                        <li>
+                            <a href="#" class="j-page">»</a>
+                        </li>
+                        
+                        <li>
+                            <a href="#" th:text="#{table.page.last}" class="j-page"></a>
+                        </li></ul>
+                    <span class="form-inline pull-right pagination-select">
+                        <span class="blu" th:text="#{table.page.label}">Trang</span>
+                        <span class="form-group input-group input-group-sm">
+                            <select class="form-control input-sm select-page select2">
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                            </select>
+                        </span>
+                    </span>
+                </nav>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
+

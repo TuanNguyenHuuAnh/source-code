@@ -1,0 +1,7 @@
+select count(1)
+from STG_DMS.DMS_AGENT_DISCIPLINE
+where 1=1
+and AGENT_CODE = /*agentCode*/'117781'
+and CHANNEL = 'AG'
+and DISCIPLINE_CODE = '01'
+and CURRENT DATE BETWEEN EFFECTIVE_DATE AND (EXPIRED_DATE - 1 days)

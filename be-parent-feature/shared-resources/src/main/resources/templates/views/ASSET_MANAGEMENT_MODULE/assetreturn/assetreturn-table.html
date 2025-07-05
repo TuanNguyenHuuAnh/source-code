@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <body th:fragment="content">
+    <div class="col-sm-12 p-0">
+      <h2 class="title-box">Search Result</h2>
+      <div class="box-tools pull-right">
+        <a
+          class="btn-common pull-right"
+          id="btnExport"
+          onclick="doExportExcel();"
+        >
+          <i class="fa fa-download" aria-hidden="true"></i>
+          <span th:text="' '+#{common.export.data}"></span>
+        </a>
+      </div>
+      <div class="table-responsive">
+        <table id="tblDataTable" class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th style="width: 20px">#</th>
+              <th style="width: 80px">Action</th>
+              <th>Return No</th>
+              <th>Name of the Asset</th>
+              <th>Returned by</th>
+              <th>Return Dept.</th>
+              <th>Warehouse</th>
+              <th>Returned Date</th>
+              <th>Status</th>
+              <th>Pending At</th>
+            </tr>
+          </thead>
+          <tbody>
+            <th:block
+              th:each="assetDto,i : ${pageWrapper.data}"
+              th:with="startIndex=${pageWrapper.startIndexCurrent}"
+            >
+              <tr th:attr="data-assetreturn-id=${assetDto.assetReturnId}">
+                <td class="text-center" th:text="${i.index + startIndex}"></td>
+                <td class="td-action">
+                  <div class="align-center">
+                    <a
+                      class="
+                        glyphicon glyphicon-eye-open
+                        custom-icon
+                        j-btn-detail
+                      "
+                      th:title="#{view.button}"
+                      th:href="@{/asset-return/detail(id=${assetDto.assetReturnId})}"
+                    ></a>
+                    <a
+                      class="glyphicon glyphicon-edit custom-icon j-btn-edit"
+                      th:title="#{edit.button}"
+                      th:href="@{/asset-return/edit(id=${assetDto.assetReturnId})}"
+                      th:if="${assetDto.hasEditList}"
+                    ></a>
+                    <a
+                      class="
+                        glyphicon glyphicon-remove-sign
+                        font-size-20
+                        red
+                        j-return-delete
+                      "
+                      th:title="#{delete.button}"
+                      th:if="${assetDto.hasDelete}"
+                    >
+                    </a>
+                    <!-- 									<a class="glyphicon glyphicon-edit custom-icon j-btn-edit"
+										th:href="@{/asset-return/edit(id=${assetDto.assetReturnId})}"
+										 th:if="((${#authorization.expression('hasAuthority( @roleEp2p.ROLE_ASSET_MANAGEMENT_SUBMIT)')} 
+                                                 and ${assetDto.processStatusCode} != 1 and ${assetDto.processStatusCode} != 99
+                                                 and ${#authentication.getPrincipal().getUsername() == assetDto.createdBy} )
+                                             or
+                                             (${#authorization.expression('hasAuthority( @roleEp2p.ROLE_ASSET_MANAGEMENT_VERIFY)')}
+                                                and ${assetDto.processStatusCode} == 1))"></a>
+									<a
+										class="glyphicon glyphicon-remove-sign font-size-20 red j-return-delete" 
+										th:if="${#authorization.expression('hasAuthority(@roleEp2p.ROLE_ASSET_MANAGEMENT_SUBMIT)')}
+                                              and ${#authentication.getPrincipal().getUsername() == assetDto.createdBy} and (${assetDto.processStatusCode} == 0 or ${assetDto.processStatusCode} == 98)">
+									</a>						 -->
+                  </div>
+                </td>
+                <td
+                  class="text-left"
+                  th:text="${assetDto.returnNo}"
+                  style="white-space: nowrap"
+                ></td>
+                <td
+                  class="text-left"
+                  th:text="${assetDto.nameOfTheAsset}"
+                  style="white-space: nowrap"
+                ></td>
+                <td
+                  class="text-left"
+                  th:text="${assetDto.returnFullname}"
+                  style="white-space: nowrap"
+                ></td>
+                <td
+                  class="text-left"
+                  th:text="${assetDto.costCenter}"
+                  style="white-space: nowrap"
+                ></td>
+                <td
+                  class="text-left"
+                  th:text="${assetDto.warehouseName}"
+                  style="white-space: nowrap"
+                ></td>
+                <td
+                  class="text-center"
+                  th:text="${assetDto.returnDate} ? ${#dates.format(assetDto.returnDate, @menuConfig.getFormDate())}"
+                  style="white-space: nowrap"
+                ></td>
+                <td
+                  class="text-left"
+                  th:text="${assetDto.deleteFlag != 1 ? assetDto.processStatusName : '__#{item.status.delete}__'}"
+                  style="white-space: nowrap"
+                ></td>
+                <td class="text-left" th:text="${assetDto.pendingAt}"></td>
+              </tr>
+            </th:block>
+          </tbody>
+        </table>
+      </div>
+      <!-- PAGINATION -->
+      <th:block
+        th:include="/views/ASSET_MANAGEMENT_MODULE/commons/pagination.html :: content(pageWrapper=${pageWrapper})"
+      />
+    </div>
+    <script
+      type="text/javascript"
+      th:src="@{/static/ASSET_MANAGEMENT_MODULE/js/assetreturn/assetreturn-list-table.js}"
+    ></script>
+  </body>
+</html>
