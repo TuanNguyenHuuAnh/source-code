@@ -1,3 +1,0 @@
-UPDATE JCA_ACCOUNT
-SET PASSWORD = /*passwordNew*/
-WHERE ID = /*accountId*/ AND DELETED_ID = 0

@@ -1,4 +1,0 @@
-UPDATE m_introduction_category
-SET sort = /*cond.sortValue*/
-WHERE id = /*cond.objectId*/
-	AND delete_date IS NULL

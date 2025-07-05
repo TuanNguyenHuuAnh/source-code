@@ -1,9 +1,0 @@
-SELECT
-	ANCESTOR_ID
-	,DESCENDANT_ID
-	,DEPTH    
-FROM
-    JCA_MENU_PATH					
-WHERE ANCESTOR_ID = /*ancestorId*/
-	AND DESCENDANT_ID = /*descendantId*/
-

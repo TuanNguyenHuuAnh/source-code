@@ -1,4 +1,0 @@
-DELETE JCA_ACCOUNT_TEAM
-WHERE 1=1
-AND ACCOUNT_ID = /*accountId*/''
-AND TEAM_ID IN /*lstGroupId*/('')

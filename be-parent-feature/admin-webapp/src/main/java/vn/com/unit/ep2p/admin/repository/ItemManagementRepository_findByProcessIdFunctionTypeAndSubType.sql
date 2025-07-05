@@ -1,7 +1,0 @@
-SELECT *
-FROM JCA_ITEM
-WHERE DELETED_ID IS NULL
-	
-	AND PROCESS_ID =/*processId*/
-	AND FUNCTION_TYPE =/*functionType*/
-	AND COMPANY_ID = /*companyId*/

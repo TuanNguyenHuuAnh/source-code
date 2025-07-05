@@ -1,3 +1,0 @@
-DELETE FROM  SLA_ALERT 
-WHERE 
-TASK_ID = /*id*/0

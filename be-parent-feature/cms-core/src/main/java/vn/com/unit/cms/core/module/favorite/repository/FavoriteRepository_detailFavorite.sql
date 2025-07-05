@@ -1,5 +1,0 @@
-select ID, 
-	AGENT_CODE, TYPE, TITLE, LINK, NAMED, ICON
-from M_MENU_FAVORITE
-WHERE AGENT_CODE = /*agentCode*/
-AND FUNCTION_CODE = /*itemId*/

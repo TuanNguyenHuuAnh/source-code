@@ -1,8 +1,0 @@
-SELECT
-	*
-FROM
-	jca_language
-WHERE
-	DELETED_ID = 0
-ORDER BY
-	sort ASC

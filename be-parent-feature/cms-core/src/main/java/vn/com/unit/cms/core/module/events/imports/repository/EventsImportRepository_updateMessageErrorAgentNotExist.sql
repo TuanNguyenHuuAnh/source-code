@@ -1,5 +1,0 @@
-UPDATE M_EVENTS_IMPORT
-SET MESSAGE_ERROR = COALESCE(MESSAGE_ERROR, '') + /*error*/''  + '@;-',
-IS_ERROR = 1
-WHERE
-    ID = /*id*/''

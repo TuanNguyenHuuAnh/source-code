@@ -1,3 +1,0 @@
-	DELETE FROM M_MENU_FAVORITE
-	WHERE AGENT_CODE = /*agentCode*/
-	AND ID IN /*ids*/()

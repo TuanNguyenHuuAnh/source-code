@@ -1,7 +1,0 @@
-SELECT
-	COUNT(*)
-FROM 
-	JCA_ORGANIZATION org
-WHERE  
-	org.DELETED_ID = 0
-	AND org.CODE = /*orgCode*/

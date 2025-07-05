@@ -1,7 +1,0 @@
-SELECT 
-	KIND   		AS KIND
-   , name 	 	AS NAME
-   , CODE		AS TEXT
-FROM JCA_CONSTANT 
-WHERE  GROUP_CODE = /*bannerPage*/
-AND LANG_CODE =/*lang*/'VI'

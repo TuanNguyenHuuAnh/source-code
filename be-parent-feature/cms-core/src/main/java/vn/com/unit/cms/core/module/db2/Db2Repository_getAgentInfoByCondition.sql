@@ -1,4 +1,0 @@
-SELECT a.AGENT_STATUS_CODE ,a.AGENT_STATUS,a.*
-FROM STG_DMS.DMS_AGENT_DETAIL a
-where a.AGENT_CODE = /*agentCode*/''
-  and a.CHANNEL = 'AG'

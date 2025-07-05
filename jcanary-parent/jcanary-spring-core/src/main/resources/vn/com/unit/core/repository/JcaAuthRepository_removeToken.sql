@@ -1,1 +1,0 @@
-delete from JCA_AUTH where token = /*token*/''

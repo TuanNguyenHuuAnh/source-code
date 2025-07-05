@@ -1,6 +1,0 @@
-SELECT COUNT(*) FROM APP_SLA_INFO
-WHERE
-	DELETED_ID IS NULL
-	/*IF processId != null*/
-	AND PROCESS_ID = /*processId*/
-	/*END*/

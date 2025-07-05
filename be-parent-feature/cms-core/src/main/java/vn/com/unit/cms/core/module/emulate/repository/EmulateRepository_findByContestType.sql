@@ -1,8 +1,0 @@
-SELECT 
-		 tbl.CONTEST_TYPE 										AS CONTEST_TYPE
-FROM M_CONTEST_SUMMARY tbl
-
-WHERE
-	tbl.deleted_date is null
-		
-GROUP BY tbl.CONTEST_TYPE

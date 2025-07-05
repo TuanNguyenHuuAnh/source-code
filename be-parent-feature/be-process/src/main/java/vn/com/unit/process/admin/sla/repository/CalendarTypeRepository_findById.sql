@@ -1,4 +1,0 @@
-SELECT
-	*
-FROM SLA_CALENDAR_TYPE
-WHERE id = /*id*/0

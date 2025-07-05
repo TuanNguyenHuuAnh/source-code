@@ -1,3 +1,0 @@
-DELETE JCA_MENU_PATH
-WHERE DESCENDANT_ID = /*descendantId*/
-

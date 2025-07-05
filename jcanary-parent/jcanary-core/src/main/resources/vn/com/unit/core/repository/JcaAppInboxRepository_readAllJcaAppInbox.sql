@@ -1,9 +1,0 @@
-UPDATE 
-  JCA_APP_INBOX
-SET  
-  READ_FLAG = /*readFlag*/
-WHERE
-	DELETED_ID = 0
-	AND ACCOUNT_ID = /*userId*/
-	
-	

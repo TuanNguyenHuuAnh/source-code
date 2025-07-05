@@ -1,4 +1,0 @@
-SELECT
-	*
-FROM EFO_COMPONENT
-WHERE id = /*id*/0

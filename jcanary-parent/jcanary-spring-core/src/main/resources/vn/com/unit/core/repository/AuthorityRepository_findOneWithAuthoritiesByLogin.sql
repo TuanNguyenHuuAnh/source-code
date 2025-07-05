@@ -1,1 +1,0 @@
-SELECT * FROM JCA_ACCOUNT WHERE USERNAME = /*username*/'';

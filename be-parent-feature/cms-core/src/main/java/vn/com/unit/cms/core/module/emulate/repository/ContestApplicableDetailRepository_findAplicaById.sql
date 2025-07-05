@@ -1,7 +1,0 @@
-SELECT
-    *    
-FROM
-    M_CONTEST_APPLICABLE_DETAIL
-WHERE
-	CONTEST_ID = /*id*/'2'
-	AND delete_date IS NULL
