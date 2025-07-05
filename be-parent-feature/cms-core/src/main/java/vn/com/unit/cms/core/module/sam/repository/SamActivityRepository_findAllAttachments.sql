@@ -1,7 +1,0 @@
-select T1.ID, T1.ATTACHMENT, T1.ATTACHMENT_PHYSICAL
-from SAM_ATTACHMENT T1
-INNER JOIN SAM_ACTIVITY T2 ON T1.ACT_ID = T2.ID
-where T1.ACT_ID = /*actId*/
-/*IF type != null && type != ''*/
-AND T1.TYPE = /*type*/'ACTIVITY'
-/*END*/

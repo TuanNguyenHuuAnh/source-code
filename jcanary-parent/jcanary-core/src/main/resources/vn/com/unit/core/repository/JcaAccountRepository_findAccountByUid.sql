@@ -1,1 +1,0 @@
-select * from JCA_ACCOUNT WHERE UID = /*uid*/'' order by id desc

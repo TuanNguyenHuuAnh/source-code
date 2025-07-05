@@ -1,5 +1,0 @@
-DELETE   
-	JCA_ROLE_FOR_ACCOUNT
-WHERE 
-	ROLE_ID = /*roleId*/
-	AND ACCOUNT_ID = /*accountId*/

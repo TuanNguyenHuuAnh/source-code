@@ -1,1 +1,0 @@
-SELECT * FROM jca_account_org WHERE ACCOUNT_ID = /*accountId*/'0' AND ORG_ID = /*orgId*/'0' AND DELETED_ID = 0;

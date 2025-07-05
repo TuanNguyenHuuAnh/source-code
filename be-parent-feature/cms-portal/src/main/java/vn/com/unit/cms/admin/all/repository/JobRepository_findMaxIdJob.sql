@@ -1,9 +1,0 @@
-SELECT
-	CASE
-WHEN MAX(id) IS NULL THEN
-	0
-ELSE
-	MAX(id)
-END AS sort
-FROM
-	m_job

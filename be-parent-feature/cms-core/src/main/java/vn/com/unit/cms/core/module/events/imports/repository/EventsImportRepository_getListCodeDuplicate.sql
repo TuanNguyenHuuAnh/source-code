@@ -1,5 +1,0 @@
-SELECT (case when TYPE = '1' then AGENT_CODE else null end) as AGENT_CODE,
-	(case when TYPE = '1' then null else AGENT_CODE end) as ID_NUMBER
-FROM M_EVENTS_IMPORT A
-WHERE A.SESSION_KEY = /*sessionKey*/'20230012030009936'
-AND A.MESSAGE_WARNING LIKE '%F009.W003%'

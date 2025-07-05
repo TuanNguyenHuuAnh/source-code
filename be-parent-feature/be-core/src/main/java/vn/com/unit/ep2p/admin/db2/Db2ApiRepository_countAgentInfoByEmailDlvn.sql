@@ -1,1 +1,0 @@
-select count(*) from STG_DMS.DMS_CLIENT_DETAIL where EMAIL_ADDRESS1 = ''/*email*/

@@ -1,4 +1,0 @@
-SELECT *
-FROM
-  	JCA_ACCOUNT_REGISTER acc
-WHERE acc.ACCOUNT_ID = /*userId*/

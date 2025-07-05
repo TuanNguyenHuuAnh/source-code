@@ -1,1 +1,0 @@
-select ORG_CODE  from  STG_DMS.dms_organization  WHERE BD_MANAGER_CODE = /*agentCode*/

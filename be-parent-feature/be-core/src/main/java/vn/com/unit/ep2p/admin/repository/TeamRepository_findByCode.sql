@@ -1,1 +1,0 @@
-select * from jca_team where code = /*code*/

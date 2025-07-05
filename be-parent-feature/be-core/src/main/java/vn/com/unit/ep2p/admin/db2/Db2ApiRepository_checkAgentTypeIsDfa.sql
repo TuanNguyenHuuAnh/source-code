@@ -1,1 +1,0 @@
-select count(*) from stg_dms.dms_agent_type where channel = 'AG' and sub_structure = 2 and status = 1 and AGENT_TYPE = /*agentType*/''

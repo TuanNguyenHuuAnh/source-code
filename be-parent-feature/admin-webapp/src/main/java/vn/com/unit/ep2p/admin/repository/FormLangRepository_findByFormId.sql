@@ -1,6 +1,0 @@
-SELECT 
-	* 
-FROM
-	EFO_FORM_LANG
-WHERE
-	FORM_ID = /*formId*/

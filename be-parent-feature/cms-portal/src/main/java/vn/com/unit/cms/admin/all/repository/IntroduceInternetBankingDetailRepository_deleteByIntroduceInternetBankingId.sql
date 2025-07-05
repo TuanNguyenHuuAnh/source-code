@@ -1,2 +1,0 @@
-DELETE FROM m_introduce_internet_banking_detail
-WHERE introduce_internet_banking_id = /*introduceInternetBankingId*/

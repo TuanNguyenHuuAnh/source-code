@@ -1,8 +1,0 @@
-SELECT * FROM EFO_FORM form 
-LEFT JOIN JPM_BUSINESS bus ON bus.ID = form.JPM_BUSINESS_ID
-WHERE 
-	form.DELETED_ID = 0 
-	AND form.ACTIVED = 1 
-	AND bus.PROCESS_TYPE NOT IN ('INTEGRATE') 
-	AND form.COMPANY_ID = /*companyId*/0 
-	AND form.FORM_TYPE = /*docType*/'0'

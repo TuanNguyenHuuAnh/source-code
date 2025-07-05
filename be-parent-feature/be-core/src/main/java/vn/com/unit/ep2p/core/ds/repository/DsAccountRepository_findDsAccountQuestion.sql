@@ -1,6 +1,0 @@
-SELECT *
-FROM JCA_ACCOUNT_QUESTION
-WHERE
-    1 = 1
-    AND ISNULL(DELETED_ID, 0) = 0
-    AND username = /*userId*/1

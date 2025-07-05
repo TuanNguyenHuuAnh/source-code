@@ -1,1 +1,0 @@
-UPDATE JCA_ACCOUNT SET GAD_PASSWORD = /*passwordNew*/ WHERE ID = /*accountId*/

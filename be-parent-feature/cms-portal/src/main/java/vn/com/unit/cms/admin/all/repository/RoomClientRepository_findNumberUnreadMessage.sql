@@ -1,6 +1,0 @@
-SELECT
-    UNREAD_MESSAGE
-FROM 
-    M_SOCKET_CLIENT
-WHERE
-    CLIENTID = /*clientid*/

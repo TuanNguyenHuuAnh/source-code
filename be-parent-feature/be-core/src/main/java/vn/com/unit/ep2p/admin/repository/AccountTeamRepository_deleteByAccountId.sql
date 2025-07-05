@@ -1,4 +1,0 @@
-DELETE
-	JCA_ACCOUNT_TEAM
-WHERE
-	ACCOUNT_ID = /*accountId*/

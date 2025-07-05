@@ -1,6 +1,0 @@
-SELECT
-	*
-FROM 
-	JCA_API_DEVICE_TOKEN
-WHERE 
-	 DEVICE_TOKEN = /*deviceToken*/''

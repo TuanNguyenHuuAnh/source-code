@@ -1,7 +1,0 @@
-SELECT 
-  ACCOUNT_ID
-FROM
-  JPM_TASK_ASSIGNEE taskAssign
-WHERE
-	taskAssign.TASK_ID = /*taskId*/
-	AND taskAssign.ASSIGNEE_FLAG = 1

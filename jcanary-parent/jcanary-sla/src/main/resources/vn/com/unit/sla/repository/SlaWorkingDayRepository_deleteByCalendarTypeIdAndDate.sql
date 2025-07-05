@@ -1,3 +1,0 @@
-DELETE FROM SLA_WORKING_DAY 
-WHERE CALENDAR_TYPE_ID = /*calendarTypeId*/ 
-						AND WORKING_DAY =/*workDay*/''

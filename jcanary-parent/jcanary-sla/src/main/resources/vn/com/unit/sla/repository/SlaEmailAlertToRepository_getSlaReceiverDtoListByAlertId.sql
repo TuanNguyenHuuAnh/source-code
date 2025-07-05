@@ -1,9 +1,0 @@
-SELECT 
-	alt.RECEIVER_ID 			AS RECEIVER_ID
-	, alt.RECEIVER_TYPE 		AS RECEIVER_TYPE
-	, alt.SLA_EMAIL_ALERT_ID	AS ALERT_ID
-FROM SLA_EMAIL_ALERT_TO alt
-WHERE alt.SLA_EMAIL_ALERT_ID = /*alertId*/
-	/*IF userType != null && userType != ''*/
-	AND alt.RECEIVER_TYPE = /*userType*/
-	/*END*/

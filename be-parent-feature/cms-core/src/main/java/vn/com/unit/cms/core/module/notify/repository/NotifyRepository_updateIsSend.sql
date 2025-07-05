@@ -1,2 +1,0 @@
-UPDATE M_NOTIFYS SET IS_SEND = 'true'
-WHERE ID = /*id*/

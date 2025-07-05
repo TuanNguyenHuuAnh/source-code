@@ -1,8 +1,0 @@
-SELECT
-	1
-FROM JCA_ITEM
-WHERE DELETED_ID = 0
-AND UPPER(FUNCTION_CODE) = UPPER(/*item*/'')
-/*IF companyId != null*/
-	AND COMPANY_ID = /*companyId*/1
-/*END*/

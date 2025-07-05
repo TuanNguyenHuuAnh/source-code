@@ -1,6 +1,0 @@
-SELECT
-	form.ID AS ID
-FROM
-	EFO_FORM form
-WHERE form.JPM_BUSINESS_ID = /*businessId*/1
-	AND form.DELETED_ID = 0

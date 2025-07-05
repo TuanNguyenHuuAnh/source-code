@@ -1,8 +1,0 @@
---
--- DocumentManagementRepository_search.sql
-
-SELECT *
-FROM CMS_DOCUMENT_MANAGEMENT
-WHERE
-	ISNULL(DELETED_ID, 0) = 0
-ORDER BY PARENT_ID

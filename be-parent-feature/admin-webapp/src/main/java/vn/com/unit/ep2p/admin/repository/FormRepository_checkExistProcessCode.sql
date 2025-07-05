@@ -1,4 +1,0 @@
-SELECT
-	1
-FROM JPR_PROCESS
-WHERE UPPER(CODE) = UPPER(/*processCode*/'')

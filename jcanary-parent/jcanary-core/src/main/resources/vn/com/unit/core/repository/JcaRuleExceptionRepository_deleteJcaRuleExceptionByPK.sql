@@ -1,4 +1,0 @@
-DELETE JCA_RULE_EXCEPTION
-WHERE BUSINESS_ID = /*businessId*/0
-AND ORG_ID = /*orgId*/0
-AND ACCOUNT_ID = /*accountId*/0

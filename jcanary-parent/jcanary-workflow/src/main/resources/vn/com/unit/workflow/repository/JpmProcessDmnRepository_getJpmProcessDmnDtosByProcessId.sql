@@ -1,6 +1,0 @@
-SELECT *
-FROM
-   JPM_PROCESS_DMN
-WHERE
-   DELETED_ID = 0
-	AND PROCESS_ID = /*processId*/

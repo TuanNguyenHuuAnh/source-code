@@ -1,7 +1,0 @@
-SELECT
-	*
-FROM
-	JCA_ACCOUNT_TEAM
-WHERE
-	ACCOUNT_ID = /*accId*/ 
-	AND TEAM_ID = /*teamId*/

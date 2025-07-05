@@ -1,3 +1,0 @@
-select distinct DLVN_LV4_MAN_CODE
-from RPT_ODS.D_AD_CURRENT_ORG_HIERARCHY
-where DLVN_LV4_CODE = /*zoneCode*/'1000000022'

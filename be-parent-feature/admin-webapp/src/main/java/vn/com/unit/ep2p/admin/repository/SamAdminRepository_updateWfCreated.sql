@@ -1,3 +1,0 @@
-UPDATE SAM_ATTACHMENT SET WF_CREATED = 1
-WHERE ACT_ID = /*actId*/
-and TYPE = /*type*/'REPORT';

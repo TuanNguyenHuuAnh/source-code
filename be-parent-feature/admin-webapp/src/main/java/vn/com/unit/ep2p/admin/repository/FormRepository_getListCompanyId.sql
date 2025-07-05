@@ -1,6 +1,0 @@
-SELECT
-	distinct FR.COMPANY_ID AS company_id
-FROM
-	EFO_FORM FR
-WHERE
-	FR.DELETED_ID = 0

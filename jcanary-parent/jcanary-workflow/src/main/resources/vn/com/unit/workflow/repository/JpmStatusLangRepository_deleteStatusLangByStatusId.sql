@@ -1,4 +1,0 @@
-DELETE
-	JPM_STATUS_LANG 
-WHERE
-	STATUS_ID = /*statusId*/

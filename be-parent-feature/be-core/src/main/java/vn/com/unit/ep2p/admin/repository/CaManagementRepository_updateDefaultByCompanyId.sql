@@ -1,4 +1,0 @@
-UPDATE JCA_ACCOUNT_CA
-	SET CA_DEFAULT = 0
-WHERE COMPANY_ID = /*companyId*/
-	AND ID <> /*id*/
