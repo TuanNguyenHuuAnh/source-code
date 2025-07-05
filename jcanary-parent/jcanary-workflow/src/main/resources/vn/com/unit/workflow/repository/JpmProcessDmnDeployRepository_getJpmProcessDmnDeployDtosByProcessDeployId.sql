@@ -1,0 +1,5 @@
+SELECT *
+FROM
+   JPM_PROCESS_DMN_DEPLOY
+WHERE
+   PROCESS_DEPLOY_ID = /*processDeployId*/

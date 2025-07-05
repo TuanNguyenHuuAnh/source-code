@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+	<script type="text/javascript" th:src="@{/static/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+	<body>
+	<div class="row main-heading ">
+		<div class="row unit-border-bottom">
+			<div class="col-sm-8 col-xs-6">
+				<h3 class="mar-tb-no red" th:text="#{chat.list.title}">Hỗ trợ trực tuyến</h3>
+			</div>
+			<div class="col-sm-4 col-xs-6 align-right ml-auto">
+				
+
+			</div>
+		</div>
+	</div>	
+
+	<div class="content-chat clearfix">
+		<div class="col-sm-12 flex-col no-padding">
+			<div class="chat-col-left" id="h_resize_left">
+				<h5 class="title-left title-top-chat"><b>Hỗ trợ gần đây</b></h5>
+				<div class="list-chat">
+					<label class="form-control title-left title-top-chat">
+					    <span style="color: #333" ><b>Nhân viên : </b></span>
+					    <span>&nbsp;</span>
+					    <span class="color-blue-1"><b th:text="${account.fullname}" id="agentFullName">Tên nhân viên</b></span>
+					</label>
+					
+					<div class="scroll-chat clearfix">
+						<div class="active contact" id="contact"></div>	
+					</div>
+				</div>
+			</div>
+			
+			<div class="chat-col-right" id="h_resize_right">
+			
+				<div id="userInfoForm">
+					<th:block th:include="views/chat/chat-support-user-info.html :: content"/>
+				</div>
+				
+				<!-- Hiển thị trạng thái kết nối. Nếu trạng thái là disconect thì hiển thì icon disconect -->
+				<div class="content-chat content-disconnted" id="contentDisconnted">
+					<div class="row" >
+						<div class="col-md-12">
+							<img th:src="@{/static/images/image_disconnted.gif}" />
+						</div>
+						<div class="col-md-12">
+							<span style="color:red;text-align:center;font-size:15px;font-weight:bold" th:text="#{chat.disconnte.title}"></span>
+						</div>
+					</div>			
+				</div>
+				
+				<!-- Phần nội dung chat giữa user và agent -->
+				<div class="box-chating clearfix" id="contentChat">
+				</div>
+				
+				<div class="row">
+                        <div class="col-md-12 box_message_user lbwaiting">
+                            <span id="lbwaiting" style="padding-left: 10px"></span>
+                        </div>
+                 </div>
+				
+				<div class="box-submit-message">
+					<textarea id="messageChat" maxlength="824" class="form-control" rows="3" placeholder="Type a message..."></textarea>
+                    <button class="none-btn submit-mess" id="btnSendMessage" title="Send">
+                        <i class="fa fa-paper-plane-o" aria-hidden="true"></i> 
+                    </button>
+                    
+                    <button class="none-btn assigne-mess" id="assignUser" title="Assigne">
+                        <i class="fa fa-user-plus" aria-hidden="true"></i> 
+                    </button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!--  -->
+	<div class="menu-control hide-control" id="menu-control">
+		<ul>
+	
+			<li><a class="moveuser"> <i class="fa fa-exchange"
+					aria-hidden="true"></i> <i th:text="#{chat.conversation}">Trao đổi</i>
+			</a></li>
+			<li><a class="closeuser"> <i class="fa fa-window-close"
+					aria-hidden="true"></i> <i th:text="#{chat.close}">Đóng</i>
+			</a></li>
+		</ul>
+	</div>
+	<div class="menu-control hide-control form-group" id="menu-control-message" style="height: auto">
+<!-- 		<ul>
+			<li><a class="defaultMessage"> <i class="fa fa-comment-o"
+					aria-hidden="true"></i>  <i th:text="#{chat.message.default}">Câu chào mặc định</i>
+			</a></li>		
+		</ul> -->
+		<select id="messageDefault" multiple="multiple" style="height: 100%;width: 100%;">
+			<th:block th:each="item : ${lstMessageDetaul}">
+				<option th:value="${item.textField}"
+				th:text="${item.textField}"></option>
+			</th:block>
+		</select>
+	</div>
+	
+	<div id="box_contact_online" style="display: none">
+ 		<div class='user userbox' client-id="@clientid" id="user_@clientid">
+			<div class="box-user-chat clearfix">
+				<div class='icon-user iconstatus_@clientid'>
+				    <div class="avata-user">
+                        <span>@avatarName</span>
+                    </div>
+				</div>
+				<div class='info-user gr-info-user-chat'>
+					<span class="name">@fullname</span>
+					<span class="timesend">
+                       <div>
+                           <span class="last-message" id="lastMessage_@clientid"></span>
+                       </div>
+					   <i th:text="#{chat.send}">Gửi lúc: </i><i id="timesend_@clientid">@timesend</i>
+					</span>
+				</div>
+				
+	            <div id="unreadMessage_@clientid" class="pull-right num-mess-read" style="display: none">
+	               <span id="numberMessage_@clientid"></span>
+	               <i class="fa fa-comment" aria-hidden="true"></i>
+	            </div>
+			</div>
+		</div>
+		<!-- end user -->
+	</div>
+ 	<div id="box_contact_offline" style="display: none">
+		<div class='user userbox' client-id="@clientid" id="user_@clientid">
+			<div class='icon-user iconstatus_@clientid'>
+                <div class="avata-user">
+                    <span>@avatarName</span>
+                </div>
+			</div>
+			<div class='info-user gr-info-user-chat'>
+                <span class="name">@fullname</span>
+                <span class="timesend"><i th:text="#{chat.send}">Gửi lúc</i><i>: @timesend</i></span>
+			</div>
+		</div>
+		<!-- end user -->
+	</div>
+	
+	<!-- message-consultants -->
+	<div id="box_message_client" style="display: none">
+		<div class="box-mess-consultants">
+		    <!-- Customer Name -->
+			<p class="title sub-name">@fullname</p>
+			<div class="avata-user">
+				<span>@avatarName</span>
+			</div>
+			<div class="list-mess-send pull-left">
+				<div class="message-consultants">
+					<p class="message-consultants-send" data-message='@messageid'>@message</p>
+<!-- 		            <div class="timesendmsg" style="padding-right:10px;">
+	                    <i><span>@timesend</span></i>
+	                </div> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="box_message_client_2" style="display: none">
+		<div class="box-mess-consultants">
+			<p class="title sub-name">@fullname</p>
+			<div class="content-message">@image</div>
+		</div>
+	</div>
+	
+	<!-- box-mess-user -->
+	<div id="box_message_user" style="display: none">
+		<div class="@box-mess-user box-mess-param" data-old-agent="@oldAgent">
+			<p class="sub-name">@agentName</p>
+			<div class="avata-user">
+				<span>@avatarName</span>
+			</div>
+			<div class="list-mess-send pull-right">
+				<div class="message-user">
+					<p class="message-user-send" data-message='@messageid'>@message</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="box_message_user_2" style="display: none">
+		<div class="box-mess-user">
+			<div class="avata-user">
+				<span>@image</span>
+			</div>
+		</div>
+	</div>
+	
+	<div id="box_message_system" style="display: none">
+		<div class="msg-user">
+			<div class="row">
+				<div class="col-md-offset-1 col-md-10">
+					<div class="content-message">
+						<span class='item-message-alert'>@message</span>
+					</div>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" value="1" id="chatFlag" />
+	
+	<div class="modal fade" id="modalAssignUser" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				    <label>Chỉ định Nhân viên</label>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class='row'>
+						<form class="form-horizontal">
+							<div class="col-xs-12 col-sm-12">
+								<div class="form-group">
+									<label class="col-sm-3 control-label"
+										th:text="#{chat.list.agent}">Nhân viên hỗ trợ</label>
+									<div class="col-sm-9">
+										<select id="sleUserOnline" class="form-control"></select>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a href="#" id="acceptAssign" class="btn-common">Chỉ định</a>
+					<a href="#" class="btn-common" data-dismiss="modal">Hủy</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="modalNotFoundUserOnline" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+			        <label>Chỉ định Nhân viên</label>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel"></h4>
+				</div>
+				<div class="modal-body" th:text="#{chat.assign.user.offline.1}">Nhân viên khác chưa đăng nhập hệ thống!</div>
+				<div class="modal-footer">
+					<a href="#" class="btn-common" data-dismiss="modal">Thoát</a>
+				</div>
+			</div>
+		</div>
+		
+	<input type="hidden" id="clientId" th:value="${clientid}" />
+</div>
+<script type="text/javascript" th:inline="text">    
+	var CHAT_ALERT_CLIENT_LOGOUT = '[[#{chat.alert.client.logout}]]';
+	var CHAT_ALERT_CLIENT_ASSIGN_SUCESS = '[[#{chat.alert.client.assign.success}]]';
+	var CHAT_ALERT_CLIENT_ASSIGN_FAIL = '[[#{chat.alert.client.assign.fail}]]';
+	var MSG_DEFAULT = '[[${message}]]';
+	var SESSION_TIMEOUT = '[[${sessionTimeOut}]]';
+	var CLIENT_ID_REF = '[[${userInfoSupport.clientid}]]';
+</script>
+
+<script type="text/javascript" th:src="@{/static/jquery/vendor/jquery.ui.widget.js}"></script>
+<script type="text/javascript" th:src="@{/static/jquery/jquery.fileupload.js}"></script>
+
+<link rel="stylesheet" type="text/css" th:href="@{/static/plugins/chat/server_chat.css}"/>
+
+	<input type="hidden" id="fieldSearchHidd"/>
+	<input type="hidden" id="fieldValuesHidd"/> 
+	<link rel="stylesheet" type="text/css" th:href="@{/static/css/jquery-ui.css}"/>
+	<script type="text/javascript" th:src="@{/static/js/jquery-ui.js}"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/static/jquery/multiple-select/css/jquery.multiselect.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/static/plugins/datepicker/css/bootstrap-datepicker.css}"/>
+	<script type="text/javascript" th:src="@{/static/plugins/datepicker/js/bootstrap-datepicker.js}"></script>
+	
+	<script type="text/javascript" th:src="@{/web-app/views/chat/chat-support-list.js}"></script>
+	
+	<script>
+        $(document).ready(function(){
+            $('.box-chating').slimScroll();
+            $('.scroll-chat ').slimScroll();
+            //Resizeable
+            $("#h_resize_left").resizable();
+        });
+
+    </script>
+    
+   	<script th:inline="javascript">
+	 	/*<![CDATA[*/
+	 	var MSG_NOTIFY = [[#{message.confirm.close.user}]];
+		/*]]>*/
+	 </script>
+	 </body>
+</html>	

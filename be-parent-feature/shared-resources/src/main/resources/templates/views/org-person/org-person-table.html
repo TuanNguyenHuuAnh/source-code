@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+	<div class="col-sm-12 p-0">
+		<div class="col-xs-6 col-sm-8 p-0">
+			<h2 class="title-box" th:text="#{search.results.title}">Kết quả
+				tìm kiếm</h2>
+		</div>
+	</div>
+	<div class="col-sm-12 p-0">
+	    <div class="table-responsive">
+			<table id="orgPersonTable" class="table table-bordered table-striped">
+			    <input type="hidden" id="result_size" th:value="${not #lists.isEmpty(listOrgForAccount) ? #lists.size(listOrgForAccount) : 0 }"/>
+				<thead>
+					<tr>
+						<th class="u_t_no">#</th>
+						<th class="no-action" th:text="#{table.label.action}" >Action</th>
+						<th th:text="#{company.detail}" 
+						th:if="${#authentication?.principal?.companyIdList.size() gt 1 or #authentication?.principal?.companyAdmin}">Company</th>
+						<th class="u_t_name" th:text="#{org.person.org.parent}" >org name</th>
+						<th th:text="#{org.person.org}">position</th>
+	                   	<th th:text="#{org.person.org.parent.curator}">Active</th>
+	                   	<th th:text="#{org.person.org.curator}">Active</th>
+					</tr>
+				</thead>
+				<tbody>
+				    <th:block th:each="_item,i : ${pageWrapper.data}" th:with="startIndex=${pageWrapper.startIndexCurrent}">
+						<tr th:attr="data-org-person-id=${_item.id}">
+							<td th:text="${i.index + startIndex}"></td>
+							<td class="text-center">
+                                <div class="btn-group">
+                                    <a class="btn-edit" data-toggle="modal" data-target="#edit-modal" ><i class="glyphicon glyphicon-edit custom-icon"></i></a>
+                                    <a class="btn-delete glyphicon glyphicon-remove-sign font-size-20 red j-od-delete" title="delete"></a>
+                                </div>
+                            </td>
+                            <td th:text="${_item.companyName}" th:if="${#authentication?.principal?.companyIdList.size() gt 1 or #authentication?.principal?.companyAdmin}"></td>
+							<td th:text="${_item.orgParentName}"></td>
+							<td th:text="${_item.orgName}"></td>
+							<td th:text="${_item.orgParentCuratorName}"></td>
+							<td th:text="${_item.orgCuratorName}"></td>
+						</tr>
+					</th:block>
+					<th:block th:if="${pageWrapper.data.size() eq 0}">
+                        <tr>
+                            <td colspan="100%" th:text="#{table.emptyTable.label}"></td>
+                        </tr>
+                    </th:block>
+				</tbody>
+			</table>
+		</div>
+		<th:block
+			th:include="views/commons/pagination.html :: content(pageWrapper=${pageWrapper})" />
+	</div>
+	<script type="text/javascript"
+	th:src="@{/static/cache/js/org-person/org-person-table.js}"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+SELECT count (*)
+FROM dbo.M_CONFIRM_PAYMENT
+WHERE AGENT_CODE = /*agentCode*/
+	AND PERIOD = /*period*/
+	AND GA_CODE = /*gaCode*/
+	AND CONFIRM_TIME IS NOT NULL

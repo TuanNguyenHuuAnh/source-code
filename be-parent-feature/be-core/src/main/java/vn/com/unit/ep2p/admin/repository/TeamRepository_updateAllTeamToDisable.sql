@@ -1,0 +1,2 @@
+UPDATE jca_team 
+SET ACTIVED = 0

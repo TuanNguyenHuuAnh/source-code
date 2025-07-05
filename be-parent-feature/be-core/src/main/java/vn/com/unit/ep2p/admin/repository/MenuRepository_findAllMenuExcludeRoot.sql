@@ -1,0 +1,8 @@
+SELECT
+	*
+FROM
+	JCA_MENU_PATH menu
+WHERE
+	isnull(menu.DELETED_ID,0) = 0
+   	AND menu.COMPANY_ID IS NULL
+   	AND menu.PARENT_ID <> -1

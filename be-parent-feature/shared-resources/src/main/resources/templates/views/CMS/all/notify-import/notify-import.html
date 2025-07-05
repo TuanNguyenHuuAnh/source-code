@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<!-- BODY START -->
+<body th:fragment="content">
+    <div class="row">
+        <div class="col-md-12 row">
+            <div class="col-md-2">
+                <h5 class="title-box" th:text="#{import.area.title}">File Import</h5>
+            </div>
+            <div class="col-sm-8 form-group">
+                <div id="fileFilelist"></div>
+                <div class="wrap_upload" id="fileContainer">
+					<!-- <a href="#upload" id="filePick" class="upload" th:text="#{import.choose.file}">Choose file excel</a> -->
+					<a style="cursor:pointer" class="upload" id="filePick" th:text="#{import.choose.file.upload}">
+					</a>
+				</div>
+                <span style="display: none; color: #f00;" id="fileConsole"></span>
+            </div>
+        </div>
+        
+        <div class="col-md-12 row" th:if="${isError}" id="form-download-template">
+            <div class="col-md-2">
+                <label>Tải về file lỗi</label>
+            </div>
+            <div class="col-md-8 form-group">
+				<a href="#" class="btnTemplateDownload" id="btnErrorDownload"
+					style="color: red;"
+					th:text="#{import.export.error.warning}">Export error/warning list
+				</a>
+				<input type="hidden" id="fileName" name="fileName" th:value="${fileName}"/>
+            </div>
+        </div>
+        
+        <div class="col-md-12">
+        	<div class="col-md-2">
+        	</div>
+            <div class="col-md-8 p-0 form-group">
+				<a style="cursor:pointer" class="btnTemplateDownload" id="btnTemplateDownload" th:text="#{download.file.sample}"></a>
+            </div>
+        </div>
+    </div>
+    
+	<input type="hidden" id="fieldSearchHidd" />
+	<input type="hidden" id="fieldValuesHidd" />
+	<input type="hidden"id="urlSearch"/>
+	<input type="hidden" id="ch"/>
+
+</body>
+<!-- BODY END -->
+</html>

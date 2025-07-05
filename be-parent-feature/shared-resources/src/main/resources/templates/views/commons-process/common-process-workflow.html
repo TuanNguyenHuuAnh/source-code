@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content(editDto)">
+	<div class="" th:if="${isWorkflow and isShowWorkflow}">
+		<input type="hidden" id="wfIsWorkflow" name="wfIsWorkflow" th:value="${isWorkflow}" />
+		<input type="hidden" id="wfProcessDeployId" name="wfProcessDeployId" th:value="${wfProcessDeployId}" th:if="${wfProcessDeployId}" />
+		
+
+		
+		<!-- WORKFLOW DIAGRAM -->
+		<!-- <div class="bg-content clearfix" style="border-top: none;">
+			<div data-toggle="collapse" data-target="#processMainDiagram" class="header-box">
+				<h2 class="title-box">
+					<span th:text="#{document.workflow}">Workflow</span>
+				</h2>
+				<i class="fa fa-minus pull-right" aria-hidden="true"></i>
+			</div>
+		
+			<div class="collapse in row m-0" id="processMainDiagram">
+				<img id="imgProcessMainDiagram" class="img-responsive img-rounded" alt="Workflow Process Diagram" 
+					 th:if="${editDto?.processDeployId != null AND editDto?.docId != null}"
+					 th:src="@{/workflow/diagram/documents/{processDeployId}(processDeployId=${editDto?.processDeployId}, docUuid=${editDto?.docId}, r=${new java.util.Date().getTime()})}"/>
+				<img id="imgProcessMainDiagram" class="img-responsive img-rounded" alt="Workflow Process Diagram" 
+					 th:unless="${editDto?.processDeployId != null AND editDto?.docId != null}"
+					 th:src="@{/workflow/diagram/{processDefinitionId}(processDefinitionId=${processDefinitionid})}"/>
+			</div>
+		</div> -->
+	</div>
+</body>
+</html>

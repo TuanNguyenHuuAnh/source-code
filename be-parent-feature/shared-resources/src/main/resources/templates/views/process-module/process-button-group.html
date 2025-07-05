@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content(statusCode, itemFunctionCode)">
+	<th:block th:include="views/process-module/process-popup-confirm.html :: content" />
+
+	<input type="hidden" id="action" name="action" value="save" />
+	<input type="hidden" id="isSave" name="isSave" value="false" />
+	<input type="hidden" id="isSign" name="isSign" value="false" />
+	<input type="hidden" id="isAuthenticate" name="isAuthenticate" value="false" />
+	<input type="hidden" id="isExportPdf" name="isExportPdf" value="false" />
+	<input type="hidden" id="isSubmit" name="isSubmit" value="false" />
+	<!-- <input type="hidden" id="actTaskId" name="actTaskId" th:value="*{actTaskId}" /> -->
+	<input type="hidden" id="actButtonIdStr" name="actButtonIdStr" th:value="*{actButtonIdStr}" />
+	<input type="hidden" id="actButtonType" name="actButtonType" th:value="*{actButtonType}" />
+	<input type="hidden" id="actButtonValue" name="actButtonValue" th:value="*{actButtonValue}" />
+	<input type="hidden" id="buttonId" name="buttonId" th:value="*{actButtonIdStr}" />
+	<input type="hidden" id="buttonType" name="buttonType" th:value="*{actButtonType}" />
+	<input type="hidden" id="buttonValue" name="buttonValue" th:value="*{actButtonValue}" />
+	<input type="hidden" id="buttonName" name="buttonName" value="" />
+	<input type="hidden" id="buttonNamePassive" name="buttonNamePassive" value="" />
+	
+	<input type="hidden" id="stepCode" name="stepCode" th:value="${buttonWrapper?.stepCode}"/>
+	<input type="hidden" id="fieldSign" name="fieldSign" value="false"/>
+	<input type="hidden" id="functionCode" name="functionCode" value=""/>
+	<input type="hidden" id="displayHistory" name="displayHistory" value=""/>
+	
+	<div class="form-group text-center">
+		<div class="form-group text-center">
+			<!-- <button th:if="${(#authorization.expression('hasAuthority('''+itemFunctionCode+':Edit'+''')') AND statusCode == '000') OR buttonWrapper?.isSave == true}" -->
+			<button th:if="${buttonWrapper?.isSave == true}"
+				type="button" id="btnSave" class="btn btn-common">
+				<i class="fa fa-floppy-o" aria-hidden="true"></i>
+				<span th:text="#{save.button}" th:title="#{save.button}">Save</span>	
+			</button>
+				
+			<th:block th:each="_item,i : ${buttonWrapper?.data}">
+				<!-- <button class="btn-process-group btn btn-sm" type="button"  -->
+				<button class="btn-process-group btn btn-sm" type="button" 
+							th:if="${#authorization.expression('hasAuthority('''+_item.functionCode+''')')
+				 				or (_item.buttonType eq T(vn.com.unit.ppl.enumdef.ButtonType).REFERENCE.toString() and _item.functionCode == null)}"
+							th:classappend="${_item.buttonClass}" th:value="${_item.buttonValue}" 
+							th:attr="data-button-id=${_item.id}, data-button-name=${_item.buttonText}, data-button-type=${_item.buttonType}, 
+								data-is-save=${_item.isSave}, data-is-sign=${_item.isSign}, data-is-authenticate=${_item.isAuthenticate}, 
+								data-is-export-pdf=${_item.isExportPdf}, data-button-value=${_item.buttonValue}, data-field-sign=${_item.fieldSign}, 
+								data-function-code=${_item.functionCode}, data-button-name=${_item.buttonText}, data-button-name-passive=${_item.buttonNamePassive},
+								data-display-history=${_item.displayHistory}">
+					<i th:class="${_item.buttonIcon}"></i>
+					<span th:text="${_item.buttonText}" th:title="${_item.buttonText}"></span>
+				</button>
+			</th:block>
+		</div>
+	</div>
+</body>
+</html>

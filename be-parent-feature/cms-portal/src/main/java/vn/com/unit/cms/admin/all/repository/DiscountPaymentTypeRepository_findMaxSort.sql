@@ -1,0 +1,4 @@
+SELECT
+Max(sort_order)
+FROM
+m_discount_payment_type

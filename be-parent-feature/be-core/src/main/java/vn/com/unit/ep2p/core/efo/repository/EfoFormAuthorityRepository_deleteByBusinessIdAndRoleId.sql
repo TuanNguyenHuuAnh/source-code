@@ -1,0 +1,13 @@
+DELETE EFO_FORM_AUTHORITY
+WHERE
+   ROLE_ID = /*roleId*/10
+AND
+   FORM_ID IN
+(
+   SELECT
+      ID
+   FROM
+      EFO_FORM
+   WHERE
+      BUSINESS_ID = /*businessId*/10
+)

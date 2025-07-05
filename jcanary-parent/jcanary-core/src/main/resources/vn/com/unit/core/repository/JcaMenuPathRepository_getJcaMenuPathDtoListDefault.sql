@@ -1,0 +1,9 @@
+SELECT
+	menu_path.DEPTH			as DEPTH
+	,menu_path.ANCESTOR_ID		as ANCESTOR_ID
+	,menu_path.DESCENDANT_ID	as DESCENDANT_ID
+	,menu_path.CREATED_DATE		as CREATED_DATE
+	,menu_path.CREATED_ID		as CREATED_ID
+
+FROM 
+	JCA_MENU_DEFAULT_PATH menu_path

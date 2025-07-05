@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+	<div data-toggle="collapse" data-target="#search-box-2"
+		class="header-box">
+		<h2 class="title-box" th:text="#{account.team.user.list}">User
+			list</h2>
+		<i class="fa fa-minus pull-right" aria-hidden="true"></i>
+	</div>
+	<div class="collapse in row m-0" id="search-box-2">
+		<div class="table-responsive">
+			<table id="listAccount" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th class="u_t_no ">#</th>
+						<th colspan="3" class="u_t_name"><input type="text"
+							id="functionName" class="form-control input-sm" /></th>
+						<th><input type="checkbox" id="chkall" title="check all" />
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<th:block th:each="account,iterStat : ${teamDto.listAccountOfTeam}">
+						<tr>
+							<input type="hidden" class="j-account-id"
+								th:name="data[__${iterStat.index}__].accountId"
+								th:id="data[__${iterStat.index}__].accountId"
+								th:value="${account.accountId}" />
+							<td th:text="${iterStat.index + 1}" class="text-center"></td>
+							<td th:text="${account.username}" data-tfilter="true">User
+								name</td>
+							<td th:text="${account.fullname}" data-tfilter="true">Full
+								name</td>
+							<td th:text="${account.email}" data-tfilter="true">Email</td>
+							<td class="text-center"><input type="checkbox"
+								class="check-access"
+								th:name="data[__${iterStat.index}__].flgChecked"
+								th:checked="${account.flgChecked}" /></td>
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<script type="text/javascript"
+		th:src="@{/static/cache/js/authority/iauthority-edit.js}"></script>
+</body>
+</html>

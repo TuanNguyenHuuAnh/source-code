@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+	<div class="">
+		<div class="row unit-bg-table m-0">
+			<div class="table-responsive">
+				<table id="functionTableId"
+					class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th class="u_t_no">#</th>
+							<th>
+								<input type="text" id="functionName" class="form-control input-sm" th:placeholder="#{authority.detail.function.name}" />
+							</th>
+							<th th:text="#{action.label}">Thao tác</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class ="item-tr" th:unless="${listFunction} and ${listFunction.size()>0}">
+             				<td colspan="3" th:text="#{search.results.no.data}"></td>
+             			</tr>
+						<th:block th:each="function,i : ${listFunction}">
+							<tr th:attr="data-function-id=${function.id}" th:class="${functionIdSelected == function.id} ? highlight : ''">
+								<td th:text="${i.index+1}">1.</td>
+								<td th:text="${function.functionName}" data-tfilter1="true">FunctionName</td>
+								<td class="text-center">
+									<div class="btn-group">
+										<a class="j-function-edit j-btn-edit glyphicon glyphicon-edit custom-icon" type="button"></a>
+									</div>
+								</td>
+							</tr>
+						</th:block>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<script th:inline="javascript">
+	    /*<![CDATA[*/
+	    var messageList = /*[[${messageList}]]*/;
+	    /*]]>*/
+	</script>
+	<script type="text/javascript" th:src="@{/static/cache/js/authority-comment/iauthority-function-list.js}"></script>
+</body>
+</html>

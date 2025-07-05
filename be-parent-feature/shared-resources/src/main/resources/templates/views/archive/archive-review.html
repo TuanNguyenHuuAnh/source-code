@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<script type="text/javascript"
+	th:src="@{/static/cache/js/archive/archive-review.js}"></script>
+
+<div class="title-head clearfix">
+	<div class="col-md-9 col-xs-7 no-padding">
+		<h3>
+			<i class="fa fa-table" aria-hidden="true"></i> <span
+				th:text="#{archive.page}">Tiêu đề trang</span>
+		</h3>
+	</div>
+	<div class="col-md-3 col-xs-5 icon-head">
+		<div class="pull-right">
+			<a> <i class="fa fa-arrow-circle-left icon-head-red "
+				th:title="#{icon.back}" id="linkList" aria-hidden="true"></i>
+			</a>
+		</div>
+	</div>
+</div>
+
+<th:block
+	th:include="views/commons/message-alert.html :: content(${messageList})" />
+<!-- <th:block th:if="!${messageList}"> -->
+
+<input type="hidden" id="url" name="url" th:value="${url}" />
+<form method="POST" class="form-horizontal u-for-page-top"
+	th:object="${archiveReviewDto}" id="id-form-archive" th:action="@{/}"
+	autocomplete="off">
+	<div class="bg-content clearfix">
+		<div class="header-box">
+			<h2 class="title-box" th:text="#{archive.review}">Archive
+				manager</h2>
+		</div>
+		<div class="col-md-12 p-0">
+			<input type="hidden" th:field="*{userId}" />
+			<div class="col-md-6 p-0">
+				<div class="form-group">
+					<label for="companyId" class="col-md-4 align-top"
+						th:text="#{company.detail}">Company</label>
+					<div class="col-md-8" th:if="${companyList.size()>1}">
+	                    <select disabled="disabled" class="form-control select2" th:field="*{companyId}">
+	                        <option th:value="0" th:text="#{common.all}"></option>
+	                        <option th:each="company : ${companyList}" 
+	                                th:value="${company.id}"
+	                                th:text="${company.text}">
+	                        </option>
+	                    </select>
+	                    <input type="hidden" th:field="*{companyId}"/>
+	                </div>
+	                <div class="col-md-8" th:if="${companyList.size()==1}">
+	                	<input class="form-control" th:value="${companyList[0].text}" readonly="readonly"  maxlength="255"  disabled="disabled"/>
+	                	<input type="hidden" th:field="*{companyId}"/>
+	                </div>
+				</div>
+				<div class="form-group">
+					<label for="docState" class="col-md-4 align-top"
+						th:text="#{archive.add.doc.state}">Document status</label>
+					<div class="col-md-8">
+						<select class="form-control" th:field="*{docState}"
+							disabled="disabled">
+							<option
+								th:each="item : ${T(vn.com.unit.ppl.enumdef.ArchiveDocumentStatus).getSelect2Dtos()}"
+								th:value="${item.id}" th:text="#{${item.text}}"></option>
+						</select> <input type="hidden" th:field="*{docState}" />
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 p-0">
+				<div class="form-group">
+					<label for="startDate" class="col-md-4 align-top"
+						th:text="#{archive.date.start}">Start time</label>
+					<div class="col-md-8">
+						<div class="input-group">
+							<input class="form-control" th:field="*{startDate}"
+								readonly="readonly" /> <span class="input-group-addon"><i
+								class="fa fa-calendar" aria-hidden="true"></i></span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="endDate" class="col-md-4 align-top"
+						th:text="#{archive.date.end}">End time</label>
+					<div class="col-md-8">
+						<div class="input-group">
+							<input class="form-control " th:field="*{endDate}"
+								readonly="readonly" /> <span class="input-group-addon"><i
+								class="fa fa-calendar" aria-hidden="true"></i></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-12 footer-box-bg">
+			<button type="button" class="btn-cancel" id="btnCancel">
+				<i class="fa fa-times" aria-hidden="true"></i> <span
+					th:text="#{cancel.button}">Thoát</span>
+			</button>
+			<button type="button" class="btn-common" id="btn-archive"
+				th:if="${#authorization.expression('hasAuthority(@roleConstant.ROLE)')}">
+				<i class="fa fa-archive" aria-hidden="true"></i> <span
+					th:text="#{archive.button}">archive</span>
+			</button>
+		</div>
+	</div>
+</form>
+<form method="POST" class="form-horizontal" th:object="${searchDto}"
+	id="id-search-form" th:action="@{/}" autocomplete="off">
+
+	<div class="bg-content clearfix">
+		<div data-toggle="collapse" data-target="#search-box"
+			class="header-box">
+			<h2 class="title-box" th:text="#{search.title}">Vùng tìm kiếm</h2>
+			<i class="fa fa-minus pull-right" aria-hidden="true"></i>
+		</div>
+		<div class="collapse in row" id="search-box">
+			<div class="col-md-12">
+				<div class="col-md-12">
+					<input type="hidden" th:field="*{userId}" />
+					<div class="col-md-3">
+						<div class="form-group">
+							<!-- <label for="code" class="col-md-4 align-top">Key search</label> -->
+							<div class="col-md-12">
+								<input class="form-control" type="text" th:field="*{keySearch}"
+									th:placeholder="#{search.key}" />
+							</div>
+						</div>
+					</div>
+					<div class="col-md-7 form-group">
+						<label for="name" class="col-md-3 align-top"
+							th:text="#{archive.table.update.date}">End time</label>
+
+						<div class="col-md-4 p-0">
+							<div class="input-group datepicker date date-icon-calendar">
+								<input class="form-control datepicker-from-date"
+									th:field="*{startDate}" /> <span class="input-group-addon"><i
+									class="fa fa-calendar" aria-hidden="true"></i></span>
+							</div>
+							<label id="startDate-error" class="error" for="startDate"></label>
+						</div>
+						<div class="col-md-1 text-center p-0">~</div>
+						<div class="col-md-4 p-0">
+							<div class="input-group datepicker date date-icon-calendar">
+								<input class="form-control datepicker-to-date"
+									th:field="*{endDate}" /> <span class="input-group-addon"><i
+									class="fa fa-calendar" aria-hidden="true"></i></span>
+							</div>
+							<label id="endDate-error" class="error" for="endDate"></label>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<a class="btn-common" id="searchBtn"> <i class="fa fa-search"
+								aria-hidden="true"></i> <span th:text="#{search.button}"></span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<!-- <div class="col-xs-12 col-md-12 footer-box-bg">
+				<a class="btn-common" id="searchBtn"> <i class="fa fa-search"></i>
+					<span th:text="#{search.button}"></span>
+				</a>
+			</div> -->
+			</div>
+		</div>
+	</div>
+</form>
+<div class="bg-content clearfix bg-content-tbl" id="tableList">
+	<th:block
+		th:include="views/archive/archive-review-table.html :: content" />
+</div>
+<!-- </th:block> -->
+<script type="text/javascript" th:inline="text">
+	var MSG_ARCHIVE_CONFIRM = '[[#{message.confirm.archive}]]';
+</script>
+</html>
+

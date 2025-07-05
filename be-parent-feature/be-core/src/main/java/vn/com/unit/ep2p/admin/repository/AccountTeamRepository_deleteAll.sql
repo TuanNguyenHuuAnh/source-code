@@ -1,0 +1,1 @@
+truncate table jca_account_team

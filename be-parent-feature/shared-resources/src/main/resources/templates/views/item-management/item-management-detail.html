@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<body th:fragment="content">
+<div class="title-head">
+		<div class="row">
+			<div class="col-md-5">
+				<h3>
+					<span th:text="#{item.management.list.page}">Tiêu đề trang</span>
+				</h3>
+			</div>
+		   	<div class="col-md-7">
+		        <div class="pull-right">
+					 <a class="u-btn u-btn-back" id="linkList">
+					 	<img th:src="@{/static/images/icon-down.png}" alt="" width="17px" class="rotate-ico"/>
+					 	<span>Trở lại</span>
+					 </a>
+					 
+		        </div>
+		   </div>
+		</div>	
+	</div>
+
+<form id="form-edit-item-management" method="POST" role="form" class=" u-for-page-top j-form-validate" th:object="${itemManagementDto}">
+    <th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+    <div class="col-sm-12 p-0">
+        <div class="bg-content clearfix">
+        	<div class="header-box">
+                <h2 class="title-box" th:text="#{item.management.detail}">Detail</h2>
+            </div>
+            <div class="row">
+	            <div class="col-md-6">
+	                <div class="form-group row">
+	                    <label class="col-sm-3" th:text="#{item.management.function.code}">Function code</label>
+	                    <div class="col-sm-9">
+	                        <input type="text" class="form-control form-detail" id="functionCode" name="functionCode"
+	                               th:value="${itemManagementDto.functionCode}"  disabled="disabled"/>
+	                        <span class="help-block" th:if="${#fields.hasErrors('functionCode')}" th:errors="${itemManagementDto.functionCode}"></span>
+	                    </div>
+	                </div>
+	                <div class="form-group row">
+	                    <label class="col-sm-3" th:text="#{item.management.function.name}">Function name</label>
+	                    <div class="col-sm-9">
+	                        <input type="text" class="form-control  form-detail" id="functionName" name="functionName"
+	                               th:value="${itemManagementDto.functionName}" disabled="disabled"/>
+	                    </div>
+	                </div>
+	                <div class="form-group row" th:if="${companyList.size()>1}">
+		                <label for="companyId" class="col-sm-3 " th:text="#{company.detail}">Company</label>
+		                <div class="col-sm-9">
+		                	<input type="hidden" th:if="*{itemId != null and functionType=='1'}" name="companyId" th:value="*{companyId}" />
+		                    <select class="form-control select2 form-detail" th:field="*{companyId}" disabled="disabled">
+		                    	<option th:value="${NULL}" th:text="#{company.all}"></option>
+		                        <option th:each="company : ${companyList}" 
+		                                th:value="${company.id}"
+		                                th:text="${company.text}">
+		                        </option>
+		                    </select>
+		                </div>
+		            </div>
+	                
+	                <!-- <div class="form-group">
+	                    <label class="col-sm-3" th:text="#{item.management.function.active}">Status</label>
+	                    <div class="col-sm-9">
+	                        <select class="form-control select2 form-detail" th:field="${itemManagementDto.displayFlag}" disabled="disabled">
+	                            <option value="">-</option>
+	                            <option th:each="item : ${lstDisplayFlag}" th:value="${item.cat}" th:text="${item.catOfficialName}"></option>
+	                        </select>
+	                    </div>
+	                </div> -->
+	            </div>
+	            <div class="col-md-6">
+	            	<div class="form-group row">
+	                    <label class="col-sm-3" th:text="#{item.management.function.desc}">Description</label>
+	                    <div class="col-sm-9">
+	                        <input type="text" class="form-control form-detail" id="description" name="description"
+	                               th:value="${itemManagementDto.description}" disabled="disabled"/>
+	                    </div>
+	                </div>
+	                <div class="form-group row">
+	                    <label class="col-sm-3" th:text="#{item.management.function.displayorder}">Display order</label>
+	                    <div class="col-sm-9">
+	                        <input type="text" class="form-control form-detail" id="displayOrder" name="displayOrder"
+	                               th:value="${itemManagementDto.displayOrder}" disabled="disabled"/>
+	                    </div>
+	                </div>
+	                <div class="form-group row">
+	                    <label class="col-sm-3" th:text="#{item.management.function.type}">Function type</label>
+	                    <div class="col-sm-9">
+	                    <input type="text" class="form-control form-detail" id="description" name="description"
+	                               th:value="${itemManagementDto.functionType}" disabled="disabled"/>
+	                        <!--  <select class="form-control select2 form-detail" th:field="${itemManagementDto.functionType}" id="functionType" disabled="disabled">
+	                            <option th:value="${itemManagementDto.functionType}">-</option>
+	                            <option value="1" th:text="#{item.management.system}" th:if="${id != null and functionType=='1'}"></option>
+	                            <option th:each="item : ${lstFunctionType}" th:value="${item.Code}" th:text="${item.catOfficialName}"></option>
+	                        </select>  -->
+	                         <!-- <input type="text" class="form-control form-detail" id="functionType"
+	                               th:value="${item.Code}" th:text="${item.catOfficialName}" disabled="disabled"/> -->
+	                    </div>
+	                </div> 
+	                
+	               <!--  <div class="form-group">
+	                    <label class="col-sm-3" th:text="#{item.management.function.bizcode}">Business code</label>
+	                    <div class="col-sm-9">
+	                        <select class="form-control select2 form-detail" id="businessCode" name="businessCode" disabled="disabled">
+	                        	<option value=""></option>
+	                        	<option selected="selected" th:value="*{businessId}" th:text="*{businessName}" th:if="*{functionType=='3'}"></option>
+	                            <option selected="selected" th:value="*{businessCode}" th:text="*{businessName}" th:unless="*{functionType=='3'}"></option>
+	                        </select>
+	                    </div>              
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-sm-3" th:text="#{item.management.function.subtype}">Sub type</label>
+	                    <div class="col-sm-9">
+	                        <select class="form-control form-detail" th:field="${itemManagementDto.subType}"  disabled="disabled">
+	                            <option value="">-</option>
+	                            <option th:each="item : ${lstSubType}" th:value="${item.cat}" th:text="${item.catOfficialName}"></option>
+	                        </select>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-sm-3" th:text="#{item.management.function.menutype}">Menu type</label>
+	                    <div class="col-sm-9">
+	                        <select class="form-control select2 form-detail" th:field="${itemManagementDto.menuType}" disabled="disabled">
+	                            <option value="">-</option>
+	                            <option th:each="item : ${lstMenuType}" th:value="${item.cat}" th:text="${item.catOfficialName}"></option>
+	                        </select>
+	                    </div>
+	                </div>-->
+	            </div>
+	        </div>
+        </div>
+    </div>
+</form>
+</body>
+<script type="text/javascript" th:src="@{/static/cache/js/item-management/item-management-detail.js}"></script>
+</html>

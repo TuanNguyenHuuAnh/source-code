@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="355" pageHeight="205" columnWidth="355" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="bdcde963-8eef-4a06-912b-73edccc58001">
+	<property name="ireport.zoom" value="1.9487171000000054"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="style1" isDefault="true" isPdfEmbedded="true"/>
+	<parameter name="pathFile" class="java.lang.String"/>
+	<parameter name="background" class="java.lang.String"/>
+	<field name="pos1" class="java.lang.String"/>
+	<field name="pos2" class="java.lang.String"/>
+	<field name="background" class="java.lang.String"/>
+	<field name="pos3" class="java.lang.String"/>
+	<field name="pos4" class="java.lang.String"/>
+	<field name="pos5" class="java.lang.String"/>
+	<field name="pos6" class="java.lang.String"/>
+	<field name="pos7" class="java.lang.String"/>
+	<field name="callIcon" class="java.lang.String"/>
+	<field name="mailIcon" class="java.lang.String"/>
+	<field name="facebookIcon" class="java.lang.String"/>
+	<field name="zaloIcon" class="java.lang.String"/>
+	<field name="avatar" class="java.lang.String"/>
+	<field name="icon1" class="java.lang.String"/>
+	<field name="icon2" class="java.lang.String"/>
+	<field name="icon3" class="java.lang.String"/>
+	<field name="icon4" class="java.lang.String"/>
+	<field name="icon5" class="java.lang.String"/>
+	<field name="icon6" class="java.lang.String"/>
+	<field name="icon7" class="java.lang.String"/>
+	<field name="icon8" class="java.lang.String"/>
+	<field name="icon9" class="java.lang.String"/>
+	<field name="icon10" class="java.lang.String"/>
+	<field name="icon11" class="java.lang.String"/>
+	<field name="icon12" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="205" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="355" height="205" uuid="d00ea057-f820-4c27-aa08-c2b2811059cc"/>
+				<imageExpression><![CDATA[$F{background}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="13" y="42" width="342" height="22" forecolor="#050000" uuid="1456f0f7-4ba2-482a-947e-4fd60eeaccca">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<printWhenExpression><![CDATA[$F{pos1} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pos1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="13" y="63" width="342" height="15" forecolor="#050000" uuid="a9d3e1c4-00c9-42ac-89e3-0d463041d7ac">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$F{pos2} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pos2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="13" y="91" width="342" height="15" forecolor="#050000" uuid="c47dde7a-1d8d-4fcb-b75d-e4a89e1347bd">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[$F{pos4} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pos4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="13" y="190" width="342" height="15" forecolor="#050000" uuid="a8e0ff3d-6b1a-4f2e-83f8-d7fb9045e0bd">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$F{pos7} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pos7}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="13" y="176" width="342" height="15" forecolor="#050000" uuid="5c828f76-6e45-463a-9a21-4228fd077fac">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<printWhenExpression><![CDATA[$F{pos6} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pos6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="13" y="163" width="342" height="14" forecolor="#050000" uuid="834869c0-9446-42bf-812b-8dedcbf37a59">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<printWhenExpression><![CDATA[$F{pos5} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pos5}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="137" width="342" height="14" uuid="b9d65543-833e-47a6-8ac8-5aea0047be25">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Văn phòng chính]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="77" width="342" height="15" uuid="569df3c6-d006-4ee6-86c9-fb596c3f93d2">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Kênh Phân phối Mở rộng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="150" width="342" height="14" uuid="8863f1a2-19aa-438d-81fe-cbe5bca2f838">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Tòa nhà Dai-Ichi Life | 149 - 151 Nguyễn Văn Trỗi, P. 11, Q. Phú Nhuận, Tp. Hồ Chí Minh]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

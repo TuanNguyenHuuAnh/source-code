@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<link rel="stylesheet" type="text/css" th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}"/>
+<script type="text/javascript" th:src="@{/static/cache/js/common_unit.js}"></script>
+<script type="text/javascript" th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+<div class="title-head clearfix">
+   <div class="col-sm-9 col-xs-7 no-padding">
+		<h3><i class="fa fa-table"></i> <span>Quartz Jobs</span></h3>
+   </div>
+</div>
+<form class="form-horizontal u-for-page-top" th:object="${searchDto}" method="POST" role="form">
+	<th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+	<div class="bg-content clearfix">
+		<div data-toggle="collapse" data-target="#search-box" class="header-box"> 
+              <h2 class="title-box" th:text="#{search.title}">Vùng tìm kiếm</h2>
+              <i class="fa fa-minus pull-right" aria-hidden="true"></i> 
+           </div>
+           <div class="collapse in row m-0" id="search-box">
+			<div class="col-xs-12 col-sm-12 p-0">
+				<div class="col-sm-5 form-group">
+					<input type="text" class="form-control" th:field="*{searchValue}" th:placeholder="#{search.key}"/>
+				</div>
+		     	<div class="col-sm-3 form-group">
+					<select th:field="*{searchKeyIds}" multiple="multiple" class="form-control" id="search-filter">
+						<th:block th:each="searchKey : ${searchKeyList}">
+							<option th:value="${searchKey.fieldId}"
+								th:selected="${searchDto.searchKeyIds} ? ${#arrays.contains(searchDto.searchKeyIds,searchKey.fieldId)}: false"  
+								th:text="${searchKey.dispName}"></option>
+						</th:block>
+					</select>
+		     	</div>
+            </div>
+            <div class="col-xs-12 col-sm-12 p-0">
+		     	<div class="center">
+			        <a class="btn-common" id="btnSearch">
+						<i class="fa fa-search"></i>
+						<span th:text="#{search.button}"></span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<div class="bg-content clearfix bg-content-tbl" id="tableList">
+	<th:block th:include="views/quartz-job/quartz-triggers-table.html :: content"/>
+</div>
+<input type="hidden" id="fieldSearchHidd"/>
+<input type="hidden" id="fieldValuesHidd"/>
+<input type="hidden" id="url" name="url" th:value="${pageUrl}"/>
+</html>

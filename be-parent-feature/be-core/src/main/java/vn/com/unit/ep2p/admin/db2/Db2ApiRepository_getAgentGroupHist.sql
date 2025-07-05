@@ -1,0 +1,4 @@
+select g.AGENT_GROUP, D.AGENT_KEY AGENT_CODE, O_NAME ORG_NAME, D.O_CODE ORG_ID , g.AGENT_TYPE FROM RPT_ODS.DS_VW_AGENT_GROUP g
+                        inner join RPT_ODS.F_SNAPSHOT_AGENT_HIERARCHY D ON G.AGENT_TYPE=D.LV3_AGENTTYPE
+                         WHERE D.AGENT_KEY=/*agentCode*/'' and LEFT(D.SNAPSHOT_DATE_KEY, 6) = /*yyyyMm*/''
+                         FETCH FIRST 1 ROWS ONLY

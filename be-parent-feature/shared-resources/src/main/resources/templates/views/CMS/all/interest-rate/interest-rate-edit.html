@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+	<script type="text/javascript" th:src="@{/static/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+	<script type="text/javascript" th:src="@{/static/jquery/vendor/jquery.ui.widget.js}"></script>
+	<script type="text/javascript" th:src="@{/static/jquery/jquery.fileupload.js}"></script>
+	<script type="text/javascript" th:src="@{/static/plugins/bootbox/bootbox.js}"></script>
+	<script type="text/javascript" th:src="@{/static/js/plupload-2.1.2/plupload.full.min.js}"></script>
+	<script type="text/javascript" th:src="@{/web-app/views/interest-rate/interest-rate-edit.js}"></script>
+		<script type="text/javascript" th:src="@{/static/ckfinder/ckfinder.js}"></script>
+	<script type="text/javascript" th:src="@{/static/ckeditor_4.4.3_full/ckeditor.js}"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/static/jquery/multiple-select/css/jquery.multiselect.css}"/>
+	
+	<div class="row main-heading ">
+		<div class="row unit-border-bottom">
+			<div class="col-sm-8 col-xs-6">
+				<h3 class="mar-tb-no red" th:text="#{interestRate.list.title}">Tiêu đề trang</h3>
+			</div>
+			<div class="col-sm-4 col-xs-6 align-right ml-auto">
+		        <a class="u-btn-head" id="linkList">
+					<img th:src="@{/static/icons/icon-back.png}"/>
+					<span th:title="#{icon.back}">Trở lại</span>
+				</a>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row unit-bg-com u-for-page-top" >
+		<h2 class="sub-header" th:text="#{exchangerate.title.import}">Nhập từ file excel</h2>
+		<form class="form-horizontal  j-formSearch" method="POST" role="form" th:object="${interestRateListDto}">
+		<th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+			<div class="form-group">
+				<div class="col-xs-12 col-sm-12">
+					<div class="col-sm-3">
+						<label th:text="#{exchangerate.title.file}">File excel</label>
+					</div>
+<!-- 					<div class="col-sm-8"> -->
+<!-- 						<input type="file"  name="fileImport" id="fileImport"  accept=".xlsx, .xls" th:attr="data-url=@{/interest-rate/upload-excel}"  multiple="multiple"/>            -->
+<!-- 					</div> -->
+					<div class="col-sm-8">
+						<pre th:id="fileConsole" style="display: none"></pre>
+						<div th:id="fileFilelist"></div>
+						<div class="wrap_upload" th:id="fileContainer">
+ 							<a th:id="filePick" th:title="#{icon.add}" href="javascript:void()" th:text="#{document.file.select}"></a>
+						</div>
+					</div>
+				</div>
+			</div>			
+			<div class="form-group">
+				<div class="col-xs-12 col-sm-12">
+					<div class="col-sm-3">
+						<label th:text="#{interestRate.update.updateDate}">Ngày cập nhật lãi xuất</label>
+					</div>
+					<div class="col-sm-8">	
+						<span th:text="${#dates.format(#dates.createNow(),'dd-MM-yyyy')}"></span>                    
+					</div>
+				</div>
+			</div>			
+		</form>
+	</div>
+	<form id="formExchangeRate" class="form-horizontal j-form-validate" method="POST" th:object="${interestRateListDto}">
+		<th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+		<div class="row unit-bg-table" id="tableList">
+			<div class="form-group">
+				<div class="col-sm-12">
+					<div class="table-responsive">
+						<table class="table table-bordered table-striped">
+					        <thead>
+					            <tr>
+					                <th rowspan = "2" class="u_t_no">#</th>
+					                <th rowspan = "2" class="u_t_code" th:text="#{interestRate.term.code }">Mã kỳ hạn</th>
+					                <th rowspan = "2" class="u_t_title" th:text="#{interestRate.term.title}">Tên kỳ hạn</th>
+					                <th th:attr="colspan = ${#lists.size(personalCurrencyList)}" th:text="#{interestRate.personalRate}">Lãi suất cá nhân</th>
+					                <th th:attr="colspan = ${#lists.size(organisationCurrencyList)}" th:text="#{interestRate.organisationRate}">Lãi suất tổ chức</th>
+					            </tr>
+					            <tr>
+					            	<th:block th:each="entry : *{interestRateDtoList[0].personalCurrencyList}">
+					            		<th th:text="${entry.key}">Currency</th>
+					            	</th:block>
+									<th:block th:each="entry : *{interestRateDtoList[0].organisationCurrencyList}">
+					            		<th th:text="${entry.key}">Currency</th>
+					            	</th:block>
+					            </tr>
+					        </thead>
+					        <tbody>
+					            <th:block th:each="interestRate,i : *{interestRateDtoList}"  th:with="index=${i.index}">
+				                    <tr>
+				                    	<td style="display:none;">
+				                    		<input type="hidden" th:field="*{interestRateDtoList[__${index}__].termCode}" th:value="${interestRate.termCode}"/>
+										</td>
+										<td style="display:none;">
+				                    		<input type="hidden" th:field="*{interestRateDtoList[__${index}__].termName}" th:value="${interestRate.termName}"/>
+										</td>
+										<td style="display:none;">
+				                    		<input type="hidden" th:name="*{interestRateDtoList[__${index}__].displayDate}" th:value="${interestRate.displayDate}"/>
+										</td>
+										<td style="display:none;">
+				                    		<input type="hidden" th:field="*{interestRateDtoList[__${index}__].termId}" th:value="${interestRate.termId}"/>
+										</td>
+				                        <td class="text-center" th:text="${i.index}"></td>
+				                        <td th:text="${interestRate.termCode}"></td>
+				                        <td th:text="${interestRate.termName}"></td>
+				                        <th:block th:each="entry : *{interestRateDtoList[__${index}__].personalCurrencyList}">
+				                        	<td>
+				                        		<input th:field="*{interestRateDtoList[__${index}__].personalCurrencyList[__${entry.key}__]}" class="form-control j-required-number" 
+				                        		th:value="${entry.value}"
+				                        		/>
+				                        	</td>
+						            	</th:block>
+						            	<th:block th:each="entry : *{interestRateDtoList[__${index}__].organisationCurrencyList}">
+				                        	<td>
+				                        		<input th:field="*{interestRateDtoList[__${index}__].organisationCurrencyList[__${entry.key}__]}" class="form-control j-required-number" 
+				                        		th:value="${entry.value}"
+				                        		/>
+				                        	</td>
+						            	</th:block>
+				                    </tr>
+				                </th:block>
+					        </tbody>
+					    </table>
+					  </div>
+				  </div>
+			</div>
+			
+			<div class="col-xs-12 col-sm-12">
+				<div class="form-group">
+					<label  class="col-sm-2 control-label" th:text="#{news.language}">Ngôn ngữ</label>
+					<div class="col-sm-10 gr-tab">
+						<ul class="nav nav-tabs" id="tabLanguage">
+							<th:block th:each="language, i : ${languageList}">
+								<li role="presentation" th:classappend="${i.index == 0}  ? 'active' : ''" th:id="tabLanguage + ${i.index}">
+									<a th:href="'#language' + ${i.index}" th:text="${language.name}"></a>
+								</li>
+							</th:block>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+			<div class="tab-content" style="margin-top: 10px">
+				<th:block th:each="language, i : ${languageList}" th:with="index=${i.index}">
+					<div th:id="'language' + ${index}" class="tab-pane fade " th:classappend="${index == 0}  ? 'in active' : ''">
+						
+						<div class="col-xs-12 col-sm-12">
+							<div class="form-group" th:classappend="${#fields.hasErrors('interestRateLanguageDtoList[__${index}__].description')} ? has-error : ''">
+								<label th:for="interestRateLanguageDtoList[__${index}__].description" class="col-sm-2 control-label" th:text="#{interestRate.description}">Nội dung</label>
+								<div class="col-sm-10">
+									<div class="controls">
+										<textarea cols="80" th:id="'editor' + ${index}" th:name="interestRateLanguageDtoList[__${index}__].description"
+											rows="20" th:field="*{interestRateLanguageDtoList[__${index}__].description}" class="form-control">
+										</textarea>
+										<script th:inline="text">
+								            CKEDITOR.replace('editor' + '[[${index}]]', 
+								            		 {
+								            			height: 300,
+								            	 		filebrowserBrowseUrl : '',
+								            	 		filebrowserImageBrowseUrl : '',
+								            	 		filebrowserImageUploadUrl	: BASE_URL + "interest-rate/editor/upload?requesttoken=" + '[[${interestRateListDto.requestToken}]]',
+										     			filebrowserUploadUrl: BASE_URL + "interest-rate/editor/upload?requesttoken=" + '[[${interestRateListDto.requestToken}]]'
+								            		 }
+								             );
+	
+								             
+							            </script>
+							            <label th:for="editor__${index}__" generated="true" class="error"></label>
+							            <span class="help-block" th:if="${#fields.hasErrors('interestRateLanguageDtoList[__${index}__].description')}" th:errors="*{interestRateLanguageDtoList[__${index}__].description}"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+	
+						<input type="hidden" th:field="*{interestRateLanguageDtoList[__${index}__].id}" />
+						<input type="hidden" th:field="*{interestRateLanguageDtoList[__${index}__].interestRateId}" />
+						<input type="hidden" th:name="'interestRateLanguageDtoList[' + ${index} + '].languageCode'" th:value="${language.code}"/>
+					</div>
+				</th:block>
+			</div>
+		</div>
+		<input type="hidden" th:field="*{cityId}"/>
+		<input type="hidden" th:field="*{displayDate}"/>
+		<input type="hidden" th:field="*{interestId}"/>
+		<input type="hidden" id="url" name="url" th:value="*{url}"/>
+		<div class="col-xs-12 col-sm-12 unit-button">
+			<button type="button" class="btn-cancel" id="cancel">
+				<i class="fa fa-times"></i>
+				<span th:text="#{cancel.button}">Thoát</span>
+			</button>
+			<button type="button" class="btn-common" id="btnSave">
+				<i class="fa fa-save"></i>
+				<span  th:text="#{save.button}">Lưu</span>
+			</button>
+		</div>
+	</form>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<script type="text/javascript" th:src="@{/static/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+<link rel="stylesheet" type="text/css" th:href="@{/static/jquery/multiple-select/css/jquery.multiselect.css}" />
+<script type="text/javascript" th:src="@{/static/js/plupload-2.1.2/plupload.full.min.js}"></script>
+<script>
+    $(document).ready(function($) {
+        $("#linkList").on('click', function(event) {
+            var url = BASE_URL + "mockup?view-id=mockup.assetliquidation.list";
+            // Redirect to page add
+            ajaxRedirect(url);
+        });
+
+        $("#cancel").on('click', function(event) {
+            var url = BASE_URL + "mockup?view-id=mockup.assetliquidation.list";
+            // Redirect to page add
+            ajaxRedirect(url);
+        });
+
+        $('#add').on('click', function(event) {
+            event.preventDefault();
+            var url = BASE_URL + "mockup?view-id=mockup.assetliquidation.edit";
+
+            // Redirect to page list
+            ajaxRedirect(url);
+        });
+        
+    });
+    
+    function showModal()
+    {
+       $('#myModal').modal('show');
+       $('#myModal').css('z-index',5000);
+    }
+    
+</script>
+<!-- header page start -->
+<div class="title-head clearfix">
+	<div class="col-sm-9 col-xs-7 no-padding">
+		<h3>
+			<i class="fa fa-table"></i>Asset Liquidation
+		</h3>
+	</div>
+	<div class="col-sm-3 col-xs-5 icon-head">
+		<div class="pull-right">
+			<a> <i class="fa fa-arrow-circle-left icon-head-red" id="linkList"></i>
+			</a> 
+			<a>
+				<i class="fa fa-plus-circle icon-head-red" id="add"></i>
+			</a>
+			
+		</div>
+	</div>
+</div>
+<!-- DETAIL -->
+    <!-- process Title, Code, Name, Description start -->
+    <div class="bg-content clearfix">
+        <div class="header-box">
+            <h2 class="title-box" >General Information</h2>
+        </div>
+
+        <div class="col-sm-12 p-0">
+            <div class="form-group">
+                <label class="col-sm-2 required">Liquidation No</label>
+                <div class="col-sm-4 ">
+                    <input type="text" class="form-control" value ="12407"/>
+                </div>
+                <label class="col-sm-2 required">Liquidation Date</label>
+                <div class="col-sm-4 ">
+                    <input type="text" class="form-control" value ="30/06/2019"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 required">Liquidation Type</label>
+                <div class="col-sm-4 ">
+                    <select class="form-control j-required">                      	
+                      	<option value="">Complete Depreciation (Write-off)</option>
+                      	<option value="">Broken</option>
+                      	<option value="">Lost</option>                              
+                     </select>
+                </div>
+                <label class="col-sm-2 required">SUN Liquidation Status</label>
+                <div class="col-sm-4 ">                    
+                    <select class="form-control j-required">                       
+                        <option value="">In-progress</option>
+                        <option value="">Complete</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 required">Reason</label>
+                <div class="col-sm-4 ">
+                    <textarea class="form-control" rows="6" >Yêu cầu thanh lý vì đã không sử dụng được nữa</textarea>
+                </div>
+            </div>
+            <!-- button Exit, Save start-->
+        </div>
+        <!-- button Exit, Save end-->
+    </div>
+    <div class="bg-content clearfix">
+    	<div class="header-box">
+            <h2 class="title-box" >Detail Information</h2>
+        </div>
+        <div class="col-sm-12 p-0">
+	        <div class="pull-right" style="margin: 5px 0;">
+	        	<!-- Tranlth 27/05/2019 thay đổi tên Task #23724 -->
+	        	<button class="btn-common" id="importActivity" > <i class="fa fa-sign-out" aria-hidden="true"></i> Export to Sun</button>
+	            <button class="btn-common" id="importBudget" > <i class="fa fa-sign-in" aria-hidden="true"></i> Import from Sun</button>
+	            <!-- End -->	            
+	        </div>
+	        <div class="table-responsive col-sm-12 no-padding">
+	            <table id="tblDataTable" class="table table-bordered table-striped">
+	            	<thead>
+	                    <tr>
+	                    	<th>Description</th>
+	                        <th>Asset Code</th>
+	                        <th>Asset Status</th>	                      
+	                        <th>Residue Value</th>
+	                        <th>Note</th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                	<tr>
+	                		<!-- Tranlth 27/05/2019 thay đổi icon Task #23724 -->	                	
+	                		<td class="td-action text-center"><a onclick="showModal();">ACER <i class="fa fa-plus-circle"></i></a></td>
+	                		<!-- End -->
+	                		<td><a onclick="showModal();">ACER00XPRE000000001</a></td>
+	                		<td>Broken</td>
+	                		<td>1250000</td>
+	                		<td>Laptop hư hỏng trong quá trình onsite</td>
+	                	</tr>
+	                	<tr>	                	
+	                		<td class="td-action text-center"><a onclick="showModal();"><i class="fa fa-plus-circle"></i></a></td>
+	                		<td><a onclick="showModal();"></a></td>
+	                		<td></td>
+	                		<td></td>
+	                		<td></td>
+	                	</tr>
+	                
+	                </tbody>
+	            </table>
+			</div>
+	    </div>
+    </div>
+    <th:block th:include="views/mockup/mockup-process.html :: content" />
+    
+    
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">&times;</span>
+	                </button>
+	                <h4 class="modal-title" id="myModalLabel">Description</h4>
+	            </div>
+	            <div class="modal-body">
+					<div class="col-sm-12 p-0">
+						<div class="table-responsive col-sm-12 no-padding">
+	            			<table class="table table-bordered table-striped">
+	            				<thead>
+	            					<tr>
+	            						<th></th>
+	            						<th>Sub Category</th>
+	            						<th>Asset Code</th>
+	            						<th>Description</th>
+	            						<th>Status</th>
+	            						<th>Warehouse</th>
+	            						<th>Location</th>
+	            					</tr>
+	            				</thead>
+	            				<tbody>
+	            					<tr>
+	            						<td></td>
+	            						<td><input type="text"/></td>
+	            						<td><input type="text"/></td>
+	            						<td><input type="text"/></td>
+	            						<td><input type="text"/></td>
+	            						<td><input type="text"/></td>
+	            						<td><input type="text"/></td>
+	            					</tr>
+	            					<tr>
+	            						<td><input type="checkbox"/></td>
+	            						<td></td>
+	            						<td></td>
+	            						<td></td>
+	            						<td></td>
+	            						<td></td>
+	            						<td></td>
+	            					</tr>
+	            				</tbody>
+	            			</table>
+	            		</div>
+					</div>
+	            </div>
+	            <div class="modal-footer">
+	            	<a href="#" class="btn-common btn-in-tablet" data-dismiss="modal" id="btnOK"><i class="fa fa-check"></i> OK</a>
+	                <a href="#" class="btn-cancel" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</a>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+</html>

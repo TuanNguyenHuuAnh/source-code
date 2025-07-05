@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <body th:fragment="content">
+    <div class="col-sm-12 p-0">
+      <h2 class="title-box" th:text="#{search.results.title}">Search Result</h2>
+      <div class="box-tools pull-right">
+        <a class="btn-common pull-right" id="btnExport">
+          <i class="fa fa-download" aria-hidden="true"></i>
+          <span th:text="' '+#{common.export.data}"></span>
+        </a>
+      </div>
+      <div class="table-responsive">
+        <table id="tblDataTable" class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th style="width: 20px">#</th>
+              <th th:text="#{assetprofile.action}" style="width: 80px">
+                Action
+              </th>
+              <!-- <th th:text="#{assetprofile.qrCode}" style="min-width: 80px;">QR Code</th> -->
+              <th th:text="#{assetprofile.assetTag}" style="min-width: 150px">
+                Asset Tag
+              </th>
+              <th th:text="#{assetprofile.assetName}" style="min-width: 150px">
+                Name of the Asset
+              </th>
+              <th
+                th:text="#{assetprofile.assetDescription}"
+                style="min-width: 50px"
+              >
+                Asset Description
+              </th>
+              <th
+                th:text="#{assetprofile.assetCategory}"
+                style="min-width: 50px"
+              >
+                Asset Category
+              </th>
+              <th
+                th:text="#{assetprofile.assetSubCategory}"
+                style="min-width: 150px"
+              >
+                Asset Sub Category
+              </th>
+              <th
+                th:text="#{assetprofile.serialNumber}"
+                style="min-width: 50px"
+              >
+                Serial No
+              </th>
+              <th th:text="#{assetprofile.assetStatus}" style="min-width: 50px">
+                Asset Status
+              </th>
+              <th th:text="#{assetprofile.propertyOf}" style="min-width: 50px">
+                Property Of
+              </th>
+              <th th:text="#{assetprofile.department}" style="min-width: 150px">
+                Department
+              </th>
+              <th
+                th:text="#{assetprofile.registrationDate}"
+                style="min-width: 50px"
+              >
+                Register Date
+              </th>
+              <th
+                th:text="#{assetprofile.assetLocation}"
+                style="min-width: 50px"
+              >
+                Office Location
+              </th>
+              <th
+                th:text="#{assetprofile.transactionStatus}"
+                style="min-width: 100px"
+              >
+                Process Status
+              </th>
+              <th
+                th:text="#{assetprofile.search.note}"
+                style="min-width: 100px"
+              >
+                Note
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <th:block
+              th:each="item,i : ${pageWrapper.data}"
+              th:with="startIndex=${pageWrapper.startIndexCurrent}"
+            >
+              <tr th:attr="data-id=${item.id}">
+                <td th:text="${i.index + startIndex}" class="text-center"></td>
+
+                <td class="td-action">
+                  <div class="align-center">
+                    <a
+                      class="
+                        glyphicon glyphicon-eye-open
+                        custom-icon
+                        j-btn-detail
+                      "
+                      th:title="#{view.button}"
+                    ></a>
+                  </div>
+                </td>
+
+                <!--  <td class="text-center">
+		                            <img th:src="@{/} + ${'asset-profile/qrcode?tag='} + ${item.assetTag}" width="90px"/>
+		                        </td> -->
+                <td class="text-left" th:text="${item.assetTag}"></td>
+                <td class="text-left" th:text="${item.assetName}">
+                  Lenovo ThinkPad x250
+                </td>
+                <td class="text-left" th:text="${item.assetDescription}">
+                  Lenovo ThinkPad x250
+                </td>
+                <td class="text-left" th:text="${item.assetCategoryName}">
+                  Laptop
+                </td>
+                <td class="text-left" th:text="${item.assetSubCategoryName}">
+                  Laptop
+                </td>
+                <td class="text-left" th:text="${item.serialNumber}"></td>
+                <td class="text-center" th:text="${item.assetStatusName}"></td>
+                <td class="text-center" th:text="${item.propertyOf}"></td>
+                <td class="text-left" th:text="${item.assetOwnerDept}"></td>
+                <td
+                  class="text-center"
+                  th:text="${item.registrationDate != null ?  #dates.format(item.registrationDate, @systemConfig.getConfig('DATE_PATTERN')) : ''}"
+                >
+                  26/07/2019
+                </td>
+                <td class="text-left" th:text="${item.assetLocationName}">
+                  Kho Diamond Plaza
+                </td>
+                <td class="text-left" th:text="${item.transactionName}">
+                  Processing
+                </td>
+                <td class="text-left" th:text="${item.remark}">Note</td>
+              </tr>
+            </th:block>
+          </tbody>
+        </table>
+      </div>
+      <!-- PAGINATION -->
+      <th:block
+        th:include="/views/ASSET_MANAGEMENT_MODULE/commons/pagination.html :: content(pageWrapper=${pageWrapper})"
+      />
+    </div>
+    <script
+      type="text/javascript"
+      th:src="@{/static/ASSET_MANAGEMENT_MODULE/js/asset-profile/asset-profile-list-table.js}"
+    ></script>
+  </body>
+</html>

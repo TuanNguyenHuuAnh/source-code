@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<script type="text/javascript"
+	th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/static/cache/css/style-upload.css}" />	
+<body th:fragment="content">
+
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        	 <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <button class="resize-popup" style="margin-top: 0">
+                	<i class="fa fa-window-maximize" aria-hidden="true"></i>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Email Detail</h4>
+            </div>
+             <div class="modal-body no-ptop">
+				<div class="bg-content clearfix" >
+					<div class="col-sm-12 p-0  flex-box" style="padding-right: 15px!important">
+						<div class="col-md-12 p-0 box-send-mail col-sm-12">
+							<form method="POST" id="frmSendEmail" role="form" th:object="${emailDto}"
+									class="form-horizontal u-for-page-top j-formSearch label95 j-form-validate">
+								<div id="message-list"></div>
+								<!-- <h4 class="title-box">New email</h4> -->
+								<div class="col-md-12">
+									<div class="form-group einput-2">
+										<label class="lb-einput">To: </label>
+										<input class="form-control j-required j-multiemail" type="text" onkeyup="this.setAttribute('value', this.value);" id="modalTo"  />
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group einput-2">
+										<label class="lb-einput">CC: </label>
+										<label class="lb-bcc">BCC</label>
+										<input class="form-control j-multiemail" type="text" onkeyup="this.setAttribute('value', this.value);"  id="modalCC"/>
+									</div>
+								</div>
+								<div class="col-md-12 hide bcc-hide">
+									<label class="lb-einput">BCC: </label>
+									<div class="form-group einput-2">
+										<input class="form-control" type="text" onkeyup="this.setAttribute('value', this.value);" id="modalBCC"/>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group ">
+										<label class="lb-einput">Subject: </label>
+										<div class="col-sm-12 p-0 einput-2">
+											<input  type="text" class="form-control j-required"  onkeyup="this.setAttribute('value', this.value);" id="modalSubject"/>
+										</div>
+									<!-- 	<div class="col-sm-2">
+											<label class="content-checkbox">Immediately
+											  <input type="checkbox"/>
+											  <span class="checkmark"></span>
+											</label>
+											<input type="checkbox" style="margin-top: 5px" th:field="*{flagSendImmediately}" /> <span>&nbsp;Immediately</span>
+										</div> -->
+									</div>
+								</div>
+								<input type="hidden" />
+								<input type="hidden" />
+								<input type="hidden" />
+								<input type="hidden" id="numberAttachFile" name="numberAttachFile" value="0"/>
+								<div class="col-md-12" contenteditable="true">
+									<div id="renderHtml">
+									</div>
+									
+								</div>
+								
+							</form>
+							<form id="upload" method="post" th:action="@{/email/import/attach}" enctype="multipart/form-data" style="clear: both">
+								<div class="col-sm-12">
+									<div id="drop">
+										<!-- <a><i class="fa fa-paperclip" aria-hidden="true"></i> Attach file</a> -->
+										<div id="listAttach"></div>
+										<!-- <input type="file" name="upl" multiple="multiple" /> -->
+										<input type="hidden" name="emailUuid" id="emailUuid"/>
+									</div>
+								</div>
+								<div class="col-sm-12">
+									<ul>
+										<!-- The file uploads will be shown here -->
+									</ul>
+								</div>
+							</form>
+				
+						</div>
+					<!-- 	<div class="col-md-3 box-upload-tpl col-sm-12">
+							<form method="POST" th:action="@{/email/import/template}" enctype="multipart/form-data">
+								<th:block th:include="views/commons/message-alert.html :: content(${messageList})" />
+								<h4 class="title-box">Upload Tempalte</h4>
+								<div class="col-sm-12 p-0 center">
+									<div class="form-group">
+										<div class="input-group input-upload-1">
+										    <input type="text" class="form-control" readonly="readonly" placeholder="Please choose file" />
+										    <label class="input-group-addon">
+										       <span>
+										           Browser <input type="file" name="file" class="hide" />
+										       </span>
+										   </label>
+										 </div>
+										
+									</div>
+									<div class="form-group">
+										<button class="btn-common" type="submit"><i class="fa fa-upload" aria-hidden="true"></i> Upload</button>
+									</div>
+									<select class="form-control" id='teamplateDoc' >
+							         </select>
+								</div>
+							</form>
+						</div> -->
+					</div>
+					<div class="col-sm-12 textarea-body-mail" style="margin-top: 10px">
+						<div class="form-control" placeholder="Body email"  id="modalContent"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- <script type="text/javascript" th:src="@{/static/cache/js/email/email-send.js}"></script> -->
+<script type="text/javascript" th:src="@{/static/cache/js/email/uploadFile.js}"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+
+<script type="text/javascript" th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+<link rel="stylesheet" type="text/css" th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}" />
+<div class="title-head clearfix">
+	<div class="col-sm-9 col-xs-7 no-padding">
+		<h3>
+			<i class="fa fa-table"></i> <span>SLA reminders edit</span>
+		</h3>
+	</div>
+	<div class="col-sm-3 col-xs-5 icon-head">
+		<div class="pull-right">
+
+			<a> <i class="fa fa-arrow-circle-left icon-head-red" th:title="#{icon.back}" id="linkList"></i>
+			</a>
+		</div>
+	</div>
+</div>
+
+
+
+<form class="form-horizontal u-for-page-top j-form-validate j-formSearch" id="form-j-edit" th:object="${serviceLevelAgreementDto}" method="post"
+	role="form">
+	<input type="hidden" name="id" th:field="*{id}" />
+	<th:block th:include="views/commons/message-alert.html :: content(${serviceLevelAgreementDto.messageList})" />
+	<div class="bg-content clearfix">
+		<div>
+			<h2 class="title-box" >SLA reminders</h2>
+
+		</div>
+
+		<div class="col-xs-12 col-sm-12">
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="col-sm-4 required">Business</label>
+					<div class="col-sm-8" th:classappend="${#fields.hasErrors('businessCode')} ? has-error : ''">
+						<select class="form-control j-required" id="businessCode" name="businessCode" th:disabled="${serviceLevelAgreementDto.id}">
+							<option></option>
+							<option th:each="i : ${businessList}" th:value="${ i.code }" th:text="${ i.name }" th:selected="${i.code} == *{businessCode}"></option>
+						</select> <input type="hidden" name="businessCode" th:field="*{businessCode}" th:if="${serviceLevelAgreementDto.id}" />
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<label class="col-sm-4 required">Process</label>
+					<div class="col-sm-8" th:classappend="${#fields.hasErrors('processCode')} ? has-error : ''">
+						<select class="form-control j-required" id="processCode" name="processCode" th:disabled="${serviceLevelAgreementDto.id}">
+							<option></option>
+							<option th:each="i : ${processList}" th:value="${ i.code }" th:text="${ i.name }" th:selected="${i.code} == *{processCode}"></option>
+						</select> <input type="hidden" name="processCode" th:field="*{processCode}" th:if="${serviceLevelAgreementDto.id}" />
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label class="col-sm-4 required">SLA name</label>
+						<div class="col-sm-8" th:classappend="${#fields.hasErrors('name')} ? has-error : ''">
+							<input class="form-control  j-maxlength j-required" type="text" name="name" th:field="*{name}" maxlength="100" autocomplete="off" /> <span
+								class="help-block" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-12">
+			<div class="col-sm-12">
+				<br />
+				<div class="form-group text-center">
+					<button type="button" class="btn btn-cancel btn-in-table" th:text="#{cancel.button}" id="btn-cancel">Thoát</button>
+
+					<button type="button" class="btn btn-common btn-in-table" id="btn-save">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="bg-content clearfix">
+		<div class="box-header">
+			<h2 class="title-box section-heading">
+				<span> List SLA reminder by step</span>
+			</h2>
+			<button type="button" class="btn btn-common btn-in-table pull-right" id="btn-add-item" th:if="${isShowActionStep}">Add</button>
+		</div>
+		<div class="col-sm-12">
+			<div class="form-group">
+				<th:id id="tableDetailId">
+					<th:block th:include="views/j-sla/j-sla-step-detail-table.html :: content" />
+				</th:id>
+			</div>
+
+		</div>
+	</div>
+</form>
+
+
+<script type="text/javascript" th:src="@{/static/cache/js/j-sla/j-sla-edit.js}"></script>
+
+</html>

@@ -1,0 +1,71 @@
+WITH lstPS AS (
+	SELECT   
+		  PW.AGT_ID SERVICING_AGENT_KEY
+	    , P.PO_ID CLI_ID
+	    , P.POLICY_KEY
+	FROM STG_ING.TPOLW PW 
+	
+	INNER JOIN RPT_ODS.D_POLICY P
+		ON P.POLICY_KEY = PW.POL_ID
+		AND P.PO_ID = /*customerNo*/''
+		
+	INNER JOIN STG_DMS.DMS_AGENT_DETAIL AD 
+		ON AD.AGENT_CODE =  P.SERVICING_AGENT_KEY
+		AND AD.CHANNEL = 'AG'
+		AND AD.AGENT_TYPE = 'COL'
+		
+	 WHERE PW.AGT_ID = /*agentCode*/''
+		AND PW.POL_AGT_SHR_PCT = 100
+	 
+	UNION
+	
+	SELECT 
+	      P.SERVICING_AGENT_KEY
+		, P.PO_ID CLI_ID
+		, P.POLICY_KEY
+	FROM   RPT_ODS.D_POLICY p 
+	WHERE   P.SERVICING_AGENT_KEY = /*agentCode*/''
+		AND P.PO_ID = /*customerNo*/''
+  ),
+AUTO_DEDIT AS (
+    SELECT distinct T1.POL_ID
+    FROM STG_ING.TPOL T1
+    INNER JOIN STG_ING.TDMAV T2 on T1.POL_COLCT_MTHD_CD = T2.DM_AV_CD and T2.DM_AV_TBL_CD ='POL-COLCT-MTHD-CD'
+    WHERE T2.DM_AV_CD = T1.POL_COLCT_MTHD_CD 
+    AND T2.DM_AV_CD in ('6','8','9')
+  )
+
+SELECT 
+	  CLIENT_NICK.NICK_NAME
+	, c.BONUS_POINT    reward_Points
+	, c.CLIENT_TYPE  customer_Type
+	, c.CLI_ID  customer_No
+	, c.CLI_NAME customer_Name
+	, c.GENDER gender
+	, c.DATE_OF_BIRTH date_Of_Birth
+	, c.CELL_PHONE phone_Number
+	, c.HOME_PHONE home_Phone
+	, c.WORK_PHONE company_Phone
+	, c.HOME_ADDRESS  permanent_Address
+	, OFFICE_ADDRESS address
+	, c.EMAIL email   
+	, MARITAL_STATUS marital_Status
+	, case when CLG.PROFILEID is null then '0' else '1' end as dc_Activate
+	, case when AU.POL_ID is null THEN '0' else '1' end as auto_Debit
+	
+  FROM RPT_ODS.D_CLIENT C
+  
+  INNER JOIN lstPS P
+	ON P.CLI_ID = C.CLI_ID
+	
+  LEFT JOIN   STG_MCP.TBCUSTOMERLOGIN CLG
+    ON CLG.CustomerID = C.CLI_ID
+  
+  LEFT JOIN STG_DS.M_CLIENT_NICKNAME CLIENT_NICK
+	ON CLIENT_NICK.CLIENT_ID = C.CLI_ID
+	AND CLIENT_NICK.AGENT_CODE = P.SERVICING_AGENT_KEY
+		
+  LEFT JOIN AUTO_DEDIT AU
+  	ON AU.POL_ID = P.POLICY_KEY
+  	
+  WHERE C.CLI_ID = /*customerNo*/''

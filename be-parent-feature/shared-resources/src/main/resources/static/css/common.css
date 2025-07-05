@@ -1,0 +1,380 @@
+.logo {
+	background-image: url("../images/loan_logo_max.jpg");
+	background-repeat: no-repeat;
+}
+
+.sidebar-collapse .logo {
+	background-image: url("../images/loan_logo_small.jpg") !important;
+}
+
+.btn_login {
+    background: #bd9d00;
+}
+
+.skin-blue .main-header .logo {
+    background-color: #367fa9;
+    color: #ffffff;
+    border-bottom: 0 solid transparent;
+    border-right: 2px solid #296384;
+}
+
+.required:after {
+    color: red !important; 
+    font-size: 14px !important;
+    content: " *" !important;
+}
+
+.input-group-sm .select2-container .selection .select2-selection--single {
+    font-size: 12px;
+    height: 30px;
+    line-height: 1.5;
+    padding: 5px 22px 5px 10px;
+}
+
+.form-group.has-error .select2-selection {
+    border-color: #dd4b39;
+    box-shadow: none;
+}
+
+table tbody tr td.text-center {
+    text-align: center;
+}
+
+table tbody tr td.text-number {
+    text-align: right;
+}
+
+table tbody tr td.text-left {
+    text-align: left;
+}
+
+table tbody tr td.text-right {
+    text-align: right;
+}
+
+table tbody tr.highlight {
+    background: #ddd none repeat scroll 0 0 !important;
+}
+
+table tbody tr.selected {
+    background: #ddd none repeat scroll 0 0 !important;
+}
+
+.combo {
+    height: 30px !important;
+    width: 100% !important;    
+    border-radius: 4px
+}
+
+.combo .textbox-text {
+    color: #555;
+    height: 100% !important;
+    padding-left: 10px !important;
+    width: 87% !important;
+    font-size: 14px !important;
+}
+
+table.table tfoot.header  {
+    display: table-header-group !important;
+}
+
+.form-group {
+    margin-bottom: 5px !important;
+}
+
+label.form-control {
+    background: none;
+    border: none;
+    box-shadow: none;
+    font-weight: normal;
+    border-bottom: 1px dotted #ccc;
+    padding: 6px 0;
+    height: 28px;
+}
+
+.select2-container span.form-label {
+    background: none;
+    border: none;
+    box-shadow: none;
+    font-weight: normal;
+    border-bottom: 1px dotted #ccc;
+    padding: 0px;
+    height: 28px;
+}
+
+.select2 {
+	width: 100% !important;
+}
+
+.box-tools .select2 {
+	width: auto !important;
+}
+
+.form-horizontal .control-label {
+    text-align: left;
+}
+
+.modal-lg-md {
+	max-width: 760px;
+}
+
+.modal-lg-max {
+    width: 1300px;
+}
+
+.modal-custom .modal-header {
+	background-color: #3c8dbc;
+	border-bottom: 1px solid #d2d6de;
+}
+
+.modal-custom .modal-footer {
+    border-top: 1px solid #d2d6de;
+}
+
+.modal-custom .modal-body {
+    background-color: #ecf0f5;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+
+.table tr th.action {
+	width: 115px;
+}
+
+.document-table .document-type {
+	font-size: 100%;
+	font-weight: normal;
+}
+
+.avatar {
+	margin-bottom: 3px;
+	float: left;
+}
+
+.avatar .avatar-lg {
+	height: 150px;
+    width: 150px;
+}
+
+.input-radius {
+	border-radius: 4px;
+}
+.error {
+	color: red;
+}
+/**
+ * CSS resize textarea
+ * 
+ * @version 01-00
+ * @since 01-00
+ * @author VuHH
+ */
+ 
+.vresize {
+	resize: vertical;
+}
+
+.hresize {
+	resize: horizontal;
+}
+
+.noresize {
+	resize: none;
+}
+
+/**
+ * CSS button List, Create align Right
+ * 
+ * @version 01-00
+ * @since 01-00
+ * @author VuHH
+ */
+.button-right {
+	float: right;
+	background: transparent;
+	margin-top: 0;
+	margin-bottom: 0;
+	font-size: 12px;
+	padding: 7px 5px;
+	position: absolute;
+	top: 15px;
+	right: 10px;
+	border-radius: 2px;
+}
+
+.button-right > li {
+	float: left;
+	list-style: none;
+	margin: 0px 5px;
+}
+
+/**
+ * CSS account page
+ * 
+ * @version 01-00
+ * @since 01-00
+ * @author VuHH
+ */
+ .arrow-button {
+ 	margin: 0px 10px;
+ }
+ 
+ .out-tbl th {
+	background-color: #339a99;
+	color: #fff;
+	text-align: center;
+	vertical-align: middle !important;
+}
+
+.table > thead > tr > th, 
+.table > tbody > tr > th, 
+.table > tfoot > tr > th, 
+.table > thead > tr > td, 
+.table > tbody > tr > td, 
+.table > tfoot > tr > td {
+	vertical-align: middle;
+}
+
+.group-control-inline label {
+    float: left;
+    text-align: left;
+    font-weight: normal;
+    margin-bottom: 5px;
+    margin-right: 4px;
+    margin-top: 4px;
+}
+
+.group-control-inline select {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+
+.login-page {
+	background-image: url("../images/login.jpg");
+	background-size: cover;
+    background-repeat: no-repeat;
+	position: fixed;
+	background-attachment: scroll;
+	background-position: 50% 50%;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	content: "";
+	z-index: 0;
+}
+
+.login-box-body {
+	background: rgba(0, 0, 0, 0) url("../images/bg-login.png") repeat scroll center top;
+    color: #666;
+    padding: 20px;
+}
+
+ 
+ .unit-bg-com-login {
+ 	padding: 80px;
+ 	background: #003070;
+ 	opacity: 0.8;
+ 	margin: 150px 0px;
+ 	border-left: 50px solid #c5161d;
+	border-bottom: 5px solid #c5161d;
+ 	border-radius: 10px 100px 10px 100px; 
+ }
+.unit-bg-com-login {
+  color: #fff;
+  }
+.login-box-body h1 {
+	color: #fff;
+	margin-top: 0px;
+	font-size: 25px;
+}
+ .login-box-body .btn-primary {
+ 	width: 100%;
+ }
+.login-logo {
+	padding-top: 40px;
+}
+.login-logo h2 {
+	color: #01f2eb;
+    font-size: 1em;
+}
+
+.login-logo h3 {
+    color: #fff;
+    font-size: 47px;
+}
+
+.widget {
+	width: 100%;
+	float: left;
+	border-radius:4px;
+	text-align: center;
+	color: #fff;
+}
+
+.widget .with-border {
+	border-bottom: 1px solid #fff;
+}
+
+.widget .widget-header, .widget .widget-body {
+	padding: 5px 0px;
+}
+
+.widget-aqua {
+	background: #1486e6;
+}
+
+.widget-yellow {
+	background: #eea32e;
+}
+
+.widget-blue {
+	background: #1486E6;
+}
+
+.widget-green {
+	background: #2B870B;
+}
+
+.widget-red {
+	background: #dd4b39;
+}
+
+.sidebar-mini.sidebar-collapse .sidebar-menu > li:hover > a > span:not(.pull-right), .sidebar-mini.sidebar-collapse .sidebar-menu > li:hover > .treeview-menu {
+    width: 215px;
+}
+
+.sidebar-mini.sidebar-collapse .sidebar-menu > li:hover > a > .pull-right-container {
+    left: 235px !important;
+}
+
+.main-sidebar .sidebar .user-panel .info p {
+	white-space: -moz-pre-wrap; /* Firefox */
+    white-space: -pre-wrap; /* ancient Opera */
+    white-space: -o-pre-wrap; /* newer Opera */
+    white-space: pre-wrap; /* Chrome; W3C standard */
+    word-wrap: break-word; /* IE */
+}
+
+.table-fixed {
+  table-layout:fixed;
+}
+
+.table-fixed td.text-overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table thead th.no {
+	width: 2%;
+}

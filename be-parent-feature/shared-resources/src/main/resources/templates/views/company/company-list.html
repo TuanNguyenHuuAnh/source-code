@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<head>
+    <script type="text/javascript" th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}"/>
+</head>
+<body>
+	<div class="title-head">
+		<div class="row">
+			<div class="col-md-5">
+				<h3>
+					<span th:text="#{company.list.page.name}">Tiêu đề trang</span>
+				</h3>
+			</div>
+		   	<div class="col-md-7">
+		        <div class="pull-right">
+					 <a class="u-btn u-btn-primary" th:if="${#authorization.expression('hasAuthority(@roleConstant.COMPANY_LIST)')}" id="btnCreate">
+		            	<img th:src="@{/static/images/ico-plus-white.png}" alt="" />
+		                <span th:text="#{add.new.button}">Thêm mới</span>
+		             </a>
+		        </div>
+		   </div>
+		</div>	
+	</div>
+    <div id="frmSearch">
+        <div id="error-message"></div>
+        <th:block th:include="views/commons/message-alert.html :: content(${messageList})" />
+        <th:block th:include="views/company/company-search.html :: content" />
+    </div>
+    <div class="bg-content-tbl" id="tableList">
+        <th:block th:include="views/company/company-table.html :: content" />
+    </div>
+		<input type="hidden"id="urlSearch"/>
+
+    <script type="text/javascript" th:src="@{/static/cache/js/company/company-list.js}"></script>
+</body>
+</html>

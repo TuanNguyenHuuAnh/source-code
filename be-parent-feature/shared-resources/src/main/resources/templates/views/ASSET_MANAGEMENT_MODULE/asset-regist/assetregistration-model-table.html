@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <body th:fragment="content">
+    <div class="col-sm-12 p-0">
+      <h2 class="title-box">Search Result</h2>
+      <div class="table-responsive table-popup-max-height">
+        <table id="tblDataTable" class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th style="width: 20px">#</th>
+              <th>
+                <input type="checkbox" id="check_all_gr" />
+              </th>
+              <th>Receipt No</th>
+              <th>Goods Description</th>
+              <th>PO No</th>
+              <th>PR No</th>
+              <th>Receipt Date</th>
+              <th>Recipient</th>
+              <th>Quantity</th>
+              <th>UOM</th>
+              <th>Receipt Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <th:block
+              th:each="item,i : ${pageWrapperGR.data}"
+              th:with="startIndex=${pageWrapperGR.startIndexCurrent}"
+            >
+              <tr>
+                <td class="text-center" th:text="${i.index + startIndex}"></td>
+                <td class="td-action">
+                  <div class="align-center">
+                    <input
+                      type="checkbox"
+                      th:class="checkbox_gr"
+                      th:classappend="${item.grDetailId} ? gr-id-+${item.grDetailId} : ''"
+                      th:value="${item.grDetailId}"
+                    />
+                  </div>
+                </td>
+                <td class="text-left" th:text="${item.receiptNo}"></td>
+                <td class="text-left" th:text="${item.assetDescription}"></td>
+                <td class="text-left" th:text="${item.poNo}">PR0001</td>
+                <td class="text-left" th:text="${item.prNo}"></td>
+                <td
+                  class="text-center"
+                  th:text="${item.receiptDate} ? ${#dates.format(item.receiptDate, @systemConfig.getConfig('DATE_PATTERN'))}"
+                >
+                  26/07/2019
+                </td>
+                <td class="text-left" th:text="${item.recipientFullName}"></td>
+                <td
+                  class="text-center"
+                  th:classappend="quantity-+${item.grDetailId}"
+                  th:text="${item.quantity}"
+                >
+                  1
+                </td>
+                <td class="text-left" th:text="${item.uomName}"></td>
+                <td
+                  class="text-right"
+                  th:text="${item.recepitAmount != null ? #numbers.formatDecimal(item.recepitAmount, 0, 'COMMA',0, 'POINT') : 0}"
+                ></td>
+              </tr>
+            </th:block>
+          </tbody>
+        </table>
+      </div>
+
+      <th:block
+        th:include="/views/ASSET_MANAGEMENT_MODULE/commons/pagination.html :: content(pageWrapper=${pageWrapperGR})"
+      />
+      <!-- PAGINATION -->
+    </div>
+    <script
+      type="text/javascript"
+      th:src="@{/static/ASSET_MANAGEMENT_MODULE/js/asset-regist/asset-regist-edit-table-gr.js}"
+    ></script>
+  </body>
+</html>

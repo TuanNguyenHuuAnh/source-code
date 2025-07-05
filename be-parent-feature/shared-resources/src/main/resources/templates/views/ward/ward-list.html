@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<script type="text/javascript" th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+<link rel="stylesheet" type="text/css" th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}" />
+
+<body>
+    <section class="content-header">
+        <h1 th:text="#{ward.page}">Quản lý tìm kiếm</h1>
+        <ul class="button-right">
+            <li>
+                <a class="btn btn-common btn-circle" id="add" th:if="${@roleConfig.hasRole(T(vn.com.unit.dmcs.constant.CommonConstant).MS1_S05_DISTRICT +':Edit')}">
+						<i class="fa fa-plus"></i>
+				</a>
+            </li>
+        </ul>
+    </section>
+    <section class="content">
+        
+        <div class="row unit-bg-com">
+        	<div class="box-header with-border">
+	            <h3 class="box-title" th:text="#{detail.search}">Thông tin tìm kiếm</h3>
+	        </div>
+            <form class="form-horizontal u-for-page-top j-formSearch" th:action="@{/ward/list}" th:object="${wardSearch}" method="POST" role="form">
+                <th:block th:include="views/commons/message-alert.html :: content(${messageList})" />
+                <div class="col-xs-12 col-sm-12 no-padding">
+                    <div class="col-sm-7 no-pleft">
+                        <input type="text" class="form-control" th:field="*{fieldSearch}" th:placeholder="#{search.key}" />
+                    </div>
+                    <div class="col-sm-3">
+                        <select th:field="*{fieldValues}" multiple="multiple" class="form-control" id="search-filter">
+                            <th:block th:each="item : ${fieldSelect}">
+                                <option th:value="${item.value}" th:selected="${wardSearch.fieldValues} ? ${#arrays.contains(wardSearch.fieldValues,item.value)}: false" th:text="#{${item.name}}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+                    <div class="col-sm-1">
+                        <span class="button">
+					        	<a id="btnSearch" class="btn btn-common" th:text="#{search.button}">Tìm kiếm</a>
+					      	</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+        <div class="row unit-bg-table unit-bg-com">
+        	<div class="box-header">
+	            <h3 class="box-title" th:text="#{list_search}">Danh sách tìm
+							kiếm</h3>
+	        </div>
+			<div id="tableList">
+				<th:block th:include="views/ward/ward-table.html :: content" />
+			</div>
+		</div>
+    </section>
+    <input type="hidden" id="fieldSearchHidden" />
+    <input type="hidden" id="fieldValuesHidden" />
+    <input type="hidden" id="url" name="url" th:value="${wardSearch.url}" />
+    <script type="text/javascript" th:src="@{/web-app/views/ward/ward-list.js}"></script>
+    <script type="text/javascript" th:src="@{/static/cache/js/ward/ward-list.js}"></script>	
+</body>
+
+</html>

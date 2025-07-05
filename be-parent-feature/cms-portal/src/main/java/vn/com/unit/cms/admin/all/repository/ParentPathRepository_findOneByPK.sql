@@ -1,0 +1,10 @@
+SELECT
+	ANCESTOR_ID
+	,DESCENDANT_ID
+	,DEPTH
+	, TYPE
+FROM M_PARENT_PATH
+WHERE 
+	ANCESTOR_ID = /*ancestorId*/
+	AND DESCENDANT_ID = /*descendantId*/
+	AND TYPE = /*type*/

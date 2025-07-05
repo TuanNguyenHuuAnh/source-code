@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content(editDto)">
+
+    <input type="hidden" th:value="${editDto.docId}" id="docId" name="docId" />
+    <input type="hidden" th:value="${editDto.businessId}" id="businessId" name="businessId" />
+    <input type="hidden" th:value="${editDto.processDeployId}" id="processDeployId" name="processDeployId" />
+    <input type="hidden" th:value="${editDto.processDeployCode}" id="processDeployCode" name="processDeployCode" />
+    <input type="hidden" th:value="${editDto.coreTaskId}" id="coreTaskId" name="coreTaskId" />
+    
+    <input type="hidden" id="actButtonType" name="actButtonType" />
+    <input type="hidden" id="actButtonName" name="actButtonName" />
+    <input type="hidden" id="actButtonId" name="actButtonId" />
+     
+    <!-- Popup Confirm -->
+	<th:block th:include="views/commons-process/common-process-popup-confirm.html :: content" />
+	
+    <!-- Workflow -->
+    <th:block th:include="views/commons-process/common-process-workflow.html :: content(${editDto})" />
+    
+    <!-- Button -->
+    <th:block th:include="views/commons-process/common-process-button-group.html :: content(${editDto})" />
+    
+    <!-- History -->
+    <div class="clearfix bg-content-tbl" th:if="${historyProcessList != null AND historyProcessList.size() > 0}">
+        <th:block th:include="views/commons-process/common-process-history.html :: content" />
+    </div>
+    
+    <script
+      type="text/javascript"
+      th:src="@{/static/cache/js/common-process/common-process.js}"
+    ></script>
+    
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+        var CONTROLLER_URL = /*[[${controllerURL}]]*/;
+        var IS_DETAIL = /*[[${isDetail}]]*/;
+      /*]]>*/
+    </script>
+    
+    <script type="text/javascript" th:inline="text">
+        var FORM_ID = '[[${editDto.formId}]]';
+        var DOC_ID = '[[${editDto.formId}]]';
+        
+        var MSG_CONFIRM_SUBMIT = '[[#{message.confirm.submit}]]';
+        var MSG_POPUP_ALREADY_ID_NO = '[[#{applicant.form.popup.already.id.no}]]';
+
+        var CLOSE_BUTTON = '[[#{close.button}]]';
+        var CONFIRM_BUTTON = '[[#{ok.button}]]';
+        
+        var LIST_BUTTON_CONFIRM_PROCESS = {
+                cancel : {
+                    label : '<i class="fa fa-times"></i> ' + CLOSE_BUTTON
+                },
+                confirm : {
+                    label : '<i class="fa fa-check"></i> ' + CONFIRM_BUTTON
+                }
+            };
+    </script>
+</body>
+</html>

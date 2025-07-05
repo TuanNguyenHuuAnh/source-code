@@ -1,0 +1,2 @@
+UPDATE M_EVENTS SET SAVE_DETAIL = 'false', PROCESSING_FLG = 'false'
+WHERE ID = /*id*/'437'

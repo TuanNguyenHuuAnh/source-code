@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <body th:fragment="content">
+    <div class="col-sm-12 p-0">
+      <h2 class="title-box" th:text="#{search.results.title}">Search Result</h2>
+      <!-- 	        <div class="box-tools pull-right"> -->
+      <!-- 				<a class="btn-common pull-right" id="btnExport"> -->
+      <!-- 					<i class="fa fa-download" aria-hidden="true"></i> -->
+      <!-- 	          			<span th:text="' '+#{common.export.data}"></span>  -->
+      <!-- 	       		</a> -->
+      <!-- 			</div> -->
+      <div class="table-responsive">
+        <table id="tblDataTable" class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th rowspan="2" style="width: 20px">#</th>
+              <!--                         <th rowspan="2" th:text="#{receipt.action}" style="width: 80px;">Action</th> -->
+              <!-- <th th:text="#{asset.reporting.qr-code}">QR Code</th> -->
+              <th th:text="#{asset.reporting.asset-tag}">Asset Tag</th>
+              <th th:text="#{asset.reporting.asset-name}">Name of the Asset</th>
+              <th th:text="#{asset.reporting.description}">Description</th>
+              <th th:text="#{asset.reporting.quantity}">Quantity</th>
+              <th th:text="#{asset.reporting.uom-name}">Unit of Measure</th>
+              <th th:text="#{asset.reporting.serial-no}">Serial No</th>
+              <th th:text="#{asset.reporting.imei}">IMEI</th>
+              <th th:text="#{asset.reporting.asset-status}">Asset Status</th>
+              <th
+                th:text="#{asset.reporting.transaction-no}"
+                style="min-width: 130px"
+              >
+                Transaction No
+              </th>
+              <th th:text="#{asset.reporting.transaction-type}">
+                Transaction Type
+              </th>
+              <th th:text="#{asset.reporting.transaction-date}">
+                Transaction Date
+              </th>
+              <th th:text="#{asset.reporting.reason-of-transaction}">
+                Reason of Transaction
+              </th>
+              <th th:text="#{asset.reporting.register-date}">Register Date</th>
+              <th th:text="#{asset.reporting.office-location}">
+                Office Location
+              </th>
+              <th th:text="#{asset.reporting.warehouse}">Warehouse</th>
+              <th th:text="#{asset.reporting.keeper-code}">Keeper Code</th>
+              <th th:text="#{asset.reporting.keeper-name}">Keeper Name</th>
+              <th th:text="#{asset.reporting.asset-owner}">Asset Owner</th>
+              <th th:text="#{asset.reporting.dept}">Dept.</th>
+              <th th:text="#{asset.reporting.asset-type}">Asset Type</th>
+              <th th:text="#{asset.reporting.asset-category}">
+                Asset Category
+              </th>
+              <th th:text="#{asset.reporting.asset-sub-category}">
+                Asset Sub Category
+              </th>
+              <th th:text="#{asset.reporting.vendor}">Vendor</th>
+              <th th:text="#{asset.reporting.purchase-date}">Purchase Date</th>
+              <th th:text="#{asset.reporting.purchase-price}">
+                Purchase Price
+              </th>
+              <th th:text="#{asset.reporting.invoice-number}">
+                Invoice Number
+              </th>
+              <th th:text="#{asset.reporting.pr-no}">PR No</th>
+              <th th:text="#{asset.reporting.po-no}">PO No</th>
+              <th th:text="#{asset.reporting.contract-no}">Contract No</th>
+              <th th:text="#{asset.reporting.payment-no}">Payment No</th>
+              <th th:text="#{asset.reporting.payment-date}">Payment Date</th>
+              <th th:text="#{asset.reporting.receipt-no}">Receipt No</th>
+              <th th:text="#{asset.reporting.receipt-date}">Receipt Date</th>
+              <th th:text="#{asset.reporting.recipient}">Recipient</th>
+              <th th:text="#{asset.reporting.cpu}">CPU</th>
+              <th th:text="#{asset.reporting.ram}">RAM</th>
+              <th th:text="#{asset.reporting.hdd}">HO-HDD</th>
+              <th th:text="#{asset.reporting.os}">OS</th>
+              <th th:text="#{asset.reporting.note}">Note</th>
+            </tr>
+
+            <tr>
+              <th>1</th>
+              <th>2</th>
+              <th>3</th>
+              <th>4</th>
+              <th>5</th>
+              <th>6</th>
+              <th>7</th>
+              <th>8</th>
+              <th>9</th>
+              <th>10</th>
+              <th>11</th>
+              <th>12</th>
+              <th>13</th>
+              <th>14</th>
+              <th>15</th>
+              <th>16</th>
+              <th>17</th>
+              <th>18</th>
+              <th>19</th>
+              <th>20</th>
+              <th>21</th>
+              <th>22</th>
+              <th>23</th>
+              <th>24</th>
+              <th>25</th>
+              <th>26</th>
+              <th>27</th>
+              <th>28</th>
+              <th>29</th>
+              <th>30</th>
+              <th>31</th>
+              <th>32</th>
+              <th>33</th>
+              <th>34</th>
+              <th>35</th>
+              <th>36</th>
+              <th>37</th>
+              <th>38</th>
+              <th>39</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <th:block
+              th:each="item,i : ${pageWrapper.data}"
+              th:with="startIndex=${pageWrapper.startIndexCurrent}"
+            >
+              <tr>
+                <td class="text-center" th:text="${i.index + startIndex}"></td>
+                <!-- <td class="text-center">
+                            <img th:src="@{/} + ${'asset-profile/qrcode?tag='} + ${item.assetTag}" width="90px"/>
+                        </td> -->
+                <td class="text-left">
+                  <a
+                    th:href="@{/asset-profile/detail(id=${item.assetProfileId})}"
+                    target="_blank"
+                    style="font-size: 12px"
+                    th:text="${item.assetTag}"
+                  />
+                </td>
+                <td class="text-left" th:text="${item.assetName}"></td>
+                <td class="text-left" th:text="${item.assetDescription}"></td>
+                <td class="text-right" th:text="${item.quantity}"></td>
+                <td class="text-left" th:text="${item.uomName}"></td>
+                <td class="text-left" th:text="${item.serialNo}"></td>
+                <td class="text-left" th:text="${item.imei}"></td>
+                <td class="text-left" th:text="${item.assetStatusName}"></td>
+                <td class="text-left">
+                  <a
+                    th:href="@{${item.transactionUrl}}"
+                    target="_blank"
+                    style="font-size: 12px"
+                    th:text="${item.transactionNo}"
+                  />
+                </td>
+                <td class="text-left" th:text="${item.transactionType}"></td>
+                <td
+                  class="text-center"
+                  th:text="${item.transactionDate != null ?  #dates.format(item.transactionDate, @systemConfig.getConfig('DATE_PATTERN')) : ''}"
+                ></td>
+                <td
+                  class="text-left"
+                  th:text="${item.reasonOfTransaction}"
+                ></td>
+                <td
+                  class="text-center"
+                  th:text="${item.registerDate != null ?  #dates.format(item.registerDate, @systemConfig.getConfig('DATE_PATTERN')) : ''}"
+                ></td>
+                <td class="text-left" th:text="${item.officeLocation}"></td>
+                <td class="text-left" th:text="${item.warehouse}">
+                  Kho Diamond Plaza
+                </td>
+                <td class="text-left" th:text="${item.keeperCode}">VNMNPK</td>
+                <td class="text-left" th:text="${item.keeperName}">
+                  Nguyen Phuong Ky
+                </td>
+                <td class="text-left" th:text="${item.assetOwner}">
+                  Mai Hong D
+                </td>
+                <td class="text-left" th:text="${item.dept}">IT</td>
+                <td class="text-left" th:text="${item.assetType}">IT</td>
+                <td class="text-left" th:text="${item.assetCategory}">
+                  Software
+                </td>
+                <td class="text-left" th:text="${item.assetSubCategory}">
+                  Laptop
+                </td>
+                <td class="text-left" th:text="${item.vendor}"></td>
+                <td
+                  class="text-center"
+                  th:text="${item.purchaseDate != null ?  #dates.format(item.purchaseDate, @systemConfig.getConfig('DATE_PATTERN')) : ''}"
+                ></td>
+                <td
+                  class="text-right"
+                  th:text="${item.purchasePrice != null ? #numbers.formatDecimal(item.purchasePrice, 0, 'COMMA',0, 'POINT') : 0}"
+                ></td>
+                <td class="text-left" th:text="${item.invoiceNumber}"></td>
+                <td class="text-left" th:text="${item.prNo}"></td>
+                <td class="text-left" th:text="${item.poNo}"></td>
+                <td class="text-left" th:text="${item.contractNo}"></td>
+                <td class="text-left" th:text="${item.paymentNo}"></td>
+                <td
+                  class="text-center"
+                  th:text="${item.paymentDate != null ?  #dates.format(item.paymentDate, @systemConfig.getConfig('DATE_PATTERN')) : ''}"
+                ></td>
+                <td class="text-left" th:text="${item.receiptNo}"></td>
+                <td
+                  class="text-center"
+                  th:text="${item.receiptDate != null ?  #dates.format(item.receiptDate, @systemConfig.getConfig('DATE_PATTERN')) : ''}"
+                ></td>
+                <td class="text-left" th:text="${item.recipient}"></td>
+                <td class="text-left" th:text="${item.cpu}"></td>
+                <td class="text-left" th:text="${item.ram}"></td>
+                <td class="text-left" th:text="${item.hdd}"></td>
+                <td class="text-left" th:text="${item.os}"></td>
+                <td class="text-left" th:text="${item.remark}"></td>
+              </tr>
+            </th:block>
+          </tbody>
+        </table>
+      </div>
+      <!-- PAGINATION -->
+      <th:block
+        th:include="/views/ASSET_MANAGEMENT_MODULE/commons/pagination.html :: content(pageWrapper=${pageWrapper})"
+      />
+    </div>
+    <script
+      type="text/javascript"
+      th:src="@{/static/js/asset-reporting/asset-reporting-list-table.js}"
+    ></script>
+  </body>
+</html>

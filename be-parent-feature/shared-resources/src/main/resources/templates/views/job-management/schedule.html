@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<script type="text/javascript"
+	th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}" />
+	
+<div class="title-head">
+	<div class="row">
+		<div class="col-md-5">
+			<h3>
+				<span th:text="#{quartz.title.schedule}">Tiêu đề trang</span>
+			</h3>
+		</div>
+	   	<div class="col-md-7">
+	        <div class="pull-right">
+				 <a class="u-btn u-btn-primary" id="btnCreate" th:if="${#authorization.expression('hasAuthority(@jobConstant.SC1_S04_SCHEDULEMASTER)')}">
+	            	<img th:src="@{/static/images/ico-plus-white.png}" alt="" />
+	                <span>Thêm mới</span>
+	             </a>
+	        </div>
+	   </div>
+	</div>	
+</div>
+<div id="frmSearch">
+    <div id="error-message"></div>
+    <th:block th:include="views/commons/message-alert.html :: content(${messageList})" />
+    <th:block th:include="views/job-management/schedule-search.html :: content" />
+</div>
+<div class="bg-content-tbl" id="tableList">
+	<div class="row m-0">
+    	<th:block th:include="views/job-management/schedule-table.html :: content" />
+    </div>
+</div>
+<script type="text/javascript"
+		th:src="@{/static/cache/js/job-management/schedule.js}"></script>
+<input type="hidden"id="urlSearch"/>
+
+</html>

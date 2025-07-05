@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+  <style>
+    .readonly {
+      background-color: #f4f4f4;
+      pointer-events: none;
+    }
+    .pos-label {
+      position: relative;
+      top: -4px;
+    }
+  </style>
+
+  <body>
+    <div class="title-head clearfix">
+      <div class="col-sm-9 col-xs-7 no-padding">
+        <h3>
+          <i class="fa fa-table"></i>
+          <span th:text="#{assetprofile.title}">Asset Profile</span>
+        </h3>
+      </div>
+      <div class="col-sm-3 col-xs-5 icon-head">
+        <div class="pull-right">
+          <a
+            ><i
+              class="fa fa-arrow-circle-left icon-head-red"
+              th:title="#{back.button}"
+              id="linkList"
+            ></i
+          ></a>
+        </div>
+      </div>
+    </div>
+
+    <ul class="nav nav-tabs tab-customize">
+      <li class="active">
+        <a data-toggle="tab" href="#profile"
+          ><span th:text="#{assetprofile.profile}">Profile</span></a
+        >
+      </li>
+      <li>
+        <a data-toggle="tab" href="#temp"
+          ><span th:text="#{assetprofile.history}">History</span></a
+        >
+      </li>
+    </ul>
+
+    <div class="tab-content clearfix p-10 custom-lb">
+      <div id="profile" class="tab-pane fade in active">
+        <form
+          class="form-horizontal u-for-page-top j-form-validate"
+          id="form-edit"
+          th:action="@{/}"
+          th:object="${p2pAssetProfile}"
+          method="post"
+          role="form"
+        >
+          <!-- <th:block th:include="/views/ASSET_MANAGEMENT_MODULE/commons/message-alert.html :: content(${messageList})"/> -->
+          <div class="bg-content clearfix bg-content-tbl">
+            <div
+              data-toggle="collapse"
+              data-target="#search-box-1"
+              class="header-box"
+            >
+              <h2 class="title-box" th:text="#{assetprofile.general.info}">
+                General Info
+              </h2>
+              <i class="fa fa-minus pull-right" aria-hidden="true"></i>
+            </div>
+            <div class="collapse in row m-0" id="search-box-1">
+              <div
+                class="form-group col-sm-6 no-padding"
+                style="margin-bottom: 0px"
+              >
+                <div class="form-group col-sm-12 no-padding">
+                  <label class="col-sm-4" th:text="#{assetprofile.assetTag}"
+                    >Asset Tag</label
+                  >
+                  <div class="col-sm-8">
+                    <input type="hidden" id="profileId" th:value="*{id}" />
+                    <input
+                      type="text"
+                      class="form-control"
+                      disabled="disabled"
+                      th:field="*{assetTag}"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group col-sm-12 no-padding">
+                  <label class="col-sm-4" th:text="#{assetprofile.imei}"
+                    >IMEI</label
+                  >
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      class="form-control"
+                      disabled="disabled"
+                      th:field="*{imei}"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-sm-6 no-padding">
+                <label class="col-sm-4" th:text="#{assetprofile.qrCode}"
+                  >QR Code</label
+                >
+                <div class="col-sm-8">
+                  <img
+                    th:src="@{/} + ${'asset-profile/qrcode?tag='} + *{assetTag}"
+                    width="60px"
+                  />
+                </div>
+                <!-- End -->
+              </div>
+
+              <div class="form-group col-sm-12 no-padding">
+                <label class="col-sm-2" th:text="#{assetprofile.serialNumber}"
+                  >Serial No</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{serialNumber}"
+                  />
+                </div>
+
+                <label class="col-sm-2" th:text="#{assetprofile.assetStatus}"
+                  >Asset Status</label
+                >
+                <div class="col-sm-4">
+                  <select
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{assetStatus}"
+                  >
+                    <option
+                      th:each="item : ${lstAssetStatus}"
+                      th:value="${item.cat}"
+                      th:text="${item.catOfficialName}"
+                      th:selected="*{assetStatus} == ${item.cat}"
+                    ></option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group col-sm-12 no-padding">
+                <label class="col-sm-2" th:text="#{assetprofile.registerBy}"
+                  >Register By</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{registerBy}"
+                  />
+                </div>
+
+                <label
+                  class="col-sm-2"
+                  th:text="#{assetprofile.registrationDate}"
+                  >Register Date</label
+                >
+                <div class="col-sm-4">
+                  <div class="input-group date datepicker">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="dd/mm/yyyy"
+                      autocomplete="off"
+                      disabled="disabled"
+                      th:field="*{registrationDate}"
+                    />
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-sm-12 no-padding">
+                <label class="col-sm-2" th:text="#{assetprofile.assetName}"
+                  >Name of the Asset</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{assetName}"
+                  />
+                </div>
+
+                <label
+                  class="col-sm-2"
+                  th:text="#{assetprofile.assetDescription}"
+                  >Asset Description</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{assetDescription}"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group col-sm-12 no-padding">
+                <label class="col-sm-2" th:text="#{assetprofile.assetType}"
+                  >Asset Type</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{assetTypeName}"
+                  />
+                </div>
+
+                <label class="col-sm-2" th:text="#{assetprofile.assetCategory}"
+                  >Asset Category</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{assetCategoryName}"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group col-sm-12 no-padding">
+                <label
+                  class="col-sm-2"
+                  th:text="#{assetprofile.assetSubCategory}"
+                  >Asset Sub-Category</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{assetSubCategoryName}"
+                  />
+                </div>
+
+                <label class="col-sm-2" th:text="#{assetprofile.propertyOf}"
+                  >Property of</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{propertyOf}"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group col-sm-12 no-padding">
+                <label class="col-sm-2" th:text="#{assetprofile.quantity}"
+                  >Quantity</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{quantity}"
+                  />
+                </div>
+
+                <label class="col-sm-2" th:text="#{assetprofile.uom}"
+                  >Unit of Measure</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{uomName}"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group col-sm-12 no-padding">
+                <label class="col-sm-2" th:text="#{assetprofile.purchasePrice}"
+                  >Purchase Price</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{purchasePrice}"
+                  />
+                </div>
+
+                <label class="col-sm-2" th:text="#{assetprofile.purchaseDate}"
+                  >Purchase Date</label
+                >
+                <div class="col-sm-4">
+                  <div class="input-group date datepicker">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="dd/mm/yyyy"
+                      autocomplete="off"
+                      disabled="disabled"
+                      th:field="*{purchaseDate}"
+                    />
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-sm-12 no-padding">
+                <label class="col-sm-2" th:text="#{assetprofile.cpu}"
+                  >CPU</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{cpu}"
+                  />
+                </div>
+
+                <label class="col-sm-2" th:text="#{assetprofile.ram}"
+                  >RAM</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{ram}"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group col-sm-12 no-padding">
+                <label class="col-sm-2" th:text="#{assetprofile.hdd}"
+                  >HO-HDD</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{hdd}"
+                  />
+                </div>
+
+                <label class="col-sm-2" th:text="#{assetprofile.os}">OS</label>
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{os}"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group col-sm-12 no-padding">
+                <label
+                  class="col-sm-2"
+                  th:text="#{assetprofile.transactionStatus}"
+                  >Transaction Status</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{transactionName}"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group col-sm-12 no-padding">
+                <label class="col-sm-2" th:text="#{assetprofile.note}"
+                  >Note</label
+                >
+                <div class="col-sm-10">
+                  <textarea
+                    type="text"
+                    class="form-control"
+                    th:field="*{remark}"
+                    disabled="disabled"
+                  >
+                  </textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-content clearfix bg-content-tbl">
+            <div
+              data-toggle="collapse"
+              data-target="#search-box-2"
+              class="header-box"
+            >
+              <h2 class="title-box" th:text="#{assetprofile.reference.info}">
+                Reference Information
+              </h2>
+              <i class="fa fa-minus pull-right" aria-hidden="true"></i>
+            </div>
+            <div class="collapse in row m-0" id="search-box-2">
+              <div class="form-group col-sm-12 no-padding">
+                <label class="col-sm-2" th:text="#{assetprofile.vendor}"
+                  >Vendor</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{vendorName}"
+                  />
+                </div>
+                <label class="col-sm-2" th:text="#{assetprofile.contractNo}"
+                  >Contract No</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{contractNo}"
+                  />
+                </div>
+              </div>
+              <div class="form-group col-sm-12 no-padding">
+                <label class="col-sm-2" th:text="#{assetprofile.invoiceNumber}"
+                  >Invoice Number</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{invoiceNumber}"
+                  />
+                </div>
+                <label class="col-sm-2" th:text="#{assetprofile.prNo}"
+                  >PR No</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{prNo}"
+                  />
+                </div>
+              </div>
+              <div class="form-group col-sm-12 no-padding">
+                <label class="col-sm-2" th:text="#{assetprofile.poNo}"
+                  >PO No</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{poNo}"
+                  />
+                </div>
+
+                <label class="col-sm-2" th:text="#{assetprofile.receiptNo}"
+                  >Receipt No</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{receiptNo}"
+                  />
+                </div>
+              </div>
+              <div class="form-group col-sm-12 no-padding">
+                <label class="col-sm-2" th:text="#{assetprofile.recipient}"
+                  >Receipent</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{recipientFullname}"
+                  />
+                  <input type="hidden" th:field="*{recipient}" />
+                </div>
+
+                <label class="col-sm-2" th:text="#{assetprofile.receiptDate}"
+                  >Receipt Date</label
+                >
+                <div class="col-sm-4">
+                  <div class="input-group date datepicker">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="dd/mm/yyyy"
+                      autocomplete="off"
+                      disabled="disabled"
+                      th:field="*{receiptDate}"
+                    />
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-sm-12 no-padding">
+                <label class="col-sm-2" th:text="#{assetprofile.paymentNo}"
+                  >Payment No</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{paymentNo}"
+                  />
+                </div>
+
+                <label class="col-sm-2" th:text="#{assetprofile.paymentDate}"
+                  >Payment Date</label
+                >
+                <div class="col-sm-4">
+                  <div class="input-group date datepicker">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="dd/mm/yyyy"
+                      autocomplete="off"
+                      disabled="disabled"
+                      th:field="*{paymentDate}"
+                    />
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-content clearfix bg-content-tbl">
+            <div
+              data-toggle="collapse"
+              data-target="#search-box-3"
+              class="header-box"
+            >
+              <h2 class="title-box" th:text="#{assetprofile.management.info}">
+                Management Information
+              </h2>
+              <i class="fa fa-minus pull-right" aria-hidden="true"></i>
+            </div>
+            <div class="collapse in row m-0" id="search-box-3">
+              <div class="form-group col-sm-12 no-padding">
+                <label class="col-sm-2" th:text="#{assetprofile.assetLocation}"
+                  >Office Location</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{assetLocationName}"
+                  />
+                </div>
+                <label class="col-sm-2" th:text="#{assetprofile.warehouse}"
+                  >Warehouse</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{assetWarehouseName}"
+                  />
+                </div>
+              </div>
+              <div class="form-group col-sm-12 no-padding">
+                <label
+                  class="col-sm-2"
+                  th:text="#{assetprofile.warehouseKeeper}"
+                  >Warehouse Keeper</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{warehouseKeeper}"
+                  />
+                </div>
+                <label class="col-sm-2" th:text="#{assetprofile.contact}"
+                  >Contact</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{warehouseKeeperContact}"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group col-sm-12 no-padding">
+                <label class="col-sm-2" th:text="#{assetprofile.assetOwner}"
+                  >Asset Owner</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{assetOwnerFullname}"
+                  />
+                </div>
+                <label class="col-sm-2" th:text="#{assetprofile.assetOwnerDept}"
+                  >Asset Owner Dept.</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled="disabled"
+                    th:field="*{assetOwnerDeptName}"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <!-- End -->
+
+        <script
+          type="text/javascript"
+          th:src="@{/static/ASSET_MANAGEMENT_MODULE/js/asset-profile/asset-profile-detail.js}"
+        ></script>
+      </div>
+
+      <!-- TAB ASSET PROFILE HISTORY -->
+
+      <div id="temp" class="tab-pane fade">
+        <div class="bg-content clearfix bg-content-tbl">
+          <div
+            data-toggle="collapse"
+            data-target="#asset-group"
+            class="header-box"
+          >
+            <h2 class="title-box" th:text="#{assetprofile.history.title}">
+              Asset Profile History
+            </h2>
+            <i class="fa fa-minus pull-right" aria-hidden="true"></i>
+          </div>
+
+          <div class="collapse in row m-0" id="asset-group">
+            <div class="bg-content clearfix bg-content-tbl" id="tableList">
+              <th:block
+                th:include="/views/ASSET_MANAGEMENT_MODULE/asset-profile/asset-profile-detail-history.html :: content"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

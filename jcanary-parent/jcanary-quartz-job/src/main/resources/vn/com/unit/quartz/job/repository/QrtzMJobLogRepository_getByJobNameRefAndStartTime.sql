@@ -1,0 +1,1 @@
+select * from  QRTZ_M_JOB_LOG l where exists (select * from  QRTZ_M_JOB_SCHEDULE s where s.JOB_NAME_REF = l.JOB_NAME_REF and s.START_TIME = l.START_TIME and s.ID = /*jobScheduleId*/ );

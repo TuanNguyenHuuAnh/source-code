@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<div class="row main-heading ">
+	<div class="row unit-border-bottom">
+		<div class="col-sm-8 col-xs-6">
+			<h2 class="mar-tb-no red" th:text="#{chat.list.title.offline.edit.title}">Phản hồi yêu cầu khách hàng</h2>
+		</div>
+		<div class="col-sm-4 col-xs-6 align-right ml-auto">
+            <a class="u-btn-head" id="linkList">
+				<img th:src="@{/static/icons/icon-back.png}"/>
+				<span th:title="#{icon.back}">Trở lại</span>
+			</a>
+		</div>
+	</div>
+</div>
+<!-- <th:block th:include="views/commons/message-alert.html :: content(${messageList})"/> -->
+		<form method="POST" class="form-horizontal j-form-validate" th:object="${roomEdit}" id="typeForm">			
+				<th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+			<div class="row unit-bg-com">
+				<input type="hidden" th:field="*{id}"/>
+					<div class="col-xs-12 col-sm-12 no-padding">
+						<div class="form-group col-md-6">
+							<label  class="col-sm-4 control-label">
+								<b th:text="#{chat.list.email}">Email</b>
+							</label>
+							<label class= "col-sm-8 control-label" th:text="*{email}"></label>
+						</div>
+						
+						<div class="form-group col-md-6">
+							<label  class="col-sm-4 control-label"  >
+								<b th:text="#{chat.list.fullname}">Họ tên</b> 
+							</label>
+							<label class= "col-sm-8 control-label" th:text="*{fullname}"></label>
+						</div>
+						
+					</div>
+				<div class="col-xs-12 col-sm-12 no-padding">
+					<div class="form-group col-md-6">
+						<label  class="col-sm-4 control-label"  >
+							<b th:text="#{chat.list.phone}">Số điện thoại</b> 
+						</label>
+						<label class= "col-sm-8 control-label" th:text="*{phone}"></label>					
+					</div>
+					<div class="form-group col-md-6">
+						<label  class="col-sm-4 control-label"  >
+							<b th:text="#{chat.list.title.offline.edit.content}">Nội dung tin nhắn</b>
+						</label>
+						<label class= "col-sm-8 control-label" th:text="*{message}"></label>					
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12">
+					<div class="form-group">
+						<label  class="col-sm-4 col-md-2 control-label"  >
+							<b th:text="#{chat.list.title.offline.edit.content.feedback}">Nội dung phản hồi</b>
+							
+						</label>
+						<div class="col-sm-8 col-md-10 pleft-10">						
+							<textarea rows="5" class="form-control j-required" th:field="*{messageFeedback}" >
+							</textarea>
+							<span class="help-block" th:if="${#fields.hasErrors('messageFeedback')}" th:errors="*{messageFeedback}"></span>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-12 unit-button">
+					<button type="button" class="btn-cancel" id="cancel"  ><i class="fa fa-times"></i> <span th:text="#{cancel.button}">Thoát</span></button>
+					<button type="button" class="btn-common" id="btnSave" >
+						<i class="fa fa-paper-plane" aria-hidden="true"></i>
+						<span th:text="#{chat.list.title.offline.edit.content.send}">Lưu</span>
+					</button>
+				</div>
+	</div>
+		</form>
+	
+<script type="text/javascript" th:src="@{/web-app/views/chat/chat-edit-offline.js}"></script>
+</html>	

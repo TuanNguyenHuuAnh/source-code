@@ -1,0 +1,32 @@
+--
+-- JcaPositionRepository_getJcaPositionDtoToBuildTree.sql
+
+SELECT
+	  pos.ID						AS POSITION_ID		
+	, pos.NAME						AS NAME
+	, pos.NAME_ABV					AS NAME_ABV
+	, pos.DESCRIPTION				AS DESCRIPTION
+	, pos.ACTIVED					AS ACTIVED
+	, pos.DISPLAY_ORDER				AS DISPLAY_ORDER
+	, pos.COMPANY_ID				AS COMPANY_ID
+	, pos.CREATED_ID				AS CREATED_ID
+	, pos.CREATED_DATE				AS CREATED_DATE
+	, pos.UPDATED_ID				AS UPDATED_ID
+	, pos.UPDATED_DATE				AS UPDATED_DATE
+	, pos.DELETED_ID				AS DELETED_ID
+	, pos.DELETED_DATE				AS DELETED_DATE
+	, pos_path.ANCESTOR_ID 			AS POSITION_PARENT_ID
+FROM
+	JCA_POSITION pos
+JOIN
+	JCA_POSITION_PATH pos_path	
+ON
+	pos_path.DESCENDANT_ID = pos.ID
+	AND pos_path.DEPTH = 1
+	AND pos.DELETED_ID = 0			
+WHERE
+	pos.DELETED_ID = 0
+	
+ORDER BY
+	pos_path.ANCESTOR_ID	
+	,pos.DISPLAY_ORDER	

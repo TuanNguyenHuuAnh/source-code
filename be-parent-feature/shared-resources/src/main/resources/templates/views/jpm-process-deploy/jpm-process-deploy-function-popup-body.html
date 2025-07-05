@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+    <form class="form-horizontal u-for-page-top j-form-validate" role="form" id="function-form" method="POST" autocomplete="off" th:object="${functionDto}" th:action="@{/}">
+        <div class="">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h2 class="modal-title" id="function-modal-label" th:text="#{jpm.process.function.information}">Function Information</h2>
+            </div>
+            <div class="modal-body">
+
+                <th:block th:include="views/commons/message-alert.html :: content(${messageList})" />
+
+                <input type="hidden" th:field="*{id}"/>
+                <input type="hidden" th:field="*{processId}"/>
+                <div class="row">
+                    <div class="col-md-12 p-0">
+                        <div class="form-group">
+                            <label th:for="*{code}" class="col-md-3" th:text="#{jpm.process.function.code}"></label>
+                            <div class="col-md-9">
+                                <input type="text" disabled="disabled" class="form-control j-maxlength j-required j-code" th:field="*{code}" />
+                                <input type="hidden" th:field="*{code}" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label th:for="*{name}" class="col-md-3 " th:text="#{jpm.process.function.name}"></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control j-maxlength j-required j-code" th:field="*{name}" readonly="true" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label th:for="*{permissionType}" class="col-md-3" th:text="#{jpm.process.function.type}"></label>
+                            <div class="col-md-9">
+                                <select class="form-control" th:field="*{permissionType}" disabled="disabled">
+									<th:block
+										th:each="item: ${T(vn.com.unit.process.workflow.service.AppFunctionService.Permission).values()}">
+										<th:block>
+											<option th:value="${item.getValue()}"
+												th:text="#{${item.name}}"></option>
+										</th:block>
+									</th:block>
+								</select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="u-btn u-btn-back" data-dismiss="modal">
+            	<img th:src="@{/static/images/ico-close.png}" alt="" width="11px">
+                <span  th:text="#{close.button}"></span>
+            </a>
+        </div>
+    </form>
+
+</body>
+</html>

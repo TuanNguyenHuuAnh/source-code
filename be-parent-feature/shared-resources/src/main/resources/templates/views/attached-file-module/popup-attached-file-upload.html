@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <script
+    type="text/javascript"
+    th:src="@{/static/jquery/multiple-select/js/jquery.multiselect.js}"
+  ></script>
+
+  <link
+    rel="stylesheet"
+    type="text/css"
+    th:href="@{/static/jquery/multiple-select/css/jquery.multiselect.css}"
+  />
+  <script
+    type="text/javascript"
+    th:src="@{/static/plugins/jquery-file-upload/js/jquery.fileupload.js}"
+  ></script>
+  <script
+    type="text/javascript"
+    th:src="@{/static/plugins/jquery-file-upload/js/jquery.fileupload-ui.js}"
+  ></script>
+  <script
+    type="text/javascript"
+    th:src="@{/static/plugins/jquery-file-upload/js/jquery.iframe-transport.js}"
+  ></script>
+  <script
+    type="text/javascript"
+    th:src="@{/static/plugins/jquery-file-upload/js/vendor/jquery.ui.widget.js}"
+  ></script>
+
+  <body th:fragment="content(businessCode,refAttachment)">
+    <form
+      enctype="multipart/form-data"
+      method="POST"
+      id="attachedFileUploadForm"
+      th:action="@{/}"
+    >
+      <div
+        class="modal fade"
+        id="template-report-import-popup"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="import-component-modal-label"
+      >
+        <div class="modal-dialog" role="document">
+          <div
+            class="modal-content"
+            style="
+              height: 250px;
+              width: 700px;
+              magin: 0;
+              padding: 0;
+              margin-left: 0px;
+            "
+          >
+            <div class="modal-header">
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+                id="closeModal"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4
+                class="modal-title"
+                id="import-component-modal-label"
+                th:text="#{common.attach.file.header}"
+              >
+                Import attachment
+              </h4>
+            </div>
+            <div
+              class="modal-body"
+              id="template-report-modal-content"
+              style="height: 125px"
+            >
+              <div class="col-md-12">
+                <div
+                  class="form-horizontal col-md-12"
+                  style="padding-top: 10px"
+                >
+                  <div class="form-group">
+                    <label
+                      class="col-md-4"
+                      th:text="#{common.attach.file.title}"
+                      >Title</label
+                    >
+                    <div class="col-md-8">
+                      <input type="text" name="title" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-4" th:text="#{common.attach.file.note}"
+                      >Note</label
+                    >
+                    <div class="col-md-8">
+                      <textarea name="notes" class="form-control"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label
+                      class="col-md-4"
+                      th:text="#{common.attach.file.choose.file}"
+                      >Choose File</label
+                    >
+                    <div class="col-md-8">
+                      <div class="input-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          readonly="readonly"
+                          id="fileUploadPopup"
+                          style="margin-left: 0"
+                        />
+                        <label class="input-group-addon">
+                          <span class="input-choose-file">
+                            <i class="fa fa-folder-open-o"></i>
+                            <input
+                              type="file"
+                              style="display: none"
+                              multiple="multiple"
+                              name="uploadingFiles"
+                            />
+                            <input
+                              type="hidden"
+                              name="businessCode"
+                              th:value="${businessCode}"
+                            />
+                            <input
+                              type="hidden"
+                              name="reference"
+                              th:value="${refAttachment}"
+                            />
+                            <input
+                              type="hidden"
+                              name="attachedFileId"
+                              id="attachedFileId"
+                            />
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <a
+                class="btn-common btn-in-tablet"
+                type="submit"
+                id="btnImportPopup"
+              >
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                <span th:text="#{common.attach.file.import}"></span>
+              </a>
+              <a class="btn-cancel" data-dismiss="modal"
+                ><i class="fa fa-times"></i>
+                <span th:text="#{common.attach.file.cancel}"></span
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <script
+      type="text/javascript"
+      th:src="@{/static/js/attached-file-module/attached-file-upload-popup.js}"
+    ></script>
+  </body>
+</html>

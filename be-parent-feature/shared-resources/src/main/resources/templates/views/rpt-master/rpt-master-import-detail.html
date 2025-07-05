@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<head>
+    <script type="text/javascript" th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}" />
+</head>
+<body>
+    <div class="title-head clearfix">
+        <div class="col-sm-9 col-xs-7 no-padding">
+            <h3>
+                <i class="fa fa-table"></i>
+                <span th:text="${rptTitle}">Import detail</span>
+            </h3>
+        </div>
+        <div th:if="${backLink}" class="col-sm-3 col-xs-5 icon-head">
+            <div class="pull-right">
+                <a id="btnBack" th:href="@{/} + ${backLink}">
+                    <i class="fa fa-arrow-circle-left icon-head-red"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="message">
+    	<th:block th:include="views/commons/message-alert.html :: content(${messageList})" />
+    </div>
+    <div id="boxMain">
+	    <div id="error-message" class="error"></div>
+	    <div id="boxSearch"></div>
+	   	<div class="bg-content clearfix bg-content-tbl" id="boxImport"></div>
+	   	<div class="col-sm-8">
+			<h2 class="title-box" th:text="#{search.results.title}">Search results</h2>
+		</div>
+		<div class="col-sm-4">
+			<div class="pull-right">
+		        <a class="btn-common" id="btnImport">
+					<span th:text="#{prt.button.import}">Import</span>
+				</a>
+		  	</div>
+		</div>
+	    <div class="bg-content clearfix bg-content-tbl" id="boxTable"></div>
+    </div>
+    
+    <script type="text/javascript" th:src="@{/static/cache/js/rpt-master/rpt-master.js}"></script>
+    <script th:inline="javascript">
+		/*<![CDATA[*/
+		    $(function() {
+		    	var controller = /*[[${rptController}]]*/;
+		    	var functionCode = /*[[${functionCode}]]*/;
+		    	var boxMain = /*[[${boxMain}]]*/;
+		    	var boxSearch = /*[[${boxSearch}]]*/;
+				var boxImport = /*[[${boxImport}]]*/;
+				var boxTable =  /*[[${boxTable}]]*/;
+				var sessionKey = /*[[${sessionKey}]]*/;
+	
+		    	//debugger;
+				// Get data for table
+		    	getDataImport(controller, functionCode, sessionKey, boxMain, boxTable, function(data) {
+		    		$("#" + boxMain).find("#" + boxTable).html(data)
+				});
+				
+		    	// Build box import
+		    	buildBoxImport(controller, functionCode, sessionKey, boxMain, boxImport, boxTable, function(data) {
+		    		$("#" + boxMain).find("#" + boxImport).html(data)
+				});
+		    	
+				// load data import detail
+				/* buildBoxSearch(controllerName, boxSearch, tabImport, boxTable, function(data) {
+					$("#" + boxSearch).html(data)
+				});
+				buildBoxImport(controllerName, tabImport, boxTable, function(data) {
+					
+					$("#" + boxImport).html(data)
+				});
+				getDataForTab(controllerName, tabImport, boxTable, function(data) {
+					$("#" + boxTable).html(data)
+				});
+				
+				triggerWhenPressEnter('.btnSearch');
+				
+				$('.button-right .btn-circle').attr('href', document.referrer);
+				
+				$('.close-error-alert').click((event) => {
+					$("#errorAlert").hide();
+				}) */
+				
+		    	$('#btnImport').on('click', function(event) {
+		    		var sessionKeyTmp = $('#sessionKey').val();
+		    		var checkData = $('.table').find('tbody tr td').length;
+		    		if(sessionKeyTmp!=null && checkData>1){
+		    			var url = controller + "/import-data";
+			    		var condition = {
+			    			'functionCode' : functionCode,
+			    			'sessionKey' : $('#sessionKey').val()
+			    		};
+			    		ajaxSubmit(url, condition, event);
+		    		}
+		    	});
+			})
+		/*]]>*/
+	</script>
+</body>
+</html>

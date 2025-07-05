@@ -1,0 +1,10 @@
+select 
+	staLang.STATUS_NAME
+	, sta.*
+from JPM_STATUS_COMMON sta
+INNER JOIN JPM_STATUS_COMMON_LANG staLang
+	ON STA.ID = staLang.STATUS_COMMON_ID
+	AND staLang.LANG_CODE = /*lang*/'Vi'
+WHERE
+	sta.DELETED_DATE IS NULL
+	AND sta.STATUS_CODE = /*statusCode*/'000'

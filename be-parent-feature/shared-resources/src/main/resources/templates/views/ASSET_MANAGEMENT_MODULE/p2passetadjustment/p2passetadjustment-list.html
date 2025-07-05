@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+  <script
+    type="text/javascript"
+    th:src="@{/static/jquery/multiple-select/js/jquery.multiselect.js}"
+  ></script>
+  <link
+    rel="stylesheet"
+    type="text/css"
+    th:href="@{/static/jquery/multiple-select/css/jquery.multiselect.css}"
+  />
+  <!-- BODY START -->
+  <body>
+    <div class="title-head clearfix">
+      <div class="col-sm-9 col-xs-7 no-padding">
+        <h3>
+          <i class="fa fa-table"></i>
+          <span th:text="#{p2passetadjustment.title}"
+            >List Asset Adjustment</span
+          >
+        </h3>
+      </div>
+
+      <div class="col-sm-3 col-xs-5 icon-head">
+        <div class="pull-right">
+          <a>
+            <i
+              class="fa fa-plus-circle icon-head-red"
+              id="add"
+              th:title="#{add.button}"
+              th:if="${#authorization.expression('hasAuthority(@roleEp2p.ROLE_ASSET_MANAGEMENT_SUBMIT)')}"
+            ></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- TITLE AND BUTTON ADD END -->
+    <!-- FORM SEARCH START -->
+
+    <form
+      class="form-horizontal u-for-page-top j-formSearch"
+      method="POST"
+      role="form"
+      th:object="${searchDto}"
+    >
+      <th:block
+        th:include="/views/ASSET_MANAGEMENT_MODULE/commons/message-alert.html :: content(${messageList})"
+      />
+      <!-- SEARCH AREA START-->
+      <div class="bg-content clearfix">
+        <div
+          data-toggle="collapse"
+          data-target="#search-box"
+          class="header-box"
+        >
+          <h5 class="title-box">
+            <span th:text="#{search.title}">Vùng tìm kiếm</span>
+          </h5>
+          <i class="fa fa-minus pull-right" aria-hidden="true"></i>
+        </div>
+        <div class="collapse in row m-0" id="search-box">
+          <!-- Tranlth 27/05/2019 thay đổi vị trí Task #23724-->
+          <div class="col-xs-12 col-sm-12">
+            <div class="form-group">
+              <label
+                class="col-sm-2 label-custom"
+                th:text="#{p2passetadjustment.name}"
+                >Name of the Asset</label
+              >
+              <div class="col-sm-4">
+                <input
+                  type="text"
+                  class="form-control"
+                  th:field="*{assetName}"
+                />
+              </div>
+
+              <label
+                class="col-sm-2 label-custom"
+                th:text="#{p2passetadjustment.assetSerialNo}"
+                >Asset Serial No</label
+              >
+              <div class="col-sm-4">
+                <input
+                  type="text"
+                  class="form-control"
+                  th:field="*{assetSerialNo}"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-12">
+            <div class="form-group">
+              <label
+                class="col-sm-2 label-custom"
+                th:text="#{p2passetadjustment.assetTag}"
+                >Asset Tag</label
+              >
+              <div class="col-sm-4">
+                <input
+                  type="text"
+                  class="form-control"
+                  th:field="*{assetTag}"
+                />
+              </div>
+
+              <label
+                class="col-sm-2 label-custom"
+                th:text="#{p2passetadjustment.assetStatus}"
+                >Asset Status</label
+              >
+              <div class="col-sm-4">
+                <select
+                  class="form-control j-required"
+                  th:field="*{assetStatus}"
+                >
+                  <option value="">All</option>
+                  <option
+                    th:each="item : ${lstAssetStatus}"
+                    th:text="${item.catOfficialName}"
+                    th:value="${item.cat}"
+                    th:selected="${item.cat} == *{assetStatus}"
+                  ></option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-12">
+            <div class="form-group">
+              <label
+                class="col-md-2"
+                th:text="#{p2passetadjustment.adjustmentDateFrom}"
+                >Adjustment Date From</label
+              >
+              <div class="col-md-4">
+                <div class="input-group date datepicker">
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="dd/mm/yyyy"
+                    autocomplete="off"
+                    th:field="*{adjustmentDateFrom}"
+                  />
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                </div>
+              </div>
+
+              <label
+                class="col-md-2"
+                th:text="#{p2passetadjustment.adjustmentDateTo}"
+                >Adjustment Date To</label
+              >
+              <div class="col-md-4">
+                <div class="input-group date datepicker">
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="dd/mm/yyyy"
+                    autocomplete="off"
+                    th:field="*{adjustmentDateTo}"
+                  />
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-12">
+            <div class="form-group">
+              <label class="col-md-2" th:text="#{p2passetadjustment.status}"
+                >Status</label
+              >
+              <div class="col-md-4">
+                <select class="form-control j-required" th:field="*{status}">
+                  <option value="">All</option>
+                  <option
+                    th:each="item : ${lstStatusAll}"
+                    th:text="${item.name}"
+                    th:value="${item.value}"
+                    th:selected="${item.value} == *{status}"
+                  ></option>
+                </select>
+              </div>
+
+              <label
+                class="col-md-2"
+                th:text="#{p2passetadjustment.officeLocation}"
+                >Office Location</label
+              >
+              <div class="col-md-4">
+                <input
+                  class="form-control"
+                  type="text"
+                  th:field="*{assetLocationName}"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div align="center">
+            <div class="position-label col-xs-12 col-sm-12">
+              <a id="btnSearch" class="btn-common">
+                <i class="fa fa-search"></i>
+                <span th:text="#{search.button}">Tìm kiếm</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- SEARCH AREA END -->
+      <!-- TABLE RESULT START -->
+      <div class="bg-content clearfix bg-content-tbl" id="tableList">
+        <th:block
+          th:include="views/ASSET_MANAGEMENT_MODULE/p2passetadjustment/p2passetadjustment-table.html :: content"
+        />
+      </div>
+      <!-- TABLE RESULT END -->
+
+      <input type="hidden" id="assetNameHidden" />
+      <input type="hidden" id="assetSerialNoHidden" />
+      <input type="hidden" id="assetTagHidden" />
+      <input type="hidden" id="assetStatusHidden" />
+      <input type="hidden" id="adjustmentDateToHidden" />
+      <input type="hidden" id="adjustmentDateFromHidden" />
+      <input type="hidden" id="statusHidden" />
+      <input type="hidden" id="officeLocationHidden" />
+    </form>
+  </body>
+  <!-- BODY END -->
+</html>

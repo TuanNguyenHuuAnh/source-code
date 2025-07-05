@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<script type="text/javascript"
+	th:src="@{/static/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/static/jquery/multiple-select/css/jquery.multiselect.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/static/css/style-upload.css}" />
+<body th:fragment="content">
+	<form th:action="@{/calendar/add}" method="POST"
+		class="form-horizontal u-for-page-top j-form-validate"
+		th:object="${slaCalendarAddDto}" id="newsForm">
+
+		<div class="modal fade modal-email" id="detailModal" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document" style="width: 80%;">
+				<div class="modal-content" style="height: auto;">
+					<div id="msg_modal"></div>
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<!-- <button class="resize-popup">
+							<i class="fa fa-window-maximize" aria-hidden="true"></i>
+						</button> -->
+						<h4 class="modal-title" id="myModalLabel">Calendar Add</h4>
+					</div>
+
+					<div class="modal-body" style="background: #fff">
+						<div class="bg-content clearfix">
+							<div class="row">
+								<div class="col-sm-12" style="padding-top: 5px;"
+									th:if="${companyList.size()>0}">
+									<div class="form-group">
+										<label for="companyId" class="col-sm-2 align-top"
+											th:text="#{company.detail}">Company</label>
+										<div class="col-sm-10">
+											<select id="companyAddId" class="form-control select2"
+												th:field="*{companyId}" onchange="loadTypeCalendarAdd()">
+												<!-- <option th:value="${NULL}" th:text="#{company.all}"></option> -->
+												<option th:each="company : ${companyList}"
+													th:value="${company.id}" th:text="${company.text}"
+													th:selected="${company.id} == *{companyId}">
+												</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+
+								<div class="col-sm-12" style="padding-top: 5px;">
+									<div class="form-group">
+										<label for="calendarTypeAdd" class="col-sm-2 align-top "
+											th:text="#{menu.left.type}">Calendar Type</label>
+										<div class="col-sm-10">
+											<select id="calendarTypeId" th:field="*{calendarTypeId}" 
+												class="form-control select2">
+												<option th:each="type : ${calendarList}"
+													th:value="${type.id}" th:text="${type.text}"></option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="row">
+
+								<div class="col-sm-12" style="padding-top: 5px;">
+
+									<div class="form-group">
+										<label for="code" class="col-sm-3 required align-top">General from
+											date</label>
+										<div class="col-sm-3">
+											<div class="input-group datepicker date date-icon-calendar">
+												<input class="form-control datepicker-from-date j-required"
+													th:field="*{fromDate}" /> <span class="input-group-addon"><i
+													class="fa fa-calendar"></i></span>
+											</div>
+											<label id="startDate-error" style="display: none;"
+												class="error" for="startDate"></label>
+										</div>
+										<label for="name" class="col-sm-3 required align-top">General to
+											date</label>
+										<div class="col-sm-3">
+											<div class="input-group datepicker date date-icon-calendar">
+												<input class="form-control datepicker-to-date j-required"
+													th:field="*{toDate}" /> <span class="input-group-addon"><i
+													class="fa fa-calendar"></i></span>
+											</div>
+											<label id="endDate-error" style="display: none;"
+												class="error" for="endDate"></label>
+										</div>
+									</div>
+								</div>
+
+
+
+							</div>
+							<div class="row">
+								<div class="col-sm-12" style="padding-top: 5px;">
+									<label class="col-sm-3 align-top">Start Time
+										Morning</label>
+									<div class="col-sm-3">
+										<!-- <input th:field="*{startTimeMorning}" type="text"
+											id="nameFileModal" name="nameFileModal" class="form-control"/> -->
+										<input th:field="*{startTimeMorning}" type="text" class="form-control time" />
+											
+										<div id="nameFileErrorModal"></div>
+									</div>
+									<label class="col-sm-3 align-top">End Time
+										Morning</label>
+									<div class="col-sm-3">
+										<!-- <input th:field="*{endTimeMorning}" type="text"
+											id="nameFileModal" name="nameFileModal" class="form-control"  /> -->
+										<input th:field="*{endTimeMorning}" type="text" class="form-control  time" />
+										<div id="nameFileErrorModal"></div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12" style="padding-top: 5px;">
+									<label class="col-sm-3 align-top">Start Time
+										Evening</label>
+									<div class="col-sm-3">
+										<!-- <input th:field="*{startTimeEvening}" type="text"
+											id="nameFileModal" name="nameFileModal" class="form-control"  /> -->
+										<input th:field="*{startTimeEvening}" type="text" class="form-control time" />
+											
+										<div id="nameFileErrorModal"></div>
+									</div>
+									<label class="col-sm-3 align-top">End Time
+										Evening</label>
+									<div class="col-sm-3">
+										<!-- <input th:field="*{endTimeEvening}" type="text"
+											id="nameFileModal" name="nameFileModal" class="form-control"  /> -->
+										<input th:field="*{endTimeEvening}" type="text" class="form-control time" />
+											
+										<div id="nameFileErrorModal"></div>
+										
+									</div>
+								</div>
+							</div>
+
+							<div th:if="${dateOfWeek.size() > 0}" class="row">
+								<div class="col-sm-12" style="padding-top: 5px;">
+									<th:block th:each="date,i : ${dateOfWeek}">
+										<label class="col-sm-2" th:text="${date.name}"></label>
+										<div class="col-sm-1">
+											<input type="checkbox" 
+												th:value="${date.value}"
+												th:field="*{listDate}"
+												/>
+										</div>
+									</th:block>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-12 no-padding" style="font-size: 12px;"
+						id="listParam"></div>
+					<div id="action" class="modal-footer" style="display: true;">
+						<button id="saveCalendar" class="u-btn u-btn-primary">
+							<img th:src="@{/static/images/icon-save.png}" width="18px" alt="" />
+							<span th:text="#{save.button}">Save</span>
+						</button>
+						<button class="u-btn u-btn-cancel" data-dismiss="modal">
+							<img th:src="@{/static/images/ico-close.png}" width="13px" alt="" />
+							<span th:text="#{cancel.button}">Cancel</span>
+						</button>
+					</div>
+				</div>
+				
+
+			</div>
+		</div>
+		</div>
+	</form>
+	<script type="text/javascript"
+		th:src="@{/static/cache/js/holidays/calendar-add.js}"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<body th:fragment="content">
+    <div class="bg-content clearfix register-svc-wrap">
+        <div id="error-message"></div>
+        <div id="message-alert">
+            <th:block th:include="views/commons/message-alert.html :: content(${messageList})" />
+        </div>
+        <ul th:if="${not #lists.isEmpty(registerList)}">
+            <th:block th:each="item, i : ${registerList}">
+                <li>
+                    <form method="POST" th:action="@{jpm-register-svc/register}" enctype="multipart/form-data"
+                        class="register-form j-form-validate">
+                        <input type="hidden" class="company-id" name="companyId" th:value="${search.companyId}" />
+                        <input type="hidden" class="company-name" name="companyName" th:value="${search.companyName}" />
+                        <input type="hidden" name="reportType" th:value="${item.reportType}" />
+                        <input type="hidden" name="reportDesc" th:value="${item.reportDesc}" />
+                        <input type="hidden" name="reportPath" th:value="${item.reportPath}" />
+                        <input type="hidden" class= "formType" name="formType" th:value="${search.formType}" />
+                        <h4 th:text="${item.reportPath}">/TSC/ProjectApplicationForm1.ozr</h4>
+                        <div class="fileImgArea">
+                            <div class="fileImg">
+                                <span>
+                                    <img class="img-responsive image-service"
+                                        th:src="@{/static/cache/images/img_defaultService.png}" alt="" />
+                                </span>
+                            </div>
+                            <pre class="imageConsole" style="display: none; color: #f30;"></pre>
+                            <div class="form-group">
+                                <label class="btn-common input-group-addon" style="padding: 7px;">
+                                    <span>
+                                        <i class="fa fa-upload" aria-hidden="true"></i>
+                                        <span th:text="#{register.svc.image.upload}">Image upload</span>
+                                        <input type="file" accept=".jpg,.jpeg,.png,.gif" name="file" class="hide" multiple="multiple" />
+                                        <input type="hidden" name="fileName" class="fileName" />
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="required" th:text="#{register.svc.service.category}">ServiceCategory</label>
+                            <select class="form-control service-category j-required" name="categoryId">
+                                <th:block th:each="item : ${categoryList}">
+                                    <option th:value="${item.id}" th:text="${item.text}"></option>
+                                </th:block>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="required" th:text="#{register.svc.service.name}">ServiceName</label>
+                            <input type="text" name="serviceName" class="input-sm form-control service-name j-required j-specialCharacters"
+                                th:value="${item.serviceName}" />
+                        </div>
+                        <div class="form-group">
+                            <label class="required" th:text="#{register.svc.service.business}">ServiceBusiness</label>
+                            <select class="form-control service-business j-required" name="businessCode" id="businessCode">
+                            	<th:block th:each="item : ${businessCode}">
+                                    <option th:value="${item.id}" th:text="${item.text}"></option>
+                                </th:block>
+                            </select>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label th:text="#{register.svc.service.function}">ServiceFunction</label>
+                            <select class="form-control service-function" name="functionCode">
+                            </select>
+                            <input type="hidden" name="functionCode" id="functionCodeIp" disabled = "disabled"/>
+                        </div> -->
+                        <div class="form-group">
+                            <label th:text="#{register.svc.device.type}">DeviceType</label>
+                            <div style='background-color: #fff; height:30px;' class='text-left'>
+                                <label style='margin-top: 5px; margin-left: -20px ' class="checkbox-inline">
+                                    <input value="any" name="deviceType" type="radio"
+                                        th:checked="${item.deviceType=='any'}" />
+                                    <span th:text="#{register.svc.device.type.any}"></span>
+                                    <span>&nbsp;&nbsp;</span>
+                                </label>
+                                <label style='margin-top: 5px; margin-left: -20px ' class="checkbox-inline">
+                                    <input value="phone" name="deviceType" type="radio"
+                                        th:checked="${item.deviceType=='phone'}" />
+                                    <span th:text="#{register.svc.device.type.phone}"></span>
+                                    <span>&nbsp;&nbsp;</span>
+                                </label>
+                                <label style='margin-top: 5px; margin-left: -20px ' class="checkbox-inline">
+                                    <input value="pad" name="deviceType" type="radio"
+                                        th:checked="${item.deviceType=='pad'}" />
+                                    <span th:text="#{register.svc.device.type.pad}"></span>
+                                    <span>&nbsp;&nbsp;</span>
+                                </label>
+                                <label style='margin-top: 5px; margin-left: -20px ' class="checkbox-inline">
+                                    <input value="pc" name="deviceType" type="radio"
+                                        th:checked="${item.deviceType=='pc'}" />
+                                    <span th:text="#{register.svc.device.type.pc}"></span>
+                                    <span>&nbsp;&nbsp;</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="button"
+                                class="btn btn-sm btn-success btnCommon btn-file-register btn-register">
+                                <i class="fa fa-edit"></i>
+                                <span th:if="${#authorization.expression('hasAuthority(@itemConstant.ITEM_SCREEN_REGISTER_SVC)')}" th:text="#{register.svc.button.register}">Register</span>
+	                        </button>
+	                    </div>
+	                </form>
+	            </li>
+            </th:block>
+        </ul>
+    </div>
+    
+    <script type="text/javascript" th:src="@{/static/cache/js/jpm-register-svc/jpm-register-svc-table.js}"></script>
+</body>
+</html>

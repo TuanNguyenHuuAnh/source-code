@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  layout:fragment="body">
+	
+	<body th:fragment="content">
+		<div class="row m-0">
+            <div class="header-box">
+            	<div class="row">
+	            	<div class="col-md-3">
+		    			<h5 class="title-box">
+		    				<span th:text="#{search.results.title}">Kết quả tìm kiếm</span> 
+		    			</h5>
+		    		</div>
+					<div class="col-md-6">
+						<th:block th:each="channel : ${channelCountList}">
+							<div class="col-md-6">
+								<h5 class="title-box">
+									<span th:text="#{account.channel} + ' '">Kênh</span>&nbsp;
+									<span th:text="${channel.channel} + ': ' + ${channel.totalCount}"></span>
+								</h5>
+							</div>
+						</th:block>
+					</div>
+					<div class="col-md-3">
+						<h5 class="title-box">
+							<span th:text="#{user.login.count.using} + ': ' + ${countUserLogin}">Số lượng người dùng</span>&nbsp;
+						</h5>
+					</div>
+				</div>
+            </div>
+            
+			<div class="table-search-result">
+				<div class="table-responsive" id="idDivTable">			
+					<table class="table table-bordered table-striped" id="userLoginGrid">
+	                    <thead>
+	                        <tr>
+	                            <th class="u_t_no">#</th>
+	                            <th class="u_t_title" th:text="#{user.login.user.id}"></th>
+	                            <th class="u_t_title" th:text="#{user.login.username}"></th>
+	                            <th class="u_t_title" th:text="#{user.login.type}"></th>
+	                            <th class="u_t_title" th:text="#{user.login.status}"></th>
+	                            <th class="u_t_title" th:text="#{user.login.date}"></th>
+	                            <th class="u_t_title" th:text="#{user.login.logout}"></th>
+	                            <th class="u_t_title" th:text="#{user.login.client.ip}"></th>
+	                            <th class="u_t_title" th:text="#{user.login.browser}"></th>
+	                            <th class="u_t_title" th:text="#{user.login.os}"></th>
+	                            <th class="u_t_title" th:text="#{user.login.device}"></th>
+	                            <th class="u_t_title" th:text="#{user.login.channel}"></th>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+						<th:block th:each="userLoginDto,i : ${pageWrapper.data}"
+							th:with="startIndex=1">
+							<tr th:attr="data-row-id=${userLoginDto.id}">
+								<td class="text-center" th:text="${i.index + startIndex}"></td>
+								<td th:text="${userLoginDto.userId != null ? userLoginDto.userId : ''}"></td>
+								<td th:text="${userLoginDto.username}"></td>
+								<td th:text="${userLoginDto.loginType}"></td>
+								<td th:text="${userLoginDto.loginStatus}"></td>
+								<td class="text-center"
+									th:text="${userLoginDto.loginDate}? ${#dates.format(userLoginDto.loginDate, 'dd/MM/yyyy HH:mm:ss')}"></td>
+								<td class="text-center"
+									th:text="${userLoginDto.logoutDate != null ? #dates.format(userLoginDto.logoutDate, 'dd/MM/yyyy HH:mm:ss') : ''}"></td>
+								<td th:text="${userLoginDto.clientIp}"></td>
+								<td class="text-center" th:text="${userLoginDto.browser}"></td>
+								<td class="text-center" th:text="${userLoginDto.os}"></td>
+								<td class="text-center" th:text="${userLoginDto.device}"></td>
+								<td class="text-center" th:text="${userLoginDto.channel != null ? userLoginDto.channel : ''}"></td>
+							</tr>
+						</th:block>
+						<th:block th:if="${pageWrapper.data.size() == 0}">
+				              <tr>
+				                  <td colspan="100%" th:text="#{table.emptyTable.label}"></td>
+				              </tr>
+				          </th:block>         
+	                    </tbody>
+	                </table>				
+				</div>			
+			</div>
+		</div>
+		<th:block th:include="views/commons/pagination.html :: content"/>
+		<script type="text/javascript" th:src="@{/static/cache/js/user-login/user-login-table.js}"></script>
+	</body>
+</html>

@@ -1,0 +1,1 @@
+SELECT * FROM JCA_ACCOUNT WHERE ID = /*accountId*/0;

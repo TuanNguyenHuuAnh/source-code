@@ -1,0 +1,18 @@
+SELECT
+    ITEM.ID AS id,
+    LANG.CATEGORY_NAME AS name,
+    LANG.CATEGORY_NAME AS text,
+    ITEM.COMPANY_ID	   AS companyId
+FROM 
+	EFO_CATEGORY ITEM
+LEFT JOIN EFO_CATEGORY_LANGUAGE LANG
+ON 
+	ITEM.ID = LANG.CATEGORY_ID AND UPPER(LANG.LANGUAGE_CODE) = UPPER(/*languageCode*/'')
+WHERE ITEM.DELETED_ID = 0
+	/*IF listId.size()>0*/ 
+	AND ITEM.ID IN /*listId*/()
+	/*END*/
+	/*IF keySearch != null && keySearch != ''*/
+	AND FN_CONVERT_TO_VN_ONLY_UPPER(UPPER(LANG.CATEGORY_NAME)) LIKE concat('%',  concat(FN_CONVERT_TO_VN_ONLY_UPPER(UPPER(/*keySearch*/'')), '%'))
+	/*END*/ 
+ORDER BY id

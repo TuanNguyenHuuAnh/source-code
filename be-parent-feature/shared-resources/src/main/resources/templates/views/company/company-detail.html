@@ -1,0 +1,303 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<style type="text/css">
+		.fileImgArea{margin-bottom:10px; }
+		.fileImgArea .fileImg{width:100%; height:120px; border:1px solid #b4b3b0; align-items: center; border-radius: 4px}
+		.fileImgArea .fileImg span{display:table-cell; vertical-align:middle;}
+		.fileImgArea .fileImg span img{max-width:100%; max-height:110px; margin:15px auto;}
+	 	.fileImgArea label{width:100%;}
+		.fileImgArea label i{margin-right:5px;}
+		.loginLogo {height: 330px; width: 330px; z-index: 9; display: flex; align-items: center;}
+		.loginLogo img{width: 90px; margin: 0 auto}
+		.shortcuticon {height: 330px; width: 330px; z-index: 9; display: flex; align-items: center;}
+		.shortcuticon img{width: 50px; margin: 0 auto}
+		.logomini {height: 330px; width: 330px; z-index: 9; display: flex; align-items: center;}
+		.logomini img{width: 50px; margin: 0 auto}
+		.logolarge {height: 330px; width: 330px; z-index: 9; display: flex; align-items: center;}
+		.logolarge img{ width: 90px; margin: 0 auto}
+		.cc-selector-2{display: inline-flex;align-items: center}
+		.cc-selector-2 input {margin: 0 10px 0 0}
+		.cc-selector-2 input:active +.style-cc {opacity: 1;}
+		.cc-selector-2 input:checked +.style-cc{ -webkit-filter: none; -moz-filter: none; filter: none; }
+		.style-cc{ cursor:pointer; background-size:contain; background-repeat:no-repeat; display:inline-block; -webkit-transition: all 100ms ease-in; -moz-transition: all 100ms ease-in; transition: all 100ms ease-in; -webkit-filter: brightness(1) grayscale(0.7) opacity(1); -moz-filter: brightness(1) grayscale(0.7) opacity(1); filter: brightness(1) grayscale(0.7) opacity(1);margin-right: 20px}
+		.style-cc:hover{-webkit-filter: brightness(1.2) grayscale(.5) opacity(.9); -moz-filter: brightness(1.2) grayscale(.5) opacity(.9); filter: brightness(1.2) grayscale(.5) opacity(.9);}
+
+	</style>
+</head>
+<body>
+<form class="form-horizontal u-for-page-top j-form-validate" method="POST" role="form" autocomplete="off"
+	th:object="${objectDto}" id="form-detail" th:action="@{company/save}" >
+	<input type="hidden" th:field="*{id}" />
+	<input type="hidden" th:field="*{screenConfig}" />
+	<input type="hidden" id="url" name="url" th:value="${urlRedirect}" />
+	<div class="row">
+    	<div class="col-md-6 p-0">
+	        <div class="form-group">
+	            <label for="name" class="col-sm-4 required" th:text="#{company.name}" >name</label>
+	            <div class="col-sm-8">
+	                <input type="text" class="form-control j-required j-specialCharacters" maxlength="255" th:field="*{name}" />
+	                <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+	         	</div>
+			</div>
+			<div class="form-group">
+				<label for="description" class="col-sm-4" th:text="#{company.description}">description</label>
+	         	<div class="col-sm-8">
+	             	<textarea style="resize: vertical;" class="form-control" maxlength="2000" th:field="*{description}"> </textarea>
+	        	</div>     
+			</div>
+			<div class="form-group" th:if="*{screenConfig}">
+	           	<label for="systemCode" class="col-sm-4" th:text="#{company.system.code}">System code</label>
+	           	<div class="col-sm-8">
+	               	<input type="text" class="form-control" maxlength="255" th:value="*{systemCode}" disabled="disabled" />
+	               	<input type="hidden" th:field="*{systemCode}"/>
+	        	</div>
+			</div>
+			<div class="form-group" th:unless="*{screenConfig}">
+	           	<label for="systemCode" class="col-sm-4 required" th:text="#{company.system.code}">System code</label>
+	           	<div class="col-sm-8">
+	               	<input type="text" class="form-control j-required j-code" maxlength="255" th:field="*{systemCode}" style ="text-transform:uppercase;" />
+	               	<span class="error" th:if="${#fields.hasErrors('systemCode')}" th:errors="*{systemCode}"></span>
+	        	</div>
+			</div>
+			<div class="form-group">
+	           	<label for="systemName" class="col-sm-4 required" th:text="#{company.system.name}">System name</label>
+	           	<div class="col-sm-8">
+	               	<input type="text" class="form-control j-required j-specialCharacters" maxlength="255" th:field="*{systemName}" />
+	               	<span class="error" th:if="${#fields.hasErrors('systemName')}" th:errors="*{systemName}"></span>
+	        	</div>
+			</div>
+			<div class="form-group" th:if="${@systemConfig.getStyleList() != null and !@systemConfig.getStyleList().isEmpty()}">
+	           	<label for="style" class="col-sm-4" th:text="#{company.system.style}">Style</label>
+	           	<div class="col-sm-8">
+	               	<div class="cc-selector-2">
+	               		<th:block th:each="style,i : ${@systemConfig.getStyleList()}">
+	               			<input th:checked="${((objectDto.style == null or objectDto.style=='') and i.index == 0) or (objectDto.style == style.code)}" th:id="${style.code}" type="radio" th:name="${'style'}" th:value="${style.code}" />
+				        	<label th:if="${style.imageUrl == null or style.imageUrl == ''}" th:title="${style.name}" class="style-cc" th:for="${style.code}" th:style="'background-image:url(' + @{/} + ${style.packageImageUrl} + ');'"></label>
+				        	<label th:unless="${style.imageUrl == null or style.imageUrl == ''}" th:title="${style.name}" class="style-cc" th:for="${style.code}" th:style="'background-image:url(' + @{/ajax/download(fileName=${style.imageUrl})} + ');'"></label>
+	               		</th:block>
+				    </div>
+	        	</div>
+			</div>
+			<div class="form-group" th:if="${@systemConfig.getLanguageList() != null and !@systemConfig.getLanguageList().isEmpty()}">
+	           	<label for="style" class="col-sm-4" th:text="#{company.system.language}">Language</label>
+	           	<div class="col-sm-8">
+	               	<div class="cc-selector-2">
+	               		<th:block th:each="lang,i : ${@systemConfig.getLanguageList()}">
+	               			<input th:checked="${((objectDto.language == null or objectDto.language=='') and i.index == 0) or (objectDto.language == lang.code)}" th:id="${lang.code}" type="radio" th:name="${'language'}" th:value="${lang.code}" maxlength="10"/>
+				        	<label th:title="${lang.name}" class="style-cc" th:for="${lang.code}" th:classappend="${lang.iconClasses}"></label>
+				        	<!-- <label th:unless="${lang.imageUrl == null or lang.imageUrl == ''}" th:title="${lang.name}" class="style-cc" th:for="${lang.code}" th:style="'background-image:url(' + @{/ajax/download(fileName=${lang.imageUrl})} + ');'"></label> -->
+	               		</th:block>
+				    </div>
+	        	</div>
+			</div>
+			<div th:if="*{screenConfig}">
+				<div class="form-group">
+		           	<label for="effectedDate" class="col-sm-4" th:text="#{company.effected.date}">Effected Date</label>
+		           	<div class="col-sm-8">
+		               	<input type="text" class="form-control" maxlength="255" th:value="*{effectedDate == null? '' : #dates.format(effectedDate, @menuConfig.getFormDate())}" disabled="disabled" />
+		        	</div>
+				</div>
+				<div class="form-group" th:if="*{screenConfig}">
+		           	<label for="expiredDate" class="col-sm-4" th:text="#{company.expired.date}">Expired Date</label>
+		           	<div class="col-sm-8">
+		               	<input type="text" class="form-control" maxlength="255" th:value="*{expiredDate == null? '' : #dates.format(expiredDate, @menuConfig.getFormDate())}" disabled="disabled" />
+		        	</div>
+				</div>
+				<!-- <input type="hidden" th:field="*{activeFlag}" /> -->
+			</div>
+			<div th:unless="*{screenConfig}">
+				<div class="form-group">
+		           	<label for="effectedDate" class="col-sm-4" th:text="#{company.effected.date}">effectedDate</label>
+		           	<div class="col-sm-8">
+		               	<div class="input-group date datepicker-from-date p-0">
+							<input class="form-control" th:field="*{effectedDate}" />
+							<div class="input-group-addon">
+	                            <i class="fa fa-calendar"></i>
+	                        </div>
+						</div>
+		               	<span class="error" th:if="${#fields.hasErrors('effectedDate')}" th:errors="*{effectedDate}"></span>
+		        	</div>
+				</div>
+				<div class="form-group">
+		           	<label for="expiredDate" class="col-sm-4" th:text="#{company.expired.date}">expiredDate</label>
+		           	<div class="col-sm-8">
+		               	<div class="input-group date datepicker-to-date p-0">
+							<input class="form-control" th:field="*{expiredDate}" />
+							<div class="input-group-addon">
+	                            <i class="fa fa-calendar"></i>
+	                        </div>
+						</div>
+		               	<span class="error" th:if="${#fields.hasErrors('expiredDate')}" th:errors="*{expiredDate}"></span>
+		        	</div>
+				</div>
+				<div class="form-group">
+	           		<label for="limitNumberUsers" class="col-sm-4" th:text="#{company.limit.number.users}">Limit number users</label>
+	           		<div class="col-sm-8">
+	               		<input type="number" class="form-control j-range j-int" range="[1,999999]" maxlength="255" th:field="*{limitNumberUsers}" />
+	               		<span class="error" th:if="${#fields.hasErrors('limitNumberUsers')}" th:errors="*{limitNumberUsers}"></span>
+			        </div>
+				</div>
+				<div class="form-group">
+		           <label for="limitNumberTransaction" class="col-sm-4" th:text="#{company.limit.number.transaction}">Limit number transaction</label>
+		           <div class="col-sm-8">
+		              	<input type="number" class="form-control j-range j-int" range="[1,999999]" th:field="*{limitNumberTransaction}" />
+		        		<span class="error" th:if="${#fields.hasErrors('limitNumberTransaction')}" th:errors="*{limitNumberTransaction}"></span>
+		        	</div>
+				</div>
+				<div class="form-group">
+		        	<label for="activeFlag" class="col-sm-4" th:text="#{company.active.flag}">actived</label>
+			        <div class="col-sm-8">
+		            	<input type="checkbox" th:field="*{actived}" />
+			        </div>
+				</div>
+			</div>
+			<!-- <div class="form-group">
+				<label for="ecmSite" class="col-sm-4 required" th:text="#{company.system.ecmsite}">ECM Site</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control j-required" maxlength="255" th:field="*{ecmSite}" />
+					<span class="error" th:if="${#fields.hasErrors('ecmSite')}" th:errors="*{ecmSite}"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="ecmUsername" class="col-sm-4 required" th:text="#{company.system.ecmusername}">ECM Site</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control j-required" maxlength="255" th:field="*{ecmUsername}" />
+					<span class="error" th:if="${#fields.hasErrors('ecmUsername')}" th:errors="*{ecmUsername}"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="ecmPassword" class="col-sm-4 required" th:text="#{company.system.ecmpassword}">ECM Password</label>
+				<div class="col-sm-8">
+					<input type="password" class="form-control j-required" maxlength="255" th:field="*{ecmPassword}" />
+					<span class="error" th:if="${#fields.hasErrors('ecmPassword')}" th:errors="*{ecmPassword}"></span>
+				</div>
+			</div> -->
+		</div>
+		<div class="col-md-6 p-0">
+			<div class="form-group">
+        		<div class="col-sm-6">
+         			<div class="fileImgArea circle-right" >
+             			<div class="fileImg loginLogo">
+             				<th:block th:if="*{loginBackground == null or loginBackground == ''}">
+             					<img th:if="*{packageLoginBackground != null and packageLoginBackground != ''}"
+	                    			class="logo-login show-desktop img-responsive image-fileLoginBackground"
+	                        		th:src="@{/} + *{packageLoginBackground}" />
+	                        	<img th:unless="*{packageLoginBackground != null and packageLoginBackground != ''}"
+	                    			class="logo-login show-desktop img-responsive image-fileLoginBackground"
+	                        		th:src="@{/static/cache/images/logo_mbal.png}" />
+             				</th:block>                    		
+                    		<img th:unless="*{loginBackground == null or loginBackground == ''}"
+                    			class="img-responsive image-fileLoginBackground"
+                        		th:src="@{/ajax-file/download(filePath=*{loginBackground}, repositoryId=*{loginBackgroundRepoId})}" alt="" />
+                        	<input type="hidden" th:value="*{logoLarge == null or logoLarge == ''}" class="is-null is-null-image-fileLoginBackground"/>
+             			</div>
+             			<pre class="imageConsole-fileLoginBackground" style="display: none; color: #f30;"></pre>
+           				<div class="form-group">
+               				<label class="u-btn u-btn-primary" style="width: 100%;margin-top: 5px">
+                				<span>
+	                       			<img th:src="@{/static/cache/images/icon-upload.png}" width="28px" style="padding-right: 5px;"/>
+	                       			<span th:text="#{company.login.logo}" style="color: #fff">Login logo</span>
+	                       			<input type="file" name="fileLoginBackground" class="hide" multiple="multiple" />
+	                       			<input type="hidden" name="fileLoginBackground" class="fileLoginBackground" />
+                   				</span>
+              	 			</label>
+           				</div>
+      				</div>
+      			</div>
+      			<div class="col-sm-6">
+       				<div class="fileImgArea">
+           				<div class="fileImg shortcuticon" >
+           					<th:block th:if="*{shortcutIcon == null or shortcutIcon == ''}">
+           						<img th:if="*{packageShortcutIcon != null and packageShortcutIcon !=''}" 
+                  					class="img-responsive image-fileShortcutIcon"
+                      				th:src="@{/} + *{packageShortcutIcon}" alt="" />
+                      			<img th:unless="*{packageShortcutIcon != null and packageShortcutIcon !=''}" 
+                  					class="img-responsive image-fileShortcutIcon"
+                      				th:src="@{/static/cache/images/logo-small-unit.png}"/>
+           					</th:block>
+                  			<img th:unless="*{shortcutIcon == null or shortcutIcon == ''}"
+                  				class="img-responsive image-fileShortcutIcon"
+                      			th:src="@{/ajax-file/download(filePath=*{shortcutIcon}, repositoryId=*{shortcutIconRepoId})}" alt="" />
+                      		<input type="hidden" th:value="*{logoLarge == null or logoLarge == ''}" class="is-null is-null-image-fileShortcutIcon"/>
+           				</div>
+           				<pre class="imageConsole-fileShortcutIcon" style="display: none; color: #f30;"></pre>
+           				<div class="form-group">
+               				<label class="u-btn u-btn-primary" style="width: 100%;margin-top: 5px">
+                    			<span>
+                        			<img th:src="@{/static/cache/images/icon-upload.png}" width="28px" style="padding-right: 5px;"/>
+                        			<span th:text="#{company.shortcut.icon}" style="color: #fff">Shortcut icon</span>
+                        			<input type="file" name="fileShortcutIcon" class="hide" multiple="multiple" />
+                        			<input type="hidden" name="fileNameShortcutIcon" class="fileShortcutIcon" />
+                    			</span>
+                			</label>
+            			</div>
+        			</div>
+      			</div>
+			</div>
+			<div class="form-group">
+       			<div class="col-sm-6">
+        			<div class="fileImgArea">
+            			<div class="fileImg logolarge">
+            				<th:block th:if="*{logoLarge == null or logoLarge == ''}">
+            					<img th:if="*{packageLogoLarge != null and packageLogoLarge != ''}" 
+	                   				class="img-responsive image-fileLogoLarge"
+	                       			th:src="@{/} + *{packageLogoLarge}" alt="" />
+	                       		<img th:unless="*{packageLogoLarge != null and packageLogoLarge != ''}" 
+	                   				class="img-responsive image-fileLogoLarge"
+	                       			th:src="@{/static/cache/images/logo-unit.png}" alt="" />
+            				</th:block>
+                   			<img th:unless="*{logoLarge == null or logoLarge == ''}"
+                   				class="img-responsive image-fileLogoLarge"
+                       			th:src="@{/ajax-file/download(filePath=*{logoLarge}, repositoryId=*{logoLargeRepoId})}" alt="" />
+                       		<input type="hidden" th:value="*{logoLarge == null or logoLarge == ''}" class="is-null is-null-image-fileLogoLarge"/>
+            			</div>
+            			<pre class="imageConsole-fileLogoLarge" style="display: none; color: #f30;"></pre>
+           				<div class="form-group">
+               				<label class="u-btn u-btn-primary" style="width: 100%;margin-top: 5px">
+                   				<span>
+			                       	<img th:src="@{/static/cache/images/icon-upload.png}" width="28px" style="padding-right: 5px;"/>
+			                       	<span th:text="#{company.logo.large}" style="color: #fff">Logo large</span>
+			                       	<input type="file" name="fileLogoLarge" class="hide" multiple="multiple" />
+			                       	<input type="hidden" name="fileNameLogoLarge" class="fileLogoLarge" />
+                   				</span>
+               				</label>
+           				</div>
+       				</div>
+      			</div>
+      			<div class="col-sm-6">
+       				<div class="fileImgArea">
+           				<div class="fileImg logomini">
+           					<th:block th:if="*{logoMini == null or logoMini == ''}">
+           						<img th:if="*{packageLogoMini != null and packageLogoMini != ''}"
+	                  				class="logo-blue image-fileLogoMini"
+	                      			th:src="@{/} + *{packageLogoMini}" alt="" />
+	                      		<img th:unless="*{packageLogoMini != null and packageLogoMini != ''}"
+	                  				class="logo-blue image-fileLogoMini"
+	                      			th:src="@{/static/cache/images/logo-small-unit.png}" alt="" />
+           					</th:block>
+                  			<img th:unless="*{logoMini == null or logoMini == ''}"
+                  				class="img-responsive image-fileLogoMini"
+                      			th:src="@{/ajax-file/download(filePath=*{logoMini}, repositoryId=*{logoMiniRepoId})}" alt="" />
+                      		<input type="hidden" th:value="*{logoLarge == null or logoLarge == ''}" class="is-null is-null-image-fileLogoMini"/>
+           				</div>
+           				<pre class="imageConsole-fileLogoMini" style="display: none; color: #f30;"></pre>
+           				<div class="form-group">
+              	 			<label class="u-btn u-btn-primary" style="width: 100%;margin-top: 5px">
+                          		<span>
+                              		<img th:src="@{/static/cache/images/icon-upload.png}" width="28px" style="padding-right: 5px;"/>
+                              		<span th:text="#{company.logo.mini}" style="color: #fff">Logo mini</span>
+                              		<input type="file" name="fileLogoMini" class="hide" multiple="multiple" />
+                              		<input type="hidden" name="fileNameLogoMini" class="fileLogoMini" />
+                          		</span>
+                      		</label>
+                  		</div>
+              		</div>
+            	</div>
+    		</div>
+    	</div>
+    </div>
+</form>
+</body>
+<script type="text/javascript" th:src="@{/static/cache/js/company/company-config-detail.js}"></script>  
+</html>

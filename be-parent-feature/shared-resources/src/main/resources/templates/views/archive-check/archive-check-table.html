@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+
+<!-- Start table fix-->		
+<div class="col-sm-12 p-0">
+<h2 class="title-box" th:text="#{search.results.title}">Kết quả tìm kiếm</h2>
+<div class="table-responsive" id="tableList">
+	<table class="table table-bordered table-striped">
+      <thead>
+          <tr>
+              <th class="">#</th>
+              <th class="" th:text="#{archive.check.table.company}">Company</th>
+              <th class="" th:text="#{archive.check.table.doc.code}">Doc Code</th>
+              <th class="" th:text="#{archive.check.table.doc.title}">Doc Title</th>
+              <th th:text="#{archive.check.table.updated.date}">Updated Date</th>
+              <th th:text="#{archive.check.table.updated.by}">Updated By</th>
+              <th th:text="#{archive.check.table.doc.status}">Doc Status</th>
+              <th th:text="#{archive.check.table.archive.status}">Archive Status</th>
+          </tr>
+      </thead>
+      <tbody>
+          <th:block th:each="archiveDoc,i : ${pageWrapper.data}" th:with="startIndex=${pageWrapper.startIndexCurrent}">
+                 <tr>
+                     <td class="text-center" th:text="${i.index + startIndex}"></td>
+                     <td th:text="${archiveDoc.companyName}"></td>
+                     <td th:text="${archiveDoc.docCode}"></td>
+                     <td class="doc-title-table" th:text="${archiveDoc.docTitle}"></td>
+                     <td class="align-center" th:text="${#dates.format(archiveDoc.updatedDate, @menuConfig.getFormDate() + ' HH:mm')}"></td>
+                     <td th:text="${archiveDoc.fullName}"></td>
+                     <td th:text="${archiveDoc.docStatus}"></td>
+                     <td class="text-center" >
+                     	<th:block th:if="${archiveDoc.archiveStatus == true}"><i class="fa fa-check" aria-hidden="true"></i></th:block>
+                     </td>
+                 </tr>
+             </th:block>
+             <th:block th:if="${pageWrapper.data.size() == 0}">
+				<tr>
+					<td colspan="100%" th:text="#{table.emptyTable.label}">No
+						data found</td>
+				</tr>
+			</th:block>
+      </tbody>
+  </table>
+	
+</div>
+
+</div>
+<th:block th:include="views/commons/pagination.html :: content"/>
+<script type="text/javascript" th:src="@{/static/cache/js/archive-check/archive-check-table.js}"></script>
+</body>
+</html>
+

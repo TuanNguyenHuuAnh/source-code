@@ -1,0 +1,4 @@
+		--tỉnh
+		SELECT PROVINCE AS id, name AS name 
+		FROM dbo.JCA_ZIPCODE
+		WHERE DISTRICT = '000' AND WARD = '00000'

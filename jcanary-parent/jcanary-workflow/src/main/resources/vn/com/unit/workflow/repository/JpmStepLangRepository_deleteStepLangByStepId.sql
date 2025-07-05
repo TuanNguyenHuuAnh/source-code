@@ -1,0 +1,4 @@
+DELETE 
+	JPM_STEP_LANG 
+WHERE
+	STEP_ID  = /*stepId*/

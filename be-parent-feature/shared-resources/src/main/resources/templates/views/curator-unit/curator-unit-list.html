@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<script type="text/javascript" th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}" />	
+<!-- EasyUI - Multiple component support -->
+<link rel="stylesheet" type="text/css" th:href="@{/static/cache/plugins/jquery-easyui-1.5/easyui.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/static/cache/plugins/jquery-easyui-1.5/icon.css}" />
+<script type="text/javascript" id="script-easyui" th:src="@{/static/cache/plugins/jquery-easyui-1.5/jquery.easyui.min.js}"></script>
+<body>
+	<div class="title-head clearfix">
+	   <div class="col-sm-9 col-xs-7 no-padding">
+			<h3><i class="fa fa-table"></i> <span th:text="#{curator.unit.title}">Tiêu đề trang</span></h3>
+	   </div>
+	</div>
+	<div id="messages">
+		<th:block
+			th:include="views/commons/message-alert.html :: content(${messageList})" />
+	</div>
+	<div id="frmSearch">
+		<th:block th:include="views/curator-unit/curator-unit-search.html :: content" />
+	</div>
+	<div class="bg-content clearfix bg-content-tbl" id="tableList">
+		<th:block th:include="views/curator-unit/curator-unit-table.html :: content"/>
+	</div>
+	<!-- <div>
+		<div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="function-modal-label">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content" id="edit-modal-content"></div>
+			</div>
+		</div>
+	</div> -->
+	<input type="hidden" id="url" name="url" th:value="${pageUrl}"/>
+	<script type="text/javascript" th:src="@{/static/cache/js/curator-unit/curator-unit-list.js}"></script>
+	</body> 
+</html>
+

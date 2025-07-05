@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+        <groupId>vn.com.unit.core</groupId>
+        <artifactId>jcanary-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+	<artifactId>jcanary-sla</artifactId>
+	<packaging>jar</packaging>
+    <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+     </properties>
+	
+	<dependencies>
+        <dependency>
+            <groupId>vn.com.unit.core</groupId>
+            <artifactId>jcanary-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>vn.com.unit.core</groupId>
+            <artifactId>jcanary-quartz-job</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+             <!-- <scope>system</scope>
+            <systemPath>${main.basedir}/src/libs/jcanary-sla-1.0.jar</systemPath>  -->
+        </dependency>
+        
+        <dependency>
+            <groupId>vn.com.unit.core</groupId>
+            <artifactId>jcanary-spring-core</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        
+	</dependencies>
+</project>

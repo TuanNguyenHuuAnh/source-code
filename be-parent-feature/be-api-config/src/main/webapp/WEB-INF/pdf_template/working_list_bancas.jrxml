@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="working_list_bancas" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ddd5e22f-5a08-4c2b-880b-4c2fab67c7bb">
+	<property name="ireport.zoom" value="2.1435888100000047"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Base" isDefault="true" fontName="Arial" fontSize="9"/>
+	<field name="companyName" class="java.lang.String"/>
+	<field name="position" class="java.lang.String"/>
+	<field name="income" class="java.lang.String"/>
+	<field name="agentCode" class="java.lang.Long"/>
+	<field name="workingPeriod" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="229" height="18" uuid="a839f9b2-4476-4faa-82e1-a9898adc0660"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.5" lineColor="#FF0072"/>
+					<leftPen lineWidth="0.5" lineColor="#FF0072"/>
+					<bottomPen lineWidth="0.5" lineColor="#FF0072"/>
+					<rightPen lineWidth="0.0" lineColor="#FF0072"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{companyName}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="229" y="0" width="91" height="18" uuid="bcb9f450-7def-4da7-87f0-56ec905ef0b5"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.5" lineColor="#FF0072"/>
+					<leftPen lineWidth="0.5" lineColor="#FF0072"/>
+					<bottomPen lineWidth="0.5" lineColor="#FF0072"/>
+					<rightPen lineWidth="0.0" lineColor="#FF0072"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{position}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="320" y="0" width="145" height="18" uuid="f0ffd8e2-c315-4165-b8be-80e517e31098"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.5" lineColor="#FF0072"/>
+					<leftPen lineWidth="0.5" lineColor="#FF0072"/>
+					<bottomPen lineWidth="0.5" lineColor="#FF0072"/>
+					<rightPen lineWidth="0.0" lineColor="#FF0072"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{income}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="465" y="0" width="90" height="18" uuid="518270a4-488c-4f64-8983-a09a40125421"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.5" lineColor="#FF0072"/>
+					<leftPen lineWidth="0.5" lineColor="#FF0072"/>
+					<bottomPen lineWidth="0.5" lineColor="#FF0072"/>
+					<rightPen lineWidth="0.5" lineColor="#FF0072"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{workingPeriod}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+	<div id="authorPopupConfirm" class="modal fade" role="dialog" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h2 class="title-box">
+							<span th:text="#{delegate.layout.field.author.label}">Delegate
+								for department</span>
+						</h2>
+						<div id="authorMessage" class="form-group">
+							<th:block th:include="views/commons/message-alert.html :: content(${messageList})" />
+						</div>
+						<div class="bg-content clearfix">
+							<div data-toggle="collapse" data-target="#search-box"
+								class="header-box">
+								<h2 class="title-box" th:text="#{search.title}">Vùng tìm kiếm</h2>
+							</div>
+							<form class="form-horizontal u-for-page-top j-formAuthorPopup"  method="" th:object="${popupSearch}" role="form">
+								<input type="hidden" th:field="*{isAll}"/>
+								<div class="collapse in row m-0" id="search-box">
+									<div class="col-xs-12 col-sm-12">
+										<div class="col-sm-4">
+											<input type="text" class="form-control" 
+												th:placeholder="#{searchfield.account.departmentname}" autocomplete="off" th:field="*{orgName}"/>
+										</div>
+										<div class="col-sm-8">
+											<div class="form-group col-sm-5 p-0">
+												<div class="input-group date datepicker datepicker-from-date">
+													<input id="authorFromDate" class="form-control" th:field="*{fromDate}" th:placeholder="#{search.from.date}"/>
+													<div class="input-group-addon">
+														<i class="fa fa-calendar"></i>
+													</div>
+												</div>
+											</div>
+											<label class="form-group col-sm-2 align-top text-center">~</label>
+											<div class="form-group col-sm-5 p-0">
+												<div class="input-group date datepicker datepicker-to-date">
+													<input id="authorToDate" class="form-control" th:field="*{toDate}" th:placeholder="#{search.to.date}"/>
+													<div class="input-group-addon">
+														<i class="fa fa-calendar"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-12" align="center">
+										<span class="button">
+											<a class="btn btn-common" id="btn-author-Search"> 
+												<i class="fa fa-search"> </i> <span th:text="#{search.button}"></span>
+											</a>
+										</span>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				<div class="modal-body">
+					<div class="bg-content clearfix bg-content-tbl" id="orgDelegateAdd">
+						<th:block th:include="views/delegate/delegate-authority-detail-table.html :: content" />
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-cancel" data-dismiss="modal">
+						<span th:text="#{close.button}">Thoát</span>
+					</button>
+					<button type="button" class="btn-author-confirm btn btn-common" th:disabled="${popupSearch.isEmpty}">
+						<span th:text="#{save.button}">OK</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript"
+		th:src="@{/static/cache/js/delegate/delegate-detail-table.js}"></script>
+</body>
+</html>

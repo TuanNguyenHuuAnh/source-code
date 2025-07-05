@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+  <body>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{/static/bootstrap-select-1.12.4/css/bootstrap-select.css}"
+    />
+    <script
+      type="text/javascript"
+      th:src="@{/static/ckeditor_4.4.3_full/ckeditor.js}"
+    ></script>
+    <script
+      type="text/javascript"
+      th:src="@{/static/ckfinder/ckfinder.js}"
+    ></script>
+    <script
+      type="text/javascript"
+      th:src="@{/static/jquery/vendor/jquery.ui.widget.js}"
+    ></script>
+    <script
+      type="text/javascript"
+      th:src="@{/static/js/plupload-2.1.2/moxie.js}"
+    ></script>
+    <script
+      type="text/javascript"
+      th:src="@{/static/js/plupload-2.1.2/plupload.dev.js}"
+    ></script>
+    <script
+      type="text/javascript"
+      th:src="@{/static/bootstrap-select-1.12.4/js/bootstrap-select.js}"
+    ></script>
+
+    <script th:inline="javascript">
+      	/*<![CDATA[*/
+      var CUSTOMER_ALIAS = [[${customerAlias}]];
+      var HEIGHT = 120;
+      /*]]>*/
+    </script>
+    <div class="row main-heading">
+      <div class="row unit-border-bottom">
+        <div class="col-sm-8 col-xs-6">
+          <h3
+            class="mar-tb-no red"
+            th:if="${editDto.vip == 1}"
+            th:text="#{customer.vip.edit.title}"
+          >
+            Tiêu đề trang
+          </h3>
+          <h3
+            class="mar-tb-no red"
+            th:if="${editDto.fdi == 1}"
+            th:text="#{customer.fdi.edit.title}"
+          >
+            Tiêu đề trang
+          </h3>
+        </div>
+        <div class="col-sm-4 col-xs-6 align-right ml-auto">
+          <a class="u-btn-head" id="linkList">
+            <img th:src="@{/static/icons/icon-back.png}" />
+            <span th:title="#{icon.back}">Trở lại</span>
+          </a>
+          <a
+            class="u-btn-head"
+            id="addNew"
+            th:if=" ${(editDto.vip == 1 
+								and #authorization.expression('hasAuthority(''__${@cmsRoleConstant.ROLE_CUSTOMER_VIP}__:Edit'')'))
+							or (editDto.fdi == 1 
+								and #authorization.expression('hasAuthority(''__${@cmsRoleConstant.ROLE_CUSTOMER_FDI}__:Edit'')'))}"
+          >
+            <img th:src="@{/static/icons/icon-plus-white.png}" />
+            <span>Thêm mới</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <form
+      th:action="@{/edit}"
+      method="POST"
+      class="form-horizontal u-for-page-top j-form-validate"
+      th:object="${editDto}"
+      id="customerForm"
+    >
+      <th:block
+        th:include="views/commons/message-alert.html :: content(${messageList})"
+      />
+
+      <div class="row unit-bg-com">
+        <div class="col-md-12 col-sm-12 no-padding">
+          <div
+            class="form-group"
+            th:classappend="${#fields.hasErrors('code')} ? has-error : ''"
+          >
+            <label
+              class="col-md-2 col-sm-2 control-label"
+              th:text="#{product.code}"
+              >Mã</label
+            >
+            <div class="col-md-4 col-sm-4">
+              <input
+                type="text"
+                th:field="*{code}"
+                class="form-control j-maxlength text-uppercase"
+                data-rule-maxlength="30"
+                th:readonly="true"
+                tabindex="1"
+                readonly="readonly"
+              />
+              <span
+                class="help-block"
+                th:if="${#fields.hasErrors('code')}"
+                th:errors="*{code}"
+              ></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 no-padding">
+          <label
+            class="col-sm-2 col-md-2 control-label"
+            th:text="#{product.category.language}"
+            >Ngôn ngữ</label
+          >
+          <div class="col-md-10 col-sm-10 gr-tab">
+            <ul class="nav nav-tabs" id="tabLanguage">
+              <th:block th:each="language, i : ${languageList}">
+                <li
+                  role="presentation"
+                  th:classappend="${i.index == editDto.indexLangActive}  ? 'active' : ''"
+                  th:id="tabLanguage + ${i.index}"
+                >
+                  <a
+                    th:href="'#language' + ${i.index}"
+                    th:text="${language.name}"
+                  ></a>
+                </li>
+              </th:block>
+            </ul>
+          </div>
+          <div
+            id="tab_content_product"
+            class="tab-content center"
+            style="margin-top: 10px"
+          >
+            <th:block
+              th:each="language, i : ${languageList}"
+              th:with="index=${i.index}"
+            >
+              <div
+                th:id="'language' + ${index}"
+                class="tab-pane fade scroll-tab"
+                th:classappend="${index == editDto.indexLangActive}  ? 'in active' : ''"
+              >
+                <div class="col-xs-12 col-sm-12 no-padding">
+                  <div
+                    class="form-group"
+                    th:classappend="${#fields.hasErrors('customerVipLanguageList[__${index}__].title')} ? has-error : ''"
+                  >
+                    <label
+                      class="col-sm-2 control-label required"
+                      th:text="#{customer.vip.name}"
+                      >Tên</label
+                    >
+                    <div class="col-sm-10 pleft-10">
+                      <input
+                        type="text"
+                        class="form-control j-maxlength j-required"
+                        data-rule-maxlength="500"
+                        th:field="*{customerVipLanguageList[__${index}__].title}"
+                        th:placeholder="#{customer.vip.name}"
+                      />
+                      <span
+                        class="help-block"
+                        th:if="${#fields.hasErrors('customerVipLanguageList[__${index}__].title')}"
+                        th:errors="*{customerVipLanguageList[__${index}__].title}"
+                      >
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="col-xs-12 col-sm-12 no-padding"
+                  th:if="${editDto.vip == 1}"
+                >
+                  <div class="form-group">
+                    <label
+                      class="col-sm-2 control-label required"
+                      th:text="#{customer.vip.description}"
+                      >Mô tả</label
+                    >
+                    <div class="col-sm-10 pleft-10">
+                      <textarea
+                        cols="20"
+                        rows="20"
+                        th:id="'shortContent' + ${index} "
+                        th:name="customerVipLanguageList[__${index}__].shortContent"
+                        th:text="*{customerVipLanguageList[__${index}__].shortContent}"
+                        class="form-control content j-required"
+                      >
+                      </textarea>
+                      <script th:inline="text">
+                        CKEDITOR.replace("shortContent" + "[[${index}]]", {
+                          height: HEIGHT,
+                          filebrowserBrowseUrl: "",
+                          filebrowserImageBrowseUrl: "",
+                          filebrowserImageUploadUrl:
+                            BASE_URL +
+                            CUSTOMER_ALIAS +
+                            "/editor/upload?requesttoken=" +
+                            "[[${editDto.requestToken}]]",
+                          filebrowserUploadUrl:
+                            BASE_URL +
+                            CUSTOMER_ALIAS +
+                            "/editor/file/upload?requesttoken=" +
+                            "[[${editDto.requestToken}]]",
+                          extraPlugins: "imagebrowser",
+                          imageBrowser_listUrl:
+                            BASE_URL + CUSTOMER_ALIAS + "/path/images/list",
+                        });
+                      </script>
+                      <label
+                        th:for="shortContent__${index}__"
+                        generated="true"
+                        class="error errorEditor"
+                      ></label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 no-padding">
+                  <div class="form-group">
+                    <label
+                      class="col-sm-2 control-label required"
+                      th:text="#{customer.vip.detail}"
+                      >Chi tiết</label
+                    >
+                    <div class="col-sm-10 pleft-10">
+                      <textarea
+                        cols="20"
+                        rows="20"
+                        th:id="'content' + ${index} "
+                        th:name="customerVipLanguageList[__${index}__].content"
+                        th:text="*{customerVipLanguageList[__${index}__].content}"
+                        class="form-control content j-required"
+                      >
+                      </textarea>
+                      <script th:inline="text">
+                        CKEDITOR.replace("content" + "[[${index}]]", {
+                          height: HEIGHT,
+                          filebrowserBrowseUrl: "",
+                          filebrowserImageBrowseUrl: "",
+                          filebrowserImageUploadUrl:
+                            BASE_URL +
+                            CUSTOMER_ALIAS +
+                            "/editor/upload?requesttoken=" +
+                            "[[${editDto.requestToken}]]",
+                          filebrowserUploadUrl:
+                            BASE_URL +
+                            CUSTOMER_ALIAS +
+                            "/editor/file/upload?requesttoken=" +
+                            "[[${editDto.requestToken}]]",
+                          extraPlugins: "imagebrowser",
+                          imageBrowser_listUrl:
+                            BASE_URL + CUSTOMER_ALIAS + "/path/images/list",
+                        });
+                      </script>
+                      <label
+                        th:for="content__${index}__"
+                        generated="true"
+                        class="error errorEditor"
+                      ></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End of CKEditor -->
+              <input
+                type="hidden"
+                th:field="*{customerVipLanguageList[__${index}__].id}"
+              />
+              <input
+                type="hidden"
+                th:name="'customerVipLanguageList[' + ${index} + '].languageCode'"
+                th:value="${language.code}"
+              />
+            </th:block>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 no-padding">
+          <div class="form-group" id="bannerDiv">
+            <div class="col-xs-12 col-sm-12 no-padding">
+              <!-- Hình ảnh -->
+              <label
+                class="col-sm-2 col-md-2 control-label required"
+                th:text="#{customer.vip.img}"
+                th:if="${editDto.vip == 1} or ${editDto.fdi == 1}"
+                >Hình</label
+              >
+              <div
+                class="controls col-sm-4 col-md-4"
+                tabindex="9"
+                th:if="${editDto.vip == 1} or ${editDto.fdi == 1}"
+              >
+                <!-- <div id="imageContainer" th:attr="msg-confirm=#{message.confirm.upload.image.product}"></div> -->
+                <a
+                  class="glyphicon glyphicon-upload font-size-20"
+                  id="imgPickfiles"
+                  th:title="#{icon.add}"
+                  href="javascript:void(0)"
+                ></a>
+                <div class="pos-notice" th:if="${editDto.fdi == 1}">
+                  (.jpg,.bmp,.png,.eps,.jfif) (Từ 2580x680)
+                </div>
+                <div class="pos-notice" th:if="${editDto.vip == 1}">
+                  (.jpg,.bmp,.png,.eps,.jfif) (Từ 1760x926)
+                </div>
+                <div
+                  id="imageContainer"
+                  th:attr="msg-confirm=#{message.confirm.upload.image.product}"
+                ></div>
+
+                <div
+                  id="imageConsole"
+                  style="display: none"
+                  class="error"
+                ></div>
+                <div class="wrap_img">
+                  <img
+                    id="img_banner"
+                    class="hide"
+                    style="height: 170px; width: 100%"
+                  />
+                  <div id="imageFilelist">
+                    Your browser doesn't have Flash, Silverlight or HTML5
+                    support.
+                  </div>
+                  <input
+                    type="hidden"
+                    class="j-required"
+                    id="imgName"
+                    th:field="*{imgName}"
+                  />
+                  <input type="hidden" id="imgUrl" th:field="*{imgUrl}" />
+                </div>
+                <div>
+                  <label
+                    th:for="imgName"
+                    generated="true"
+                    class="error"
+                  ></label>
+                </div>
+              </div>
+
+              <!-- Hình ảnh Điện thoại -->
+              <label
+                class="col-sm-2 col-md-2 control-label required"
+                th:text="#{customer.vip.img.mobile}"
+                th:if="${editDto.fdi == 1}"
+                >Hình điện thoại</label
+              >
+              <div
+                class="controls col-sm-4 col-md-4"
+                tabindex="9"
+                th:if="${editDto.fdi == 1}"
+              >
+                <a
+                  class="glyphicon glyphicon-upload font-size-20"
+                  id="imgMobilePickfiles"
+                  th:title="#{icon.add}"
+                  href="javascript:void(0)"
+                ></a>
+                <div class="pos-notice">
+                  (.jpg,.bmp,.png,.eps,.jfif) (Từ 1536x810)
+                </div>
+                <div
+                  id="imageMobileContainer"
+                  th:attr="msg-confirm=#{message.confirm.upload.image.product}"
+                ></div>
+
+                <div
+                  id="imageMobileConsole"
+                  style="display: none"
+                  class="error"
+                ></div>
+                <div class="wrap_img">
+                  <img
+                    id="imgMobile_banner"
+                    class="hide"
+                    style="height: 170px; width: 100%"
+                  />
+                  <div id="imageMobileFilelist">
+                    Your browser doesn't have Flash, Silverlight or HTML5
+                    support.
+                  </div>
+                  <input
+                    type="hidden"
+                    class="j-required"
+                    id="imgMobileName"
+                    th:field="*{imgMobileName}"
+                  />
+                  <input
+                    type="hidden"
+                    id="imgMobileUrl"
+                    th:field="*{imgMobileUrl}"
+                  />
+                </div>
+                <div>
+                  <label
+                    th:for="imgMobileName"
+                    generated="true"
+                    class="error"
+                  ></label>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 no-padding">
+              <!-- Biểu tượng -->
+              <label
+                class="col-sm-2 col-md-2 control-label required"
+                th:text="#{customer.vip.icon}"
+                >Biểu tượng</label
+              >
+              <div class="controls col-sm-4 col-md-4" tabindex="11">
+                <div>
+                  <a
+                    class="glyphicon glyphicon-upload font-size-20"
+                    id="iconPickfiles"
+                    th:title="#{icon.add}"
+                    href="javascript:void(0)"
+                  >
+                  </a>
+                  <div class="pos-notice">
+                    (.jpg,.bmp,.png,.eps,.jfif) (Từ 100x100)
+                  </div>
+                  <div
+                    id="iconContainer"
+                    th:attr="msg-confirm=#{message.confirm.upload.image.product.category}"
+                  ></div>
+                </div>
+                <div>
+                  <div
+                    id="iconConsole"
+                    style="display: none"
+                    class="error"
+                  ></div>
+                  <div class="wrap_img">
+                    <img
+                      id="icon_banner"
+                      class="hide"
+                      style="height: 170px; width: 100%"
+                    />
+                    <div id="iconFilelist">
+                      Your browser doesn't have Flash, Silverlight or HTML5
+                      support.
+                    </div>
+                    <input
+                      type="hidden"
+                      class="j-required"
+                      id="iconName"
+                      th:field="*{iconName}"
+                    />
+                    <input type="hidden" id="iconUrl" th:field="*{iconUrl}" />
+                  </div>
+                  <label for="iconName" generated="true" class="error"></label>
+                </div>
+              </div>
+
+              <!-- Biểu tượng kích hoạt-->
+              <label
+                class="col-sm-2 col-md-2 control-label required"
+                th:text="#{customer.vip.icon.active}"
+                >Biểu tượng kích hoạt</label
+              >
+              <div class="controls col-sm-4 col-md-4" tabindex="11">
+                <div>
+                  <!-- <div id="iconMobileContainer" th:attr="msg-confirm=#{message.confirm.upload.image.product.category}"></div> -->
+                  <a
+                    class="glyphicon glyphicon-upload font-size-20"
+                    id="iconMobilePickfiles"
+                    th:title="#{icon.add}"
+                    href="javascript:void(0)"
+                  >
+                  </a>
+                  <div class="pos-notice">
+                    (.jpg,.bmp,.png,.eps,.jfif) (Từ 160x160)
+                  </div>
+                  <div
+                    id="iconMobileContainer"
+                    th:attr="msg-confirm=#{message.confirm.upload.image.product.category}"
+                  ></div>
+                </div>
+                <div>
+                  <div
+                    id="iconMobileConsole"
+                    style="display: none"
+                    class="error"
+                  ></div>
+                  <div class="wrap_img">
+                    <img
+                      id="iconMobile_banner"
+                      class="hide"
+                      style="height: 170px; width: 100%"
+                    />
+                    <div id="iconMobileFilelist">
+                      Your browser doesn't have Flash, Silverlight or HTML5
+                      support.
+                    </div>
+                    <input
+                      type="hidden"
+                      class="j-required"
+                      id="iconMobileName"
+                      th:field="*{iconMobileName}"
+                    />
+                    <input
+                      type="hidden"
+                      id="iconMobileUrl"
+                      th:field="*{iconMobileUrl}"
+                    />
+                  </div>
+                  <label
+                    for="iconMobileName"
+                    generated="true"
+                    class="error"
+                  ></label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 col-sm-12 no-padding">
+          <div class="col-sm-2 col-md-2"></div>
+          <div class="col-sm-4 col-md-4">
+            <input type="checkbox" tabindex="2" th:field="*{enabled}" />
+            <label class="control-label">Kích hoạt</label>
+          </div>
+        </div>
+
+        <div class="col-md-12 col-sm-12 no-padding">
+          <label class="col-md-2 col-sm-2 control-label">Trạng thái</label>
+          <div class="col-md-4 col-sm-4">
+            <input
+              th:value="*{statusName}"
+              type="text"
+              class="form-control j-maxlength"
+              data-rule-maxlength="30"
+              th:readonly="true"
+              tabindex="1"
+              placeholder="Draft, Wating for Approve, Approved, Waiting for Publish, Pulished, Cancel "
+            />
+          </div>
+
+          <div class="form-group">
+            <label
+              class="col-md-2 col-sm-2 control-label"
+              th:text="#{homepage.creater}"
+              >Created by</label
+            >
+            <div class="col-md-4 col-sm-4">
+              <input
+                th:field="*{createBy}"
+                type="text"
+                class="form-control j-maxlength"
+                data-rule-maxlength="30"
+                tabindex="1"
+                placeholder="Người tạo"
+                readonly="readonly"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="row unit-bg-com bg-comment">
+            <div class="col-xs-12 col-sm-12 no-padding">
+              <div class="form-group">
+                <label
+                  for="name"
+                  class="col-sm-4 col-md-2 control-label"
+                  th:text="#{product.comment}"
+                  >Comment</label
+                >
+                <div class="col-sm-8 col-md-10 pleft-10">
+                  <textarea
+                    cols="80"
+                    class="form-control j-maxlength"
+                    rows="2"
+                    data-rule-maxlength="255"
+                    th:field="*{comment}"
+                  >
+                  </textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 unit-button">
+          <button type="submit" class="btn-cancel" id="btnCancel">
+            <i class="fa fa-times"></i>
+            <span th:text="#{cancel.button}">Thoát</span>
+          </button>
+          <button
+            type="submit"
+            class="btn-common process-btn"
+            th:id="${T(vn.com.unit.jcanary.enumdef.StepActionEnum).SAVE.getCode()}"
+            th:if="(${editDto.status eq @stepNoStatusConstant.STEP_DRAFT
+					or editDto.status eq @stepNoStatusConstant.STEP_REJECTED})
+					and ${(editDto.vip == 1 
+							and #authorization.expression('hasAuthority(''__${@cmsRoleConstant.ROLE_CUSTOMER_VIP}__:Edit'')'))
+						or (editDto.fdi == 1 
+							and #authorization.expression('hasAuthority(''__${@cmsRoleConstant.ROLE_CUSTOMER_FDI}__:Edit'')'))}"
+          >
+            <i class="fa fa-save" aria-hidden="true"></i>
+            <span th:text="#{saveDraft.button}">Lưu nháp</span>
+          </button>
+
+          <!-- Button process -->
+          <th:block th:each="item : *{stepBtnList}">
+            <button
+              type="submit"
+              class="btn-common process-btn"
+              th:id="${item.buttonId}"
+              th:if="${item.statusCode != 'cancel'}"
+              th:disabled="${checkPublishedAndHaveData}"
+            >
+              <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+              <span
+                th:text="${item.buttonText}"
+                th:attr="data-btn-action=${item.buttonId}, data-curritem=${item.items}"
+                >Action</span
+              >
+            </button>
+          </th:block>
+        </div>
+
+        <!-- <div class="col-sm-12 no-padding">
+          <div
+            class="
+              row
+              unit-bg-table
+              history-process-table
+              unit-bg-tbl unit-bg-com
+            "
+          >
+            <th:block
+              th:include="views/commons/history-process.html :: content"
+            />
+          </div>
+        </div> -->
+        <!-- process -->
+		<th:block th:include="/views/commons-process/common-process.html :: content(${editDto})"/>
+
+
+	    <!-- AttachedFile -->
+	    <div id="attachedFileContent">
+	      <th:block
+	        th:include="/views/attached-file-module/attached-file-plugin.html :: content(${lstAttachedFile}, ${businessCode}, ${refAttachment})"
+	      />
+	    </div>
+
+
+
+        <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:field="*{customerAlias}" />
+        <input type="hidden" id="url" name="url" th:value="${editDto.url}" />
+        <input
+          type="hidden"
+          id="processId"
+          name="processId"
+          th:value="${editDto.processId}"
+        />
+
+        <input
+          type="hidden"
+          id="status"
+          name="status"
+          th:value="${editDto.status}"
+        />
+        <input type="hidden" th:field="*{referenceId}" />
+        <input type="hidden" th:field="*{referenceType}" />
+        <input type="hidden" th:field="*{requestToken}" />
+        <input type="hidden" th:field="*{searchDto}" />
+        <input type="hidden" id="buttonAction" name="buttonAction" />
+        <input type="hidden" id="buttonId" name="buttonId" />
+        <input type="hidden" id="currItem" name="currItem" />
+
+        <input type="hidden" th:field="*{updateDate}" />
+      </div>
+    </form>
+
+    <script th:inline="javascript">
+      	/*<![CDATA[*/
+      	var LANGUAGE_LIST = /*[[${languageList}]]*/;
+      var ICON_DELETE_MESS = [[#{icon.delete}]];
+      var KEYCONTENT_MESS = [[#{product.keyContent}]];
+      var CONTENT_MESS = [[#{product.content}]];
+      var CONTENT_ADD_MESS = [[#{product.add.detail}]];
+      var CONTENT_DELETE_MESS = [[#{delete.button}]];
+
+      var MSG_ERROR_MIN_SIZE_PRODUCT_IMG = [[#{message.confirm.upload.image.news.banner.desktop.error}]];
+      var MSG_ERROR_MIN_SIZE_100_100_IMG = [[#{message.confirm.upload.image.100.100.error}]];
+      var MSG_ERROR_MIN_SIZE_160_160_IMG = [[#{message.confirm.upload.image.160x160.error}]];
+      var MSG_ERROR_MIN_SIZE_1536_1110_IMG = [[#{message.confirm.upload.image.banner.mobile.error}]];
+      var MSG_ERROR_MIN_SIZE_1760_926_IMG = [[#{message.confirm.upload.image.1760x926.error}]];
+
+      var FDI = /*[[${editDto.fdi}]]*/;
+      var VIP = /*[[${editDto.vip}]]*/;
+      /*]]>*/
+    </script>
+    <script
+      type="text/javascript"
+      th:src="@{/static/CMS/all/customer-vip/customer-vip-edit.js}"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <body th:fragment="content">
+    <tr>
+      <td class="text-center stt"></td>
+      <td class="text-center" style="width: 80px">
+        <a
+          class="
+            j-btn-delete
+            glyphicon glyphicon-remove-sign
+            font-size-20
+            red
+            menudelete
+          "
+          th:title="#{icon.delete}"
+          th:if="${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.BUTTON_INTEREST_RATE_TITLE_EDIT}__:Edit'')')}"
+        >
+        </a>
+      </td>
+      <th:block th:each="language, j : ${languageList}">
+        <td hidden="hidden"><input class="form-control id-title" /></td>
+        <td hidden="hidden"><input class="form-control type-title" /></td>
+        <td hidden="hidden"><input class="form-control language-title" /></td>
+        <td hidden="hidden"><input class="form-control customer-title" /></td>
+        <td><input class="form-control j-required interest-rate-title" /></td>
+      </th:block>
+    </tr>
+  </body>
+</html>

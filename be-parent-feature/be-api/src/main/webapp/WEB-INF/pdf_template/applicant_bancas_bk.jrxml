@@ -1,0 +1,869 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="applicant_bancas_form" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" whenResourceMissingType="Empty" uuid="bf79ea36-815e-4837-bacc-cc4b2c8c270c">
+	<property name="ireport.zoom" value="1.9487171000000927"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="1487"/>
+	<style name="Base" isDefault="true" fontName="Arial" fontSize="9"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#C4960B"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#C4960B"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#C4960B"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#C4960B"/>
+		</box>
+	</style>
+	<parameter name="path" class="java.lang.String"/>
+	<parameter name="pathFile" class="java.lang.String"/>
+	<field name="submitInforDate" class="java.util.Date"/>
+	<field name="applyForPosition" class="java.lang.String"/>
+	<field name="positionName" class="java.lang.String"/>
+	<field name="regionName" class="java.lang.String"/>
+	<field name="provinceName" class="java.lang.String"/>
+	<field name="option1" class="java.lang.String"/>
+	<field name="option2" class="java.lang.String"/>
+	<field name="partnerMic" class="java.lang.String"/>
+	<field name="agentCode" class="java.lang.String"/>
+	<field name="agentStatus" class="java.lang.String"/>
+	<field name="bpCode" class="java.lang.String"/>
+	<field name="idFile1" class="java.lang.String"/>
+	<field name="idFile2" class="java.lang.String"/>
+	<field name="personalImage" class="java.lang.String"/>
+	<field name="ekycImage" class="java.lang.String"/>
+	<field name="reins" class="java.lang.String"/>
+	<field name="dateTerminate" class="java.util.Date"/>
+	<field name="dateAppointed" class="java.util.Date"/>
+	<field name="idType" class="java.lang.String"/>
+	<field name="idNo" class="java.lang.String"/>
+	<field name="idDateOfIssue" class="java.util.Date"/>
+	<field name="idPlaceOfIssueName" class="java.lang.String"/>
+	<field name="otherIdNo" class="java.lang.String"/>
+	<field name="otherIdDateOfIssue" class="java.util.Date"/>
+	<field name="otherIdPlaceName" class="java.lang.String"/>
+	<field name="candidateName" class="java.lang.String"/>
+	<field name="gender" class="java.lang.String"/>
+	<field name="nation" class="java.lang.String"/>
+	<field name="dob" class="java.util.Date"/>
+	<field name="pobName" class="java.lang.String"/>
+	<field name="nationality" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="mobile" class="java.lang.String"/>
+	<field name="taxCode" class="java.lang.String"/>
+	<field name="permanentAddress" class="java.lang.String"/>
+	<field name="currentAddress" class="java.lang.String"/>
+	<field name="educationalName" class="java.lang.String"/>
+	<field name="carrerCurrentName" class="java.lang.String"/>
+	<field name="maritalStatusName" class="java.lang.String"/>
+	<field name="contactFullName" class="java.lang.String"/>
+	<field name="contactPhone" class="java.lang.String"/>
+	<field name="contactRelationship" class="java.lang.String"/>
+	<field name="accountName" class="java.lang.String"/>
+	<field name="accountNumber" class="java.lang.String"/>
+	<field name="bankName" class="java.lang.String"/>
+	<field name="bankProvinceName" class="java.lang.String"/>
+	<field name="bankBranch" class="java.lang.String"/>
+	<field name="bankBranchName" class="java.lang.String"/>
+	<field name="classCode" class="java.lang.String"/>
+	<field name="classType" class="java.lang.String"/>
+	<field name="classProvinceName" class="java.lang.String"/>
+	<field name="beginningDate" class="java.util.Date"/>
+	<field name="completedDate" class="java.util.Date"/>
+	<field name="examDate" class="java.util.Date"/>
+	<field name="onlineOffline" class="java.lang.String"/>
+	<field name="recruiterTypeName" class="java.lang.String"/>
+	<field name="recruiterCode" class="java.lang.Long"/>
+	<field name="recruiterIdNo" class="java.lang.String"/>
+	<field name="recruiterName" class="java.lang.String"/>
+	<field name="recruiterPosition" class="java.lang.String"/>
+	<field name="recruiterAdName" class="java.lang.String"/>
+	<field name="managerTypeName" class="java.lang.String"/>
+	<field name="managerCode" class="java.lang.Long"/>
+	<field name="managerIdNo" class="java.lang.String"/>
+	<field name="managerName" class="java.lang.String"/>
+	<field name="managerPosition" class="java.lang.String"/>
+	<field name="managerAdName" class="java.lang.String"/>
+	<field name="managerIndirectTypeName" class="java.lang.String"/>
+	<field name="managerIndirectCode" class="java.lang.Long"/>
+	<field name="managerIndirectIdNo" class="java.lang.String"/>
+	<field name="managerIndirectName" class="java.lang.String"/>
+	<field name="managerIndirectPosition" class="java.lang.String"/>
+	<field name="managerIndirectAdName" class="java.lang.String"/>
+	<field name="managerNameApprove" class="java.lang.String"/>
+	<field name="managerCodeApprove" class="java.lang.Long"/>
+	<field name="interviewAgentCode" class="java.lang.Long"/>
+	<field name="interviewName" class="java.lang.String"/>
+	<field name="interview2AgentCode" class="java.lang.Long"/>
+	<field name="interview2Name" class="java.lang.String"/>
+	<field name="ekycResult" class="java.lang.Integer"/>
+	<field name="ekycOptionString" class="java.lang.String"/>
+	<field name="listFamilyInfor" class="java.util.List"/>
+	<field name="listWorkingExperience" class="java.util.List"/>
+	<field name="fileAttachment" class="java.util.List"/>
+	<field name="hasRelationInsu" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band>
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER} == 1]]></printWhenExpression>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="742" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="136" uuid="ad5582b9-0163-444c-ad93-8627cd2cbd56"/>
+				<staticText>
+					<reportElement x="120" y="0" width="339" height="35" uuid="b2aab0be-571b-44c4-be51-269f15fd3bfd"/>
+					<box leftPadding="3"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ĐƠN ĐĂNG KÝ LÀM ĐẠI LÝ]]></text>
+				</staticText>
+				<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+					<reportElement x="459" y="0" width="96" height="136" backcolor="#FFFFFF" uuid="7aae561b-764f-4d57-a876-b5df706604f1"/>
+					<box>
+						<pen lineWidth="0.5" lineColor="#C4960B"/>
+						<topPen lineWidth="0.0" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineColor="#000000"/>
+					</box>
+					<imageExpression><![CDATA[$F{personalImage} != "" ? ($P{pathFile} + "/" + $F{personalImage}) : ($P{path} + "/" + "3x4.png")]]></imageExpression>
+				</image>
+				<image scaleImage="FillFrame">
+					<reportElement x="0" y="0" width="120" height="51" uuid="168a63fb-d031-4f6d-a3c2-159b799ff223"/>
+					<imageExpression><![CDATA[$P{path} + "/logo-mbal.jpg"]]></imageExpression>
+				</image>
+				<frame>
+					<reportElement x="0" y="51" width="455" height="50" uuid="5d49d13a-e7e3-464e-bbf6-fd361d612bee"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<staticText>
+						<reportElement x="0" y="0" width="77" height="20" uuid="b821f813-8e2e-464a-bf82-ff317d700813"/>
+						<box leftPadding="3"/>
+						<textElement verticalAlignment="Middle">
+							<font fontName="Arial"/>
+						</textElement>
+						<text><![CDATA[Vị trí ứng tuyển:]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="0" y="20" width="78" height="20" uuid="36143677-2b5d-45bb-b7ab-517436a1443e"/>
+						<box leftPadding="3"/>
+						<textElement verticalAlignment="Middle">
+							<font fontName="Arial"/>
+						</textElement>
+						<text><![CDATA[Khu vực làm việc:]]></text>
+					</staticText>
+					<textField isBlankWhenNull="true">
+						<reportElement x="77" y="0" width="197" height="20" uuid="4f213cf4-2c22-4b9f-9421-0275a8c2d245">
+							<printWhenExpression><![CDATA[$F{applyForPosition} != ""]]></printWhenExpression>
+						</reportElement>
+						<box leftPadding="3"/>
+						<textElement verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA[!$F{applyForPosition}.equals("") ? $F{applyForPosition} + " - " + $F{positionName} : ""]]></textFieldExpression>
+					</textField>
+					<textField isBlankWhenNull="true">
+						<reportElement x="78" y="20" width="175" height="20" uuid="2bd3b9b0-f38c-4e92-bafc-19d0e7de6117"/>
+						<box leftPadding="3"/>
+						<textElement verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA[$F{regionName}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="253" y="20" width="28" height="20" uuid="a8968a53-4fef-4c67-847f-2496c2d26c95"/>
+						<textElement verticalAlignment="Middle"/>
+						<text><![CDATA[Tỉnh:]]></text>
+					</staticText>
+					<textField isBlankWhenNull="true">
+						<reportElement x="282" y="20" width="173" height="20" uuid="0405e7de-2678-4cb9-8e9c-4420638432be"/>
+						<textElement verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA[$F{provinceName}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<textField isBlankWhenNull="true">
+					<reportElement x="120" y="35" width="339" height="16" uuid="30fa63d4-9003-4667-bddb-c87b2b7947e0">
+						<printWhenExpression><![CDATA[$F{applyForPosition} != ""]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="3"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA["Ngày " + ($F{submitInforDate} != null ? (new SimpleDateFormat("dd").format($F{submitInforDate})) : "") + " Tháng " + ($F{submitInforDate} != null ? (new SimpleDateFormat("MM").format($F{submitInforDate})) : "") + " Năm " + ($F{submitInforDate} != null ? (new SimpleDateFormat("yyyy").format($F{submitInforDate})) : "")]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="120" width="340" height="16" uuid="9d0ec4f8-4928-4777-8901-37994cec8f56"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[I. THÔNG TIN CÁ NHÂN]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement x="0" y="136" width="555" height="154" uuid="8cff96f9-0728-4719-bc46-f2acffd18a52"/>
+				<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+					<reportElement x="20" y="16" width="254" height="138" backcolor="#FFFFFF" uuid="c8a806b1-29c3-418b-8753-51b71c9c4316"/>
+					<box>
+						<pen lineWidth="0.5" lineColor="#C4960B"/>
+						<topPen lineWidth="0.0" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineColor="#000000"/>
+					</box>
+					<imageExpression><![CDATA[$F{idFile1} != "" ? ($P{pathFile} + "/" + $F{idFile1}) : ($P{path} + "/" + "Front.png")]]></imageExpression>
+				</image>
+				<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+					<reportElement x="290" y="16" width="254" height="138" backcolor="#FFFFFF" uuid="b0879904-4568-4ff0-a567-39d93a7c625d"/>
+					<box>
+						<pen lineWidth="0.5" lineColor="#C4960B"/>
+						<topPen lineWidth="0.0" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineColor="#000000"/>
+					</box>
+					<imageExpression><![CDATA[$F{idFile2} != "" ? ($P{pathFile} + "/" + $F{idFile2}) : ($P{path} + "/" + "Back.png")]]></imageExpression>
+				</image>
+			</frame>
+			<break>
+				<reportElement x="0" y="741" width="555" height="1" uuid="e702bff2-e5dd-44b8-b8f1-eb5c50585b63"/>
+			</break>
+			<frame>
+				<reportElement x="0" y="290" width="555" height="206" uuid="03806d8f-bb67-48c4-b3f0-d1c388c8e936"/>
+				<staticText>
+					<reportElement x="0" y="46" width="60" height="20" uuid="1fff7455-8289-480f-be80-dd4b36c13125"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Giấy tờ khác:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="66" width="50" height="20" uuid="c11013d5-3b1b-4a7e-9aed-27413c9f4045"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Họ và tên:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="106" width="97" height="20" uuid="60b11ce4-457a-4101-90aa-5d76b50217d5"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Số điện thoại di động:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="186" width="69" height="20" uuid="b83b2fbe-1b65-458d-8822-435da592827c"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Địa chỉ liên hệ: ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="6" width="60" height="20" uuid="aed57116-448d-4a29-9085-896c5682427b"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Loại giấy tờ:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="26" width="68" height="20" uuid="1a15fc7c-fb7e-4662-b49d-d0769dcef297"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[CMND/CCCD:	]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="166" width="84" height="20" uuid="71a734bf-8e07-49ff-84ba-38f0abeaa418"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Địa chỉ thường trú: ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="86" width="54" height="20" uuid="8eb8e347-3ec3-409c-9a60-7f726f5255f5"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Ngày sinh:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="68" y="26" width="163" height="20" uuid="c1a9bd6b-86b4-45cc-96fd-f14f4b7aca8b"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{idNo}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="60" y="6" width="115" height="20" uuid="d1e144f6-8106-4d3f-9876-d21269e57171"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{idType}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="231" y="26" width="50" height="20" uuid="028703fd-3343-4a72-ae50-2c6a153a9b8d"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Ngày cấp:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="281" y="26" width="109" height="20" uuid="f7e2d6a5-aabb-47a3-814a-fab5f63f4fa7"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{idDateOfIssue})]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="390" y="26" width="44" height="20" uuid="0222e126-dd2c-45d3-8292-5ac3fdc1438b"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Nơi cấp:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="434" y="26" width="121" height="20" uuid="dc00899b-ea9e-4280-84d8-24de8cda1c75"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{idPlaceOfIssueName}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="60" y="46" width="171" height="20" uuid="a1241286-5786-464a-aae4-cbc90ea1c284"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{otherIdNo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="231" y="46" width="50" height="20" uuid="7a470053-0cb4-488b-aadc-0abb864aa5ac"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Ngày cấp:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="281" y="46" width="109" height="20" uuid="cdb47463-833a-46ae-9c5d-ae3e85d8288f"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{otherIdDateOfIssue})]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="390" y="46" width="44" height="20" uuid="90e78ae0-d249-4e7d-a320-e3ea81c6f90e"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Nơi cấp:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="434" y="46" width="121" height="20" uuid="7cec83a8-be51-42e3-bfd7-0a1f412c6baa"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{otherIdPlaceName}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="51" y="66" width="180" height="20" uuid="45e5f166-1d5c-4f4b-8753-6dcbf4daab55"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{candidateName}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="231" y="66" width="50" height="20" uuid="80b1fd72-f73a-4cee-8f9a-7015e56721a4"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Giới tính:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="321" y="66" width="20" height="20" uuid="bfe17aec-2161-4e47-948b-103ae6356895"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Nữ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="281" y="66" width="25" height="20" uuid="53848aa3-8d5e-4931-a177-c2df0d255571"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Nam]]></text>
+				</staticText>
+				<image scaleImage="FillFrame">
+					<reportElement x="344" y="70" width="11" height="11" uuid="0b81a316-27ba-4019-872c-e53c0044892e">
+						<printWhenExpression><![CDATA[$F{option2} != ""]]></printWhenExpression>
+					</reportElement>
+					<imageExpression><![CDATA[$P{path} + "/" + ($F{gender}.equals("F") ? "icon-check.png" : "icon-no-check.png")]]></imageExpression>
+				</image>
+				<image scaleImage="FillFrame">
+					<reportElement x="308" y="70" width="11" height="11" uuid="334ded44-6ed7-48bb-bbc3-ba0062a825e3"/>
+					<imageExpression><![CDATA[$P{path} + "/" + ($F{gender}.equals("M") ? "icon-check.png" : "icon-no-check.png")]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement x="390" y="66" width="52" height="20" uuid="105cbf59-75cf-4aab-8143-b036314c85c0"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Quốc tịch:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="442" y="66" width="113" height="20" uuid="bb0c8d90-bd09-41f0-b2e4-6c655d208bd4"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{nationality}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="54" y="86" width="177" height="20" uuid="0ecaf860-5630-4828-9244-e705e7ec97fd"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{dob})]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="97" y="106" width="134" height="20" uuid="6831c888-913d-4848-9a6f-7d5871c1c191"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{mobile}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="84" y="166" width="471" height="20" uuid="eb080399-44eb-4906-8ea8-ac60ee0c6a3b"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{permanentAddress}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="69" y="186" width="486" height="20" uuid="708960c1-c555-439d-852c-fe7591a38cde"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{currentAddress}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="231" y="106" width="33" height="20" uuid="a42d8a24-137f-4ea8-ae51-1a105cc20e6d"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Email:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="264" y="106" width="126" height="20" uuid="685734cc-0e29-440c-ad56-7e4e9bbda975"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="390" y="106" width="52" height="20" uuid="d971757b-86a9-4904-965b-1e5b657d7e0f"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Mã số thuế:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="442" y="106" width="113" height="20" uuid="73185250-8c69-4aa1-b852-1ff61fd34523"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{taxCode}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="126" width="82" height="20" uuid="646cd1ee-2fa3-46f4-86d5-a8e8b949f044"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Trình độ học vấn:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="146" width="97" height="20" uuid="0f49c303-9e91-49ab-9c1c-ffc2d44c94df"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Tình trạng hôn nhân:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="82" y="126" width="149" height="20" uuid="79a63e3a-3c84-4b69-ba25-6aac2b6a0491"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{educationalName}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="231" y="126" width="100" height="20" uuid="bcb90c62-9ee4-4ef6-b960-c61c5d3eb478"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Nghề nghiệp hiện tại :	]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="331" y="126" width="224" height="20" uuid="6edf8af5-167d-49be-a23f-43be145d1e47"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{carrerCurrentName}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="97" y="146" width="244" height="20" uuid="477537ef-1887-41d4-b3bb-cc9cc305f02f"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{maritalStatusName}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="231" y="86" width="45" height="20" uuid="1f798780-1d94-492d-b059-5211606d4b0f"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Nơi sinh:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="276" y="86" width="115" height="20" uuid="cc8f8262-3705-4c7f-86d6-4f1a32b3095f"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{pobName}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="391" y="86" width="42" height="20" uuid="989a7577-97a1-4315-9117-bd3aa77db346"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Dân tộc:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="433" y="86" width="122" height="20" uuid="13c56b61-13a5-410f-a6ba-78c59e0c8df4"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{nation}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="0" y="496" width="555" height="40" uuid="b9039564-89b6-434e-898e-37e33c1e5b80"/>
+				<staticText>
+					<reportElement x="0" y="20" width="48" height="20" uuid="66ba7991-92e5-4769-b324-349b684a62fe"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Họ và tên:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="0" width="555" height="20" uuid="cef3cb2f-f5bb-49bf-8948-c61124bbbd2d"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Người liên hệ trong trường hợp khẩn cấp]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="48" y="20" width="183" height="20" uuid="66adbeda-27c3-42d3-a41f-f6185bef4703"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{contactFullName}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="231" y="20" width="61" height="20" uuid="ddcd7e99-94ed-415a-8d9c-ee74fa71fc28"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Số điện thoại:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="292" y="20" width="98" height="20" uuid="063fa1c3-b1f4-48e5-a6b8-ec0d67d51a52"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{contactPhone}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="390" y="20" width="56" height="20" uuid="7575f921-9efb-47f6-a897-d527ec6f3a69"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Mối quan hệ:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="446" y="20" width="109" height="20" uuid="d6314f25-0464-4932-b352-9283c50497b4"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{contactRelationship}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="1" y="536" width="555" height="110" uuid="32d437b2-9ce1-4e88-bb2e-2342833ca027"/>
+				<staticText>
+					<reportElement x="0" y="20" width="555" height="25" uuid="ab93d593-2806-4c33-b1a5-6bd37e1288f7"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Có người thân là nhân viên, đại lý của MBAL hay nhân viên/đại lý bảo hiểm của các công ty bảo hiểm nhân thọ, phi nhân thọ khác hay không?]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="0" width="555" height="20" uuid="9002dba3-7faf-43e1-a251-e830d63d3827"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<text><![CDATA[II. THÔNG TIN GIA ĐÌNH]]></text>
+				</staticText>
+				<image scaleImage="FillFrame">
+					<reportElement x="33" y="50" width="11" height="11" uuid="b68a95be-80eb-4a1e-a40f-248b9ad956ac"/>
+					<imageExpression><![CDATA[$P{path} + "/" + (!$F{hasRelationInsu}.equals("1") ? "icon-check.png" : "icon-no-check.png")]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement x="1" y="45" width="32" height="20" uuid="59d47388-8cd0-4edc-b79d-e2a6fec822da"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Không]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="65" width="100" height="25" uuid="215d7bfb-5901-4bae-aab3-3a8ded72f1f9"/>
+					<box leftPadding="3">
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Họ và tên]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="49" y="45" width="20" height="20" uuid="64f18f06-f04c-4c12-8dcb-50458338bc6b"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Có]]></text>
+				</staticText>
+				<image scaleImage="FillFrame">
+					<reportElement x="72" y="50" width="11" height="11" uuid="aef82aa0-6519-45c6-8ad5-07c244225035">
+						<printWhenExpression><![CDATA[$F{option2} != ""]]></printWhenExpression>
+					</reportElement>
+					<imageExpression><![CDATA[$P{path} + "/" + ($F{hasRelationInsu}.equals("1") ? "icon-check.png" : "icon-no-check.png")]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement x="100" y="65" width="110" height="25" uuid="3f4bb4f5-1f40-44b7-81a3-77b24e65ce1a"/>
+					<box leftPadding="3">
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Số CMND/CCCD]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="210" y="65" width="110" height="25" uuid="17b4421f-f92c-4cc6-b206-143ec7c2eb23"/>
+					<box leftPadding="3">
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Mối quan hệ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="320" y="65" width="110" height="25" uuid="cc175324-49ba-4cdb-b88f-560ba9f4b3ad"/>
+					<box leftPadding="3">
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Tên Công ty]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="430" y="65" width="125" height="25" uuid="5ff3ac48-2a1e-4bdf-9b2b-9fc07241ec2f"/>
+					<box leftPadding="3">
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Chức danh/
+Chức vụ
+]]></text>
+				</staticText>
+				<subreport>
+					<reportElement x="0" y="90" width="555" height="20" uuid="fcce5e7d-3203-4e13-b117-e15b85a43b8c"/>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listFamilyInfor})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{path} + "/family_list_bancas.jasper"]]></subreportExpression>
+				</subreport>
+			</frame>
+		</band>
+		<band height="159" splitType="Stretch">
+			<frame>
+				<reportElement positionType="Float" x="0" y="0" width="555" height="60" uuid="a08f9793-0d0f-427e-a04b-5774d035d879"/>
+				<staticText>
+					<reportElement x="0" y="0" width="555" height="20" uuid="fac4cb7f-d188-4cc2-ac5f-a4691325f23f"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<text><![CDATA[III. QUÁ TRÌNH LÀM VIỆC/LÀM ĐẠI LÝ BẢO HIỂM ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="20" width="173" height="20" uuid="e4c914e8-3dc1-40e6-8e68-d59768e34c59"/>
+					<box leftPadding="3">
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Tên công ty]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="173" y="20" width="131" height="20" uuid="f0d4291a-1899-410a-8d5d-d953238fc4f6"/>
+					<box leftPadding="3">
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Chức vụ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="304" y="20" width="155" height="20" uuid="92b530a2-d5c3-47bc-8c8e-d3cc075021ba"/>
+					<box leftPadding="3">
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Thu nhập]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="459" y="20" width="96" height="20" uuid="7ab2c79c-d13e-4829-a5ef-17c68bec9318"/>
+					<box leftPadding="3">
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Thời gian công tác]]></text>
+				</staticText>
+				<subreport>
+					<reportElement x="0" y="40" width="555" height="20" uuid="e68bae9c-868c-4dee-a992-29027ce52138"/>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listWorkingExperience})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{path} + "/working_list_bancas.jasper"]]></subreportExpression>
+				</subreport>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" x="0" y="60" width="555" height="40" uuid="e8a4b45b-822a-4ed0-85ab-b5191599ed4d"/>
+				<staticText>
+					<reportElement x="0" y="0" width="555" height="20" uuid="b884f433-6b36-4ced-9765-80e9732696b1"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<text><![CDATA[IV. THÔNG TIN NGƯỜI GIỚI THIỆU]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="20" width="35" height="20" uuid="e694593d-2ac8-4042-8049-4189ad1ab1e9"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Họ tên:	]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="231" y="20" width="45" height="20" uuid="e191f76e-f114-4840-880b-ede5bea1a5a4"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Mã đại lý:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="276" y="20" width="279" height="20" uuid="c503bd02-e4df-4201-bd09-ed5a354a5e85"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{recruiterCode}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="35" y="20" width="196" height="20" uuid="268dfd86-7343-4884-b979-53619716fb92"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{recruiterName}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" x="0" y="100" width="555" height="41" uuid="6189504d-4742-4aac-8226-17268a3e40ba"/>
+				<staticText>
+					<reportElement x="0" y="0" width="555" height="20" uuid="27aa26e5-86bd-4c72-a693-8fce2d9a5b5e"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<text><![CDATA[V. THÔNG TIN NGƯỜI QUẢN LÝ TRỰC TIẾP]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="20" width="35" height="20" uuid="09b46611-22ce-4b13-9540-2ef21aa8d5d1"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Họ tên:	]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="36" y="20" width="196" height="20" uuid="a4e27127-cc97-4736-b6ae-10bda7e6bdf7"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{managerName}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<pageFooter>
+		<band/>
+	</pageFooter>
+</jasperReport>

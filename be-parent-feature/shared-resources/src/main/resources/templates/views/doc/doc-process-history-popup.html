@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<div class="modal fade" id="popupProcessHistoryModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modalProgress" role="document">
+			<div class="modal-content" style="height: 475px; width: 700px; magin: 0; padding: 0; margin-left: 0px" th:if="*{lstJHistoryApprove.size() > 0}">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModal">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h2 class="title-box" id="role-item-component-modal-label" th:text="#{doc.process.history}">Process</h2>
+				</div>
+				<div class="modal-body" id="role-item-summary-modal-content" style="height: 350px; overflow-y: scroll;">
+					<div class="col-md-12 progressWrap">
+						<ol id="statusProgressList">
+							<th:block th:each="_item, i : *{lstJHistoryApprove}">
+								<li>
+									<span class="process-history-step-no" th:text="${_item.stepIndex}">1</span>
+									<dl>
+										<dt>[<span th:text="${_item.actionCode != null }?${_item.actionName}:#{${_item.actionName}}"> </span> 
+										- <span th:text="#{doc.approval.plugin.change.status}  + ' '"> </span>
+										<span th:text="${_item.processStatusCodeNext != null }?${_item.processStatusNameNext}:#{${_item.processStatusNameNext!=null?_item.processStatusNameNext:'approval.plugin.history.undefine'}}"
+												style="font-weight: normal; color: red;"></span>
+										]</dt>
+										<dd><span th:text="#{doc.process.history.name}"></span> : <span th:text="${_item.actionFullname}"></span></dd>
+										<dd><span th:text="#{doc.process.history.email}"></span> : <span th:text="${_item.email}"></span></dd>
+										<dd th:text="${_item.actionDate  !=null}?${#dates.format(_item.actionDate ,'dd-MMM-yyyy HH:mm')}:''">02/18/2019 09:31</dd>
+										<dd class="comment" th:text="${_item.comments}"></dd>
+									</dl>
+								</li>
+							</th:block>
+						</ol>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<a href="#" class="btn btn-cancel" data-dismiss="modal">Close</a>
+				</div>
+			</div>
+			
+			<div class="modal-content" th:if="*{lstJHistoryApprove.size() == 0}">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModal">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h2 class="title-box" id="role-item-component-modal-label" th:text="#{doc.process.history}">Process</h2>
+				</div>
+				<div class="modal-body" id="role-item-summary-modal-content">
+					<div th:text="#{doc.process.history.emptyTable.label}"></div>
+				</div>
+
+				<div class="modal-footer">
+					<a href="#" class="btn btn-cancel" data-dismiss="modal">Close</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+</body>
+</html>

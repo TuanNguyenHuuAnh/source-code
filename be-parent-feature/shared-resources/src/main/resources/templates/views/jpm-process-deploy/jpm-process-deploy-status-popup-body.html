@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+    <form class="form-horizontal u-for-page-top j-form-validate" role="form" id="status-form" method="POST" autocomplete="off" th:object="${statusDto}" th:action="@{/}">
+        <div class="">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h2 class="modal-title" id="status-modal-label" th:text="#{jpm.process.status.information}">Status Information</h2>
+            </div>
+            <div class="modal-body">
+
+                <th:block th:include="views/commons/message-alert.html :: content(${messageList})" />
+
+                <input type="hidden" th:field="*{id}"/>
+                <input type="hidden" th:field="*{processId}"/>
+                <div class="row">
+                    <div class="col-md-12 p-0">
+                        <div class="form-group">
+                            <label th:for="*{statusCode}" class="col-md-3" th:text="#{jpm.process.status.code}"></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control j-maxlength j-required j-code" th:field="*{statusCode}" readonly="true" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 p-0">
+                        <div class="form-group">
+                            <label th:for="*{statusName}" class="col-md-3" th:text="#{jpm.process.status.name}"></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control j-maxlength j-required j-code" th:field="*{statusName}" readonly="true"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 p-0">
+                        <div class="form-group">
+<!--                            <label class="col-md-3" th:text="#{news.language}">Ngôn ngữ</label>-->
+                            <div class="col-md-offset-3 col-md-9 gr-tab">
+                                <ul class="nav nav-tabs" id="tabStatusLanguage">
+                                    <th:block th:each="language, i : ${languageList}">
+                                        <li role="presentation" th:classappend="${i.index == 0}  ? 'active' : ''" th:id="tabStatusLanguage + ${i.index}"><a
+                                                th:href="'#languageStatus-' + ${language.code}" th:text="${language.name}" data-toggle="tab" aria-expanded="true"></a></li>
+                                    </th:block>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content" style="margin-top: 10px">
+                    <th:block th:each="language, i : ${statusDto.listJpmStatusLang}" th:with="index=${i.index}">
+                        <div th:id="'languageStatus-' + ${language.langCode}" class="tab-pane fade " th:classappend="${language.langCode == languageList[0].code}  ? 'in active' : ''">
+                            <!-- <input type="hidden" th:field="*{listJpmStatusLang[__${index}__].id}" /> -->
+                            <input type="hidden" th:field="*{listJpmStatusLang[__${index}__].langCode}" />
+                            <div class="row">
+                                <div class="col-md-12 p-0">
+                                    <div class="form-group">
+                                        <label th:for="*{listJpmStatusLang[__${index}__].statusName}" class="col-md-3" th:text="#{jpm.process.status.name}"></label>
+                                        <div class="col-md-9">
+                                            <input th:field="*{listJpmStatusLang[__${index}__].statusName}" type="text" class="form-control j-maxlength j-required" data-rule-maxlength="255" maxlength="255" readonly="true"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+                <span class="button">
+                    <a href="#" class="u-btn u-btn-back" data-dismiss="modal">
+                    	<img th:src="@{/static/images/ico-close.png}" alt="" width="11px">
+                    	<span  th:text="#{close.button}"></span>
+                    </a>
+                </span>
+            <!--                <a href="#" class="btn btn-common btn-in-tablet" data-dismiss="modal" th:text="#{save.button}">Save</a>-->
+        </div>
+    </form>
+
+</body>
+</html>

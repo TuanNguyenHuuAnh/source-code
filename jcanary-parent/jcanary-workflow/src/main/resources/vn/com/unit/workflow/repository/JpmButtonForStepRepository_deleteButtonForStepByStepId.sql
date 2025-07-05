@@ -1,0 +1,4 @@
+DELETE
+	JPM_BUTTON_FOR_STEP 
+WHERE
+	STEP_ID = /*stepId*/

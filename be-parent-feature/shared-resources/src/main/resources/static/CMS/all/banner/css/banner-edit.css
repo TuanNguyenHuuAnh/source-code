@@ -1,0 +1,27 @@
+.wrap_upload{
+	font-style: italic;
+	display: inline-block;
+}
+.tab-content .wrap_img{
+  	background-color: #F0F0F0;
+  	position: relative;
+    height: 170px;
+    border: 1px solid #ccc;
+}
+.wrap_img .img_banner, .wrap_img{
+	height: 170px;
+	width: 100%;
+}
+.wrap_img #imageConsole{
+	border: none !important;
+}
+/*.wrap_video .videoContent, .wrap_videoEn{
+	 height: 170px; 
+  	border: 1px solid #ccc;
+  	background-color: #F0F0F0;
+} */
+
+.tbl_img .img_banner{
+	width: 90px;
+	height: 60px
+}

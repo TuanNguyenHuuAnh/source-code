@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">	
+	<div class="header-box">
+	    <h2 class="title-box" th:text="#{role.for.team.group.list}" >Group List</h2>
+	</div>
+	<div class="row unit-bg-table m-0">
+		<div class="table-responsive">
+	    	<table id="roleTableId" class="table table-bordered table-striped">
+	        	<thead>
+	            	<tr>
+	                    <th class="u_t_no">#</th>
+	                    <!-- <th th:if="${#authentication?.principal?.companyIdList.size()>1 or #authentication?.principal?.companyAdmin}">
+	                       <input type="text" id="companyName" class="form-control input-sm" th:placeholder="#{company.detail}" />
+	                   	</th> -->
+	                    <th>
+	                       <input type="text" id="roleName" class="form-control input-sm" th:placeholder="#{account.team.group.name}" />
+	                    </th>
+	                    <th class="center" th:text="#{action.label}">Thao tác</th>
+	                </tr>
+	           </thead>
+	           <tbody>
+	              <th:block th:each="role,i : ${teams}">
+	                 <tr th:attr="data-team-id=${role.teamId}" th:class="${roleIdSelected == role.teamId} ? highlight : ''">
+		                 <td th:text="${i.index+1}">1.</td>
+		                 <!-- <td th:if="${#authentication?.principal?.companyIdList.size()>1 or #authentication?.principal?.companyAdmin}" th:text="${(role.companyName==null or role.companyName=='')} ? #{company.all} : ${role.companyName}" data-tfilter1="true">Company</td> -->
+		                 <td th:text="${role.nameAbv}" data-tfilter2="true">Administrator</td>
+		                 <td class="text-center">
+		                 	<div class="btn-group">
+		                      <a class="j-role-edit j-btn-edit glyphicon glyphicon-edit custom-icon" type="button">
+		                      </a>
+		                     </div>
+		                 </td>
+	                 </tr>
+	               </th:block>
+	         </tbody>
+	      </table>
+	    </div>
+	</div>
+	<script th:inline="javascript">
+	    /*<![CDATA[*/
+	    var messageList = /*[[${messageList}]]*/;
+	    /*]]>*/
+	</script>
+    <script type="text/javascript" th:src="@{/static/cache/js/role-team/irole-team-list.js}"></script>
+</body>
+</html>

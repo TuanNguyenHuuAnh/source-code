@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<body th:fragment="content(sortWrapper)">
+	<div class="table-sort" th:if="${sortWrapper}">
+		<th:block th:if="${sortWrapper.sortName}">
+			<input type="hidden" class="sortName"
+				th:value="${sortWrapper.sortName}" id="sortNameTableHidden"/>
+		</th:block>
+		<th:block th:if="${sortWrapper.sortType}">
+			<input type="hidden" class="sortType"
+				th:value="${sortWrapper.sortType}" id="sortTypeTableHidden"/>
+		</th:block>
+	</div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+SELECT
+	*
+FROM
+	JCA_APP_INBOX
+WHERE
+	DELETED_ID = 0
+	AND ID = /*appInboxId*/
+	AND ACCOUNT_ID = /*accountId*/

@@ -1,0 +1,19 @@
+SELECT
+    count(1)
+FROM
+    JCA_ITEM ITEM
+LEFT JOIN
+  	JPM_PERMISSION_DEPLOY permission_
+ON 
+	ITEM.FUNCTION_CODE = permission_.DEPLOY_CODE
+LEFT JOIN
+    VW_AUTHORITY_PIVOT AUHTOR_PIVOT
+ON
+    AUHTOR_PIVOT.ITEM_ID = ITEM.ID
+    AND AUHTOR_PIVOT.ROLE_ID = /*searchDto.roleId*/
+WHERE
+    ITEM.DELETED_ID	IS NULL
+    AND permission_.DELETED_ID IS NULL
+    --AND ITEM.DISPLAY_FLAG = '1'
+    AND ITEM.FUNCTION_TYPE in /*searchDto.functionTypes*/()
+  	AND permission_.PROCESS_DEPLOY_ID = /*searchDto.processDeployId*/

@@ -1,0 +1,8 @@
+UPDATE INTEG_SLA_ALERT 
+SET STATUS = /*status*/3
+/*IF count != null*/
+, COUNT_SENDING_ERROR = COUNT_SENDING_ERROR + 1 
+/*END*/
+WHERE 
+	DELETED_BY is null 
+	AND ID IN /*ids*/()

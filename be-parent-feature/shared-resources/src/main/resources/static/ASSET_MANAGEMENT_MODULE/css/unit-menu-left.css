@@ -1,0 +1,222 @@
+.main-sidebar {
+  position: fixed;
+  padding-top: 50px;
+  background: #e4e8e9;
+  transition: all .3s ease-in-out;
+  height: calc(100% - 80px);
+  padding-bottom: 50px;
+  width: 230px!important;
+}
+.sidebar-collapse .sb-content{
+	width: 130%;
+	overflow-x: hidden
+}
+.sb-container{
+    overflow: hidden;
+}
+.sb-content {
+  height:100%;
+  width: 120%;
+  padding-right: 12%;
+  overflow-y: scroll;
+  box-sizing:border-box;
+}
+.sb-scrollbar-container {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    top: 5px;
+    width: 0px;
+}
+.sb-container-noscroll .sb-scrollbar-container {
+    right: -20px;
+}
+
+.sb-scrollbar {
+  position: absolute;
+  right: 0;
+  height: 30px;
+  width: 0px;
+  border-radius: 10px;
+  background: transparent;
+}
+
+.sb-scrollbar:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.sidebar li.active>a,.sidebar a.active{
+	color: #e87722!important
+}
+.sidebar-menu>.menu-open,.sidebar-menu>.menu-open:hover{
+	border-left: 3px solid #e77622;
+}
+.navbar-custom-menu li:first-child{
+  border-left: none;
+}
+body:not('.sidebar-collapse') .sidebar-menu a{
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.navbar-custom-menu a{
+  color: #767575;
+}
+.sidebar-menu>li:first-child{
+  border-top: none
+}
+.sidebar-menu>li:last-child{
+  border-bottom: none
+}
+.sidebar-menu>li{
+  border-bottom: 1px solid #ccc;
+  border-left: 3px solid transparent;
+}
+.sidebar-menu>li>a{
+  color: #304d50;
+  font-weight: 500;
+  padding: 7px 15px 7px 11px;
+}
+.treeview-menu>li>a {
+    padding: 5px 7px 7px 0px!important;
+    border-top: 1px solid #ccc;
+    /*border-bottom: 1px solid #fbfbfb;*/
+}
+.treeview>a>i{
+  color: #767877;
+}
+.treeview a{
+  color: #fff;
+}
+
+.sidebar-toggle{
+  display: inline-block;
+  float: left;
+}
+.pull-right-container i{
+  color: #e87722;
+  font-size: 19px;
+}
+a:hover, a:active, a:focus {
+  outline: none;
+  text-decoration: none;
+}
+@media only screen and (min-width: 768px) {
+  .treeview-menu{
+    background: #f1f5f8;
+    color: #fff;
+    padding-left: 0
+  }
+  .treeview-menu .treeview-menu{
+    padding-left: 0
+  }
+}
+
+.treeview .fa{
+  font-size: 15px;
+}
+.treeview-menu li a{
+  padding-left: 25px!important;
+  background: #f2f3f5;
+  color: #304d50;
+  font-size: 12px;
+}
+.sidebar-menu li>a>.pull-right-container{
+  margin-top: -9px!important;
+  margin-right: -8px;
+}
+.sidebar-menu .treeview-menu>li>ul>li>a {
+  padding-left: 50px!important;
+}
+.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>a>span{
+  margin-left: 0;
+  background: #fff!important;
+  border-top: 1px solid #ccc;
+}
+body.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>a>.pull-right-container{
+  display: none!important
+}
+.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>.treeview-menu {
+  top: 0;
+  margin-left: -3px;
+  display: block!important;
+  padding: 20px 0;
+  box-shadow: 4px 1px 7px 0px #ccc;
+  width: 250px!important;
+  border-radius: 0 6px 6px 6px;
+  background: #ffffff;
+}
+.sidebar-collapse .treeview ul ul.treeview-menu,.sidebar-collapse .treeview ul ul.treeview-menu a{
+	    background: #ffffff!important;
+}
+.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>.treeview-menu>li>a,
+.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li>.treeview-menu .treeview-menu>li>a{
+  border: none;
+  padding-top: 5px!important;
+  padding-bottom: 5px!important;
+  background: #ffffff;
+}
+.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>a>span:not(.pull-right){
+  display: none!important
+}
+.sidebar-menu>li:hover>a, .sidebar-menu>li.active>a,.sidebar-menu>li.menu-open>a {
+  background: #f1f5f8;
+  color: #304d50;
+  padding-left: 11px!important;
+}
+.sidebar-menu>li:hover{
+	border-left: 3px solid #304d50;
+}
+.sidebar-collapse .sidebar-menu>li:hover>a,.sidebar-collapse .sidebar-menu>li.active>a,
+.sidebar-collapse .sidebar-menu>li.menu-open>a{
+	background: #ffffff;
+}
+/*
+.sidebar-menu>li:hover>a>i,.sidebar-menu>li.active>a>i,.sidebar-menu>li.menu-open>a>i{
+  color: #fff;
+}
+*/
+.treeview-menu a:hover,.treeview-menu a:hover>i{
+  color: #e97721!important;
+}
+.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>a>span {
+  margin-left: -3px!important;
+  padding: 14px 5px 12px 10px!important;
+  width: 220px!important;
+  margin-top: -1px;
+}
+.current-page>a{
+	color: #0087ff;
+}
+.sidebar-collapse .main-sidebar .mCSB_scrollTools{
+	display: none!important
+}
+.main-sidebar .mCSB_inside>.mCSB_container{
+  margin-right: 0px!important
+}
+.main-sidebar .mCSB_scrollTools{
+  width: 2px!important
+}
+.main-sidebar .mCSB_scrollTools .mCSB_draggerRail{
+  background-color: rgba(203, 203, 203, 0.4)!important;
+}
+.main-sidebar .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
+  background-color: rgba(201, 201, 201, 0.7)!important;
+}
+.sidebar-collapse .mCSB_container,.sidebar-collapse .mCustomScrollBox{
+    overflow: inherit;
+}
+.sidebar-collapse .main-sidebar .select2-container--default {
+	display: none
+}
+#leftMenuSearch{
+	margin: 15px 2px
+}
+.sidebar-menu>li>a>i{
+	font-size: 15px;
+	color: #ff6600;
+}
+.sidebar {
+	border-top: 5px solid #304d50;
+}

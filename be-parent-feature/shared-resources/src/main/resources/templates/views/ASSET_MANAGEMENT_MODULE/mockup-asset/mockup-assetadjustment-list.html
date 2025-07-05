@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <script
+    type="text/javascript"
+    th:src="@{/static/jquery/multiple-select/js/jquery.multiselect.js}"
+  ></script>
+  <link
+    rel="stylesheet"
+    type="text/css"
+    th:href="@{/static/jquery/multiple-select/css/jquery.multiselect.css}"
+  />
+  <!-- BODY START -->
+  <body>
+    <div class="title-head clearfix">
+      <div class="col-sm-9 col-xs-7 no-padding">
+        <h3><i class="fa fa-table"></i> List Asset Adjustment</h3>
+      </div>
+
+      <div class="col-sm-3 col-xs-5 icon-head">
+        <div class="pull-right">
+          <a
+            ><i class="fa fa-plus-circle icon-head-red" id="add" title="Add"></i
+          ></a>
+        </div>
+      </div>
+    </div>
+    <!-- TITLE AND BUTTON ADD END -->
+    <!-- FORM SEARCH START -->
+
+    <form
+      class="form-horizontal u-for-page-top j-formSearch"
+      method="POST"
+      role="form"
+    >
+      <th:block
+        th:include="/views/ASSET_MANAGEMENT_MODULE/commons/message-alert.html :: content(${messageList})"
+      />
+      <!-- SEARCH AREA START-->
+      <div class="bg-content clearfix">
+        <div
+          data-toggle="collapse"
+          data-target="#search-box"
+          class="header-box"
+        >
+          <h5 class="title-box">
+            <span th:text="#{search.title}">Vùng tìm kiếm</span>
+          </h5>
+          <i class="fa fa-minus pull-right" aria-hidden="true"></i>
+        </div>
+        <div class="collapse in row m-0" id="search-box">
+          <!-- Tranlth 27/05/2019 thay đổi vị trí Task #23724-->
+          <div class="col-xs-12 col-sm-12">
+            <div class="form-group">
+              <label class="col-sm-2 label-custom">Name of the Asset</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" />
+              </div>
+
+              <label class="col-sm-2 label-custom">Asset Serial No</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-12">
+            <div class="form-group">
+              <label class="col-sm-2 label-custom">Asset Tag</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" />
+              </div>
+
+              <label class="col-sm-2 label-custom">Asset Status</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-12">
+            <div class="form-group">
+              <label class="col-md-2">Adjustment Date From</label>
+              <div class="col-md-4">
+                <div class="input-group date datepicker">
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="dd/mm/yyyy"
+                    autocomplete="off"
+                  />
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                </div>
+              </div>
+
+              <label class="col-md-2">Adjustment Date To</label>
+              <div class="col-md-4">
+                <div class="input-group date datepicker">
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="dd/mm/yyyy"
+                    autocomplete="off"
+                  />
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-12">
+            <div class="form-group">
+              <label class="col-md-2">Status</label>
+              <div class="col-md-4">
+                <select class="form-control j-required">
+                  <option value="">All</option>
+                  <option value="0">Draft</option>
+                  <option value="1">Waiting for Verify</option>
+                  <option value="1">Waiting for Received</option>
+                  <option value="2">Received</option>
+                  <option value="3">Rejected</option>
+                </select>
+              </div>
+
+              <label class="col-md-2">Office Location</label>
+              <div class="col-md-4">
+                <input class="form-control" type="text" />
+              </div>
+            </div>
+          </div>
+
+          <div align="center">
+            <div class="position-label col-xs-12 col-sm-12">
+              <a id="btnSearch" class="btn-common">
+                <i class="fa fa-search"></i>
+                <span th:text="#{search.button}">Tìm kiếm</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- SEARCH AREA END -->
+      <!-- TABLE RESULT START -->
+      <div class="bg-content clearfix bg-content-tbl" id="tableList">
+        <th:block
+          th:include="/views/ASSET_MANAGEMENT_MODULE/mockup-asset/mockup-assetadjustment-table.html :: content"
+        />
+      </div>
+      <!-- TABLE RESULT END -->
+    </form>
+  </body>
+  <!-- BODY END -->
+  <script>
+    $(".j-btn-edit").on("click", function (event) {
+      event.preventDefault();
+      var url = BASE_URL + "mockup?view-id=mockup.assetadjustment.edit";
+
+      // Redirect to page list
+      ajaxRedirect(url);
+    });
+
+    $("#add").on("click", function (event) {
+      event.preventDefault();
+      var url = BASE_URL + "mockup?view-id=mockup.assetadjustment.edit";
+
+      // Redirect to page list
+      ajaxRedirect(url);
+    });
+
+    // date picker
+    $(".date").datepicker({ autoclose: true, format: "dd/mm/yyyy" });
+    var idEffectedDate = $("#fromDate").val();
+    var idExpiredDate = $("#toDate").val();
+    changeDatepickerById(idEffectedDate, idExpiredDate, "#fromDate", "#toDate");
+
+    $("#box-advance").on("click", function (event) {
+      if ($("#iconShow").hasClass("fa fa-plus")) {
+        $("#iconShow").removeClass("fa fa-plus").addClass("fa fa-minus");
+      } else {
+        $("#iconShow").removeClass("fa fa-minus").addClass("fa fa-plus");
+      }
+    });
+  </script>
+</html>

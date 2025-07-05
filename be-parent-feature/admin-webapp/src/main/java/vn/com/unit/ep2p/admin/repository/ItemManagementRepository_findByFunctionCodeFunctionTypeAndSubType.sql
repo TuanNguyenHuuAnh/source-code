@@ -1,0 +1,8 @@
+SELECT *
+FROM JCA_ITEM
+WHERE DELETED_ID IS NULL
+	
+	
+	AND FUNCTION_CODE =/*functionCode*/
+	AND FUNCTION_TYPE =/*functionType*/
+	AND (COMPANY_ID IS NULL OR COMPANY_ID = /*companyId*/)

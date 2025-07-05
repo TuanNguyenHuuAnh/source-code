@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<script type="text/javascript" th:src="@{/static/plugins/bootbox/bootbox.js}"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#tabBanner a').click(function(e) {
+			e.preventDefault();
+			$(this).tab('show');
+		});
+	});
+</script>
+<div class="row main-heading ">
+	<div class="row unit-border-bottom">
+		<div class="col-sm-8">
+			<h2 class="mar-tb-no blue" th:text="#{introduction.category.detail.title}">Tiêu đề trang</h2>
+		</div>
+		<div class="col-sm-4 align-right">
+			<h1 class="mar-tb-no">
+				<a id="btnDeleteCategory" type="button" th:if="${#authorization.expression('hasAuthority(''AI2#S01#B03_DELETE:Disp'')')}" class="itemdelete ">
+					<i class="glyphicon glyphicon-remove-sign"></i>
+				</a>
+				<a 	id="btnEditCategory" type="button"  th:if="${#authorization.expression('hasAuthority(''AI2#S01#B02_EDIT:Disp'')')}">
+					<i class="glyphicon glyphicon-edit"></i>
+				</a>
+		        <a id="listCategory"><i class="glyphicon glyphicon-list"></i></a>
+			</h1>
+		</div>
+	</div>
+</div>
+
+<section class="content">
+	<th:block
+			th:include="views/commons/message-alert.html" />
+	<form id="validateform" th:object="${viewDto}"
+		method="post" class="form-horizontal u-for-page-top j-form-validate">
+	<div class="row unit-bg-com">
+		
+		<input id="id" type="hidden" th:value="${viewDto.id}"></input>
+		<input id="url" type="hidden" th:value="${viewDto.url}"></input>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label th:Text="#{introduction.category.code}"
+						for="code" class="col-sm-4 control-label">Code</label>
+					<div class="col-sm-8">
+						<label th:text="${viewDto.code}" class="form-control"></label>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+						<label th:Text="#{introduction.category.name}"
+							for="name" class="col-sm-4 control-label">Name</label>
+						<div class="col-sm-8">
+							<label th:text="${viewDto.name}" class="form-control"></label>
+						</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label th:Text="#{introduction.category.sort}" for="sort" class="col-sm-4 control-label">sort</label>
+					<div class="col-sm-8">
+						<label th:text="${viewDto.sort}" class="align-right form-control"></label>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="parentId" class="col-sm-4 control-label" th:text="#{introduction.category.parent}"></label>
+					<div class="col-sm-8">
+						<label class="form-control" th:text="${viewDto.parentName}"></label>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+						<label th:Text="#{introduction.category.link-alias}"
+							for="name" class="col-sm-4 control-label">Đường dẫn hiển thị</label>
+						<div class="col-sm-8">
+							<label th:text="${viewDto.linkAlias}" class="form-control"></label>
+						</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+						<label th:Text="#{introduction.category.viewtype}"
+							for="viewType" class="col-sm-4 control-label">Định dạng</label>
+						<div class="col-sm-8">
+							<label th:text="${viewType}" class="form-control"></label>
+						</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12">
+				<div class="form-group">
+					<label for="note"  class="col-sm-4 col-md-2 control-label" th:text="#{news.note}">Ghi chú</label>
+					<div class="col-sm-8 col-md-10 pleft-10">
+						<p class="form-control-view" th:text="${viewDto.note}" > </p>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12">
+				<div class="form-group">
+					<label for="description" class="col-sm-4 col-md-2 control-label" th:text="#{introduction.description}">Mô tả</label>
+					<div class="col-sm-8 col-md-10 pleft-10">
+						<p class="form-control-view" th:value="${viewDto.description}"></p>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12">
+				<input type="hidden" th:value="${viewDto.imageUrl}"></input>
+				<div class="form-group">
+					<label th:Text="#{introduction.category.imageurl}" for="imageUrl" class="col-sm-4 col-md-2 control-label">imageUrl</label>
+					<div class="col-sm-8 col-md-10 pleft-10">
+						<label id = "viewImageName" th:value="${viewDto.imageName}" class="form-control"></label>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12">
+				<div class="form-group">
+					<div class="col-sm-4 col-md-2"></div>
+					<div class="col-sm-8 col-md-10 pleft-10">
+						<div class="wrap_img">
+							<img th:id="image_preview" th:hidden="false" th:if="${viewDto.imageUrl} != null" class="img_banner"  th:src="@{/introduction/image/download(url=*{imageUrl})}"/>
+							<img th:id="image_preview" th:hidden="true" th:if="${viewDto.imageUrl} == null" class="img_banner"  th:src="@{/introduction/image/download(url=*{imageUrl})}"/>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12">
+				<div class="form-group">
+					<label class="col-sm-4 col-md-2 control-label" th:text="#{introduction.category.language}">Ngôn
+							ngữ</label>
+					<div class="col-sm-8 col-md-10 pleft-10 gr-tab">
+						<ul class="nav nav-tabs" id="tabBanner">
+							<th:block th:each="detailByLang,status : ${viewDto.infoByLanguages}">
+								<li role="presentation"
+									th:classappend="${status.index == 0}  ? 'active' : ''"><a
+									th:href="'#' + ${detailByLang.languageCode}" th:text="${detailByLang.languageDispName}"></a>
+								</li>
+							</th:block>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12">
+				<div class="form-group">
+					<div class="tab-content" style="margin-top: 10px">
+					<!-- tab vietnamese -->
+						<th:block th:each="detailByLang,status : ${viewDto.infoByLanguages}" th:with="index=${status.index}">
+							<div th:id="${detailByLang.languageCode}" class="tab-pane fade " th:classappend="${index == 0}  ? 'in active' : ''">
+								<div class="col-xs-12 col-sm-12 no-padding">
+									<div class="form-group">
+										<label for="banner.position.left"
+												class="col-sm-4 col-md-2 control-label" th:text="#{introduction.category.label}">Tên hiển thị</label>
+										<div class="col-sm-8 col-md-10 pleft-10">
+											<label class="form-control"
+											th:text="${viewDto.infoByLanguages[__${status.index}__].label}"></label>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-12 no-padding">
+									<div class="form-group">
+										<label for="banner.position.left" class="col-sm-4 col-md-2 control-label" th:text="#{introduction.category.language.description}">mô tả văn tắt</label>
+										<div class="col-sm-8 col-md-10 pleft-10">
+											<label class="form-control-view"
+											th:text="${viewDto.infoByLanguages[__${status.index}__].description}"></label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</th:block>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 unit-button">
+				<a id="btnCancel" type="button" class="btn-cancel" ><i class="fa fa-times"></i> <span th:text="#{cancel.button}">Thoát</span></a>
+		</div>
+	
+	</div>
+	</form>
+</section>
+<script type="text/javascript" th:src="@{/web-app/views/introduction/category/introduction-category-detail.js}"></script>
+</html>
+

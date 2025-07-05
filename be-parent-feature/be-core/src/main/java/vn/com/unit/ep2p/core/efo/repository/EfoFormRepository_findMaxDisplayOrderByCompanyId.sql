@@ -1,0 +1,9 @@
+SELECT
+	CASE WHEN MAX(form.DISPLAY_ORDER) IS NULL THEN 0 ELSE MAX(form.DISPLAY_ORDER) END AS DISPLAY_ORDER
+FROM 
+	EFO_FORM form
+WHERE 
+	form.DELETED_ID = 0
+	/*IF companyId != null*/
+		AND form.COMPANY_ID = /*companyId*/1
+	/*END*/ 

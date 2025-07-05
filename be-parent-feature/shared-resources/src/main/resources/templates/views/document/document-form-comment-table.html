@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+	<input type="hidden" name="commentSize" id="commentSize" th:if="${commentDtos}" th:value="${commentDtos?.size()}"/>
+	<th:block th:if="${commentDtos?.size() > 0}">
+		<div class="media-comment" th:each="item,i : ${commentDtos}" th:attr="data-id=${item.id}" th:classappend="${i.index > 4} ? 'widgetCommentHiddenComment' : ''">
+		  <div class="form-group col-sm-12">
+		  		<hr/>
+			 	<div class="col-sm-1"  style="padding-top:12px">
+			   	 	<img th:unless="${item.avatar}" class="img-avata-full" alt="" th:src="@{/static/cache/images/avata.png}"/>
+					<img th:if="${item.avatar}" class="img-avata-full" alt="" th:src="@{/ajax-file/download(filePath=${item.avatar}, repositoryId=${item.avatarRepoId})}"/>
+			  	</div>			  	
+			  	<div class="col-sm-11" >
+			    	<small class="gr-action-comment pull-right">
+				    		<a class="btn btn-sm j-btn-comment-delete btn-delete" th:if="${item.createdBy == #authentication.principal.username}">
+                                <i class="fa fa-close fa-lg"></i>
+			                </a>
+				    </small>
+				    <h5 style="font-size: 11px;">
+				    	<span style="font-weight: bold;" th:text="${item.fullName}">HungHT</span> <span th:text="#{comment.commented}">Commented</span> <span th:text="#{comment.on}">on</span> 
+				    	<i style="font-weight: normal; color: #3097b6;" th:text="${item.createdDate != null}?${#dates.format(item.createdDate, 'HH:mm:ss dd/MM/yyyy')}:''">12-Jun-2019 22:12</i>
+				  	</h5>
+				  	<p>
+						<span  th:text="${item.content}">Okey</span>
+					</p>				
+			  	
+			  	</div>
+			</div>
+		</div>
+	</th:block>
+</body>
+</html>

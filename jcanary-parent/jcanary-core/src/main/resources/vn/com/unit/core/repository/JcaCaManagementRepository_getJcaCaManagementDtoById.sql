@@ -1,0 +1,16 @@
+SELECT
+     ca.ID               AS CA_MANAGEMENT_ID
+	,ca.ACCOUNT_ID       AS ACCOUNT_ID
+	,ca.STORE_TYPE       AS STORE_TYPE
+	,ca.CA_SLOT          AS CA_SLOT
+	,ca.CA_PASSWORD      AS CA_PASSWORD
+	,ca.CA_LABEL         AS CA_LABEL
+	,ca.CA_SERIAL        AS CA_SERIAL
+	,ca.CA_NAME          AS CA_NAME
+	,ca.CA_DEFAULT       AS CA_DEFAULT
+	,ca.COMPANY_ID       AS COMPANY_ID
+FROM 
+	JCA_ACCOUNT_CA ca
+WHERE 
+	ca.DELETED_ID = 0
+	AND ca.ID = /*id*/

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{templates/unit-layout}"
+	layout:fragment="body">
+<script type="text/javascript"
+	th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}" />
+<body>
+	<div class="title-head clearfix">
+		<div class="col-sm-9 col-xs-7 no-padding">
+			<h3><i class="fa fa-table"></i> <span th:text="#{document.management.title}">DOCUMENT MANAGEMENT</span></h3>
+		</div>
+		<div class="col-sm-3 col-xs-5 icon-head">
+			<div class="pull-right">
+				<!-- th:if="${#authorization.expression('hasAuthority(@roleConstant.MENU)')}" -->
+				<a th:href="@{/document-management/edit}">
+					<i class="fa fa-plus-circle icon-head-red" id="add" title="Add"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+
+
+
+	<th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+
+
+
+	<!--
+	<form th:object="${searchDto}" method="post" role="form"
+		class="form-horizontal u-for-page-top j-formSearch">
+		<th:block
+			th:include="views/commons/message-alert.html :: content(${messageList})" />
+		<div class="bg-content clearfix">
+
+
+
+			<div class="col-sm-12 no-padding">
+				<div data-toggle="collapse" data-target="#search-box" class="header-box">
+					<h5 class="title-box"><span th:text="#{search.title}">Search criteria</span> </h5>
+	               	<i class="fa fa-minus pull-right" aria-hidden="true"></i> 
+				</div>
+				<div class="collapse in row m-0" id="search-box">
+
+
+
+						<div class="col-xs-12 col-sm-12 p-0">
+							<div class="col-sm-6 form-group">
+								<input type="text" class="form-control"
+									th:field="*{fieldSearch}" th:placeholder="#{search.key}" />
+							</div>
+                            
+							<div class="col-sm-3 form-group">
+								<select th:field="*{fieldValues}" multiple="multiple"
+									class="form-control" id="search-filter">
+									<th:block th:each="item : ${fieldSelect}">
+										<option th:value="${item.value}"
+											th:selected="${searchDto.fieldValues} ? ${#arrays.contains(searchDto.fieldValues,item.value)}: false"
+											th:text="#{${item.name}}"></option>
+									</th:block>
+								</select>
+							</div>
+                            
+							<div class="col-sm-3 form-group no-padding" th:if="${companyList.size()>1}">
+								<label for="companyId" class="col-sm-3 align-top" th:text="#{company.detail}">Company</label>
+								<div class="col-sm-9">
+									<select class="col-sm-9 form-control select2" id="companyId" name="companyId" th:field="*{companyId}">
+										<option th:each="company : ${companyList}" 
+											th:value="${company.id}"
+											th:text="${company.text}">
+										</option>
+									</select>
+								</div>
+							</div>
+							<input type="hidden" th:unless="${companyList.size()>1}" th:field="*{companyId}" />
+						</div>
+                        
+                        <div class="col-xs-12 col-sm-12 p-0">
+                            <div class="center">
+                                <a class="btn-common" id="btnSearch">
+                                    <i class="fa fa-search"></i> 
+                                    <span th:text="#{search.button}"></span>
+                                </a>
+                            </div>
+                        </div>
+
+
+
+				</div>
+			</div>
+
+
+		</div>
+	</form>
+	-->
+
+	<!-- Start table fix-->
+	<div class="bg-content clearfix bg-content-tbl" id="tableList">
+		<th:block th:include="views/CMS/all/document-management/document-management-table.html :: content" />
+	</div>
+	<!-- end table fix-->
+
+<!-- 
+	<input type="hidden" id="fieldSearchHidden" />
+	<input type="hidden" id="fieldValuesHidden" />
+	<input type="hidden" id="url" name="url"
+		th:value="${searchDto.urlHidden}" />
+ -->
+
+	<script type="text/javascript" th:src="@{/static/CMS/all/document-management/document-management-list.js}"></script>
+</body>
+</html>

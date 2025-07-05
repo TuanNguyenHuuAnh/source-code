@@ -1,0 +1,513 @@
+ <!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+	<script type="text/javascript" th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}" />	
+<body>
+	<form class="form-horizontal u-for-page-top j-form-validate"
+		id="form-repository-edit" method="post" role="form">
+		<div class="bg-content clearfix">
+			<div class="col-sm-12 p-0">
+				<div class="col-md-12">
+					<div class="form-group">
+						<div class="header-box col-sm-12">
+							<h2 class="title-box">ER Information</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12 p-0">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label class="col-sm-4" for="code" th:text="#{mokup.er.number}">ER Number</label>
+						<div class="col-sm-12">
+							<input type="text" readonly="readonly"
+								class="form-control j-code j-maxlength"/> 
+						</div>
+					</div>	
+					<div class="form-group">
+						<label class="col-sm-4" for="code" th:text="#{mokup.er.creator}">ER Creator</label>
+						<div class="col-sm-12">
+							<input type="text" value="100001 - Nguyễn Thị Hoàng Mai" readonly="readonly"
+								class="form-control j-code j-maxlength"/> 
+						</div>
+					</div>	
+					<div class="form-group">
+						<label class="col-sm-4" for="code" th:text="#{mokup.currency}">Currency</label>
+						<div class="col-sm-12">
+							<input type="text" value="VND" readonly="readonly"
+								class="form-control j-code j-maxlength"/> 
+						</div>
+					</div>	
+					<div class="form-group">
+						<label class="col-sm-6" for="code" th:text="#{mokup.total.amount}">Total Amount(Total Before Tax)</label>
+						<div class="col-sm-12">
+							<input type="text" value="830000000" readonly="readonly"
+								class="form-control j-code j-maxlength"/> 
+						</div>
+					</div>			
+				</div>
+
+				<div class="col-md-6">
+					<div class="form-group">
+						<label class="col-sm-4" for="code" th:text="#{mokup.er.date}">ER Date</label>
+						<div class="col-sm-12">
+							<input type="text" value="15/07/2021" readonly="readonly"
+								class="form-control -code j-maxlength"/> 
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4" for="code" th:text="#{mokup.department}">Departments</label>
+						<div class="col-sm-12">
+							<input type="text" value="OPM - Operation Expense" readonly="readonly"
+								class="form-control j-code j-maxlength"/> 
+						</div>
+					</div>	
+					<div class="form-group">
+						<label class="col-sm-4" for="code" th:text="#{mokup.exchange.rate}">Exchange Rate</label>
+						<div class="col-sm-12">
+							<input type="text" value="1" readonly="readonly"
+								class="form-control j-code j-maxlength"/> 
+						</div>
+					</div>	
+					<div class="form-group">
+						<label class="col-sm-6" for="code" th:text="#{mokup.total.amount.including}">Total Amount(Total Including Tax)</label>
+						<div class="col-sm-12">
+							<input type="text" value="913000000" readonly="readonly"
+								class="form-control j-code j-maxlength"/> 
+						</div>
+					</div>	
+				</div>
+				
+				<div class="col-md-12">
+					<div class="form-group">
+						<label class="col-sm-4 " for="code" th:text="#{mokup.er.description}">ER description</label>
+						<div class="col-sm-12">
+							<textarea type="text" rows="2" 
+								class="form-control j-code j-maxlength">Request for information and procurement</textarea>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-6">
+					<div class="form-group">
+						<label class="col-sm-4" for="code" th:text="#{mokup.er.status}">ER Status</label>
+						<div class="col-sm-12">
+							<input type="text" value="Draft" readonly="readonly"
+								class="form-control j-code j-maxlength"/> 
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label class="col-sm-4" for="code" th:text="#{mokup.er.type}">ER type</label>
+						<div class="col-sm-12">
+							<input type="text" value="Procurement / Non-Procurement" readonly="readonly"
+								class="form-control j-code j-maxlength"/> 
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Detail of ER -->
+			<div class="col-sm-12 p-0" style="padding-top: 20px;">
+				<div class="col-md-12">
+					<div class="form-group">
+						<div class="header-box col-sm-12">
+							<h2 class="title-box">Detail of ER</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12 p-0">
+				<div class="col-md-12">
+					<div class="header-box col-sm-12">
+						<div class="form-group">
+							<div class="table-responsive">	
+								<table class="table table-bordered table-striped" id="myTable">
+									<thead>
+										<tr>
+											
+											<th class="u_t_action" style="text-align:center; width:200px;" th:text="#{mokup.item.name}">Item name</th>
+											<th class="u_t_title" style="text-align:center; width:300px;" th:text="#{mokup.bi.name}"></th>
+											<th class="u_t_title" style="text-align:center" th:text="#{mokup.unit.of.measure}"></th>
+											<th class="u_t_title" style="text-align:center; width:200px;" th:text="#{mokup.unit.price}"></th>
+											<th class="u_t_title" style="text-align:center; width:200px;" th:text="#{mokup.quantity}"></th>
+											<th class="u_t_title" style="text-align:center" th:text="#{mokup.vat}"></th>
+											<th class="u_t_title" style="text-align:center; width:200px;" th:text="#{mokup.amount}"></th>
+											<th class="u_t_title" style="text-align:center" th:text="#{mokup.amount.vat}"></th>
+											<th class="u_t_title" style="text-align:center" th:text="#{mokup.bi.balance}"></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="text-center" >
+								                <select disabled class="form-control">
+													<option>Laptop</option>
+													<option>Voice & video conference</option>
+													<option>Web Application Firewall (WAF)</option>
+													<option>ATM accessories</option>
+												</select>
+											</td>
+											<td class="text-center" >
+								                 <select disabled class="form-control">
+													<option>IT_Hardware_HW for User_Laptop</option>
+													<option>IT_Hardware_HW for System_Voice & video conference</option>
+													<option>IT_Hardware_IT Security_Web Application Firewall (WAF)</option>
+													<option>IT_Hardware_ATM_ATM accessories</option>
+												</select>
+											</td>
+											<td class="text-center">Each</td>
+											<td class="text-center">
+												<input disabled type="text" class="form-control" value="35000000" autocomplete="off"/>
+											</td>
+											<td class="text-center">
+												<input disabled type="text" class="form-control" value="5" autocomplete="off"/> 	
+											</td>
+											<td class="text-center">10</td>
+											<td class="text-center">
+												<input disabled type="text" class="form-control" value="175000000" autocomplete="off"/> 
+											</td>
+											<td class="text-center">192500000</td>
+											<td class="text-center">1200000000</td>
+										</tr>	
+										<tr>
+											<td class="text-center" >
+								                <select disabled class="form-control">
+													<option>Laptop</option>
+													<option selected="selected">Voice & video conference</option>
+													<option>Web Application Firewall (WAF)</option>
+													<option>ATM accessories</option>
+												</select>
+											</td>
+											<td class="text-center" >
+								                 <select disabled class="form-control">
+													<option>IT_Hardware_HW for User_Laptop</option>
+													<option selected="selected">IT_Hardware_HW for System_Voice & video conference</option>
+													<option>IT_Hardware_IT Security_Web Application Firewall (WAF)</option>
+													<option>IT_Hardware_ATM_ATM accessories</option>
+												</select>
+											</td>
+											<td class="text-center">Each</td>
+											<td class="text-center">
+												<input disabled type="text" class="form-control" value="80000000" autocomplete="off"/>
+											</td>
+											<td class="text-center">
+												<input disabled type="text" class="form-control" value="3" autocomplete="off"/> 	
+											</td>
+											<td class="text-center">10</td>
+											<td class="text-center">
+												<input disabled type="text" class="form-control" value="240000000" autocomplete="off"/> 
+											</td>
+											<td class="text-center">264000000</td>
+											<td class="text-center">800000000</td>
+										</tr>		
+										<tr>
+											<td class="text-center" >
+								                <select disabled class="form-control">
+													<option>Laptop</option>
+													<option>Voice & video conference</option>
+													<option selected="selected">Web Application Firewall (WAF)</option>
+													<option>ATM accessories</option>
+												</select>
+											</td>
+											<td class="text-center" >
+								                 <select disabled class="form-control">
+													<option>IT_Hardware_HW for User_Laptop</option>
+													<option>IT_Hardware_HW for System_Voice & video conference</option>
+													<option selected="selected">IT_Hardware_IT Security_Web Application Firewall (WAF)</option>
+													<option>IT_Hardware_ATM_ATM accessories</option>
+												</select>
+											</td>
+											<td class="text-center">Each</td>
+											<td class="text-center">
+												<input disabled type="text" class="form-control" value="65000000" autocomplete="off"/>
+											</td>
+											<td class="text-center">
+												<input disabled type="text" class="form-control" value="1" autocomplete="off"/> 	
+											</td>
+											<td class="text-center">10</td>
+											<td class="text-center">
+												<input disabled type="text" class="form-control" value="65000000" autocomplete="off"/> 
+											</td>
+											<td class="text-center">71500000</td>
+											<td class="text-center">500000000</td>
+										</tr>	
+										<tr>
+											<td class="text-center" >
+								                <select disabled class="form-control">
+													<option>Laptop</option>
+													<option>Voice & video conference</option>
+													<option>Web Application Firewall (WAF)</option>
+													<option selected="selected">ATM accessories</option>
+												</select>
+											</td>
+											<td class="text-center" >
+								                 <select disabled class="form-control" readonly="readonly">
+													<option>IT_Hardware_HW for User_Laptop</option>
+													<option>IT_Hardware_HW for System_Voice & video conference</option>
+													<option>IT_Hardware_IT Security_Web Application Firewall (WAF)</option>
+													<option selected="selected">IT_Hardware_ATM_ATM accessories</option>
+												</select>
+											</td>
+											<td class="text-center">Each</td>
+											<td class="text-center">
+												<input disabled type="text" class="form-control" value="175000000" autocomplete="off"/>
+											</td>
+											<td class="text-center">
+												<input disabled type="text" class="form-control" value="2" autocomplete="off"/> 	
+											</td>
+											<td class="text-center">10</td>
+											<td class="text-center">
+												<input disabled type="text" class="form-control" value="35000000" autocomplete="off"/> 
+											</td>
+											<td class="text-center">385000000</td>
+											<td class="text-center">4500000000</td>
+										</tr>
+										<tr>
+											<td class="text-left" colspan="5">
+												<a class="btn-cancel" id="btnCoppy"> <i class="fa fa-clone"></i> <span style="font-weight:bold;">Add/Coppy</span></a> 
+											</td>
+											<td class="text-right" style="font-weight:bold;">Total</td>
+											<td class="text-center" style="font-weight:bold;">83000000</td>
+											<td class="text-center" style="font-weight:bold;">913000000</td>
+											<td class="text-center"></td>
+										</tr>																															
+									</tbody>					
+								</table>								
+							</div>		
+						</div>
+					</div>	
+				</div>
+			</div>
+			
+			<!-- Supporting Document -->
+			<div class="col-sm-12 p-0" style="padding-top: 20px;">
+				<div class="col-md-12">
+					<div class="form-group">
+						<div class="header-box col-sm-12">
+							<h2 class="title-box">Supporting Document</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12 p-0">
+				<div class="col-md-12">
+					<div class="header-box col-sm-12">
+						<div class="form-group">
+							<div class="table-responsive">	
+								<table class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											
+											<th class="u_t_action" style="text-align:center" th:text="#{mokup.er.action}">Action</th>
+											<th class="u_t_title" style="text-align:center">#</th>
+											<th class="u_t_title" style="text-align:center" th:text="#{mokup.er.title}"></th>
+											<th class="u_t_title" style="text-align:center" th:text="#{mokup.er.file.name}"></th>
+											<th class="u_t_title" style="text-align:center" th:text="#{mokup.er.file.type}"></th>
+											<th class="u_t_title" style="text-align:center" th:text="#{mokup.er.file.size}"></th>
+											<th class="u_t_title" style="text-align:center" th:text="#{mokup.er.note}"></th>
+											<th class="u_t_title" style="text-align:center" th:text="#{mokup.er.created.by}"></th>
+											<th class="u_t_title" style="text-align:center" th:text="#{mokup.er.created.date}"></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="text-center" ></td>
+											<td class="text-center" >1</td>
+											<td > Admin_Budget Tree_210309</td>
+											<td >Admin_Budget Tree_210309</td>
+											<td class="text-center" >.xlsx</td>
+											<td class="text-center" >18Kb</td>
+											<td class="text-center" >Supporting Document</td>
+											<td class="text-center" >Hoàng Thị Mai</td>
+											<td class="text-center" >9/7/2021</td>
+										</tr>
+										<tr>
+											<td class="text-center" ></td>
+											<td class="text-center" >2</td>
+											<td > Admin_Item Tree_210302</td>
+											<td >Admin_Item Tree_210302</td>
+											<td class="text-center" >.xlsx</td>
+											<td class="text-center" >136Kb</td>
+											<td class="text-center" >Supporting Document</td>
+											<td class="text-center" >Hoàng Thị Mai</td>
+											<td class="text-center" >9/8/2021</td>
+										</tr>	
+										<tr>
+											<td class="text-center" ></td>
+											<td class="text-center" >3</td>
+											<td >Budget Item_210205</td>
+											<td >Budget Item_210205</td>
+											<td class="text-center" >.xlsx</td>
+											<td class="text-center" >646Kb</td>
+											<td class="text-center" >Supporting Document</td>
+											<td class="text-center" >Hoàng Thị Mai</td>
+											<td class="text-center" >9/9/2021</td>
+										</tr>																											
+									</tbody>					
+								</table>										
+							</div>		
+						</div>
+					</div>	
+				</div>
+			</div>
+			
+			<!-- Supporting Document -->
+			<div class="col-sm-12 p-0" style="padding-top: 20px;">
+				<div class="col-md-12">
+					<div class="form-group">
+						<div class="header-box col-sm-12">
+							<h2 class="title-box">History Approval</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12 p-0">
+				<div class="col-md-12">
+					<div class="header-box col-sm-12">
+						<div class="form-group">
+						<!-- Requestor -->
+							<div >
+					           <div data-toggle="collapse" data-target="#hist-tory-approve" class="header-box">
+					                <h2 class="title-box">Requestor</h2>
+					               <!--  <div class="pull-right">
+									   <span class="ico-accordion"></span>
+									</div> -->
+					            </div>
+					            
+					            <div class="row m-0 collapse in" aria-expanded="true">
+					                <div id="tableProcessStatus">
+					                    <div class="border-box-sc row m-0">  
+					                            <div class="form-group">
+					                                <div class="col-sm-1">
+					                                    <img class="img-avata-full" alt="" th:src="@{/static/images/avata.png}" />
+					                                    
+					                                </div>
+					                                <div class="col-sm-11" style="padding-bottom: 5px;">
+					                                    <h5 style="font-size: 11px;">
+					                                        <span style="font-weight: bold;">Nguyễn Thị Hoàng Mai</span>
+					                                        <span>Created Expense Requisition at</span>
+					                                        <span style="font-weight: normal; color: red;">15/07/2021 11:31:49</span>
+					                                        <span>at step</span> <span style="font-weight: normal; color: #3097b6;">Requestor</span>
+					                                        <!-- <span>and status was changed to </span><span style="font-weight: normal; color: red;">Approved</span> -->
+					                                    </h5>
+					                                    <p>
+					                                        <span style="font-weight: bold;">Comment</span> : Please review and verify<span></span>
+					                                    </p>
+					                                </div>
+					                            </div>
+					                    </div>
+					                </div>
+					            </div>
+					        </div>
+					        
+					        <!-- Checker -->
+							<div >
+					           <div data-toggle="collapse" data-target="#hist-tory-approve" class="header-box">
+					                <h2 class="title-box">Checker</h2>
+					            </div>
+					            
+					            <div class="row m-0 collapse in" id="hist-tory-approve" aria-expanded="true">
+					                <div >
+					                    <div class="border-box-sc row m-0">  
+					                            <div class="form-group">
+					                                <div class="col-sm-1">
+					                                    <img class="img-avata-full" alt="" th:src="@{/static/images/avata.png}" />
+					                                    
+					                                </div>
+					                                <div class="col-sm-11" style="padding-bottom: 5px;">
+					                                    <h5 style="font-size: 11px;">
+					                                        <span style="font-weight: bold;">Nguyễn Thị Thủy</span>
+					                                        <span>Review and Approved Expense Requisition at</span>
+					                                        <span style="font-weight: normal; color: red;">16/07/2021 19:31:49</span>
+					                                        <span>at step</span> <span style="font-weight: normal; color: #3097b6;">Head of Department </span>
+					                                        <!-- <span>and status was changed to </span><span style="font-weight: normal; color: red;">Approved</span> -->
+					                                    </h5>
+					                                    <p>
+					                                        <span style="font-weight: bold;">Comment</span> : Approved<span></span>
+					                                    </p>
+					                                </div>
+					                            </div>
+					                    </div>
+					                </div>
+					            </div>
+					        </div>
+					        
+					        <!-- Approver -->
+							<div >
+					           <div data-toggle="collapse" data-target="#hist-tory-approve" class="header-box">
+					                <h2 class="title-box">Approver</h2>
+					            </div>
+					            
+					            <div class="row m-0 collapse in" id="hist-tory-approve" aria-expanded="true">
+					                <div id="tableProcessStatus">
+					                    <div class="border-box-sc row m-0">  
+					                            <div class="form-group">
+					                                <div class="col-sm-1">
+					                                    <img class="img-avata-full" alt="" th:src="@{/static/images/avata.png}" />
+					                                    
+					                                </div>
+					                                <div class="col-sm-11" style="padding-bottom: 5px;">
+					                                    <h5 style="font-size: 11px;">
+					                                        <span style="font-weight: bold;">Nguyễn Thị Thủy</span>
+					                                        <span>Review and Verify Expense Requisition at</span>
+					                                        <span style="font-weight: normal; color: red;">16/07/2021 19:31:49</span>
+					                                        <span>at step</span> <span style="font-weight: normal; color: #3097b6;">Head of Division </span>
+					                                        <!-- <span>and status was changed to </span><span style="font-weight: normal; color: red;">Approved</span> -->
+					                                    </h5>
+					                                    <p>
+					                                        <span style="font-weight: bold;">Comment</span> : Please review and verify<span></span>
+					                                    </p>
+					                                </div>
+					                            </div>
+					                    </div>
+					                </div>
+					            </div>
+					        </div>
+						</div>
+					</div>
+				</div>
+			</div>			
+			<!-- Button -->
+			<div class="col-xs-6 col-sm-6">
+				<div class="col-sm-12" style=" padding-top: 5px;">
+					<a class="btn-cancel" id="cancel"> <i class="fa fa-times"></i> <span
+						>Back</span></a>				
+				</div>
+			</div>
+			<div class="col-xs-6 col-sm-6 footer-box-bg">	
+				<div class="col-sm-12">	
+					<a class="btn-common btn-save">
+						<i class="fa fa-trash-o" aria-hidden="true"></i> <span>Delete</span>
+					</a>
+					<a class="btn-cancel" style="margin-right: 14px;"> <i class="fa fa-print"></i> <span>Print PDF</span></a>
+					<a class="btn-common btn-save">
+						<i class="fa fa-floppy-o" aria-hidden="true"></i> <span
+						th:text="#{save.button}">Lưu</span>
+					</a>
+					<a class="btn-cancel" id="btnNext"> <i class="fa fa-arrow-circle-right"></i> <span>Sent</span></a> 
+				</div>
+			</div>
+		</div>
+		
+		
+	</form> 	
+	<script type="text/javascript">
+		$('select[multiple]').multiselect({
+		    columns: 1,
+		    placeholder: SEARCH_LABEL,
+		    search: true
+		});
+		
+		$('#cancel').on('click', function (event) {
+			event.preventDefault();
+			var url = BASE_URL + "mockup/supporting-document";
+	
+			// Redirect to page list
+			ajaxRedirect(url);
+		}); 
+	</script>
+</body>
+</html>

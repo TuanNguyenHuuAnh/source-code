@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<body>		
+	<div class="title-head clearfix">
+	   <div class="col-sm-9 col-xs-7 no-padding">
+			<h3>
+				<i class="fa fa-table"></i>
+				<span th:text="#{issue.page}">Tiêu đề trang</span>
+			</h3>
+	   </div>
+	   <div class="col-sm-3 col-xs-5 icon-head">
+	        <div class="pull-right">
+				 <a>
+				 	<i class="fa fa-arrow-circle-left icon-head-red" id="linkList"></i>
+				 </a>
+				 <a>
+				 	<i class="fa fa-plus-circle icon-head-red" id = "add" th:if="${#authorization.expression('hasAuthority(@roleConstant.ISSUE)')}"></i>
+				 </a>
+				 <a class="font17 btn-save" th:if="${#authorization.expression('hasAuthority(@roleConstant.ISSUE)')}"> 
+					<i class="fa fa-save"></i>
+				</a>
+	        </div>
+	   </div>
+	</div>	
+	<form class="form-horizontal u-for-page-top j-form-validate" id = "form-position-edit" th:action="@{/position/edit}" th:object="${positionDto}" method="post" role="form">
+		<th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+		<div class="bg-content clearfix">
+			<div class="header-box">
+				<h2 class="title-box" th:text="#{issue.edit.title}" th:if="${positionDto.positionId != null}">Cập nhật chức vụ</h2>
+				<h2 class="title-box" th:text="#{issue.create.title}" th:if="${positionDto.positionId == null}">Tạo chức vụ</h2>
+			</div>			                           
+            <input type="hidden" th:field="*{positionId}" />
+            <div class="col-sm-12 p-0">
+				<div class="col-md-6">
+				    <div class="form-group" th:classappend="${#fields.hasErrors('positionCode')} ? has-error : ''">
+                        <label class="col-sm-4 required " for="positionCode" th:text="#{issue.type}">Loại tác vụ</label>
+                        <div class="col-sm-8" >
+                            <input type="text" th:field="*{positionCode}" class="form-control j-required j-code j-maxlength" data-rule-maxlength="30" style="text-transform: uppercase;" />
+                            <span class="help-block" th:if="${#fields.hasErrors('positionCode')}" th:errors="*{positionCode}"></span>                                                   
+                        </div>
+                    </div>
+				</div>
+			</div>
+			<div class="col-sm-12 p-0">
+                <div class="col-md-12">
+                    <div class="form-group" th:classappend="${#fields.hasErrors('positionCode')} ? has-error : ''">
+                        <label class="col-sm-2 required " for="positionCode" th:text="#{issue.subject}">Tiêu đề</label>
+                        <div class="col-sm-10" style="padding-left: 10px;">
+                            <input type="text" th:field="*{positionCode}" class="form-control j-required" />
+                            <span class="help-block" th:if="${#fields.hasErrors('positionCode')}" th:errors="*{positionCode}"></span>                                                   
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 p-0">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-sm-2" for="positionCode" th:text="#{issue.description}">Mô tả</label>
+                        <div class="col-sm-10" style="padding-left: 10px;">
+                            <textarea rows="3" th:field="*{description}" class="col-sm-10 form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 p-0">
+                <div class="col-md-6">
+                    <div class="form-group" th:classappend="${#fields.hasErrors('positionCode')} ? has-error : ''">
+                        <label class="col-sm-4 required " for="positionCode" th:text="#{issue.issue.status}">Trạng thái</label>
+                        <div class="col-sm-8" >
+                            <input type="text" th:field="*{positionCode}" class="form-control j-required j-code j-maxlength" data-rule-maxlength="30" style="text-transform: uppercase;" />
+                            <span class="help-block" th:if="${#fields.hasErrors('positionCode')}" th:errors="*{positionCode}"></span>                                                   
+                        </div>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('positionName')} ? has-error : ''">
+                        <label class="col-sm-4 required " for="positionName" th:text="#{issue.issue.priority}">Mức ưu tiên</label>
+                        <div class="col-sm-8" >
+                            <input type="text" th:field="*{positionName}" class="form-control j-required j-maxlength" data-rule-maxlength="255"/>
+                            <span class="help-block" th:if="${#fields.hasErrors('positionName')}" th:errors="*{positionName}"></span>                                                   
+                        </div>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('positionName')} ? has-error : ''">
+                        <label class="col-sm-4 required " for="positionName" th:text="#{issue.assignee.to}">Người được giao</label>
+                        <div class="col-sm-8" >
+                            <input type="text" th:field="*{positionName}" class="form-control j-required j-maxlength" data-rule-maxlength="255"/>
+                            <span class="help-block" th:if="${#fields.hasErrors('positionName')}" th:errors="*{positionName}"></span>                                                   
+                        </div>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('positionName')} ? has-error : ''">
+                        <label class="col-sm-4 required " for="positionName" th:text="#{issue.process.id}">Quy trình</label>
+                        <div class="col-sm-8" >
+                            <input type="text" th:field="*{positionName}" class="form-control j-required j-maxlength" data-rule-maxlength="255"/>
+                            <span class="help-block" th:if="${#fields.hasErrors('positionName')}" th:errors="*{positionName}"></span>                                                   
+                        </div>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('positionName')} ? has-error : ''">
+                        <label class="col-sm-4 required " for="positionName" th:text="#{issue.category.id}">Chuyên mục</label>
+                        <div class="col-sm-8" >
+                            <input type="text" th:field="*{positionName}" class="form-control j-required j-maxlength" data-rule-maxlength="255"/>
+                            <span class="help-block" th:if="${#fields.hasErrors('positionName')}" th:errors="*{positionName}"></span>                                                   
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" th:classappend="${#fields.hasErrors('positionNameAbv')} ? has-error : ''">
+                        <label class="col-sm-4 required " for="positionNameAbv" th:text="#{issue.parent.id}">Tác vụ cha</label>
+                        <div class="col-sm-8" >
+                            <input type="text" th:field="*{positionNameAbv}" class="form-control j-required j-maxlength" data-rule-maxlength="255"/>
+                            <span class="help-block" th:if="${#fields.hasErrors('positionNameAbv')}" th:errors="*{positionNameAbv}"></span>                                                 
+                        </div>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('positionNameAbv')} ? has-error : ''">
+                        <label class="col-sm-4 required " for="positionNameAbv" th:text="#{issue.start.date}">Ngày bắt đầu</label>
+                        <div class="col-sm-8" >
+                            <input type="text" th:field="*{positionNameAbv}" class="form-control j-required j-maxlength" data-rule-maxlength="255"/>
+                            <span class="help-block" th:if="${#fields.hasErrors('positionNameAbv')}" th:errors="*{positionNameAbv}"></span>                                                 
+                        </div>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('positionNameAbv')} ? has-error : ''">
+                        <label class="col-sm-4 required " for="positionNameAbv" th:text="#{issue.due.date}">Ngày đến hạn</label>
+                        <div class="col-sm-8" >
+                            <input type="text" th:field="*{positionNameAbv}" class="form-control j-required j-maxlength" data-rule-maxlength="255"/>
+                            <span class="help-block" th:if="${#fields.hasErrors('positionNameAbv')}" th:errors="*{positionNameAbv}"></span>                                                 
+                        </div>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('positionNameAbv')} ? has-error : ''">
+                        <label class="col-sm-4 required " for="positionNameAbv" th:text="#{issue.estimated.hours}">Thời gian dự tính</label>
+                        <div class="col-sm-8" >
+                            <input type="text" th:field="*{positionNameAbv}" class="form-control j-required j-maxlength" data-rule-maxlength="255"/>
+                            <span class="help-block" th:if="${#fields.hasErrors('positionNameAbv')}" th:errors="*{positionNameAbv}"></span>                                                 
+                        </div>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('positionNameAbv')} ? has-error : ''">
+                        <label class="col-sm-4 required " for="positionNameAbv" th:text="#{issue.done.ratio}">% Hoàn thành</label>
+                        <div class="col-sm-8" >
+                            <input type="text" th:field="*{positionNameAbv}" class="form-control j-required j-maxlength" data-rule-maxlength="255"/>
+                            <span class="help-block" th:if="${#fields.hasErrors('positionNameAbv')}" th:errors="*{positionNameAbv}"></span>                                                 
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<div class="col-xs-12 col-sm-12 footer-box-bg">
+				<a class="btn-cancel" id = "cancel">
+					<i class="fa fa-times"></i>
+					<span th:text="#{cancel.button}">Thoát</span>
+				</a>
+				<a class="btn-common btn-save"
+					th:if="${#authorization.expression('hasAuthority(@roleConstant.ISSUE)')}">
+					<i class="fa fa-floppy-o" aria-hidden="true"></i> 
+					<span th:text="#{save.button}">Lưu</span>
+				</a>			
+			</div>
+		</div>
+	</form>	
+	<input type="hidden" id="url" name="url" th:value="${positionDto.url}"/>
+	<script type="text/javascript" th:src="@{/static/cache/js/position/position-edit.js}"></script>
+	</body>
+</html>

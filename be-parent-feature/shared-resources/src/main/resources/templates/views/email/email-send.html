@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<script type="text/javascript"
+	th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/static/cache/css/style-upload.css}" />	
+<body>
+	<div class="title-head">
+		<div class="row">
+			<div class="col-md-7">
+				<h3>
+					<span th:text="#{email.name.send.mail}">Tiêu đề trang</span>
+				</h3>
+			</div>
+		   	<div class="col-md-5">
+		        <div class="pull-right">
+					 <a class="u-btn u-btn-primary" id="sendMail"> 
+						<i class="fa fa-paper-plane" aria-hidden="true" ></i>
+						<span th:text="#{email.button.send.mail}"></span>
+					</a>
+		        </div>
+		   </div>
+		</div>	
+	</div>
+	<div class="d-flex send-email">
+         <div class="col-left">
+         	<div id="msg"></div>
+			<form method="POST" th:action="@{/email/template/import}" enctype="multipart/form-data" id="upload">
+				 <th:block th:include="views/commons/message-alert.html :: content(${messageList})" />
+	             <p class="mb-1" th:text="#{email.template.upload}">Tải mẫu email</p>
+	             <div class="box-attachment-file center">
+	                 <div class="flex-center">
+	                     <img th:src="@{/static/images/icon-attachment.png}" alt="" width="23px">
+	                     <p class="m-0 txt-upload-file">
+	                         <span>Drap and drop file upload</span><br>
+	                         <i><span th:text="#{message.size.img} + ' (*.html;*.txt)'">Kích thước tối đa: 5MB </span></i>
+	                     </p>
+	                 </div>
+	                 <p class="m-0 txt-upload-file">or</p>
+	                 <button class="u-btn m-1 btn-upload-file">
+	                     <span>Select file</span>
+	                     <input type="file" name="file" multiple="multiple"/>
+						 <input type="hidden" name="companyId" id="companyIdTemplate" />
+						 <input type="hidden" name="nameFile" id="nameFile" />
+	                 </button>
+	                 <button class="u-btn btn-upload-file" type="button" id="btnImport"  th:title="#{email.send.upload.button}">
+                            <img th:src="@{/static/images/icon-down.png}" alt="" width="17px" class="rotate-180-ico">
+                      </button>
+	                 <div readonly="readonly" id="fileName"> 
+	                 	
+	                 </div>
+	                 <br>
+	                 <select class="form-control" id='teamplateDoc' ></select>
+	             </div>
+	             
+	      	</form>
+	      </div>
+	    	
+         <div class="col-right">
+             <div class="w80">
+				<div th:if="${companyList.size()>1}">
+					<label for="companyId" class="col-sm-3 align-top" th:text="#{company.detail}">Company</label>
+					<div class="col-sm-9">
+						<select class="col-sm-9 form-control select2 select-company" id = "companyIdSeclect"> 
+							<option th:each="company : ${companyList}" 
+									th:value="${company.id}"
+									th:text="${company.text}"
+									th:selected="${company.id}==${companyId}">
+							</option>
+						</select>
+					</div>
+					<hr>
+				</div>
+				<input type="hidden" id = "companyIdSeclect" th:value="${companyId}" th:unless="${companyList.size()>1}" />	
+				<div class="box-send-mail">
+					<form method="POST" id="frmSendEmail" role="form" th:object="${emailDto}"
+							class="form-horizontal u-for-page-top j-formSearch label95 j-form-validate">
+						<div id="message-list" class="col-md-12"></div>
+						<h4 class="title-box" th:text="#{email.new.mail}">New email</h4>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group einput-2">
+									<input class="form-control j-required j-multiemail" type="text" onkeyup="this.setAttribute('value', this.value);" value="" th:field="*{toString}" />
+									<label class="lb-einput" th:text="#{email.send.to}">To: </label>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group einput-2">
+									<input class="form-control j-multiemail" type="text" onkeyup="this.setAttribute('value', this.value);"  th:field="*{ccString}" />
+									<label class="lb-einput">CC: </label>
+									<label class="lb-bcc">BCC</label>
+								</div>
+							</div>
+							<div class="col-md-12 hide bcc-hide">
+								<div class="form-group einput-2">
+									<input class="form-control" type="text" onkeyup="this.setAttribute('value', this.value);" th:field="*{bccString}"/>
+									<label class="lb-einput">BCC: </label>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group ">
+									<div class="col-sm-10 p-0 einput-2">
+										<input  type="text" class="form-control j-required" th:field="*{subject}" onkeyup="this.setAttribute('value', this.value);" value=""/>
+										<label class="lb-einput" th:text="#{email.send.subject}">Subject: </label>
+									</div>
+									<div class="col-sm-2">
+										<label class="content-checkbox" style="margin-top: 10px">
+										  <input type="checkbox" th:field="*{flagSendImmediately}"/>
+										  <span class="checkmark"></span>
+										  <span th:text="#{email.send.immediately}"></span>
+										</label>
+										
+										<!-- <input type="checkbox" style="margin-top: 5px" th:field="*{flagSendImmediately}" /> <span>&nbsp;Immediately</span> -->
+									</div>
+								</div>
+							</div>
+							<input type="hidden" th:field="*{companyId}" />
+							<input type="hidden" th:field="*{emailContent}" />
+							<input type="hidden" th:field="*{uuidEmail}" />
+							<input type="hidden" th:field="*{templateId}" />
+							<input type="hidden" id="numberAttachFile" name="numberAttachFile" value="0"/>
+						</div>
+						
+					</form>
+					<form id="uploadAttach" method="post" th:action="@{/email/import/attach}" enctype="multipart/form-data" style="clear: both">
+						<div class="col-sm-12 p-0">
+							<div id="drop" class="form-group">
+								<a class="u-btn btn-upload-file btn-dotted">
+									<img th:src="@{/static/images/icon-attachment.png}" alt="" width="20px">
+									<span th:text="#{email.send.attach.file}"></span>
+								</a>
+								<i th:text="'('+${#strings.listJoin(listExt, ', ')}+')'"></i>
+								<input type="file" name="upl" multiple="multiple"/>
+								<input type="hidden" name="emailUuid" id="emailUuid"/>
+								<input type="hidden" name="companyId" id="companyIdAttach" class="hide"/>
+							</div>
+						</div>
+						<div class="col-sm-12 p-0">
+							<ul>
+								<div id="msgAttach"></div>
+								<!-- The file uploads will be shown here -->
+							</ul>
+						</div>
+					</form>
+					<div class="col-sm-12 textarea-body-mail box-body-email-list p-0" style="margin-top: 5px">
+						<div class="form-control" placeholder="Body email"  id="summernote"></div>
+					</div>
+				</div>
+             </div>
+         </div>
+     </div>
+
+	<script type="text/javascript" th:inline="text">    
+		var CHOOSE_TEMPLATE = '[[#{email.send.choose.template}]]';
+		var NOT_ACCEPT_FILE_TYPE = '[[#{import.file.word}]]';
+		var NOT_ATTACH_FILE_BIG = '[[${totalError}]]';
+		var ATTACH_FILE_EXT = '[[#{import.attach.file.ext}]]';
+		var EXT_ATTACH_FILE_LIST = '[[${listExt}]]';
+		var ATTACH_FILE_SIZE = '[[${fileSize}]]';
+		var NOT_ATTACH_FILE_ZERO = '[[#{import.attach.file.zero}]]';
+		var ATTACH_FILE_FAIL = '[[#{import.attach.fail}]]';
+		var FILE_SIZE_BIG = '[[#{message.error.email.template.file.size}]]';
+    	var FILE_NULL= '[[#{message.error.email.template.file}]]';
+    	var FILE_NOT_CORECT= '[[#{email.msg.error.upload.tempalte}]]';
+	</script>
+	<script type="text/javascript" th:src="@{/static/cache/js/template-email/template-email-upload.js}"></script>
+	<script type="text/javascript" th:src="@{/static/cache/js/email/email-send.js}"></script>
+	<script type="text/javascript" th:src="@{/static/cache/js/email/uploadFile.js}"></script>
+</body>
+</html>

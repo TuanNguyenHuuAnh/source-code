@@ -1,0 +1,4 @@
+SELECT COUNT(*) 
+FROM M_EVENTS_IMPORT
+WHERE
+	SESSION_KEY = /*sessionKey*/''

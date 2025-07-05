@@ -1,0 +1,2 @@
+DELETE JCA_API_DEVICE_TOKEN
+WHERE ID IN /*listDeviceTokenDelete*/()

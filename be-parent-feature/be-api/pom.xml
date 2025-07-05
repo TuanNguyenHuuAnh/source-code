@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+        <groupId>vn.com.unit.ep2p</groupId>
+        <artifactId>be-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+	<artifactId>dsuccess-api-uat</artifactId>
+	<packaging>war</packaging>
+	<name>dsuccess-api-uat</name>
+	<description>Project for Spring Boot</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+        <main.basedir>${project.basedir}/..</main.basedir>
+        <cxf.version>2.2.3</cxf.version>
+        
+        <SNAPSHOT.version>0.0.1-SNAPSHOT</SNAPSHOT.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-devtools</artifactId>
+		    <scope>provided</scope>
+		</dependency>
+		 <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-actuator</artifactId>
+	    </dependency>
+
+	    <dependency>
+            <groupId>vn.com.unit.ep2p</groupId>
+            <artifactId>be-api-config</artifactId>
+            <version>${SNAPSHOT.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>vn.com.unit.cms</groupId>
+            <artifactId>cms-core</artifactId>
+            <version>${SNAPSHOT.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>vn.com.unit.ep2p</groupId>
+            <artifactId>be-core</artifactId>
+            <version>${SNAPSHOT.version}</version>
+        </dependency>
+        <!-- Redis -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>2.0.9.RELEASE</version> <!--$NO-MVN-MAN-VER$-->
+        </dependency>
+
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.9.0</version> <!--$NO-MVN-MAN-VER$-->
+            <type>jar</type>
+        </dependency>
+
+        <dependency>
+        	<groupId>vn.com.unit.core</groupId>
+        	<artifactId>jcanary-workflow-activiti</artifactId>
+        	<version>0.0.1-SNAPSHOT</version>
+        	<exclusions>
+        		<exclusion>
+        			<groupId>org.slf4j</groupId>
+        			<artifactId>slf4j-log4j12</artifactId>
+        		</exclusion>
+        	</exclusions>
+        </dependency>
+        
+		 <dependency>
+			  <groupId>com.github.ua-parser</groupId>
+			  <artifactId>uap-java</artifactId>
+			  <version>1.4.3</version>
+		</dependency>
+  	</dependencies>
+	
+	<build>
+		<finalName>api</finalName>
+	</build>
+</project>

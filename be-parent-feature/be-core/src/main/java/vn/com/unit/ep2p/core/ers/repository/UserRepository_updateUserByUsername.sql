@@ -1,0 +1,1 @@
+UPDATE USERS SET NOTES = 'TEST' WHERE USERNAME = /*username*/'';

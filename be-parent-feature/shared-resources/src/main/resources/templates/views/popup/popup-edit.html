@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<script type="text/javascript"
+	th:src="@{/static/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/static/jquery/multiple-select/css/jquery.multiselect.css}" />
+<body>		
+	<div class="title-head">
+		<div class="row">
+			<div class="col-md-5">
+				<h3>
+					<i class="fa fa-table"></i>
+					<span th:text="#{email.template.title}">Tiêu đề trang</span>
+				</h3>
+			</div>
+		   	<div class="col-md-7">
+		        <div class="pull-right">
+					 <a class="u-btn u-btn-back" id="linkList">
+					 	<img th:src="@{/static/cache/images/icon-down.png}" alt="" width="17px" class="rotate-ico"/>
+					 	<span>Trở lại</span>
+					 </a>
+					 <a class="u-btn u-btn-primary" id = "add">
+		            	<img th:src="@{/static/cache/images/ico-plus-white.png}" alt="" />
+		                <span>Thêm mới</span>
+		             </a>
+					 <a class="btn-save u-btn u-btn-primary">
+						<img th:src="@{/static/cache/images/icon-save.png}" alt="" width="19px"/>
+						<span>Lưu</span>
+					</a>
+		        </div>
+		   </div>
+		</div>	
+	</div>
+	<form id="updateTemplate" class="form-horizontal u-for-page-top j-form-validate" th:object="${objectDto}" method="post" role="form" autocomplete="off">
+		<div id="message">
+			<th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+		</div>
+		<div class="bg-content clearfix">
+			<div class="header-box" style="margin-left: 13px;">
+				<h2 class="title-box" th:text="#{email.template.edit.title}"></h2>
+			</div>
+            <input type="hidden" th:field="*{id}" />
+            <div class="col-sm-12 p-0">
+            	<div class="form-group " th:classappend="${#fields.hasErrors('code')} ? has-error : ''">
+                    <label class="col-sm-2 required" for="code" th:text="#{email.template.code}">code</label>
+                    <div class="col-sm-10" >
+                        <input type="text" th:field="*{code}" class="form-control j-required j-maxlength input-text" maxlength="50" 
+                            style="text-transform: uppercase;"/>
+                        <span class="help-block" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></span>
+                    </div>
+                </div>
+                <div class="form-group " th:classappend="${#fields.hasErrors('name')} ? has-error : ''">
+                    <label class="col-sm-2 required" for="templateName" th:text="#{email.template.name.file}">templateName</label>
+                    <div class="col-sm-10" >
+                        <input type="text" th:field="*{name}" class="form-control j-required j-maxlength" maxlength="255"/>
+                        <span class="help-block" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                    </div>
+                </div>
+                <div class="form-group" th:if="${companyList.size()>1}">
+		            <label for="companyId" class="col-sm-2 align-top " th:text="#{company.detail}">Company</label>
+		            <div class="col-sm-10">
+			          	<select class="form-control select2" th:field="*{companyId}">
+			              	<option th:value="${NULL}" th:text="#{company.all}"></option>
+			               	<option th:each="company : ${companyList}" 
+			                     	th:value="${company.id}"
+			                       	th:text="${company.text}">
+			                </option>
+			            </select>
+		           	</div>
+		       </div>
+		       <input type="hidden" th:field="*{companyId}" th:unless="${companyList.size()>1}"/>
+
+                <div class="col-sm-12 textarea-body-mail box-body-email-list">
+					<!-- Email content -->
+					<div class="form-control" placeholder="#{email.template.content}"  id="content"></div>
+					<input type="hidden" class="contentText" th:field="*{templateContent}"/>
+				</div>
+			</div>
+			<div class="col-sm-12 no-padding" style="font-size: 12px;" id="listParam"></div>
+			<div class="col-xs-12 col-sm-12 footer-box-bg hide">
+                <a class="btn-cancel" id="btnCancel">
+                    <i class="fa fa-times"></i>
+                    <span th:text="#{cancel.button}">Thoát</span>
+                </a>
+                <!--th:if="${@roleConfig.hasRole(@CommonConstant.TODO +':Edit')}"-->
+                <a class="btn-common btn-save" id="btnSave">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                    <span th:text="#{save.button}">Lưu</span>
+                </a>
+            </div>
+		</div>
+	</form>
+	<input type="hidden" id="url" name="url" th:value="${objectDto.url}"/>
+	<!-- <div class="gr-btn-footer-popup">
+		<button id="checkParam" class="btn-common"><i class=" fa fa-search"></i><span th:text="#{email.template.check.param.button}">checkParam</span></button>
+	</div> -->
+	<script type="text/javascript" th:inline="text">
+		var LIST_PARAM = '[[${listParam}]]';
+        var MSG_ERROR = '[[#{data.validate.code}]]'
+	</script>
+	<script type="text/javascript" th:src="@{/static/js/popup/popup-edit.js}"></script>
+	</body>
+</html>

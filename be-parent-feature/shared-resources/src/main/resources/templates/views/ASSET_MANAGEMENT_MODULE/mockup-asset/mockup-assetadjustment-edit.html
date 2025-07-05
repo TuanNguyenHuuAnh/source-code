@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <script
+    type="text/javascript"
+    th:src="@{/static/jquery/multiple-select/js/jquery.multiselect.js}"
+  ></script>
+  <link
+    rel="stylesheet"
+    type="text/css"
+    th:href="@{/static/jquery/multiple-select/css/jquery.multiselect.css}"
+  />
+  <script>
+    $(document).ready(function ($) {
+      $("#linkList").on("click", function (event) {
+        var url = BASE_URL + "mockup?view-id=mockup.assetadjustment.list";
+        // Redirect to page add
+        ajaxRedirect(url);
+      });
+
+      $("#cancel").on("click", function (event) {
+        var url = BASE_URL + "mockup?view-id=mockup.assetadjustment.list";
+        // Redirect to page add
+        ajaxRedirect(url);
+      });
+
+      $(".datepicker").datepicker();
+
+      $("#btnAdd").on("click", function (event) {
+        showModal();
+      });
+
+      function showModal() {
+        $("#myModal").modal("show");
+        $("#myModal").css("z-index", 5000);
+      }
+    });
+  </script>
+  <style>
+    .pos-label {
+      position: relative;
+      top: -4px;
+    }
+  </style>
+  <body>
+    <div class="title-head clearfix">
+      <div class="col-sm-9 col-xs-7 no-padding">
+        <h3><i class="fa fa-table"></i> Asset Adjustment</h3>
+      </div>
+      <div class="col-sm-3 col-xs-5 icon-head">
+        <div class="pull-right">
+          <a
+            ><i class="fa fa-arrow-circle-left icon-head-red" id="linkList"></i
+          ></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content clearfix p-10 custom-lb">
+      <div id="profile" class="tab-pane fade in active">
+        <div class="bg-content clearfix bg-content-tbl">
+          <div
+            data-toggle="collapse"
+            data-target="#search-box-1"
+            class="header-box"
+          >
+            <h2 class="title-box">General Info</h2>
+            <i class="fa fa-minus pull-right" aria-hidden="true"></i>
+          </div>
+          <div class="collapse in row m-0" id="search-box-1">
+            <!-- Tranlth 27/05/2019 thay đổi vị trí Task #23724 -->
+            <div
+              class="form-group col-sm-6 no-padding"
+              style="margin-bottom: 0px"
+            >
+              <div class="form-group col-sm-12 no-padding">
+                <label class="col-sm-4">Asset Tag</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" disabled="disabled" />
+                </div>
+              </div>
+
+              <div class="form-group col-sm-12 no-padding">
+                <label class="col-sm-4">IMEI</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" disabled="disabled" />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-sm-6 no-padding">
+              <div class="col-sm-4">
+                <div class="col-sm-12 no-padding">
+                  <a class="btn-common" id="btnAdd">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    <span>Add</span>
+                  </a>
+                </div>
+                <label class="col-sm-12 no-padding">QR Code</label>
+              </div>
+
+              <div class="col-sm-8">
+                <img th:src="@{/static/images/qr_code.jpg}" width="60px" />
+              </div>
+              <!-- End -->
+            </div>
+
+            <div class="form-group col-sm-12 no-padding">
+              <label class="col-sm-2">Serial No</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+
+              <label class="col-sm-2">Asset Status</label>
+              <div class="col-sm-4">
+                <select class="form-control">
+                  <option value="">New</option>
+                  <option value="">In-Use</option>
+                  <option value="">Re-Use</option>
+                  <option value="">Write-off</option>
+                  <option value="">Lost</option>
+                  <option value="">Broken</option>
+                  <option value="">Repairing</option>
+                  <option value="">Obsolete</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group col-sm-12 no-padding">
+              <label class="col-sm-2">Register By</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+
+              <label class="col-sm-2">Register Date</label>
+              <div class="col-sm-4">
+                <div class="input-group date datepicker">
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="dd/mm/yyyy"
+                    autocomplete="off"
+                    disabled="disabled"
+                  />
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-sm-12 no-padding">
+              <label class="col-sm-2 required">Name of the Asset</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" />
+              </div>
+
+              <label class="col-sm-2">Asset Description</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+
+            <!-- End -->
+            <div class="form-group col-sm-12 no-padding">
+              <label class="col-sm-2">Asset Type</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+
+              <label class="col-sm-2">Asset Category</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+            </div>
+
+            <!-- Tranlth 27/05/2019 thêm mới Task #23724 -->
+            <div class="form-group col-sm-12 no-padding">
+              <label class="col-sm-2">Asset Sub-Category</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+
+              <label class="col-sm-2">Property of</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+            </div>
+            <!-- End -->
+
+            <div class="form-group col-sm-12 no-padding">
+              <label class="col-sm-2">Quantity</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+
+              <label class="col-sm-2">Unit of Measure</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+            </div>
+
+            <div class="form-group col-sm-12 no-padding">
+              <label class="col-sm-2">Purchase Price</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+
+              <label class="col-sm-2">Purchase Date</label>
+              <div class="col-sm-4">
+                <div class="input-group date datepicker">
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="dd/mm/yyyy"
+                    autocomplete="off"
+                    disabled="disabled"
+                  />
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-sm-12 no-padding">
+              <label class="col-sm-2">CPU</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" />
+              </div>
+
+              <label class="col-sm-2">RAM</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+
+            <div class="form-group col-sm-12 no-padding">
+              <label class="col-sm-2">HO-HDD</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" />
+              </div>
+
+              <label class="col-sm-2">OS</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+
+            <div class="form-group col-sm-12 no-padding">
+              <label class="col-sm-2 required">Transaction Type</label>
+              <div class="col-sm-4">
+                <select class="form-control">
+                  <option value=""></option>
+                  <option value="">Upgrade</option>
+                  <option value="">Liquidation</option>
+                </select>
+              </div>
+
+              <label class="col-sm-2 required">Transaction Date</label>
+              <div class="col-sm-4">
+                <div class="input-group date datepicker">
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="dd/mm/yyyy"
+                    autocomplete="off"
+                  />
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-sm-12 no-padding">
+              <label class="col-sm-2 required">Reason for Adjustment</label>
+              <div class="col-sm-10">
+                <textarea type="text" class="form-control"> </textarea>
+              </div>
+            </div>
+
+            <div class="form-group col-sm-12 no-padding">
+              <label class="col-sm-2">Note</label>
+              <div class="col-sm-10">
+                <textarea type="text" class="form-control"> </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-content clearfix bg-content-tbl">
+          <div
+            data-toggle="collapse"
+            data-target="#search-box-2"
+            class="header-box"
+          >
+            <h2 class="title-box">Reference Information</h2>
+            <i class="fa fa-minus pull-right" aria-hidden="true"></i>
+          </div>
+          <div class="collapse in row m-0" id="search-box-2">
+            <div class="form-group col-sm-12 no-padding">
+              <label class="col-sm-2">Vendor</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+              <label class="col-sm-2">Contract No</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+            </div>
+            <div class="form-group col-sm-12 no-padding">
+              <label class="col-sm-2">Invoice Number</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+              <label class="col-sm-2 required">PR No</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+            </div>
+            <div class="form-group col-sm-12 no-padding">
+              <label class="col-sm-2 required">PO No</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+
+              <label class="col-sm-2 required">Receipt No</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+            </div>
+            <div class="form-group col-sm-12 no-padding">
+              <label class="col-sm-2 required">Receipent</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+
+              <label class="col-sm-2 required">Receipt Date</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+            </div>
+            <div class="form-group col-sm-12 no-padding">
+              <label class="col-sm-2 required">Payment No</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+
+              <label class="col-sm-2 required">Payment Date</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-content clearfix bg-content-tbl">
+          <div
+            data-toggle="collapse"
+            data-target="#search-box-3"
+            class="header-box"
+          >
+            <h2 class="title-box">Management Information</h2>
+            <i class="fa fa-minus pull-right" aria-hidden="true"></i>
+          </div>
+          <div class="collapse in row m-0" id="search-box-3">
+            <div class="form-group col-sm-12 no-padding">
+              <label class="col-sm-2 required">Office Location</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+              <label class="col-sm-2 required">Warehouse</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+            </div>
+            <div class="form-group col-sm-12 no-padding">
+              <label class="col-sm-2 required">Warehouse Keeper</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+              <label class="col-sm-2 required">Contact</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+            </div>
+
+            <div class="form-group col-sm-12 no-padding">
+              <label class="col-sm-2 required">Asset Owner</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+              <label class="col-sm-2 required">Dept.</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" disabled="disabled" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tranlth 27/05/2019 bỏ Task #23724 -->
+        <!-- process -->
+        <th:block
+          th:include="views/mockup/mockup-process-maker-checker.html :: content"
+        />
+        <!-- End -->
+      </div>
+      <div
+        class="modal fade"
+        id="myModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="myModalLabel"
+      >
+        <div
+          class="modal-dialog"
+          role="document"
+          style="width: 80%; max-width: 80%"
+        >
+          <div class="modal-content">
+            <div class="modal-header">
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title" id="myModalLabel">Asset Profile</h4>
+            </div>
+            <div class="modal-body">
+              <div class="col-sm-12 p-0">
+                <th:block
+                  th:include="/views/ASSET_MANAGEMENT_MODULE/mockup-asset/mockup-assetadjustment-model-list.html :: content"
+                />
+              </div>
+            </div>
+            <div align="center">
+              <!-- Tranlth 27/05/2019 thêm mới add và bỏ Ok + Cancel Task #23724 -->
+              <a
+                href="#"
+                class="btn-common btn-in-tablet"
+                data-dismiss="modal"
+                id="btnOK"
+                ><i class="fa fa-plus-circle"></i> Add</a
+              >
+              <a href="#" class="btn-cancel" data-dismiss="modal"
+                ><i class="fa fa-times"></i> Close</a
+              >
+              <!-- End -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

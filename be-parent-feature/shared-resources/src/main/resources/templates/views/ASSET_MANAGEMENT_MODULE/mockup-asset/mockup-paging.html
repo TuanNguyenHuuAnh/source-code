@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+    <div class="col-sm-12 p-0">
+            <div class="col-sm-12 bg-table-navigation">            	            
+                <nav>
+                    <ul class="pagination pagination-sm mar-tb-no pull-right">
+                        
+                        <li>
+                            <a href="#" data-page="1" th:text="#{table.page.first}" class="j-page"></a>
+                        </li>
+                    
+                    
+                        <li>
+                            <a href="#" class="j-page">«</a>
+                        </li>
+                        
+                        <li class="active"><span>1</span></li>
+                        
+                        <li>
+                            <a href="javascript:void(0)" class="j-page" data-page="2">2</a>
+                        </li>
+                        
+                        <li>
+                            <a href="#" class="j-page">»</a>
+                        </li>
+                        
+                        <li>
+                            <a href="#" th:text="#{table.page.last}" class="j-page"></a>
+                        </li></ul>
+                    <span class="form-inline pull-right pagination-select">
+                        <span class="blu" th:text="#{table.page.label}">Trang</span>
+                        <span class="form-group input-group input-group-sm">
+                            <select class="form-control input-sm select-page select2">
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                            </select>
+                        </span>
+                    </span>
+                </nav>
+            </div>
+        </div>
+    
+</body>
+</html>
+

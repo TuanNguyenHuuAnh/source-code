@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" th:href="@{/static/jquery/multiple-select/css/jquery.multiselect.css}" />
+<script type="text/javascript" th:src="@{/static/plugins/jquery-file-upload/js/jquery.fileupload.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/jquery-file-upload/js/jquery.fileupload-ui.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/jquery-file-upload/js/jquery.iframe-transport.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/jquery-file-upload/js/vendor/jquery.ui.widget.js}"></script>
+
+<!-- BODY START -->
+<body th:fragment="content">
+    <div class="col-sm-12 no-padding">
+        <div class="header-box">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="title-box" th:text="#{common.import.import.result}">Import Results</h5>
+                </div>
+                <div class="col-md-8">
+                    <a class="u-btn-orange u-btn-effect pull-right mockExport" id="btnExportExcel">
+                        <i class="fa fa-download" aria-hidden="true"></i> <span
+                        th:text="' '+#{common.import.export.result}"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 no-padding">
+        <div class="table-responsive">
+            <table id="tblDataTable" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th th:text="#{common.import.no}">No.</th>
+						<th th:text="#{common.import.message.error}">Message Error</th>
+						<th th:text="#{class.info.class.type}">Class Type</th>
+						<th th:text="#{class.info.class.code}">Class Code</th>
+						<th th:text="#{class.info.online.offline}">Online Offline</th>
+						<th th:text="#{class.info.province}">Province</th>
+						<th th:text="#{class.info.start.date}">Start Date</th>
+						<th th:text="#{class.info.end.date}">End Date</th>
+						<th th:text="#{class.info.exam.date}">Exam Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                     <tr th:each="item,i : ${pageWrapper.data}" th:with="startIndex=${pageWrapper.startIndexCurrent}"
+                        th:attr="data-id=${item.id}">
+                        <td class="text-center inline-text" th:text="${i.index + startIndex}"></td>
+                        <td class="text-left error inline-text"
+                            onclick="detailMessageImport(this)" style="cursor: pointer;" >
+                            <span th:if="${item.messageError}" th:text="#{common.import.message.error.view}">View error detail</span>
+                            <span th:unless="${item.messageError}"></span>
+                            <input type="hidden" th:value="${item.messageError}" />
+                        </td>
+                        <td class="text-left" th:text="${item.classType}"></td>
+						<td class="text-left inline-text" th:text="${item.classCode}"></td>
+						<td class="text-left inline-text" th:text="${item.onlineOffline}"></td>
+						<td class="text-left inline-text" th:text="${item.province}"></td>
+						<td class="text-center" th:text="${item.startDate} ? ${#dates.format(item.startDate, @menuConfig.getFormDate())}"></td>
+						<td class="text-center" th:text="${item.endDate} ? ${#dates.format(item.endDate, @menuConfig.getFormDate())}"></td>
+						<td class="text-center" th:text="${item.examDate} ? ${#dates.format(item.examDate, @menuConfig.getFormDate())}"></td>
+                	</tr>
+                    
+                    <th:block th:if="${pageWrapper.countAll == 0}">
+                        <tr>
+                            <!-- # -->
+                            <td th:colspan="13" th:text="#{search.results.no.data}">No data</td>
+                        </tr>
+                    </th:block>
+                </tbody>
+            </table>
+        </div>
+        
+        
+        <script type="text/javascript" th:src="@{/static/js/plupload-3.1.2/plupload.full.min.js}"></script>
+        
+        <input type="hidden" id="sessionKey" name="sessionKey" th:value="${sessionKey}" />
+        
+        <input type="hidden" id="isError" name="isError" th:value="${searchDto.isError()}" />
+        
+        <input type="hidden" id="error" name="isError" th:value="${error}" />
+    </div>
+    </div>
+    
+    <!-- PAGINATION -->
+    <th:block th:include="views/commons/pagination.html :: content"/>
+    
+    <th:block th:include="views/common-import-excel/import-button.html :: content"/>
+  	<div class="modal fade" id="modal-import-message-error">
+        <th:block th:include="views/common-import-excel/popup-message-error.html :: content" />
+    </div>
+    
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var sessionKey = /*[[${sessionKey}]]*/;
+        var CONTROLLER_URL = /*[[${controllerUrl}]]*/;
+        var IS_ERROR = /*[[${searchDto.isError()}]]*/;
+        var IS_SUBMIT = /*[[${searchDto.isSubmit()}]]*/;
+    /*]]>*/
+    </script>
+  	<script type="text/javascript" th:src="@{/static/cache/js/import-excel/import-excel-table.js}"></script>
+</body>
+<!-- BODY END -->
+</html>

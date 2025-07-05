@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+		<link rel="stylesheet" type="text/css" th:href="@{/static/jquery/row-sorter/style/row-sorter.css}"/>
+		<script type="text/javascript" th:src="@{/static/jquery/row-sorter/row-sorter.js}"></script>
+		
+		<script th:inline="javascript">
+		 	/*<![CDATA[*/
+			var CUSTOMER_ALIAS = [[${customerAlias}]];
+			/*]]>*/
+		 </script>
+		
+		<div class="row main-heading ">
+			<div class="row unit-border-bottom">
+				<div class="col-sm-8 col-xs-6">
+					<h3 class="mar-tb-no red" th:text="#{product.category.sort.title}">Tiêu đề trang</h3>
+				</div>
+				<div class="col-sm-4 col-xs-6 align-right ml-auto">
+			        <a class="u-btn-head" id="linkList">
+						<img th:src="@{/static/icons/icon-back.png}"/>
+						<span th:title="#{icon.back}">Trở lại</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		
+		<form class="form-horizontal u-for-page-top" th:object="${searchDto}" method="POST" role="form">
+			<th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+			<div class="row unit-bg-com">
+				<div  data-target="#search-box" class="header-box cursor-point">							
+					<h2 class="sub-header section-heading hide-title" th:text="#{search.title}">Vùng tìm kiếm</h2>
+				</div>
+			</div>
+			
+			<input type="hidden" th:field="*{code}"/>
+			<input type="hidden" th:field="*{name}"/>
+			<input type="hidden" th:field="*{status}"/>
+			<input type="hidden" th:field="*{enabled}"/>
+			<input type="hidden" th:field="*{pictureIntroduction}"/>
+			<input type="hidden" th:field="*{typeOfMain}"/>
+		</form>
+		
+		<div class="row unit-bg-table" id="tableList">
+			<th:block th:include="views/introduction/category/introduction-category-table-sort.html :: content"/>
+		</div>
+		<input type="hidden" id="url" th:value="${pageUrl}"/>
+		
+		<div class="col-xs-12 col-sm-12 unit-button">
+			<button id="btnSave" type="button" class="btn-common">
+				<i class="fa fa-save"></i> <span  th:text="#{save.button}">Lưu</span>
+			</button>
+		</div>
+</html>
+

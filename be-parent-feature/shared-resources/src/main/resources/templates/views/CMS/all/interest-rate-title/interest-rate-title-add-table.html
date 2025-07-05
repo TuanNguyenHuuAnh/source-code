@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <body th:fragment="content">
+    <div class="col-xs-12 col-sm-12 no-padding p-0">
+      <div class="pull-right">
+        <p
+          id="btnAddCom"
+          style="cursor: pointer"
+          th:if="${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.BUTTON_INTEREST_RATE_TITLE_EDIT}__:Edit'')')}"
+        >
+          <img th:src="@{/static/icons/icon-plus-blue.png}" />
+        </p>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 no-padding">
+      <div class="table-responsive">
+        <table
+          id="addTable"
+          class="table table-bordered table-hover out-tbl"
+          style="min-width: 100%; width: 1400px"
+        >
+          <thead>
+            <tr>
+              <th class="u_t_no">#</th>
+              <th class="u_t_action" th:text="#{action.label}">Thao tác</th>
+              <th:block th:each="language, i : ${languageList}">
+                <th th:text="${language.name}"></th>
+              </th:block>
+            </tr>
+          </thead>
+          <tbody>
+            <th:block th:if="${not #lists.isEmpty(lstDtoEdit)}">
+              <th:block th:each="item,i : ${lstDtoEdit}">
+                <tr>
+                  <td class="text-center stt" th:text="${i.index + 1}"></td>
+                  <td class="text-center" style="width: 80px">
+                    <a
+                      class="
+                        j-btn-delete
+                        glyphicon glyphicon-remove-sign
+                        font-size-20
+                        red
+                        menudelete
+                      "
+                      th:title="#{icon.delete}"
+                      th:if="${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.BUTTON_INTEREST_RATE_TITLE_EDIT}__:Edit'')')}"
+                    >
+                    </a>
+                  </td>
+                  <th:block th:each="dto, j : ${item}">
+                    <td hidden="hidden">
+                      <input
+                        class="form-control id-title"
+                        type="hidden"
+                        th:value="${dto.id}"
+                        th:name="'datas[' + ${i.index * #lists.size(languageList) + j.index} + '].id'"
+                      />
+                    </td>
+                    <td hidden="hidden">
+                      <input
+                        class="form-control type-title"
+                        type="hidden"
+                        th:value="${dto.interestRateType}"
+                        th:name="'datas[' + ${i.index * #lists.size(languageList) + j.index} + '].interestRateType'"
+                      />
+                    </td>
+                    <td hidden="hidden">
+                      <input
+                        class="form-control language-title"
+                        type="hidden"
+                        th:value="${dto.languageCode}"
+                        th:name="'datas[' + ${i.index * #lists.size(languageList) + j.index} + '].languageCode'"
+                      />
+                    </td>
+                    <td hidden="hidden">
+                      <input
+                        class="form-control customer-title"
+                        type="hidden"
+                        th:value="${dto.customerTypeId}"
+                        th:name="'datas[' + ${i.index * #lists.size(languageList) + j.index} + '].customerTypeId'"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        class="form-control j-required interest-rate-title"
+                        th:value="${dto.title}"
+                        th:name="'datas[' + ${i.index * #lists.size(languageList) + j.index} + '].title'"
+                      />
+                    </td>
+                  </th:block>
+                </tr>
+              </th:block>
+            </th:block>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

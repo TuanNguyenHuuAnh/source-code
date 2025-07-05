@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+
+	<div class="table-responsive">
+		<table id="data-router"
+			class="table table-bordered table-striped table-hover">
+			<thead>
+				<tr>
+					<th class="no">#</th>
+					<th th:text="#{jpm.process.router.code}">Code</th>
+					<th th:text="#{jpm.process.router.name}">Name</th>
+					<th th:text="#{jpm.process.param.data.type}">data Type</th>
+					<th class="u_t_action" th:text="#{action.label}">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:if="${objectDto.listJpmRouterDto != null}">
+					<th:block th:each="_item,i : ${objectDto.listJpmRouterDto}">
+						<tr class="db-click" th:attr="data-jpm-router-id=${_item.id}">
+							<td class="text-center" th:text="${i.index + 1 }"></td>
+							<td th:text="${_item.code}"></td>
+							<td th:text="${_item.name}"></td>
+							<td th:text="${_item.dataType}"></td>
+							<td class="text-center">
+								<div class="btn-group">
+									<a class="btn-edit" data-toggle="modal"
+										data-target="#router-modal"><i
+										class="glyphicon glyphicon-edit custom-icon"></i></a>
+								</div>
+							</td>
+						</tr>
+					</th:block>
+				</th:block>
+				<th:block
+					th:if="${objectDto.listJpmRouterDto==null || objectDto.listJpmRouterDto.size()==0}">
+					<tr>
+						<td colspan="100%" th:text="#{table.emptyTable.label}"></td>
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

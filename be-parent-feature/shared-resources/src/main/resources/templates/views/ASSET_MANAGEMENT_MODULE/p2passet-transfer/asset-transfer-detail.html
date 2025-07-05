@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+  <script
+    type="text/javascript"
+    th:src="@{/static/plugins/daterangepicker/moment.js}"
+  ></script>
+  <script
+    type="text/javascript"
+    th:src="@{/static/jquery/multiple-select/js/jquery.multiselect.js}"
+  ></script>
+  <link
+    rel="stylesheet"
+    type="text/css"
+    th:href="@{/static/jquery/multiple-select/css/jquery.multiselect.css}"
+  />
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    	var msgAssetDetail 		= /*[[#{asset-transfer.error.list-detail.required}]]*/ ;
+    	var msgAssetAdd 		= /*[[#{asset-transfer.error.list-detail.select-option}]]*/ ;
+    	var msgInvalidReceiver  = 'Invalid Receiver';
+    /*]]>*/
+  </script>
+  <!-- header page start -->
+  <div class="title-head clearfix">
+    <div class="col-sm-9 col-xs-7 no-padding">
+      <h3><i class="fa fa-table"></i>Asset Transfer</h3>
+    </div>
+    <div class="col-sm-3 col-xs-5 icon-head">
+      <div class="pull-right">
+        <a
+          class="pdf-icon pos-label"
+          id="btnExportPdf"
+          title="Export PDF"
+          th:if="${'99'== p2pAssetTransferDto.processStatusCode}"
+        >
+          <i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;
+        </a>
+        <a>
+          <i
+            class="fa fa-arrow-circle-left icon-head-red"
+            th:title="#{back.button}"
+            id="linkList"
+          ></i>
+        </a>
+        <!-- <a> <i class="fa fa-plus-circle icon-head-red" id="add"
+				title="Add"
+				th:if="${#authorization.expression('hasAuthority(''__${T(vn.com.unit.asset.constant.RoleConst).ROLE_ASSET_MANAGEMENT_SUBMIT}__'')')}"></i>
+			</a> -->
+      </div>
+    </div>
+  </div>
+
+  <form
+    class="form-horizontal u-for-page-top j-form-validate"
+    id="form-assettransfer-edit"
+    method="post"
+    role="form"
+    th:object="${p2pAssetTransferDto}"
+  >
+    <div id="message-list">
+      <th:block
+        th:include="/views/ASSET_MANAGEMENT_MODULE/commons/message-alert.html :: content(${messageList})"
+      />
+    </div>
+    <input
+      type="hidden"
+      th:name="${_csrf.parameterName}"
+      th:value="${_csrf.token}"
+    />
+    <!-- DETAIL -->
+    <!-- process Title, Code, Name, Description start -->
+    <div class="bg-content clearfix bg-content-tbl">
+      <div
+        data-toggle="collapse"
+        data-target="#information-box"
+        class="header-box"
+      >
+        <h2 class="title-box">
+          <span th:text="#{asset-transfer.information.title}"
+            >Transfer Information</span
+          >
+        </h2>
+        <i class="fa fa-minus pull-right" aria-hidden="true"></i>
+      </div>
+      <div class="collapse in row m-0" id="information-box">
+        <div class="col-sm-12 p-0">
+          <div class="form-group">
+            <label
+              class="col-sm-2 required"
+              th:text="#{asset-transfer.transferNo}"
+              >Transfer No</label
+            >
+            <div class="col-sm-4">
+              <input
+                type="text"
+                class="form-control"
+                disabled="disabled"
+                th:field="*{transferNo}"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-2" th:text="#{asset-transfer.createDate}"
+                >Create Date</label
+              >
+              <div class="col-sm-4">
+                <div class="input-group date datepicker">
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="dd/mm/yyyy"
+                    autocomplete="off"
+                    disabled="disabled"
+                    th:field="*{requestDate}"
+                  />
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label
+              class="col-sm-2 required"
+              th:text="#{asset-transfer.transferType}"
+              >Transfer Type</label
+            >
+            <div class="col-sm-4">
+              <select
+                class="form-control"
+                id="transferType"
+                disabled="disabled"
+                th:field="*{transferType}"
+              >
+                <option value="Stock">From Stock to Stock</option>
+                <option value="Vendor">From Stock to Vendor</option>
+              </select>
+            </div>
+            <label class="col-sm-2" th:text="#{asset-transfer.transferredDate}"
+              >Transferred Date</label
+            >
+            <div class="col-sm-4">
+              <div class="input-group date datepicker">
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="dd/mm/yyyy"
+                  autocomplete="off"
+                  disabled="disabled"
+                  th:field="*{transferredDate}"
+                />
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label
+              class="col-sm-2 required"
+              th:text="#{asset-transfer.requester}"
+              >Requester Transfer</label
+            >
+            <div class="col-sm-4">
+              <input
+                type="text"
+                class="form-control"
+                readonly="readonly"
+                disabled="disabled"
+                th:field="*{requesterFullName}"
+              />
+            </div>
+
+            <label
+              id="lbReceiver"
+              class="col-sm-2"
+              th:text="#{asset-transfer.receiver}"
+              >Receiver</label
+            >
+            <div class="col-sm-4">
+              <input
+                type="text"
+                class="form-control"
+                disabled="disabled"
+                th:field="*{receiverFullName}"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 required" th:text="#{asset-transfer.reason}"
+              >Reason for Transfer</label
+            >
+            <div class="col-sm-10">
+              <textarea
+                type="text"
+                class="form-control j-required"
+                disabled="disabled"
+                th:field="*{reasonForTransfer}"
+              >
+              </textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-content clearfix bg-content-tbl">
+      <div
+        data-toggle="collapse"
+        data-target="#transferFrom-box"
+        class="header-box"
+      >
+        <h2 class="title-box">
+          <span th:text="#{asset-transfer.from.title}">Transfer From</span>
+        </h2>
+        <i class="fa fa-minus pull-right" aria-hidden="true"></i>
+      </div>
+      <div class="collapse in row m-0" id="transferFrom-box">
+        <div class="col-sm-12 p-0">
+          <div class="form-group">
+            <label
+              class="col-sm-2 required"
+              th:text="#{asset-transfer.sourceLocation}"
+              >Source Location</label
+            >
+            <div class="col-sm-4">
+              <select
+                class="form-control j-required"
+                disabled="disabled"
+                th:field="*{fromLocationCode}"
+              >
+                1
+                <option value="">--</option>
+                <option
+                  th:each="item : ${lstAssetLocation}"
+                  th:attr="data-locationname=${item.name}"
+                  th:value="${item.id}"
+                  th:text="${item.name}+'&#32;&#45;&#32;'+ ${item.text}"
+                  th:selected="*{fromLocationCode} == ${item.id}"
+                ></option>
+              </select>
+            </div>
+
+            <div class="col-sm-6 no-padding">
+              <div class="form-group">
+                <label
+                  class="col-sm-4 required"
+                  th:text="#{asset-transfer.warehouse}"
+                  >Warehouse</label
+                >
+                <div class="col-sm-8">
+                  <select
+                    class="form-control j-required"
+                    id="warehousefrom"
+                    disabled="disabled"
+                  >
+                    <option value="" th:text="--"></option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label
+                  class="col-sm-4 required"
+                  th:text="#{asset-transfer.sourceCustodian}"
+                  >Source Custodian</label
+                >
+                <div class="col-sm-8">
+                  <input
+                    class="form-control"
+                    type="text"
+                    disabled="disabled"
+                    id="custodianfrom"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-content clearfix bg-content-tbl">
+      <div
+        data-toggle="collapse"
+        data-target="#transferTo-box"
+        class="header-box"
+      >
+        <h2 class="title-box">
+          <span th:text="#{asset-transfer.to.title}">Transfer To</span>
+        </h2>
+        <i class="fa fa-minus pull-right" aria-hidden="true"></i>
+      </div>
+      <div class="collapse in row m-0" id="transferTo-box">
+        <div class="col-sm-12 p-0">
+          <div class="form-group" id="stock">
+            <label
+              class="col-sm-2 required"
+              th:text="#{asset-transfer.destinationLocation}"
+              >Destination Location</label
+            >
+            <div class="col-sm-4">
+              <select
+                class="form-control"
+                disabled="disabled"
+                th:field="*{toLocationCode}"
+              >
+                <option value="" th:text="--"></option>
+                <option
+                  th:each="item : ${lstAssetLocation}"
+                  th:attr="data-locationname=${item.name}"
+                  th:value="${item.id}"
+                  th:text="${item.name}+'&#32;&#45;&#32;'+ ${item.text}"
+                  th:selected="*{toLocationCode} == ${item.id}"
+                ></option>
+              </select>
+            </div>
+
+            <div class="col-sm-6 no-padding">
+              <div class="form-group">
+                <label
+                  class="col-sm-4 required"
+                  th:text="#{asset-transfer.warehouse}"
+                  >Warehouse</label
+                >
+                <div class="col-sm-8">
+                  <select
+                    class="form-control"
+                    id="warehouseto"
+                    name="warehouseto"
+                    disabled="disabled"
+                  >
+                    <option value="">--</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label
+                  class="col-sm-4 required"
+                  th:text="#{asset-transfer.destinationCustodian}"
+                  >Destination Custodian</label
+                >
+                <div class="col-sm-8">
+                  <input
+                    class="form-control"
+                    type="text"
+                    readonly="readonly"
+                    id="custodianto"
+                    name="custodianto"
+                    disabled="disabled"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <input type="hidden" th:field="*{requesterUserName}" />
+          <input type="hidden" th:field="*{receiverUserName}" />
+          <input type="hidden" th:field="*{fromLocationName}" />
+          <input type="hidden" th:field="*{fromWarehouseName}" />
+          <input type="hidden" th:field="*{toLocationName}" />
+          <input type="hidden" th:field="*{toWarehouseName}" />
+          <input type="hidden" th:field="*{toWarehouseCode}" />
+          <input type="hidden" th:field="*{fromWarehouseCode}" />
+          <input type="hidden" th:field="*{toCustodian}" />
+          <input type="hidden" th:field="*{fromCustodian}" />
+
+          <div class="form-group" id="vendor" style="display: none">
+            <label class="col-sm-2 required">Destination Location</label>
+            <div class="col-sm-4">
+              <input
+                type="text"
+                class="form-control"
+                id="desLocation"
+                name="desLocation"
+                disabled="disabled"
+              />
+            </div>
+
+            <div class="col-sm-6 no-padding">
+              <div class="form-group">
+                <label class="col-sm-4 required">Vendor</label>
+                <div class="col-sm-8">
+                  <select
+                    class="form-control"
+                    id="vendorSelect"
+                    name="vendorSelect"
+                    disabled="disabled"
+                  >
+                    <option value="">--</option>
+                    <option
+                      th:each="item : ${lstVendor}"
+                      th:value="${item.name}"
+                      th:text="${item.name}"
+                      th:attr="data-person=${item.text},data-deslocation=${item.id}"
+                      th:selected="*{toWarehouseName} == ${item.name}"
+                    ></option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 required">Contact Person</label>
+                <div class="col-sm-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    readonly="readonly"
+                    id="contactPerson"
+                    name="contactPerson"
+                    disabled="disabled"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-content clearfix bg-content-tbl">
+      <div
+        data-toggle="collapse"
+        data-target="#assetDetail-box"
+        class="header-box"
+      >
+        <h2 class="title-box">
+          <span>Asset Detail Information</span>
+        </h2>
+        <i class="fa fa-minus pull-right" aria-hidden="true"></i>
+      </div>
+      <div class="collapse in row m-0" id="assetDetail-box">
+        <div class="col-sm-12 p-0">
+          <div class="col-sm-12 no-padding form-group">
+            <label
+              class="col-sm-2 required"
+              th:text="#{asset-transfer.propertyOf}"
+              >Property Of</label
+            >
+            <div class="col-sm-4">
+              <select
+                class="form-control"
+                th:field="*{propertyOf}"
+                disabled="disabled"
+              >
+                <option
+                  th:each="item : ${lstPropertyOf}"
+                  th:value="${item.cat}"
+                  th:text="${item.catOfficialName}"
+                ></option>
+              </select>
+            </div>
+
+            <div class="pull-right">
+              <a
+                th:if="${p2pAssetTransferDto.hasEdit}"
+                class="btn-common"
+                id="btnAdd"
+              >
+                <i class="fa fa-plus" aria-hidden="true"></i> <span>Add</span>
+              </a>
+              <a
+                th:if="${!p2pAssetTransferDto.hasEdit}"
+                style="opacity: -1; cursor: default"
+                class="btn-common"
+                id="btnUnknown"
+              >
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                <span>Add</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-sm-12 p-0">
+            <div class="table-responsive col-sm-12 no-padding">
+              <table
+                id="tblDataTable"
+                class="table table-bordered table-striped"
+              >
+                <thead>
+                  <tr>
+                    <th style="min-width: 155px">Asset Type</th>
+                    <th style="min-width: 155px">Name of the Asset</th>
+                    <th style="min-width: 50px">Asset Sub Category</th>
+                    <th style="min-width: 50px">Asset Category</th>
+                    <th style="min-width: 180px">Serial No</th>
+                    <th style="min-width: 100px">Asset Tag</th>
+                    <th style="min-width: 120px">Quantity</th>
+                    <th style="min-width: 200px">Unit of Measure</th>
+                    <th style="min-width: 120px">Transfer Quantity</th>
+                  </tr>
+                </thead>
+                <tbody
+                  id="assetSelected"
+                  th:attr="data-location=${p2pAssetTransferDto.fromLocationCode},data-propertyof=${p2pAssetTransferDto.propertyOf}"
+                >
+                  <!-- list asset duoc chon -->
+                  <th:block th:each="asset,i  : ${listAssetTransferDetail}">
+                    <tr th:attr="data-asset-tag=${asset.assetTag}">
+                      <td
+                        th:text="${asset.assetTypeName}"
+                        class="text-left"
+                      ></td>
+                      <td th:text="${asset.assetName}" class="text-left"></td>
+                      <td
+                        th:text="${asset.assetSubCategoryName}"
+                        class="text-left"
+                      ></td>
+                      <td
+                        th:text="${asset.assetCategoryName}"
+                        class="text-left"
+                      ></td>
+                      <td th:text="${asset.serialNo}" class="text-left"></td>
+                      <td th:text="${asset.assetTag}" class="text-left"></td>
+                      <td th:text="${asset.quantity}" class="text-center"></td>
+                      <td th:text="${asset.uomName}" class="text-left"></td>
+
+                      <td hidden="hidden">
+                        <input
+                          type="text"
+                          th:field="*{lstData[__${i.index}__].assetTypeName}"
+                        />
+                      </td>
+                      <td hidden="hidden">
+                        <input
+                          type="text"
+                          th:field="*{lstData[__${i.index}__].assetName}"
+                        />
+                      </td>
+                      <td hidden="hidden">
+                        <input
+                          type="text"
+                          th:field="*{lstData[__${i.index}__].assetSubCategoryName}"
+                        />
+                      </td>
+                      <td hidden="hidden">
+                        <input
+                          type="text"
+                          th:field="*{lstData[__${i.index}__].assetCategoryName}"
+                        />
+                      </td>
+                      <td hidden="hidden">
+                        <input
+                          type="text"
+                          th:field="*{lstData[__${i.index}__].serialNo}"
+                        />
+                      </td>
+                      <td hidden="hidden">
+                        <input
+                          type="text"
+                          th:field="*{lstData[__${i.index}__].assetTag}"
+                        />
+                      </td>
+                      <td hidden="hidden">
+                        <input
+                          type="text"
+                          th:field="*{lstData[__${i.index}__].quantity}"
+                        />
+                      </td>
+                      <td hidden="hidden">
+                        <input
+                          type="text"
+                          th:field="*{lstData[__${i.index}__].uomCode}"
+                        />
+                      </td>
+
+                      <td hidden="hidden">
+                        <input
+                          type="text"
+                          th:field="*{lstData[__${i.index}__].assetTypeCode}"
+                        />
+                      </td>
+                      <td hidden="hidden">
+                        <input
+                          type="text"
+                          th:field="*{lstData[__${i.index}__].assetDescription}"
+                        />
+                      </td>
+                      <td hidden="hidden">
+                        <input
+                          type="text"
+                          th:field="*{lstData[__${i.index}__].assetOwnerUsername}"
+                        />
+                      </td>
+                      <td hidden="hidden">
+                        <input
+                          type="text"
+                          th:field="*{lstData[__${i.index}__].assetOwnerFullname}"
+                        />
+                      </td>
+                      <td hidden="hidden">
+                        <input
+                          type="text"
+                          th:field="*{lstData[__${i.index}__].assetOwnerDept}"
+                        />
+                      </td>
+                      <td hidden="hidden">
+                        <input
+                          type="text"
+                          th:field="*{lstData[__${i.index}__].assetSubCategoryCode}"
+                        />
+                      </td>
+                      <td hidden="hidden">
+                        <input
+                          type="text"
+                          th:field="*{lstData[__${i.index}__].assetCategoryCode}"
+                        />
+                      </td>
+                      <td hidden="hidden">
+                        <input
+                          type="text"
+                          th:field="*{lstData[__${i.index}__].assetStatus}"
+                        />
+                      </td>
+                      <td hidden="hidden">
+                        <input
+                          type="text"
+                          th:field="*{lstData[__${i.index}__].assetRegisterDate}"
+                        />
+                      </td>
+                      <td hidden="hidden">
+                        <input
+                          type="text"
+                          th:field="*{lstData[__${i.index}__].companyCode}"
+                        />
+                      </td>
+                      <!-- <td hidden="hidden"><input type="text" th:field="*{lstData[__${i.index}__].transferQuantity}" /></td> -->
+                      <td>
+                        <input
+                          th:field="*{lstData[__${i.index}__].transferQuantity}"
+                          disabled="disabled"
+                          type="number"
+                          min="1"
+                          th:max="${asset.quantity}"
+                          class="form-control j-required"
+                        />
+                      </td>
+                    </tr>
+                  </th:block>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <th:block th:include="/views/ASSET_MANAGEMENT_MODULE/p2passet-transfer/process.html :: content" /> -->
+    <input type="hidden" th:field="*{confirmedFlag}" />
+    <input type="hidden" th:field="*{updatedBy}" />
+    <input type="hidden" th:field="*{updatedDatee}" />
+    <input type="hidden" th:field="*{id}" />
+    <input type="hidden" th:field="*{url}" />
+    <input type="hidden" th:value="${refAttachment}" th:name="refAttachment" />
+    <input type="hidden" th:field="*{processId}" id="processId" />
+    <input
+      type="hidden"
+      th:value="${p2pAssetTransferDto.id}"
+      id="abtract-reference-id"
+    />
+    <input type="hidden" th:field="*{createdBy}" />
+    <input type="hidden" th:field="*{stepNo}" />
+    <input type="hidden" th:field="*{processStatusCode}" />
+    <input type="hidden" th:field="*{comments}" id="commentsId" />
+    <input type="hidden" th:field="*{owner}" id="ownerId" />
+    <input type="hidden" th:field="*{assignee}" id="assigneeId" />
+    <input
+      type="hidden"
+      th:field="*{businessCode}"
+      id="abtract-business-code"
+    />
+    <input type="hidden" th:field="*{stepId}" id="abtract-step-id" />
+    <input type="hidden" id="funtion-validate-id" value="setParamForForm" />
+    <div id="assetParamContent"></div>
+
+    <label
+      id="attachedFileError"
+      tabindex="-1"
+      style="display: none; color: red !important"
+      >Attached File is required</label
+    >
+  </form>
+
+  <!--  AttachedFile -->
+  <div id="attachedFileContent">
+    <th:block
+      th:include="/views/ASSET_MANAGEMENT_MODULE/attached-file-module/attached-file-plugin.html :: content(${lstAttachedFile},${businessCode},${refAttachment})"
+    />
+  </div>
+
+  <!-- process -->
+  <th:block
+    th:include="/views/ASSET_MANAGEMENT_MODULE/approval-module/approval-plugin.html :: content(${approvalModuleDto},'form-assettransfer-edit','asset-transfer', ${@roleEp2p.ROLE_ASSET_TRANSFER},'')"
+  />
+
+  <div
+    class="modal fade"
+    id="myModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myModalLabel"
+  >
+    <div
+      class="modal-dialog"
+      role="document"
+      style="width: 80%; max-width: 80%"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Asset Profile</h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-sm-12 p-0">
+            <th:block
+              th:include="/views/ASSET_MANAGEMENT_MODULE/p2passet-transfer/asset-transfer-modal-list.html :: content"
+            />
+          </div>
+        </div>
+        <div align="center">
+          <!-- Tranlth 27/05/2019 thêm mới add và bỏ Ok + Cancel Task #23724 -->
+          <a
+            href="#"
+            class="btn-common btn-in-tablet"
+            id="btnSubmitAsset"
+            data-dismiss="modal"
+            ><i class="fa fa-plus-circle"></i> Add</a
+          >
+          <a href="#" class="btn-cancel" data-dismiss="modal"
+            ><i class="fa fa-times"></i> Close</a
+          >
+
+          <!-- End -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script
+    type="text/javascript"
+    th:src="@{/static/ASSET_MANAGEMENT_MODULE/js/p2passet-transfer/asset-transfer-edit.js}"
+  ></script>
+</html>

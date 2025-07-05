@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<script type="text/javascript"
+	th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}" />
+<link type="text/css"
+	th:href="@{/static/cache/plugins/datetimepicker/bootstrap-datetimepicker.min.css}" />
+<script type="text/javascript"
+	th:src="@{/static/cache/plugins/datetimepicker/bootstrap-datetimepicker.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/static/cache/plugins/cRonstrue/dist/cronstrue.min.js}"></script>
+<script>
+	var cronstrue = window.cronstrue;
+</script>
+<div class="title-head">
+	<div class="row">
+		<div class="col-md-5">
+			<h3>
+				<span th:text="#{quartz.title.schedule}">Tiêu đề trang</span>
+			</h3>
+		</div>
+	   	<div class="col-md-7">
+	        <div class="pull-right">
+				 <a class="u-btn u-btn-back" id="linkList">
+				 	<img th:src="@{/static/images/icon-down.png}" alt="" width="17px" class="rotate-ico"/>
+				 	<span>Trở lại</span>
+				 </a>
+				 <a class="u-btn u-btn-primary" id="btnCreate" th:if="${#authorization.expression('hasAuthority(@jobConstant.SC1_S04_SCHEDULEMASTER)')}">
+	            	<img th:src="@{/static/images/ico-plus-white.png}" alt="" />
+	                <span>Thêm mới</span>
+	             </a>
+				 <a class="btn-save u-btn u-btn-primary" th:if="${#authorization.expression('hasAuthority(@jobConstant.SC1_S04_SCHEDULEMASTER)')}"> 
+					<img th:src="@{/static/images/icon-save.png}" alt="" width="19px"/>
+					<span th:text="#{save.button}">Lưu</span>
+				</a>
+	        </div>
+	   </div>
+	</div>	
+</div>
+
+<form
+	class="form-horizontal u-for-page-top j-form-validate j-formSearch"
+	id="form-j-edit" method="post" role="form">
+	<th:block
+		th:include="views/commons/message-alert.html :: content(${messageList})" />
+	<div class="bg-content clearfix">
+		<div class="header-box">
+			<h3 class="title-box" th:text="#{quartz.title.schedule.create}">Create schedule</h3>
+		</div>
+		<input type="hidden" id="id" name="id" th:field="${schedule.id}" />
+		<input type="hidden" id="url" name="url" th:field="${schedule.url}" />
+		<div class="row">
+			<!-- <div class="col-sm-6 p-0" th:if="${companyList.size() > 1}">
+				<div class="form-group">
+					<label for="companyId" class="col-sm-4 required"
+						th:text="#{company.detail}">Company</label>
+					<div class="col-sm-8">
+						<select class="form-control j-required" id="comId"
+							name="companyId">
+							<option value=""></option>
+							<option th:value="${company.id}" th:text="${company.text}"
+								th:selected="${company}"></option>
+						</select> <label id="comId-error" class="error" for="comId"></label>
+					</div>
+				</div>
+			</div> -->
+			<div class="form-group col-sm-6 p-0" th:if="${companyList.size()>1}">
+		      	<label for="companyId" class="col-sm-4 required" th:text="#{company.detail}">Company</label>
+		       	<div class="col-sm-8">
+		          	<select class="form-control select2" id="companyId" name="companyId">
+		        		<option th:each="company : ${companyList}" 
+		                   		th:value="${company.id}"
+		                    	th:text="${company.text}"
+		                 		th:selected="${company.id} == ${schedule.companyId}">
+		                </option>
+		           	</select>
+		        </div>
+		    </div>
+		   	<div th:unless="${companyList.size()>1}">
+		       	<input type="hidden" id="companyId" name="companyId" th:value="${schedule.companyId}"/>
+		    </div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-6 p-0">
+					<div class="form-group">
+						<label class="col-sm-4 required"
+							th:text="#{quartz.field.schedule.code}">Schedule Code</label>
+						<div class="col-sm-8">
+							<input name="schedCode" class="form-control j-required"
+								type="text" style="text-transform: uppercase"
+								th:field="${schedule.schedCode}" maxlength="250"
+								autocomplete="off" />
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<label class="col-sm-4 required"
+						th:text="#{quartz.table.schedule.name}">Schedule Name</label>
+					<div class="col-sm-8">
+						<input name="schedName" class="form-control j-required"
+							type="text" th:field="${schedule.schedName}" maxlength="250"
+							autocomplete="off" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-6 p-0">
+					<div class="form-group">
+						<label class="col-sm-4 required" th:text="#{quartz.field.cron}">Cron
+							expression</label>
+						<div class="col-sm-6">
+							<input name="cronExpression" class="form-control j-required"
+								type="text" th:field="${schedule.cronExpression}"
+								maxlength="250" autocomplete="off" /> <label
+								id="cronExpression-error" class="error" for="cronExpression"></label>
+						</div>
+						<div class="col-sm-2">
+							<button class="form-control btn btn-default" type="button"
+								id="btnGetDescription">
+								<i class="fa fa-exchange"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<label class="col-sm-4" th:text="#{quartz.field.table.description}">Description</label>
+					<div class="col-sm-8">
+						<textarea name="description" class="form-control"
+							th:field="${schedule.description}" maxlength="250"
+							autocomplete="off"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-6 p-0">
+					<div class="form-group">
+						<label class="col-sm-4 required"
+							th:text="#{quartz.field.table.date.start}">Date</label>
+						<div class="col-sm-8">
+							<div class="input-group date datepicker-from" id="startDate">
+								<input name="startDate" class="form-control j-required"
+									th:field="${schedule.startDate}"/>
+								<span class="input-group-addon"><i
+										class="fa fa-calendar"></i></span>
+							</div>
+							<label id="startDate-error" class="error" for="startDate"
+								style="display: none"></label>
+						</div>
+						<!-- <div class="col-sm-4">
+							<div class="input-group">
+								<input id="time1" name="startTime" type="text"
+									class="form-control j-required time"
+									th:field="${schedule.startTime}" />
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-time"></i>
+								</div>
+							</div>
+							<label id="startTime-error" class="error" for="time1"
+								style="display: none"></label>
+						</div> -->
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<label class="col-sm-4 required"
+						th:text="#{quartz.field.table.date.end}">Date</label>
+					<div class="col-sm-8">
+						<div class="input-group date datepicker-to" id="endDate">
+							<input name="endDate" class="form-control j-required"
+								th:field="${schedule.endDate}"/>
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+						</div>
+						<label id="endDate-error" class="error" for="endDate"
+							style="display: none"></label>
+					</div>
+					<!-- <div class="col-sm-4">
+						<div class="input-group">
+							<input id="time2" name="endTime" type="text"
+								class="form-control j-required time"
+								th:field="${schedule.endTime}" />
+							<div class="input-group-addon">
+								<i class="glyphicon glyphicon-time"></i>
+							</div>
+						</div>
+						<label id="endTime-error" class="error" for="time2"
+							style="display: none"></label>
+					</div> -->
+				</div>
+			</div>
+		</div>
+		<input type="hidden" id="url" name="url" th:value="${schedule.url}"/>
+
+	</div>
+</form>
+<div class="bg-content">
+	<div class="row m-0">
+		<div class="form-group">
+			<th:id id="tblCronHelp">
+				<th:block
+					th:include="views/job-management/schedule-cron-help.html :: content" />
+			</th:id>
+		</div>
+
+	</div>
+</div>
+<script type="text/javascript"
+	th:src="@{/static/cache/js/job-management/schedule-create.js}"></script>
+<!-- <script type="text/javascript"
+	th:src="@{/static/cache/js/job-management/schedule.js}"></script> -->
+</html>

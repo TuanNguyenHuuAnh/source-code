@@ -1,0 +1,4 @@
+SELECT
+	*
+FROM EFO_FORM
+WHERE id = /*id*/0

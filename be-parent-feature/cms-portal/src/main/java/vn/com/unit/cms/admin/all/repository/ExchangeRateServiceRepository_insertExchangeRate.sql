@@ -1,0 +1,20 @@
+INSERT INTO m_exchange_rate
+(id,
+m_currency_id,
+display_date,
+buying,
+transfer,
+selling,
+create_date,
+create_by)
+VALUES
+(
+	/*exRate.id*/,
+	/*exRate.mCurrencyId*/,
+	/*exRate.displayDate*/,
+	/*exRate.buying*/,
+	/*exRate.transfer*/,
+	/*exRate.selling*/,
+	/*exRate.createDate*/,
+	/*exRate.createBy*/
+);

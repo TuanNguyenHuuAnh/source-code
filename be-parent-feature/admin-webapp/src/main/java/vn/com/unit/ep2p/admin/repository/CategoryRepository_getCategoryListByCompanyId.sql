@@ -1,0 +1,18 @@
+SELECT
+    ITEM.ID AS id,
+    LANG.NAME AS name,
+    LANG.NAME AS text
+FROM 
+	EFO_CATEGORY ITEM
+    LEFT JOIN EFO_CATEGORY_LANG LANG ON ITEM.ID = LANG.CATEGORY_ID AND UPPER(LANG.LANG_CODE) = UPPER(/*languageCode*/'')
+WHERE ITEM.DELETED_ID = 0
+/*IF companyId != null*/
+	AND ITEM.COMPANY_ID = /*companyId*/1
+/*END*/
+/*IF keySearch != null && keySearch != ''*/
+	AND UPPER(LANG.NAME) LIKE UPPER(concat(concat('%',  /*keySearch*/''), '%'))
+/*END*/
+ORDER BY ITEM.DISPLAY_ORDER, LANG.NAME
+/*IF isPaging == true*/
+OFFSET 0 ROWS FETCH NEXT 30 ROWS ONLY
+/*END*/

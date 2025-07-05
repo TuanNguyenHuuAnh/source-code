@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+  
+	<div class="title-head">
+		<div class="row">
+			<div class="col-md-5">
+				<h3>
+					<span th:text="#{document.category.list.sort.title}">Tiêu đề trang</span>
+				</h3>
+			</div>
+		   	<div class="col-md-7">
+		        <div class="pull-right">
+		        	<a class="u-btn u-btn-back" id="linkList">
+						<img th:src="@{/static/images/icon-down.png}" alt="" width="17px" class="rotate-ico"/>
+						<span>Trở lại</span>
+					</a>
+		        </div>
+		   </div>
+		</div>
+	</div>
+
+	<form class="form-horizontal u-for-page-top" th:object="${searchDto}" method="POST" role="form">
+		<th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+
+		<div class="bg-content clearfix">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label class="col-sm-4 control-label required"
+						th:text="#{faqs.category.parent}">Danh mục cha</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" th:field="*{parentId}" id="listTree"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<script th:inline="javascript">
+	 	/*<![CDATA[*/
+	 	var CUSTOMER_ALIAS = [[${customerAlias}]];
+
+	 	var LIST_TREE_JSON = /*[[${listTreeJson}]]*/;
+		/*]]>*/
+	 </script>
+	 
+	 <script type="text/javascript">
+		$('#listTree').combotree({
+			editable : true,
+			onChange: function (dataValue) {
+				initTblListData(dataValue);
+	        }
+	    });
+		
+		if(LIST_TREE_JSON != null && LIST_TREE_JSON != '') {
+			$('#listTree').combotree('loadData', jQuery.parseJSON(LIST_TREE_JSON));
+		}
+	 </script>
+
+	<div class="bg-content-tbl" id="tableList">
+		<th:block th:include="views/CMS/all/document-category/document-category-table-sort.html :: content"/>
+	</div>
+	
+	<div class="row m-0 pos-gr-btn">
+		<button type="button" class="u-btn u-btn-primary m-top-5" id="btnSave">
+                  <img th:src="@{/static/images/icon-save.png}" alt="" width="19px"/> <span th:text="#{save.button}">Lưu</span>
+              </button>
+	</div>
+	
+	<input type="hidden" id="fieldSearchHidd"/>
+	<input type="hidden" id="fieldValuesHidd"/> 
+	<input type="hidden" id="url" name="url" th:value="${searchDto.url}"/>
+</html>
+

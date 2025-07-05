@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<div class="row placeholders unit-bg-com">
+	<div class="col-sm-12">
+		<div class="alert alert-danger alert-dismissible" role="alert">
+			<strong><h3 th:text="#{error.message.access.denied}" /></strong>
+		</div>
+	</div>
+	<script>
+		$(window).on("popstate", function () {
+			ajaxRedirect(window.location.href);
+		});
+	</script>
+</div>
+</html>

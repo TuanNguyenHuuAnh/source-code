@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<body>
+	
+	<script type="text/javascript" th:src="@{/static/jquery/vendor/jquery.ui.widget.js}"></script>
+	<script type="text/javascript" th:src="@{/static/js/plupload-2.1.2/plupload.full.min.js}"></script>
+	<script type="text/javascript" th:src="@{/static/ckeditor_4.4.3_full/samples/plugins/htmlwriter/assets/outputforflash/swfobject.js}"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/static/css/banner/banner-edit.css}"/>
+	
+	<div class="title-head">
+		<div class="row">
+			<div class="col-md-5">
+				<h3>
+					<span th:text="#{banner.detail.title}">Tiêu đề trang</span>
+				</h3>
+			</div>
+		   	<div class="col-md-7">
+		        <div class="pull-right">
+					 <a class="u-btn u-btn-back" id="linkList">
+					 	<img th:src="@{/static/images/icon-down.png}" alt="" width="17px" class="rotate-ico"/>
+					 	<span>Trở lại</span>
+					 </a>
+		        </div>
+		   </div>
+		</div>	
+	</div>
+	<form th:object="${bannerDetail}" method="POST" class="form-horizontal u-for-page-top j-form-validate" id="bannerForm">
+		<th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+
+		<div class="row unit-bg-com">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="code" class="col-sm-4 control-label" th:text="#{banner.code}">Mã banner</label>
+					<div class="col-sm-8">
+						<label th:text="*{code}" class="form-control-view"></label>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="name" class="col-sm-4 control-label" th:text="#{banner.name}">Tên banner</label>
+					<div class="col-sm-8">
+						<label th:text="*{name}" class="form-control-view"></label>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="typeId" class="col-sm-4 control-label" th:text="#{banner.type}">Loại banner</label>
+					<div class="col-sm-8">
+						<label th:text="*{bannerTypeName} ? #{*{bannerTypeName}}" class="form-control-view"></label>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-6">
+				<div class="form-group">
+					<label class="col-sm-4 control-label" th:text="#{banner.button.enable}">Hiển thị button</label>
+					<div class="col-sm-8 ">
+						<input type="checkbox" th:checked="*{buttonEnable}" th:disabled="true"/>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+					<div class="form-group">
+						<label class="col-sm-4 control-label" th:text="#{banner.mobile}">Banner điện thoại</label>
+						<div class="col-sm-8 ">
+							<input type="checkbox" th:field="*{mobileEnable}" th:disabled="disabled"/>
+						</div>
+					</div>
+			</div>
+			
+			<div class="col-xs-12 col-sm-12">
+				<div class="form-group">
+					<label  class="col-sm-2 control-label" th:text="#{news.language}">Ngôn ngữ</label>
+					<div class="col-sm-10 gr-tab">
+						<ul class="nav nav-tabs" id="tabBanner">
+							<th:block th:each="language, i : ${languageList}">
+								<li role="presentation" th:classappend="${i.index == 0}  ? 'active' : ''" >
+									<a th:href="'#' + ${language.code}" th:text="${language.name}"></a>
+								</li>
+							</th:block>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="tab-content" style="margin-top: 10px">
+				<th:block th:each="language, i : ${languageList}" th:with="index=${i.index}">
+					<div th:id="${language.code}" class="tab-pane fade " th:classappend="${index == 0}  ? 'in active' : ''">
+						<div class="col-xs-12 col-sm-12">
+							<div class="form-group">
+								<label for="bannerLanguageList[__${index}__].bannerTextLeft" class="col-sm-2 control-label" th:text="#{banner.text}">Text trên banner</label>
+								<div class="col-sm-10">
+									<div th:utext="*{bannerLanguageList[__${index}__].bannerTextLeft}" class="form-control-view"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-12">
+							<div class="form-group">
+								<label for="description" class="lb_language col-sm-2 control-label" th:text="#{banner.title}">Tiêu đề</label>
+								<div class="col-sm-10">
+									<label th:text="*{bannerLanguageList[__${index}__].title}" class="form-control-view"></label>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-12">
+							<div class="form-group">
+								<label for="description" class="lb_language col-sm-2 control-label" th:text="#{banner.description}">Mô tả</label>
+								<div class="col-sm-10">
+									<label th:text="*{bannerLanguageList[__${index}__].description}" class="form-control-view"></label>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-12">
+							<div class="form-group">
+								<label for="description" class="lb_language col-sm-2 control-label" th:text="#{banner.text.button}">Text button</label>
+								<div class="col-sm-10">
+									<label th:text="*{bannerLanguageList[__${index}__].textButton}" class="form-control-view"></label>
+								</div>
+							</div>
+						</div>
+			
+						<div class="col-xs-12 col-sm-12">
+							<div class="form-group">
+								<label class="lb_language col-sm-2 control-label" th:text="#{banner.link}">Link banner</label>
+								<div class="col-sm-10">
+									<label th:text="*{bannerLanguageList[__${index}__].bannerLink}" class="form-control-view"></label>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-12">
+							<div class="form-group">
+								<label  class="lb_language col-sm-2 control-label" th:text="#{banner}">Banner</label>
+								<div class="col-sm-10">
+									<div class="wrap_img" th:id="wrap_img__${index}__">
+										<img th:id="img_banner__${index}__" class="img_banner"/>
+										<pre th:id="imageConsole__${index}__" style="display: none"></pre>
+										<input type="hidden" th:id="physicalImg__${index}__" th:field = "*{bannerLanguageList[__${index}__].bannerPhysicalImg}"/>
+										<input type="hidden" th:id="bannerImg__${index}__" th:field="*{bannerLanguageList[__${index}__].bannerImg}"/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-12">
+							<div class="form-group">
+								<label for="bannerLanguageList[__${index}__].bannerTitleVideo"  class="lb_language col-sm-2 control-label" th:text="#{banner.video.title}">Tiêu đề video</label>
+								<div class="col-sm-10">
+									<label th:text="*{bannerLanguageList[__${index}__].bannerTitleVideo}" class="form-control-view"></label>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-12">
+							<div class="form-group">
+								<label  class="lb_language col-sm-2 control-label" th:text="#{banner.video}">Video đính kèm</label>
+								<div class="col-sm-10">
+									<div class="wrap_video" th:id="wrap_video__${index}__">
+										<pre th:id="videoConsole__${index}__" style="display: none"></pre>
+										<div class="wrap_object" th:id="wrap_object__${index}__">
+											<div th:id="videoContent__${index}__" class="videoContent"></div>
+										</div>
+										<input type="hidden" th:id="physicalVideo__${index}__" th:field = "*{bannerLanguageList[__${index}__].bannerPhysicalVideo}"/>
+										<input type="hidden" th:id="bannerVideo__${index}__" th:field = "*{bannerLanguageList[__${index}__].bannerVideo}"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</th:block>
+			</div>
+			
+			<div class="col-xs-12 col-sm-12">
+				<div class="form-group">
+					<label for="note"  class="lb_language col-sm-2 control-label" th:text="#{banner.note}">Ghi chú</label>
+					<div class="col-sm-10">
+						<label th:text="*{note}" class="form-control-view"></label>
+					</div>
+				</div>
+			</div>
+
+			<input type="hidden" id="id" name="id" th:value="${bannerDetail.id}"/>
+			<input type="hidden" id="url" name="url" th:value="${bannerDetail.url}"/>
+		</div>
+	</form>
+
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		var LANGUAGE_LIST = /*[[${languageList}]]*/;
+		/*]]>*/
+	</script>
+	<script type="text/javascript" th:src="@{/web-app/views/banner/banner-detail.js}"></script>
+</body>
+</html>
+

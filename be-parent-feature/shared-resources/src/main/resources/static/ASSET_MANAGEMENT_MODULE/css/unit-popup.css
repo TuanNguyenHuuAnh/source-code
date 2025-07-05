@@ -1,0 +1,36 @@
+.modal-title{
+	color: #000000;
+    font-size: 17px;
+    position: relative;
+    display: inline-block;
+    display: inline-block;
+    border-bottom: 2px solid #013366;
+    padding-right: 15px
+}
+.modal-header,.modal-footer{
+	border-bottom: none!important;
+	border-top: none!important;
+	padding: 15px 15px 0px 15px;
+}
+
+.modal-dialog .modal-footer{
+	padding-bottom: 15px;
+}
+
+.modal-header .close,.modal-header .close:focus{
+	color: #013366;
+	opacity: 1;
+	font-size: 25px;
+}
+.modal-content{
+	background: #fff;
+	border: 1px solid #777777;
+}
+.modal-backdrop {
+    background-color: #898585!important;
+}
+
+.bootbox-prompt .modal-title{
+	font-size: 13px;
+	border-bottom: none;
+}

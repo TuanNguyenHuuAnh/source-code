@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content(reportOzDto)">
+	<th:block th:if="${reportOzDto.fileName != null and reportOzDto.fileName != ''}">
+		<!-- OZ Toto Framework -->
+		<link rel="stylesheet" th:href="@{/static/ozsfw80/OZViewerHTML5/jquery-ui.css}" type="text/css"/>
+		<!-- <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> -->
+		<link rel="stylesheet" th:href="@{/static/ozsfw80/OZViewerHTML5/ui.dynatree.css}" type="text/css"/>
+		<script type="text/javascript" th:src="@{/static/ozsfw80/OZViewerHTML5/jquery.dynatree.js}" charset="utf-8"></script>
+		<script type="text/javascript" th:src="@{/static/ozsfw80/OZViewerHTML5/OZJSViewer.js}" charset="utf-8"></script>
+
+		<div class="document">
+			<!-- <div class="row" style="padding-bottom: 5px;">
+				<div class="form-group">
+					<label class="col-sm-2 required" for="docTitle" th:text="#{reports.oz.title}">Title</label>
+		            <div class="col-sm-10">
+		                <input type="text" name="ozDocTitle" id="ozDocTitle" class="form-control j-required j-maxlength" data-rule-maxlength="255" th:value="${reportOzDto.docTitle}" />
+		            </div>
+				</div>
+			</div> -->
+		
+			<div class="row">
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-12 oz-viewer-plugin">
+				
+						<input name="ozDocId" id="ozDocId" type="hidden" th:value="${reportOzDto.id}" />
+						<input name="ozDocFormId" id="ozDocFormId" type="hidden" th:value="${reportOzDto.formId}" />
+						<input name="ozdFileName" id="ozdFileName" type="hidden" th:value="${reportOzDto.ozdOpen ? reportOzDto.fileName : '' }" />
+						<input name="ozdStepNo" id="ozdStepNo" type="hidden" th:value="${reportOzDto.stepNo}" />
+						<input name="ozdUrl" id="ozdUrl" type="hidden" th:value="${urlRedirect}" />
+						
+						<!-- Attach PDF -->
+						<div class="pull-right icon-head">
+							<div class="pull-right">
+								<a id="full-screen">
+				                    <i class="glyphicon glyphicon-fullscreen icon-head-red"></i>
+				                </a>
+				                <a id="normal-screen" style="display: none;">
+				                    <i class="glyphicon glyphicon-resize-small icon-head-red"></i>
+				                </a>
+			                </div>
+							<label class="btn-common input-group-addon" style="width: 150px">
+                				<span>
+	                       			<i class="glyphicon glyphicon-paperclip" aria-hidden="true"></i>
+	                       			<span th:text="#{reports.oz.attach.pdf}">Attach PDF</span>
+	                       			<input type="file" id="pdf_attachment" class="hide" accept=".pdf" />
+                   				</span>
+              	 			</label>
+              	 			
+              	 			<label class="btn-common input-group-addon" style="width: 150px">
+                				<span>
+	                       			<i class="glyphicon glyphicon-erase" aria-hidden="true"></i>
+	                       			<span th:text="#{reports.oz.detach.pdf}">Detach PDF</span>
+	                       			<input type="button" id="pdf_remove" class="hide" />
+                   				</span>
+              	 			</label>
+						</div>
+						<div id="OZViewer" class="ozviewer"></div>
+						
+						<!-- OZ log -->
+						<!-- <div id="ozlog" style="width:100%;height:100;">Log</div> -->
+						<script th:inline="javascript">
+						/*<![CDATA[*/
+							var ozlog = document.getElementById("ozlog");
+							if(ozlog != undefined) {
+								ozlog.innerHTML += ("<br>" + navigator.userAgent);
+							}
+						
+							// Event PDF event
+							$("#pdf_attachment").on('change', pdf_attachment_click);
+							$("#pdf_attachment").on('click', onClickPDF);
+							$("#pdf_remove").on('click', pdf_remove);
+							
+							// Show full screen
+							$("#full-screen").on('click', function () {
+								$('.oz-viewer-plugin').addClass('full-viewer');
+								$('#OZViewer').removeClass('ozviewer');
+								$('#OZViewer').addClass('ozviewer-full-screen');
+								$(this).hide();
+								$("#normal-screen").show();
+							});
+							
+							// Show normal screen
+							$("#normal-screen").on('click', function () {
+								$('.oz-viewer-plugin').removeClass('full-viewer');
+								$('#OZViewer').removeClass('ozviewer-full-screen');
+								$('#OZViewer').addClass('ozviewer');
+								$(this).hide();
+								$("#full-screen").show();
+							});
+							
+							// Attachment
+							function pdf_attachment_click() {
+						        var files = this.files;
+						        for (var i = 0, f; f = files[i]; i++) {
+									var reader = new FileReader();
+						            reader._filename_ = f.name;
+						            reader.onloadend = function(evt) {
+						                if (evt.target.readyState == 2 && evt.target.result != null) {
+											var oz;
+						                    oz = document.getElementById("OZViewer");
+						                    var form_name = oz.MakeOZBinaryURL(evt.target.result);
+						                    if (form_name != null && form_name.length > 0) {
+												var ozsep = "\n";
+						                        var ozparam = "connection.reportname=attachment.ozr";
+						                        ozparam += ozsep;
+						                        ozparam += "repository_agent.ozserver.servlet=" + BASE_REPO_URL + "server";
+						                        ozparam += ozsep;
+						                        ozparam += "repository_agent.item_fetch_src.pcount=1";
+						                        ozparam += ozsep;
+												ozparam += "repository_agent.item_fetch_src.args1=ozp:///attachment.ozr=" + form_name;
+						                        ozparam += ozsep;
+						                        
+						                        // Viewer
+												ozparam += "viewer.viewmode=fittowidth";
+												ozparam += ozsep;
+												ozparam += "viewer.pagedisplay=singlepagecontinuous";
+												ozparam += ozsep;
+												ozparam += "viewer.showtree=false";
+												ozparam += ozsep;
+												ozparam += "viewer.showthumbnail=false";
+												ozparam += ozsep;
+												ozparam += "viewer.usetoolbar=true";
+												ozparam += ozsep;
+												ozparam += "viewer.usestatusbar=false";
+												ozparam += ozsep;
+												// ozparam += "viewer.useinborder=false";
+												// ozparam += ozsep;
+												ozparam += "viewer.useoutborder=false";
+												ozparam += ozsep;
+												
+												// Fix load URL -- hidden popup loading
+												ozparam += "viewer.useprogressbar=false";
+												ozparam += ozsep;
+												
+												// Open
+												ozparam += "toolbar.open=false";
+												ozparam += ozsep;
+												
+												// Save
+												ozparam += "toolbar.save=false";
+												ozparam += ozsep;
+												
+												// Print
+												ozparam += "toolbar.print=false";
+												ozparam += ozsep;
+												
+												// Add memo
+												ozparam += "toolbar.addmemo=true";
+												ozparam += ozsep;
+												
+												// Save data
+												ozparam += "toolbar.savedm=false";
+												ozparam += ozsep;
+												
+												// Page
+												ozparam += "toolbar.page=true";
+												ozparam += ozsep;
+												
+												// Zoom
+												ozparam += "toolbar.zoom=true";
+												ozparam += ozsep;
+												
+												// Singlepage
+												ozparam += "toolbar.singlepage_fittoframe=false";
+												ozparam += ozsep;
+												ozparam += "toolbar.singlepagecontinuous_fittowidth=false";
+												ozparam += ozsep;
+												ozparam += "toolbar.inversepaper=false";
+												ozparam += ozsep;
+												
+												// Find
+												ozparam += "toolbar.find=false";
+												ozparam += ozsep;
+												
+												// Etcmenu
+												// ozparam += "etcmenu.open=false";
+												// ozparam += ozsep;
+												// ozparam += "etcmenu.close=false";
+												// ozparam += ozsep;
+												ozparam += "etcmenu.closeall=false";
+												ozparam += ozsep;
+												
+												// Export and Save
+												ozparam += "export.applyformat=ozd,pdf";
+												ozparam += ozsep;
+												ozparam += "export.saveonefile=true";
+												ozparam += ozsep;
+												ozparam += "ozd.saveall=true";
+												ozparam += ozsep;
+												ozparam += "pdf.savecomment=true";
+												ozparam += ozsep;
+												// Font embedding
+												ozparam += "pdf.fontembedding=true";
+												ozparam += ozsep;
+												
+												// Comment
+												ozparam += "comment.all=true";
+												ozparam += ozsep;
+												ozparam += "comment.selectedpen=highlightpen";
+												ozparam += ozsep;
+												
+												// Eform
+												ozparam += "eform.signpad_type=dialog";
+												ozparam += ozsep;
+												ozparam += "eform.inputeventcommand=true";
+												ozparam += ozsep;
+												
+												// Debug
+												ozparam += "information.debug=true";
+												ozparam += ozsep;
+											
+												oz.CreateReportEx(ozparam, ozsep);
+											}                                                                                    
+						                } else {
+						                }
+						            };
+						            reader.readAsArrayBuffer(f);
+						        }
+							}
+							
+							// Pdf initialisation 
+							function onClickPDF(e) {      
+								e.target.value = null;  
+							}
+
+							// Pdf remove 
+						   	function pdf_remove() {
+								var currentReport;
+								currentReport = OZViewer.GetInformation("CURRENT_REPORT_INDEX");
+								if(currentReport != 0){
+									OZViewer.Script("closereport=" + currentReport);
+								}
+						   	}
+
+							// OZViewer
+							function OZUserEvent_ozviewer(param1, param2, param3) {
+								if (param1 == "attachment") {
+									var file_input = document.createElement("input");
+									$(file_input).attr("type", "file").attr("accept", ".pdf").attr("multiple", false).css("width", "1px").css("height", "1px").css("position", "absolute").css("left", "-1000px").css("top", "-1000px").css("opacity", "0");
+									$(file_input).on('change', pdf_attachment_click);
+									$(file_input).show().focus().click().hide(); 
+								}
+							}
+							
+							function OZErrorCommand_OZViewer(code, message, detailmessage, reportname) {
+							    //console.log(code);
+							    //console.log(message);
+							    //console.log(detailmessage);
+							    //console.log(reportname);
+								$("button").hide();
+								$("#btnSaveHead").hide();
+								unblockbg();
+						    }
+				
+							function OZProgressCommand_OZViewer(step, state, reportname) {
+								//console.log(step);
+								//console.log(state);
+								if( state == 2 && step == 4 ) {
+									unblockbg();
+								} else if ( state == 1 && step == 0 ) {
+									blockbg();
+								}
+						    }
+						
+							function SetOZParamters_OZViewer() {
+								var oz;
+								oz = document.getElementById("OZViewer");
+								
+								var ozdOpen = /*[[${reportOzDto.ozdOpen}]]*/;
+								
+								if( ozdOpen == true ) {
+									oz.sendToActionScript("connection.openfile", BASE_REPO_URL + "api/v1/doc/report/download?filePath=" + /*[[${reportOzDto.fileName}]]*/);
+								} else {
+									oz.sendToActionScript("connection.servlet", BASE_REPO_URL + "server");
+									//oz.sendToActionScript("connection.servlet","http://eform.unit.vn/repositoryServer/server");
+									oz.sendToActionScript("connection.reportname", /*[[${reportOzDto.fileName}]]*/);
+								}
+								oz.sendToActionScript("global.concatpreview", "true");
+								oz.sendToActionScript("global.language","en/US");
+								
+								// Viewer
+								oz.sendToActionScript("viewer.viewmode", "fittowidth");
+						        oz.sendToActionScript("viewer.pagedisplay", "singlepagecontinuous");
+						        oz.sendToActionScript("viewer.showtree", "false");
+								oz.sendToActionScript("viewer.showthumbnail", "false");
+								oz.sendToActionScript("viewer.showpagemargin", "false");
+								oz.sendToActionScript("viewer.usetoolbar", "true");
+								oz.sendToActionScript("viewer.usestatusbar", "false");
+								// oz.sendToActionScript("viewer.useinborder", "false");
+								oz.sendToActionScript("viewer.useoutborder", "false");
+								
+								// Fix load URL -- hidden popup loading
+								oz.sendToActionScript("viewer.useprogressbar", "false");
+
+								// OZErrorCommand
+								oz.sendToActionScript("viewer.errorcommand",	"true");
+
+								// OZProgressCommand_OZViewer
+								oz.sendToActionScript("viewer.progresscommand", "true");
+								
+								// Open
+						        oz.sendToActionScript("toolbar.open", "false");
+								
+								// Save
+						        oz.sendToActionScript("toolbar.save", "false");
+								
+								// Print
+						        oz.sendToActionScript("toolbar.print", "false");
+								
+								// Add memo
+						        oz.sendToActionScript("toolbar.addmemo", "true");
+								
+						        // Save data
+						        oz.sendToActionScript("toolbar.savedm", "false");
+						        
+						     	// Page
+						        oz.sendToActionScript("toolbar.page", "true");
+						     	
+						     	// Zoom
+						        oz.sendToActionScript("toolbar.zoom", "true");
+						     	
+						     	// Singlepage
+						        oz.sendToActionScript("toolbar.singlepage_fittoframe", "false");
+						        oz.sendToActionScript("toolbar.singlepagecontinuous_fittowidth", "false");
+						        oz.sendToActionScript("toolbar.inversepaper", "false");
+						        
+						        // Find
+						        oz.sendToActionScript("toolbar.find", "false");
+						        
+						        // Etcmenu
+						        //oz.sendToActionScript("etcmenu.open", "false");
+						        //oz.sendToActionScript("etcmenu.close", "false");
+						        oz.sendToActionScript("etcmenu.closeall", "false");
+						        
+						        // Export and Save
+						        oz.sendToActionScript("export.applyformat", "ozd,pdf");	
+						        oz.sendToActionScript("export.saveonefile", "true");		
+						        oz.sendToActionScript("ozd.saveall", "true");	
+						        oz.sendToActionScript("pdf.savecomment", "true");
+						     	// Font embedding
+								oz.sendToActionScript("pdf.fontembedding", "true");
+						        
+						        // Comment
+						        oz.sendToActionScript("comment.all", "true");
+							    oz.sendToActionScript("comment.selectedpen", "highlightpen");
+							    
+							 	// Eform
+								oz.sendToActionScript("eform.signpad_type",	"dialog");
+								oz.sendToActionScript("eform.inputeventcommand", "true");
+							 	
+						        // Debug
+						        oz.sendToActionScript("information.debug", "true");	
+								return true;
+							}
+
+							var opt = [];
+					        opt["rendering_mode"] = "svg";
+					        opt["use_repository_cache"] = true;
+					        opt["use_mstyle_pagenumber_display"] = true;
+					        
+					      	//for printing
+					        opt["print_exportfrom"] = "server"; 
+					      	
+					     	// for exporting to pdf file
+					        opt["save_exportfrom"] = {"pdf" : "server"}; 
+
+							start_ozjs("OZViewer", /*[[@{/static/ozsfw80/OZViewerHTML5/}]]*/, opt);
+						/*]]>*/
+						</script>
+					</div>
+				</div>
+			</div>
+			
+			<!-- <div class="row">
+				<div class="col-xs-12 col-sm-12 footer-box-bg">
+					<a class="btn-common btn-save">
+						<i class="fa fa-floppy-o" aria-hidden="true"></i> 
+						<span th:text="#{save.button}">Lưu</span>
+					</a>			
+				</div>
+			</div> -->
+		</div>
+		
+		<script type="text/javascript" th:src="@{/static/js/oz-viewer-module/oz-viewer-plugin.js}"></script>
+	</th:block>
+</body>
+</html>

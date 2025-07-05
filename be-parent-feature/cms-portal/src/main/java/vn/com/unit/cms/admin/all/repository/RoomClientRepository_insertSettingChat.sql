@@ -1,0 +1,2 @@
+INSERT INTO M_SETTING_CHAT(FIELD_CODE, TYPE, SORT, IS_DISPLAY, IS_VISIBLE, FIELD_TYPE, CREATE_DATE, CREATE_BY)
+VALUES (/*field*/'', /*type*/, /*sort*/'', /*isDisplay*/, 1, /*fieldType*/, CURRENT_DATE, /*username*/);

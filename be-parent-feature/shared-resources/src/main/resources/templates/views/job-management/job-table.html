@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+	<div class="row m-0">
+		<div class="header-box">
+			<h2 class="title-box" th:text="#{search.results.title}">Kết quả tìm kiếm</h2>
+		</div>
+		<div class="">
+			<div class="table-responsive">
+				<table id="data"
+					class="table table-bordered table-striped table-hover">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th th:text="#{column.action.label}">Actions</th>
+							<th th:text="#{company.detail}"
+								th:if="${#authentication?.principal?.companyIdList.size()>1 or #authentication?.principal?.companyAdmin}">Company</th>
+							<th th:text="#{quartz.field.job.code}">Job Code</th>
+							<th th:text="#{quartz.table.job.name}">Job Name</th>
+							<th th:text="#{quartz.field.job.type}">Job Type</th>
+							<th th:text="#{quartz.field.job.class.name}">Job Class</th>
+							<!-- <th th:text="#{quartz.field.store.name}">Store Procedure</th> -->
+							<th th:text="#{quartz.field.table.description}">Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<th:block th:each="job, i : ${jobs.data}"
+							th:with="startIndex=${jobs.startIndexCurrent}">
+							<tr th:attr="data-job-id=${job.id}">
+								<td class="text-center" th:text="${i.index + startIndex}"></td>
+								<td >
+									<div class="btn-group">
+										<a class="j-btn-edit glyphicon glyphicon-edit custom-icon"
+											title="Update"
+											th:if="${#authorization.expression('hasAuthority(@jobConstant.SC1_S03_JOBMASTER)')}"></a>
+										<a
+											class="j-btn-delete glyphicon glyphicon-remove-sign font-size-20 red"
+											title="Delete"
+											th:if="${#authorization.expression('hasAuthority(@jobConstant.SC1_S03_JOBMASTER)')}"></a>
+									</div>
+								</td>
+								<td
+									th:if="${#authentication?.principal?.companyIdList.size()>1 or #authentication?.principal?.companyAdmin}"
+									th:text="${job.companyName}"></td>
+								<td align="left" th:text="${job.jobCode}"></td>
+								<td align="left" th:text="${job.jobName}"></td>
+								<td align="left" th:text="${job.jobType}"></td>
+								<td align="left" th:text="${job.jobClassName}"></td>
+								<!-- <td align="left" th:text="${job.storeName}"></td> -->
+								<td align="left" th:text="${job.description}"></td>
+							</tr>
+						</th:block>
+						<th:block th:if="${jobs.data.size() == 0}">
+							<tr>
+								<td colspan="100%" th:text="#{table.emptyTable.label}">No
+									data found</td>
+							</tr>
+						</th:block>
+					</tbody>
+				</table>
+			</div>
+			<th:block
+				th:include="views/commons/pagination.html :: content(pageWrapper=${jobs})" />
+		</div>
+	</div>
+	<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+		var MSG_JOB_DELETE_CONFIRM= /*[[#{quartz.message.job.delete.confirmation}]]*/
+	/*]]>*/
+	</script>
+	<script type="text/javascript"
+		th:src="@{/static/cache/js/job-management/job-table.js}"></script>
+</body>
+
+</html>

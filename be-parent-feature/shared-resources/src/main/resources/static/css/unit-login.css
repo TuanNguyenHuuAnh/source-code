@@ -1,0 +1,179 @@
+body{
+    background: #f6f7fc;
+    font-family: 'Roboto', sans-serif!important;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    min-height: 100vh;
+}
+.center{
+    text-align: center;
+}
+/*form login*/
+.bg-form-login{
+    background: #fff;
+    border-radius: 0px;
+    max-width: 500px;
+    margin: 0 auto;
+    box-shadow: 1px 1px 15px #ddd
+}
+.logo{
+    width: 140px;
+    margin-bottom: 20px;
+}
+
+.main-content{
+    padding: 80px 60px;
+    
+}
+.title-pro {
+    text-align: left;
+    color: #000;
+    margin: 15px 0 30px 0;
+    font-size: 18px;
+    margin-top: 0;
+    font-family: Roboto Bold, sans-serif!important;
+
+}
+.bg-login{
+    width: 70%;
+    margin: 0 auto
+}
+.des-logo{
+    font-size: 14px;
+    color: #fff;
+    margin-top: 15px ;
+    font-family: Roboto Light
+}
+.btn-login{
+    background: #ed1b23;
+    padding: 10px 30px;
+    border-radius: 4px;
+    border: none;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 13px;
+    margin-top: 20px;
+    width: 100%
+}
+.gr-login-ms{
+    margin-top: 20px
+}
+.btn-login-ms{
+    padding: 7px 30px;
+    background: #fff;
+    border: 1px solid #c4c4c4;
+}
+.btn-login:focus{
+    outline: none
+}
+.input-effect{
+    position: relative;
+}
+.effect-3{
+    border: none;
+    padding: 4px 0;
+    border-bottom: 1px solid #c0c0c0;
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    height: 28px;
+    font-size: 14px;
+    color: #000
+}
+.effect-3 ~ .focus-border{
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background-color: #ed1b23;
+    transition: 0.4s;
+}
+.effect-3:focus ~ .focus-border{
+    width: 100%;
+    transition: 0.4s;
+    left: 0
+}
+.effect-3:focus{
+    outline: none;
+    box-shadow: none;
+}
+.form-control:focus{
+    background-color: transparent;
+    background: transparent;
+}
+.color-grey{
+    color: #6f6f6f;
+    font-size: 13px
+}
+@-webkit-keyframes autofill {
+    to {
+        color: #495057;
+        background: #fff;
+        font-size: 13px;
+    }
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+    -webkit-box-shadow: 0 0 0 30px #fff inset !important;
+    font-size: 13px;
+}
+
+/*END SQUARED CHECKBOX 5*/
+.form-login label{
+    font-weight: normal;
+    color: #6b6b6b;
+    margin-bottom: 0;
+    font-size: 13px;
+}
+.d-flex{
+    display: flex;
+    align-items: center
+}
+footer{
+    display: flex;
+    align-items: center;
+    color: #20419a;
+    justify-content: center;
+    padding: 10px 0;
+    font-size: 13px
+}
+footer img{
+    margin-right: 10px
+}
+@media only screen and (max-width: 576px) {
+    .bg-login{
+        width: 95%
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .d-flex{
+        display: block
+    }
+    .logo{
+        width: 150px
+    }
+    footer{
+        position: static;
+        margin-top: 50px
+    }
+    body.login-page{
+        display: block;
+        padding: 10px;
+    }
+}
+@media only screen and (min-width: 992px){
+
+    footer{
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        left: 0;
+    }
+}

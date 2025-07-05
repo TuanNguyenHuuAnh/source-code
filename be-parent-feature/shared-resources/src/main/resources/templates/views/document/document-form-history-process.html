@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+	<div class="form-group ">
+		<div id="tableProcessStatus">
+			<div class="unit-bg-com clearfix col-sm-12" style="padding: 0px;">	
+				<th:block th:each="item,i : ${historyProcessList}" th:classappend="${i.index > 4} ? 'widgetHistoryProcessHiddenHistoryProcess' : ''">								
+					<div class="form-group">
+						<div class="col-sm-1">
+							<img th:unless="${item.avatar}" class="img-avata-full" alt="" th:src="@{/static/cache/images/avata.png}"/>
+							<img th:if="${item.avatar}" class="img-avata-full" alt="" th:src="@{/ajax-file/download(filePath=${item.avatar}, repositoryId=${item.avatarRepoId})}"/>
+						</div>
+						<div class="col-sm-11 form-group task-comment-div" style="padding-bottom: 5px;">
+							<h5 style="font-size: 11px;">
+								<span style="font-weight: bold;" th:text="*{item.assigneeFullname}">KhoaNA</span>
+								<span th:text="*{item.actionName}">Approve</span>
+								<span th:text="#{document.process.history.on.date.time}" th:if="${item.actionTime != null}">on</span>
+								<span style="font-weight: normal; color: #3097b6;" th:text="${item.actionTime != null}?${#dates.format(item.actionTime, 'dd/MM/yyyy HH:mm:ss')}:''">14-Jul-2019 08:15</span>
+								<span th:text="#{document.process.history.at.step}"  th:if="${item.actionTime != null}">at step </span> <span style="font-weight: normal; color: red;" th:text="*{item.stepName}">Submit Document</span>
+								<!-- <span>and status was changed to </span><span style="font-weight: normal; color: red;">Approved</span> -->
+							</h5>
+							<span  th:if="${item.actionTime != null}" style="font-weight: bold;" th:text="#{document.process.history.comments} + ':'">Comments</span>
+							<div  class="task-comment-not-full">
+								<pre class="text-comment" th:text="${item.taskComment}" th:attr="style = ${item.actionTime != null} ? 'word-break: break-word; white-space: pre-line;' : 'background-color: #fff;'"></pre>
+								<!-- <b th:if="${item.charNumOfTaskComment} ne null and ${item.charNumOfTaskComment} > 255">...</b> -->
+								<label class="see-more" th:text="#{document.process.history.view.more}" th:if="${item.charNumOfTaskComment} ne null and ${item.charNumOfTaskComment} > 255">See more</label>
+							</div>
+							<div class="task-comment-fully">
+								<pre th:text="${item.taskCommentFully}"  style="word-break: break-word; white-space: pre-line;" ></pre>
+								<label class="see-more" th:text="#{document.process.history.view.hidden}">See more</label>
+							</div>
+						</div>
+					</div>
+				</th:block>
+				<th:block th:if="${historyProcessList == null OR historyProcessList.size() == 0}">
+                    <div th:text="#{doc.process.history.emptyTable.label}"></div>
+                </th:block>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+    <div class="col-sm-12 p-0">
+    	<h2 class="title-box" th:text="#{account.role.for.account.lable}">Role for account</h2>
+    
+	    <div class="table-responsive">
+			<table id="roleForAccountTable" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th class="u_t_no">#</th>
+						<th th:text="#{account.role.for.account.table.name}" class="u_t_name">Role name</th>
+		               <!--  <th th:text="#{account.role.for.account.table.start.date}" class="u_t_date">StartDate</th>
+		                <th th:text="#{account.role.for.account.table.end.date}" class="u_t_date">EndDate</th> -->
+					</tr>
+				</thead>
+				<tbody>
+				    <th:block th:each="roleForAccountDto,iterStat : ${listRoleForAccount}" th:with="startIndex=1">
+						<tr th:attr="data-role-for-account-id=${roleForAccountDto.userId}">
+							<td class="align-center" th:text="${iterStat.index + startIndex}"></td>
+							<td  class="align-center"  th:text="${listRoleForAccount[__${iterStat.index}__].roleName}">
+		                    </td>
+							<!-- <td  class="align-center"  th:text="${roleForAccountDto.startDate} ? ${#dates.format(roleForAccountDto.startDate, session.formatDate)}">
+							</td>
+							<td class="align-center" th:text="${roleForAccountDto.endDate} ? ${#dates.format(roleForAccountDto.endDate, session.formatDate)}">
+							</td> -->
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+			<div class="table-footer">
+			 	<th:block th:include="views/commons/pagination.html :: content"/>
+			 </div>	
+		</div>
+    </div>
+	<div class="row text-right">
+		<div class="text-warning" th:text="${messageAccountForRole}" />
+	</div>
+</body>
+</html>

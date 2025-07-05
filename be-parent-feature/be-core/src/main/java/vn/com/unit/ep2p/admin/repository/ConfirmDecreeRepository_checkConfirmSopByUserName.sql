@@ -1,0 +1,1 @@
+SELECT count(1) FROM M_CONFIRM_SOP WHERE USER_NAME= /*userName*/

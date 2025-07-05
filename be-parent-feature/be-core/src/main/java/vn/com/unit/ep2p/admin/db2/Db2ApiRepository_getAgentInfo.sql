@@ -1,0 +1,8 @@
+SELECT DISTINCT
+	AGENT_CODE
+	, PARTNER_CODE
+	, AGENT_TYPE
+	, ORG_ID
+FROM STG_DMS.DMS_ORG_AGENT_DETAIL
+WHERE AGENT_CODE = /*agentCode*/'472754' --agent code dang login 
+	AND NVL(EXPIRED_DATE, '9999-12-31') between CURRENT DATE and '9999-12-31' -- dang con hieu luc

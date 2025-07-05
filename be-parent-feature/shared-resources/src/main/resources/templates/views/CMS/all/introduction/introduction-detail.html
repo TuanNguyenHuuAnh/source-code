@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<script type="text/javascript" th:src="@{/static/plugins/bootbox/bootbox.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/plupload-2.1.2/plupload.full.min.js}"></script>
+<script type="text/javascript">
+		$(document).ready(function() {
+			$('#tabBanner a').click(function(e) {
+				e.preventDefault();
+				$(this).tab('show');
+			});
+		});
+</script>
+<body>
+<div class="row main-heading ">
+	<div class="row unit-border-bottom">
+		<div class="col-sm-8">
+			<h2 class="mar-tb-no blue" th:text="#{introduction.detail.title}"></h2>
+		</div>
+		<div class="col-sm-4 align-right">
+			<h1 class="mar-tb-no">
+				 <a id = "btnDeleteIntroduction"
+				 	th:if="${#authorization.expression('hasAuthority(''AI1#S01#B03_DELETE:Disp:__*{viewDto.status}__:__*{viewDto.processId}__'')')}">
+		        	<i class="itemdelete glyphicon glyphicon-remove-sign font-size-20 red"></i>
+		        </a>
+				 <a id = "btnEditIntroduction"
+				 	th:if="${#authorization.expression('hasAuthority(''AI1#S01#B02_EDIT:Disp:__*{viewDto.status}__:__*{viewDto.processId}__'')')}">
+		        	<i class="glyphicon glyphicon-edit custom-icon"></i>
+		        </a>
+		        <a id = "listIntroduction">
+		        	<i class="glyphicon glyphicon-list font-size-20 blue"></i>
+		        </a>
+			</h1>
+		</div>
+	</div>
+</div>
+<form id="validateform" class="form-horizontal u-for-page-top j-form-validate" th:object="${viewDto}" method="POST">
+<th:block
+			th:include="views/commons/message-alert.html" />
+<div class="row unit-bg-com">
+		
+			<input type="hidden" th:field="*{url}"></input>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label th:Text="#{introduction.code}"
+						for="code" class="col-sm-4 control-label">Code</label>
+					<div class="col-sm-8">
+						<label class="form-control" th:text="${viewDto.code}" > </label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="categoryName" class="col-sm-4 control-label" th:text="#{introduction.categoryname}">Danh mục</label>
+					<div class="col-sm-8">
+						<label class="form-control" th:text="${viewDto.categoryName}" > </label>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label th:Text="#{introduction.name}"
+						for="name" class="col-sm-4 control-label ">Name</label>
+					<div class="col-sm-8">
+						<label class="form-control" th:text="${viewDto.name}" > </label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label th:Text="#{introduction.keyword}"
+						for="keyWord" class="col-sm-4 control-label">Keyword</label>
+					<div class="col-sm-8">
+						<label class="form-control" th:text="${viewDto.keyWord}" > </label>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6" th:if="${viewDto.genderNameKey} != null">
+				<div class="form-group">
+					<label th:Text="#{introduction.gender.title}"
+						for="name" class="col-sm-4 control-label ">Name</label>
+					<div class="col-sm-8">
+						<label class="form-control" th:text="#{${viewDto.genderNameKey}}" > </label>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12">
+				<div class="form-group">
+					<label th:Text="#{introduction.subtitle}"
+						for="subTitle" class="col-sm-4 col-md-2 control-label">Sub title</label>
+					<div class="col-sm-8 col-md-10 pleft-10">
+						<label class="form-control" th:text="${viewDto.subTitle}" > </label>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12">
+				<div class="form-group">
+					<label for="note"  class="col-sm-4 col-md-2 control-label" th:text="#{introduction.note}">Ghi chú</label>
+					<div class="col-sm-8 col-md-10 pleft-10">
+						<p class="form-control-view" th:text="${viewDto.note}"></p>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12">
+				<div class="form-group">
+					<label for="description" class="col-sm-4 col-md-2 control-label" th:text="#{introduction.description}">Mô tả</label>
+					<div class="col-sm-8 col-md-10 pleft-10">
+						<p class="form-control-view" th:text="${viewDto.description}"></p>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12">
+				<div class="form-group">
+					<input id="imageUrl" type="hidden" th:value="${viewDto.imageUrl}"></input>
+					<label th:Text="#{introduction.image}" for="imageName" class="col-sm-4 col-md-2 control-label">image name</label>
+					<div class="col-sm-8 col-md-10 pleft-10">
+						<label class="form-control" th:text="${viewDto.imageName}" > </label>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12">
+				<div class="form-group">
+					<div class="col-sm-4 col-md-2"></div>
+					<div class="col-sm-8 col-md-10 pleft-10">
+						<div class="wrap_img">
+							<img th:id="image_preview" th:if="${viewDto.imageUrl != null}" class="img_banner"  th:src="@{/introduction/image/download(url=*{imageUrl})}"/>
+							<img th:id="image_preview" th:hidden="true" th:if="${viewDto.imageUrl == null}" class="img_banner"  th:src="@{/introduction/image/download(url=*{imageUrl})}"/>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12">
+				<div class="form-group">
+					<label class="col-sm-4 col-md-2 control-label" th:text="#{introduction.language}">Ngôn ngữ</label>
+					<div class="col-sm-8 col-md-10 pleft-10 gr-tab">
+						<ul class="nav nav-tabs" id="tabBanner">
+							<th:block th:each="detailByLang,status : ${viewDto.infoByLanguages}" th:with="index=${status.index}">
+								<li role="presentation"
+									th:classappend="${status.index == 0}  ? 'active' : ''"><a
+									th:href="'#' + ${detailByLang.languageCode}" th:text="${detailByLang.languageDispName}"></a>
+								</li>
+							</th:block>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="tab-content" style="margin-top: 10px">
+				<th:block th:each="detailByLang,status : ${viewDto.infoByLanguages}" th:with="index=${status.index}">
+					<div th:id="${detailByLang.languageCode}" class="tab-pane fade " th:classappend="${index == 0}  ? 'in active' : ''">
+						<div class="col-xs-12 col-sm-12">
+							<div class="form-group">
+								<label 
+									class="col-sm-4 col-md-2 control-label" th:text="#{introduction.title}">Title</label>
+								<div class="col-sm-8 col-md-10 pleft-10">
+									<label class="form-control" th:text="${viewDto.infoByLanguages[__${status.index}__].title}" > </label>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-12">
+							<div class="form-group">
+								<label th:Text="#{introduction.shortcontent}"
+								  class="col-sm-4 col-md-2 control-label">Short content</label>
+								<div class="col-sm-8 col-md-10 pleft-10">
+									<p class="form-control-view" th:text="${viewDto.infoByLanguages[__${status.index}__].shortContent}"></p>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-12">
+							<div class="form-group">
+								<label  class="col-sm-4 col-md-2 control-label" th:text="#{introduction.content}">Text trên banner</label>
+								<div class="col-sm-8 col-md-10 pleft-10">
+									<div class="controls">
+										<p class="form-control-view" th:utext="${viewDto.infoByLanguages[__${status.index}__].content}"></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</th:block>
+			</div>
+			<div class="col-xs-12 col-sm-12">
+				<div class="form-group" th:if="${#authorization.expression('hasAuthority(''AI1#S01#B06_REJECT:Disp:__*{status}__:__*{processId}__'')')}">
+		            <label for="comment" class="col-sm-4 col-md-2 control-label " th:classappend="${#fields.hasErrors('comment')} ? has-error : ''" th:text="#{job.comment}">Ghi chú</label>
+		            <div class="col-sm-8 col-md-10 pleft-10">		            	 
+		            	<textarea rows="3" th:field="*{comment}" class="col-sm-8 form-control j-maxlength " data-rule-maxlength="65535" ></textarea>                
+		                <span class="help-block" th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}"></span>
+		            </div>
+		        </div>
+			</div>
+			<div class="col-xs-12 col-sm-12 ">
+				<input type="hidden" th:field="*{status}"></input>
+				<input type="hidden" th:field="*{processId}"></input>
+				<input type="hidden" th:field="*{id}"></input>
+				<input type="hidden" th:field = "*{referenceId}" />
+			    <input type="hidden" th:field = "*{referenceType}" />
+			    <div class = "row unit-button form-group" >
+					<a id="btnCancel" type="button" class="btn-cancel" ><i class="fa fa-times"></i> <span th:text="#{cancel.button}">Thoát</span></a>
+					<button id="btnSubmit" class="btn-common" th:if="${#authorization.expression('hasAuthority(''AI1#S01#GB1_SUBMIT:Disp:__*{status}__:__*{processId}__'')')}">
+						<i class="fa fa-paper-plane" aria-hidden="true"></i>
+						<span th:text="#{sendRequest.button}">Gửi duyệt</span>
+					</button>
+					<button id="btnApprove" class="btn-common" 
+						th:if="${#authorization.expression('hasAuthority(''AI1#S01#B07_APPROVE:Disp:__*{status}__:__*{processId}__'')')}">
+						<i class="fa fa-check"></i>
+						<span th:text="#{approve.button}">Duyệt</span> 
+					</button>
+					<button id="btnReject" class="btn-common" 
+						th:if="${#authorization.expression('hasAuthority(''AI1#S01#B06_REJECT:Disp:__*{status}__:__*{processId}__'')')}">
+						<i class="fa fa-ban"></i>
+						<span th:text="#{return.button}">Từ chối</span> 
+					</button>
+				</div>
+			</div>			
+			<input type="hidden" id="ajaxHistoryUrl" name="ajaxHistoryUrl" value="introduction/ajaxHistory"/>
+</div>
+		
+</form>
+<script type="text/javascript" th:src="@{/web-app/views/introduction/introduction-detail.js}"></script>
+<div class="row unit-bg-table history-process-table">
+	<th:block th:include="views/commons/history-process.html :: content"/>			
+</div>
+</body>
+</html>

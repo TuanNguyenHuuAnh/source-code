@@ -1,0 +1,6 @@
+
+ select count(*)
+
+  from  RPT_ODS.D_CLIENT C  INNER JOIN TABLE( RPT_ODS.DS_FN_LIST_CUSTOMER_BIRTHDAY ( /*agentCode*/'130747')) AS P
+         ON C.CLIENT_KEY=P.CLI_ID
+   where VARCHAR_FORMAT(C.DATE_OF_BIRTH, 'MMdd') = VARCHAR_FORMAT(/*date*/, 'MMdd')

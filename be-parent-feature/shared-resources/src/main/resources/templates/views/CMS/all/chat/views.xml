@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+	"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	<definition name="chat.list" extends="unit">
+		<put-attribute name="body" value="views/chat/chat-list.html" />
+	</definition>
+	<definition name="chat.edit" extends="unit">
+		<put-attribute name="body" value="views/chat/chat-edit.html" />
+	</definition>
+	<definition name="chat.detail" extends="unit">
+		<put-attribute name="body" value="views/chat/chat-detail.html" />
+	</definition>
+	<definition name="chat.config" extends="unit">
+		<put-attribute name="body" value="views/chat/config.html" />
+	</definition>
+	<definition name="chat.table" extends="ajax">
+		<put-attribute name="body" value="views/chat/chat-table.html" />
+	</definition>	
+	<definition name="chat.config.value.add" extends="unit">
+		<put-attribute name="body" value="views/chat/config-value.html" />
+	</definition>
+	<definition name="chat.edit.customer" extends="unit">
+		<put-attribute name="body" value="views/chat/chat-edit-customer.html" />
+	</definition>
+	
+	<!-- Chat support -->
+	<definition name="chat.support.list" extends="unit">
+		<put-attribute name="body" value="views/chat/chat-support-list.html" />
+	</definition>
+	<definition name="chat.support.user.info" extends="ajax">
+		<put-attribute name="body" value="views/chat/chat-support-user-info.html" />
+	</definition>
+	
+	<definition name="chat.list.offline" extends="unit">
+		<put-attribute name="body" value="views/chat/chat-list-offline.html" />
+	</definition>
+	<definition name="chat.table.offline" extends="ajax">
+		<put-attribute name="body" value="views/chat/chat-table-offline.html" />
+	</definition>
+	<definition name="chat.edit.offline" extends="unit">
+		<put-attribute name="body" value="views/chat/chat-edit-offline.html" />
+	</definition>
+	<definition name="chat.detail.offline" extends="unit">
+		<put-attribute name="body" value="views/chat/chat-detail-offline.html" />
+	</definition>
+	<definition name="chat.config.offline" extends="unit">
+		<put-attribute name="body" value="views/chat/config-offline.html" />
+	</definition>
+	
+	<definition name="chat.user.product.add" extends="unit">
+		<put-attribute name="body" value="views/chat/chat-user-product.html" />
+	</definition>
+	
+	<definition name="chat.user.product.list" extends="unit">
+		<put-attribute name="body" value="views/chat/chat-list-user-product.html" />
+	</definition>
+	
+	<definition name="chat.user.product.table" extends="ajax">
+		<put-attribute name="body" value="views/chat/chat-table-user-product.html" />
+	</definition>
+	
+	
+	<definition name="chat.list.history" extends="unit">
+		<put-attribute name="body" value="views/chat/chat-list-history.html" />
+	</definition>
+	<definition name="chat.table.history" extends="ajax">
+		<put-attribute name="body" value="views/chat/chat-history-table.html" />
+	</definition>
+	<definition name="chat.detail.hisotry" extends="unit">
+		<put-attribute name="body" value="views/chat/chat-list-history-detail.html" />
+	</definition>
+	
+	
+    <definition name="chat.user.online.list" extends="unit">
+        <put-attribute name="body" value="views/chat/chat-user-online-list.html" />
+    </definition>
+    
+    <definition name="chat.user.online.table" extends="ajax">
+        <put-attribute name="body" value="views/chat/chat-user-online-table.html" />
+    </definition>
+</tiles-definitions>
+
+

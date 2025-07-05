@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<body th:fragment="content">
+    <div class="box-body no-padding">
+        <form id="formAuthority" th:action="@{/component-authority/ajax/edit}" method="POST" onsubmit="return false;">
+            <div class="row unit-bg-table m-0">
+                <div class="table-responsive">
+                    <table id="comp-table" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th class="u_t_no ">#</th>
+                                <th class="u_t_name">
+                                    <div>
+                                        <input type="text" id="comp-name" class="form-control input-sm"
+                                            th:placeholder="#{component.authority.detail.component.name}" />
+                                    </div>
+                                </th>
+                                <th th:text="#{component.authority.detail.access}">Truy cập</th>
+                                <!--  <th th:text="#{authority.detail.display}">Chi tiết</th> -->
+                                <!-- <th th:text="#{component.authority.detail.edit}">Cập nhật</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <th:block th:each="authorityDto,iterStat : ${componentAuthorityList}">
+                                <tr class="comp-tr">
+                                    <input type="hidden" class="j-comp-id" th:name="data[__${iterStat.index}__].compId"
+                                        th:id="compId__${iterStat.index}__" th:value="${authorityDto.compId}" />
+                                    <input type="hidden" class="j-item-id" th:name="data[__${iterStat.index}__].itemId"
+                                        th:id="itemId__${iterStat.index}__" th:value="${authorityDto.itemId}" />
+                                    <td class="text-center" th:text="${iterStat.index+1}">1.</td>
+                                    <td th:text="${authorityDto.compName}" data-tfilter="true">Comp name</td>
+                                    <td class="text-center comp-td-check-access">
+                                        <input type="checkbox" class="check-access"
+                                            th:name="data[__${iterStat.index}__].canAccessFlg"
+                                            th:id="canAccessFlg__${iterStat.index}__"
+                                            th:checked="${authorityDto.canAccessFlg}" />
+                                    </td>
+                                    <!-- <td class="text-center">
+		                                <input type="checkbox" class="check-disp" 
+		                                       th:name="data[__${iterStat.index}__].canDispFlg" th:id="canDispFlg__${iterStat.index}__" 
+		                                       th:checked="${authorityDto.canDispFlg}" />
+		                            </td> -->
+                                   <!--  <td class="text-center comp-td-check-edit">
+                                        <input type="checkbox" class="check-edit"
+                                            th:name="data[__${iterStat.index}__].canEditFlg"
+                                            th:id="canEditFlg__${iterStat.index}__"
+                                            th:checked="${authorityDto.canEditFlg}" />
+                                    </td> -->
+                                </tr>
+                            </th:block>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script type="text/javascript" th:src="@{/static/cache/js/component-authority/component-iauthority-edit.js}"></script>
+</body>
+
+</html>

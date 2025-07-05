@@ -1,0 +1,10 @@
+SELECT c.ID AS ID
+      ,c.CATEGORY AS CATEGORY
+      ,c.TYPE AS TYPE
+      ,c.SM AS SM
+      ,c.IL AS IL
+      ,c.IO_IS AS IO_IS
+FROM SAM_M_CATEGORY c
+WHERE 1 = 1
+	AND c.IS_DELETED = 0
+ORDER BY c.[ORDER] ASC

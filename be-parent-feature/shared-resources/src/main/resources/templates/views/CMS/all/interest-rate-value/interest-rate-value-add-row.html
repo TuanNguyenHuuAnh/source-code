@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <body th:fragment="content">
+    <th:block
+      th:each="setup, i : ${lstTitleSetup}"
+      th:with="index=${i.index}"
+      th:if="${not #lists.isEmpty(lstTitleSetup)}"
+    >
+      <tr th:if="${i.index == 0}">
+        <td class="text-center stt"></td>
+        <td class="text-center" style="width: 80px">
+          <a
+            class="
+              j-btn-delete
+              glyphicon glyphicon-remove-sign
+              font-size-20
+              red
+              menudelete
+            "
+            th:title="#{icon.delete}"
+            th:if="${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.BUTTON_INTEREST_RATE_VALUE_EDIT}__:Edit'')')}"
+          >
+          </a>
+        </td>
+        <td hidden="hidden">
+          <input class="form-control id-title" type="hidden" />
+        </td>
+        <td hidden="hidden">
+          <input class="form-control type-title" type="hidden" />
+        </td>
+        <td hidden="hidden">
+          <input class="form-control language-title" type="hidden" />
+        </td>
+        <td hidden="hidden">
+          <input class="form-control customer-title" type="hidden" />
+        </td>
+        <th:block
+          th:if="${not #lists.isEmpty(setup.lstTitleDto)}"
+          th:each="item,k : ${setup.lstTitleDto}"
+        >
+          <td><input class="form-control j-required interest-rate-value" /></td>
+        </th:block>
+      </tr>
+    </th:block>
+  </body>
+</html>

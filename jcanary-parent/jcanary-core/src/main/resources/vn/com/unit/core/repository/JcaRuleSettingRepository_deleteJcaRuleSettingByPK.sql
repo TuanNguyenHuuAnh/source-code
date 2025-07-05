@@ -1,0 +1,4 @@
+DELETE JCA_RULE_SETTING
+WHERE BUSINESS_ID = /*businessId*/0
+AND ORG_ID = /*orgId*/0
+AND POSITION_ID = /*positionId*/0

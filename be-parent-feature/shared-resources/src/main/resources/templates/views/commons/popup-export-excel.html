@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<script type="text/javascript"
+	th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}" />
+
+<body th:fragment="content">
+<!-- modal export-->
+		<div class="modal fade" id="export-component-modal"
+			tabindex="-1" role="dialog"
+			aria-labelledby="export-component-modal-label">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content"
+					style="width: 500px; magin: 0; padding: 0; margin-left: 170px">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close" id="closeModal">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title " id="export-component-modal-label">Export
+							Excel</h4>
+					</div>
+					<div class="modal-body" id="export-component-modal-content" style="height:65px;">
+
+						<div style="border:none;padding-top: 8px">
+							<form class="form-horizontal  j-formSearch" id="fmUploadExport"
+								method="POST" role="form">
+								<div class="form-group">
+									<div class="col-xs-12 col-sm-12 center">
+										<div class="col-sm-12" id="uploader">
+											<pre th:id="fileConsole" style="display: none"></pre>
+											<div th:id="fileFilelist"></div>
+											<label style="font-weight: normal; padding-right: 5px">Password: </label>
+												<input type="password" name="password" id="passExportPopup"/>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<span class="button"><a href="#" class="btn-cancel" data-dismiss="modal"><i class="fa fa-times"></i> Close</a></span>
+						<a href="#" class="btn-common btn-in-tablet" data-dismiss="modal" id="btnExport"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export</a>
+					</div>
+				</div>
+			</div>
+		</div>
+</body>
+	
+</html>

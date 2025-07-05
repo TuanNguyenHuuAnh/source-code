@@ -1,0 +1,5 @@
+UPDATE M_AGENT_NOTIFY_IMPORT 
+SET MESSAGE_ERROR = COALESCE(MESSAGE_ERROR, '') + /*messageError*/''  + '@;-',
+IS_ERROR = 1
+WHERE
+    ID = /*id*/''

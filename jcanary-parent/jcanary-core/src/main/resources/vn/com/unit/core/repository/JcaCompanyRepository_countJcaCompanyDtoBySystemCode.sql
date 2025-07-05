@@ -1,0 +1,7 @@
+SELECT
+	  COUNT(1)
+FROM 
+	JCA_COMPANY com
+WHERE  
+	com.DELETED_ID = 0
+	AND com.SYSTEM_CODE = /*systemCode*/

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <body th:fragment="content">
+    <div class="form-group col-sm-12 no-bmargin no-padding gr-tab">
+      <ul class="nav nav-tabs" id="tabLanguage">
+        <th:block th:each="language, i : ${languageList}">
+          <li
+            role="presentation"
+            th:classappend="${i.index == 0}  ? 'active' : ''"
+            th:id="tabLanguage + ${i.index}"
+          >
+            <a
+              th:href="'#language' + ${i.index}"
+              th:text="${language.name}"
+            ></a>
+          </li>
+        </th:block>
+      </ul>
+    </div>
+    <div
+      class="tab-content center"
+      style="margin: 0px !important"
+      id="addTable"
+    >
+      <th:block
+        th:each="setup, i : ${lstTitleSetup}"
+        th:with="index=${i.index}"
+        th:if="${not #lists.isEmpty(lstTitleSetup)}"
+      >
+        <div
+          th:id="'language' + ${index}"
+          class="tab-pane fade scroll-tab"
+          th:classappend="${index == 0}  ? 'in active' : ''"
+        >
+          <div class="table-responsive">
+            <table
+              class="table table-bordered table-hover out-tbl"
+              style="min-width: 100%"
+              th:if="${not #lists.isEmpty(setup.lstTitleDto)}"
+            >
+              <thead>
+                <tr>
+                  <th class="u_t_no">#</th>
+                  <th class="u_t_action" th:text="#{action.label}">Thao tác</th>
+                  <th:block
+                    th:each="titleDto, j : ${setup.lstTitleDto}"
+                    th:if="${not #lists.isEmpty(setup.lstTitleDto)}"
+                  >
+                    <th th:text="${titleDto.title}"></th>
+                  </th:block>
+                </tr>
+              </thead>
+              <tbody
+                class="tbody-value"
+                th:attr="lang=${setup.languageDto.code}"
+              >
+                <th:block
+                  th:if="${not #lists.isEmpty(setup.lstValueDto)}"
+                  th:each="item,k : ${setup.lstValueDto}"
+                >
+                  <tr>
+                    <td class="text-center stt" th:text="${k.index + 1}"></td>
+                    <td class="text-center" style="width: 80px">
+                      <a
+                        class="
+                          j-btn-delete
+                          glyphicon glyphicon-remove-sign
+                          font-size-20
+                          red
+                          menudelete
+                        "
+                        th:title="#{icon.delete}"
+                        th:if="(${interestRateValueDto.status eq @stepNoStatusConstant.STEP_DRAFT
+													or interestRateValueDto.status eq @stepNoStatusConstant.STEP_REJECTED})
+													and ${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.BUTTON_INTEREST_RATE_VALUE_EDIT}__:Edit'')')}
+													or ${#lists.isEmpty(interestRateValueDto.datas)}"
+                      >
+                      </a>
+                    </td>
+                    <td hidden="hidden">
+                      <input
+                        class="form-control id-title"
+                        type="hidden"
+                        th:value="${item.id}"
+                      />
+                    </td>
+                    <td hidden="hidden">
+                      <input
+                        class="form-control type-title"
+                        type="hidden"
+                        th:value="${item.interestRateType}"
+                      />
+                    </td>
+                    <td hidden="hidden">
+                      <input
+                        class="form-control language-title"
+                        type="hidden"
+                        th:value="${item.languageCode}"
+                      />
+                    </td>
+                    <td hidden="hidden">
+                      <input
+                        class="form-control customer-title"
+                        type="hidden"
+                        th:value="${item.customerTypeId}"
+                      />
+                    </td>
+                    <td hidden="hidden">
+                      <input
+                        class="form-control updateDate-title"
+                        type="hidden"
+                        th:value="${item.updateDate}"
+                      />
+                    </td>
+                    <td hidden="hidden">
+                      <input
+                        class="form-control status-title"
+                        type="hidden"
+                        th:value="${item.status}"
+                      />
+                    </td>
+                    <th:block th:each="dto, j : ${item.lstValues}">
+                      <td>
+                        <input
+                          class="form-control j-required interest-rate-value"
+                          th:value="${dto}"
+                        />
+                      </td>
+                    </th:block>
+                  </tr>
+                </th:block>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </th:block>
+    </div>
+  </body>
+</html>

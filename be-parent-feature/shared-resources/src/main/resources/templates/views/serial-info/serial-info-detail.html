@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<body>	
+	<script type="text/javascript" th:src="@{/static/cache/js/serial-info/serial-info-detail.js}"></script>	
+	
+	<div class="title-head clearfix">
+       <div class="col-sm-9 col-xs-7 no-padding">
+            <h3>
+                <i class="fa fa-table"></i>
+                <span th:text="#{serial.info.page}">Tiêu đề trang</span>
+            </h3>
+       </div>
+       <div class="col-sm-3 col-xs-5 icon-head">
+            <div class="pull-right">
+	           <a>
+	               <i class="fa fa-arrow-circle-left icon-head-red" id="linkList"></i>
+	           </a>
+	           <a>
+	               <i class="fa fa-plus-circle icon-head-red" id="add"></i>
+	           </a>
+	        </div>
+       </div>
+    </div>
+	
+	<form class="form-horizontal u-for-page-top j-form-validate" th:object="${serialInfoDto}" method="post" role="form">
+		<th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+		<div class="bg-content clearfix">
+		
+		    <div class="header-box"> 
+               <h2 class="title-box" th:text="#{serial.info.information}">Thông tin mã</h2>
+             </div>   	
+		
+            <input type="hidden" th:field="*{serialInfoId}" />
+			<div class="col-xs-6 col-sm-6">
+				<div class="form-group" >
+					<label class="col-sm-4" for="template" th:text="#{serial.info.template}">Mẫu</label>
+					<div class="col-sm-8" >
+						<label class="form-control form-detail" th:text="${serialInfoDto.template}" > </label>						
+					</div>
+				</div>
+				<div class="form-group">
+                    <label for="dateFormat" class="col-sm-4"  th:text="#{serial.info.date.format}">Định dạng ngày</label>
+                    <div class="col-sm-8" >
+                        <label class="form-control form-detail" th:text="${serialInfoDto.dateFormatName}"> </label>                        
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="col-sm-4" for="effectedDate" th:text="#{serial.info.effected.date}">Ngày hiệu lực</label>
+                    <div class="col-sm-8" >
+                        <label class="form-control form-detail" th:text="${serialInfoDto.effectedDate} ? ${#dates.format(serialInfoDto.effectedDate, session.formatDate)}" > </label>                        
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="col-sm-4" for="expiredDate" th:text="#{serial.info.expired.date}">Ngày hết hạn</label>
+                    <div class="col-sm-8" >
+                        <label class="form-control form-detail" th:text="${serialInfoDto.expiredDate} ? ${#dates.format(serialInfoDto.expiredDate, session.formatDate)}" > </label>                        
+                    </div>
+                </div>
+			</div>
+			<div class="col-xs-6 col-sm-6">
+			    <div class="form-group">
+                    <label for="example" class="col-sm-4" th:text="#{serial.info.example}">Ví dụ</label>
+                    <div class="col-sm-8" >
+                        <label class="form-control form-detail" th:text="${serialInfoDto.exampleSerial}"> </label>                        
+                    </div>
+                </div>
+		        <div class="form-group">
+                    <label for="numberFormat" class="col-sm-4" th:text="#{serial.info.number.format}">Định dạng số</label>
+                    <div class="col-sm-8" >
+                        <label class="form-control form-detail" th:text="${serialInfoDto.numberFormat}"> </label>                        
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description" class="col-sm-4" th:text="#{serial.info.start.number}">Số bắt đầu</label>
+                    <div class="col-sm-8" >
+                        <label class="form-control form-detail" th:text="${serialInfoDto.startNumber}"> </label>                        
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description" class="col-sm-4" th:text="#{serial.info.increase.number}">Tăng</label>
+                    <div class="col-sm-8" >
+                        <label class="form-control form-detail" th:text="${serialInfoDto.increaseNumber}"> </label>                        
+                    </div>
+                </div>
+		        <div class="form-group">
+		            <label for="description" class="col-sm-4" th:text="#{serial.info.description}">Mô tả</label>
+		            <div class="col-sm-8">
+		                <textarea readonly="readonly" class="form-control form-detail" th:text="${serialInfoDto.description}"></textarea>
+			        </div>
+		        </div>
+			</div>
+		</div>			
+	</form>	
+	<input type="hidden" id="url" name="url" th:value="${serialInfoDto.url}"/>
+	</body>
+</html>

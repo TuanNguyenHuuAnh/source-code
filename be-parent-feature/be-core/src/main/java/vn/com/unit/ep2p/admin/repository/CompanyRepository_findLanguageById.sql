@@ -1,0 +1,1 @@
+SELECT LANGUAGE FROM jca_company WHERE DELETED_ID = 0 AND ID = /*companyId*/1

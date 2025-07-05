@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<body>	
+	<div class="bg-content-tbl">  
+		<div class="header-box">
+			<h2 class="title-box" th:text="#{role.for.team.role.list}" >Role List</h2>
+	    </div>
+	    <div>
+	    	<input type="hidden" id="teamId" th:value = "${teamId}" />
+	        <form id="formAuthority">
+	            <div class="row unit-bg-table m-0">
+		            <div class="table-responsive">
+			            <table id="roleByFunctionTableId" class="table table-bordered table-striped">
+			                <thead>
+			                    <tr>
+			                        <th class="u_t_no ">#</th>
+			                        <th colspan="2" class="u_t_name"><input type="text" id="functionName" class="form-control input-sm" th:placeholder="#{authority.detail.role.name}"/></th>
+			                        <th class="center" th:text = "#{select.button}">Chọn</th>
+			                    </tr>
+			                </thead>
+			                <tbody>
+			                    <th:block th:each="roleDto,iterStat : ${roleTeams}">
+			                        <tr>
+			                            <input type="hidden" class="j-role-id" th:name="data[__${iterStat.index}__].roleId" th:id="roleId__${iterStat.index}__"
+			                                                 th:value="${roleDto.roleId}" />
+			                            <td th:text="${iterStat.index + 1}"></td>
+			                            <td colspan="2" th:text="${roleDto.roleName}" data-tfilter="true">Function name</td>
+			                            <td class="text-center">
+			                                <input type="checkbox" class="check-access" 
+			                                       th:name="data[__${iterStat.index}__].flgChecked"
+			                                       th:id="flgChecked__${iterStat.index}__" 
+			                                       th:checked="${roleDto.flgChecked}" />
+			                            </td>
+			                        </tr>
+			                    </th:block>
+			                </tbody>
+			            </table>
+		            </div>
+	            </div>
+	        </form>
+	    </div>
+	</div>    
+    <script type="text/javascript" th:src="@{/static/cache/js/role-team/role-team-edit.js}"></script>
+</body>
+</html>

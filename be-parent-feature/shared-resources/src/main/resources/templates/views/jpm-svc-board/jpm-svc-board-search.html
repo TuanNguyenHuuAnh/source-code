@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+    <form class="form-horizontal u-for-page-top j-formSearch" th:object="${search}" method="POST" role="form" id="formSearch">
+    	<input name="_csrf" type="hidden" th:if="${_csrf}" th:value="${_csrf.token}" />
+    
+    	<input type="hidden" id="companyId" th:field="*{companyId}" th:if="${companyList.size() lt 2}"/>
+        <div class="bg-content clearfix">
+            <div class="collapse in row m-0" id="search-box">
+                <div class="col-xs-12 col-sm-12 p-0" th:if="${companyList.size() gt 1}">
+                	<div class="col-sm-6">
+                		<div class="form-group">
+							<label for="companyId" class="col-sm-4 align-top no-padding" th:text="#{company.detail}">Company</label>
+							<div class="col-sm-8 no-padding">
+								<select class="form-control select2 select-company" th:field="*{companyId}">
+									<option value=""></option>
+									<option th:each="company : ${companyList}" 
+										th:value="${company.id}"
+										th:text="${company.text}">
+									</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+	                   		<label for="companyId" class="col-sm-4 align-top no-padding" th:text="#{svc.board.list.template.label}">Template Name</label>
+							<div class="col-sm-8 no-padding">
+								<select class="form-control" id="formId" name="">
+									<option value=""></option>
+								</select>
+							</div>
+						</div>
+                	</div>
+                	<div class="col-sm-6">
+                		<div class="form-group">
+							<label for="companyId" class="col-sm-4 align-top no-padding" th:text="#{svc.management.list.page.search.category.label}">Select category</label>
+							<div class="col-sm-8 no-padding">
+								<select class="form-control select2 select-category" id="service-category" name="serviceCategory" th:field="*{companyId}">
+									<option value=""></option>
+								</select>
+							</div>
+						</div>
+                	</div>
+                </div>
+                <div class="col-xs-12 col-sm-12 p-0" th:if="${companyList.size() lt 2}">
+                	<div class="col-sm-6">
+                		<div class="form-group">
+							<label for="companyId" class="col-sm-4 align-top no-padding" th:text="#{svc.management.list.page.search.category.label}">Select category</label>
+							<div class="col-sm-8 no-padding">
+								<select class="form-control select2 select-category" id="service-category" name="serviceCategory" th:field="*{companyId}">
+									<option value=""></option>
+								</select>
+							</div>
+						</div>
+                	</div>
+                	<div class="col-sm-6">
+						<div class="form-group">
+	                   		<label for="companyId" class="col-sm-4 align-top no-padding" th:text="#{svc.board.list.template.label}">Template Name</label>
+							<div class="col-sm-8 no-padding">
+								<select class="form-control" id="formId" name="">
+									<option value=""></option>
+								</select>
+							</div>
+						</div>
+                	</div>
+                </div>
+                <div class="col-xs-12 col-sm-12 p-0">
+                	
+                </div>
+                <div class="col-xs-12 col-sm-12" style="margin-top: 10px;" align="center">
+				<span class="button">
+					<a class="btn btn-common" id="btnSearch">
+						<i class="fa fa-search"></i> <span th:text="#{search.button}" th:title="#{search.button}"></span>
+					</a>
+				</span>
+			</div>
+            </div>
+        </div>
+	</form>
+	
+	<script type="text/javascript" th:inline="text">
+        var SEARCH_CATEGORY_LABEL = '[[#{svc.management.category.name.search}]]';
+ 	</script>
+    <script type="text/javascript" th:src="@{/static/cache/js/jpm-svc-board/jpm-svc-board-search.js}"></script>
+</body>
+</html>

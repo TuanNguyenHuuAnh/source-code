@@ -1,0 +1,5 @@
+SELECT * 
+FROM JCA_CONSTANT_LANG
+WHERE 
+	 GROUP_CODE =  /*groupCode*/'' 
+	AND UPPER(LANG_CODE) = UPPER(/*lang*/'EN');

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <body th:fragment="content">
+    <div class="col-sm-12 p-0">
+      <h2 class="title-box">Search Result</h2>
+
+      <a
+        class="btn-common pull-right"
+        id="btnExport"
+        onclick="doExportExcel();"
+      >
+        <i class="fa fa-download" aria-hidden="true"></i>
+        <span th:text="' '+#{common.export.data}"></span>
+      </a>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th class="u_t_no">#</th>
+              <th class="u_t_action" th:text="#{action.label}">Thao tác</th>
+              <th class="u_t_action" th:text="#{assettype.codegen}"></th>
+              <th class="u_t_code" th:text="#{assettype.name}"></th>
+              <th class="u_t_title" th:text="#{assettype.costcenter}"></th>
+              <th class="u_t_date" th:text="#{create.date}"></th>
+              <th class="u_t_date" th:text="#{assettype.active}"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <th:block
+              th:each="assetDto,i : ${pageWrapper.data}"
+              th:with="startIndex=${pageWrapper.startIndexCurrent}"
+            >
+              <tr th:attr="data-assettype-id=${assetDto.assetTypeId}">
+                <td class="text-center" th:text="${i.index + startIndex}"></td>
+                <td class="text-center">
+                  <div>
+                    <a
+                      class="
+                        glyphicon glyphicon-eye-open
+                        custom-icon
+                        j-btn-detail
+                      "
+                      th:title="#{view.button}"
+                      th:href="@{/assettype/detail(id=${assetDto.assetTypeId})}"
+                    ></a>
+                    <a
+                      class="glyphicon glyphicon-edit custom-icon j-btn-edit"
+                      th:title="#{edit.button}"
+                      th:href="@{/assettype/edit(id=${assetDto.assetTypeId})}"
+                    ></a>
+                    <a
+                      class="
+                        glyphicon glyphicon-remove-sign
+                        font-size-20
+                        red
+                        j-btn-delete j-assettype-delete
+                      "
+                      th:title="#{delete.button}"
+                    ></a>
+                  </div>
+                </td>
+                <td th:text="${assetDto.code}"></td>
+                <td th:text="${assetDto.name}"></td>
+                <td
+                  th:text="${assetDto.costCenterCode} != null ? ${assetDto.costCenterCode} + ' - ' + ${assetDto.costCenterName} : ''"
+                ></td>
+                <td
+                  class="text-center"
+                  th:text="${assetDto.createdDate }? ${#dates.format(assetDto.createdDate, @menuConfig.getFormDate())}"
+                ></td>
+                <!-- <td style="text-align: center;" th:text="${assetDto.activeFlag} ? 'active' : 'Inactive'"></td> -->
+                <td style="text-align: center">
+                  <input
+                    type="checkbox"
+                    disabled="disabled"
+                    th:value="${assetDto.activeFlag}"
+                    th:checked="${assetDto.activeFlag == 1 ? true : false }"
+                  />
+                </td>
+              </tr>
+            </th:block>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <th:block
+      th:include="/views/ASSET_MANAGEMENT_MODULE/commons/pagination.html :: content(pageWrapper=${pageWrapper})"
+    />
+    <script
+      type="text/javascript"
+      th:src="@{/static/js/assettype/assettype-list.js}"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+SELECT
+	form.JPM_BUSINESS_ID AS JPM_BUSINESS_ID
+FROM
+	EFO_FORM form
+WHERE form.ID = /*formId*/1
+	AND form.DELETED_ID = 0

@@ -1,0 +1,11 @@
+SELECT
+	CASE
+WHEN MAX(sort) IS NULL THEN
+	0
+ELSE
+	MAX(sort)
+END AS sort
+FROM
+	m_job
+WHERE
+	delete_by IS NULL

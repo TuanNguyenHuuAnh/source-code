@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<script type="text/javascript"
+	th:src="@{/static/cache/jquery/multiple-select/js/jquery.multiselect.js}"></script>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/static/cache/jquery/multiple-select/css/jquery.multiselect.css}" />
+
+<body th:fragment="content">
+	<form class="form-horizontal u-for-page-top j-formSearch"
+		th:object="${jobSchedule}" method="POST" role="form" id="formSearch">
+		<div class="bg-content clearfix">
+			<div data-toggle="collapse" data-target="#search-box"
+				class="header-box">
+				<h2 class="title-box" th:text="#{search.title}">Vùng tìm kiếm</h2>
+				<i class="fa fa-minus pull-right" aria-hidden="true"></i>
+			</div>
+			<!-- <input type="hidden" id="companyIdList" name="companyIdList"
+					th:field="*{companyIdList}" /> -->
+			<div class="collapse in" id="search-box">
+				<div class="row">
+					<div class="col-sm-6 p-0">
+						<div class="form-group" th:style="${2 > companyList.size()}?'display:none' : ''">
+							<label for="companyId" class="col-sm-3" th:text="#{company.detail}">Company</label>
+							<div class="col-sm-9">
+								<select class="col-sm-9 form-control select2 select-company" th:field="*{companyId}">
+									<option th:value="0" th:text="#{common.all}"></option>
+									<option th:value="${NULL}" th:text="#{company.all}"></option>
+									<option th:each="company : ${companyList}" th:if="${companyList.size() > 1}"
+											th:value="${company.id}"
+											th:text="${company.text}">
+									</option>
+								</select>
+							</div>
+						</div>
+	                    
+						<div class="form-group"> 
+							<label class="col-sm-3" th:text="#{quartz.table.job.name}">Job</label>
+							<div class="col-sm-9">
+								<select id="select-jobId" name="jobId" th:field="*{jobId}" class="form-control col-sm-9">
+								</select> <input id="select-jobId-hidden" type="hidden" name="jobId" />
+								<input id="select-jobName-hidden" class="hidden" />
+							</div>
+						</div>
+							
+	                    <div class="form-group">
+							<label class="col-sm-3" th:text="#{quartz.table.schedule.name}">Schedule</label>
+							<div class="col-sm-9">
+								<select id="select-scheduleId" name="schedId" th:field="*{schedId}" class="form-control col-sm-9">
+								</select> <input id="select-scheduleId-hidden" type="hidden"
+									name="schedId" /> <input id="select-scheduleName-hidden"
+									class="hidden" />
+							</div>
+						</div>
+					</div>
+	                
+					<div class="col-sm-6 p-0">
+						<div class="form-group">
+							<label class="col-sm-3" th:text="#{quartz.field.table.status}">Status</label>
+							<div class="col-sm-9">
+								<select multiple="multiple" class="form-control col-sm-9" id="statusList"
+									name="status">
+									<th:block
+										th:each="item: ${T(vn.com.unit.ep2p.admin.schedule.ScheduleTask.JobStatus).values()}">
+										<th:block
+											th:if="${item.getLongValue() != T(vn.com.unit.ep2p.admin.schedule.ScheduleTask.JobStatus).STOP.getLongValue()}">
+											<option th:value="${item.getLongValue()}"
+												th:text="${item.toString()}"
+												th:selected="${item.getLongValue() == T(vn.com.unit.ep2p.admin.schedule.ScheduleTask.JobStatus).WAITING.getLongValue()
+	                            				or item.getLongValue() == T(vn.com.unit.ep2p.admin.schedule.ScheduleTask.JobStatus).PAUSED.getLongValue()
+	                            				or item.getLongValue() == T(vn.com.unit.ep2p.admin.schedule.ScheduleTask.JobStatus).ERROR.getLongValue()}"></option>
+										</th:block>
+									</th:block>
+								</select>
+								<input type="hidden" id="status" name="status" />
+							</div>
+						</div>
+	                    
+						<div class="form-group">
+							<label class="col-sm-3"
+								th:text="#{quartz.field.table.date.start}">Date start </label>
+							<div class="col-sm-9">
+								<div class="input-group date date-icon-calendar datepicker-from">
+									<input class="form-control "
+										th:field="*{startTime}" id="startTime" name="startTime"/> <span class="input-group-addon"><i
+										class="fa fa-calendar"></i></span>
+								</div>
+							</div>
+						</div>
+							
+	                    <div class="form-group">
+							<label class="col-sm-3" th:text="#{quartz.search.to.date}">To</label>
+							<div class="col-sm-9">
+								<div class="input-group date date-icon-calendar datepicker-to">
+									<input class="form-control " th:field="*{endTime}" id="endTime" name="endTime"/>
+									<span class="input-group-addon"><i
+										class="fa fa-calendar"></i></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+            
+				<div class="row m-0 pos-gr-btn">
+					<button type="submit" class="u-btn u-btn-primary" id="btnSearch">
+				       <i class="fa fa-search"></i>
+				       <span th:text="#{search.button}"></span>
+				   </button>
+				</div>
+			</div>
+		</div>
+	</form>
+	<script type="text/javascript"
+		th:src="@{/static/cache/js/job-management/job-schedule-search.js}"></script>
+</body>
+</html>

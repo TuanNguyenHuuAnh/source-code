@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+		<div class="header-box">
+		
+		    <div class="row m-0">
+				<div class="col-md-4">
+					<h2 class="title-box" th:text="#{account.org.for.account.lable}">org for account</h2>
+				</div>
+				<div class="col-md-8" >
+					<div class="align-right">
+						<a id="id-add-org-for-account" class="btn-ico">
+	                        <img th:src="@{/static/images/icon-plus-blue.png}" alt="" width="17px"/>
+	                    </a>
+			        	<a id="id-cancel-org-for-account" class="btn-ico">
+	                        <img th:src="@{/static/images/icon-down.png}" alt="" width="17px" class="rotate-ico">
+	                    </a>
+			            <a id="id-update-org-for-account" class="btn-save btn-ico">
+	                        <img th:src="@{/static/images/icon-save-blue.png}" alt="" width="20px"/>
+	                    </a>
+					</div>
+				</div>
+				 
+		    </div>
+		 </div>
+	    <div class="col-sm-12">
+			 	<!-- <h4 class="text-success" th:text="${messageOrgForAccount}" id="msg"></h4> -->
+                
+                <th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+		</div>
+	    <div class="table-responsive">
+			<table id="orgForAccountTable" class="table table-bordered table-striped">
+			    <input type="hidden" id="result_size" th:value="${not #lists.isEmpty(listOrgForAccount) ? #lists.size(listOrgForAccount) : 0 }"/>
+				<thead>
+					<tr>
+						<th class="u_t_no">#</th>
+						<th class="u_t_name" th:text="#{account.org.for.account.table.name}" >org name</th>
+						<th th:text="#{account.positionId}">position</th>
+	                   	<th th:text="#{account.org.for.account.active}">Active</th>
+	                   	<th class="no-action" th:text="#{table.label.action}" >Action</th>
+					</tr>
+				</thead>
+				<tbody>
+				    <th:block th:each="orgForAccountDto,iterStat : ${listOrgForAccount}"  th:with="startIndex=1">
+						<tr th:attr="data-org-for-account-id=${orgForAccountDto.orgId}">
+							<input type="hidden" th:value="${iterStat.index}" id="index"/>
+							<input type="hidden" th:name="listOrgForAccount[__${iterStat.index}__].id" th:value="${orgForAccountDto.orgId}"/>
+							<input type="hidden" th:name="listOrgForAccount[__${iterStat.index}__].accountId" th:value="${orgForAccountDto.userId}" />
+							<input type="hidden" th:value="${orgForAccountDto.orgId}" th:name="listOrgForAccount[__${iterStat.index}__].orgId" th:id="org-for-account-id"/>
+							<input type="hidden" th:value="${orgForAccountDto.orgName}" th:name="listOrgForAccount[__${iterStat.index}__].orgName"/>
+							<input type="hidden" th:value="${orgForAccountDto.orgCode}" th:name="listOrgForAccount[__${iterStat.index}__].orgCode"/>
+							<input type="hidden" th:value="${orgForAccountDto.positionName}" th:name="listOrgForAccount[__${iterStat.index}__].positionName"/>
+							<input type="hidden" th:value="${orgForAccountDto.positionId}" th:name="listOrgForAccount[__${iterStat.index}__].positionCode"/>
+							<td  class="text-center" th:text="${iterStat.index + startIndex}"></td>
+							<td class ="col-organization">
+							    <div id="org">
+								    <input th:if="${listOrgForAccount[__${iterStat.index}__].orgId}!=0"
+									    type="text" class="form-control"
+									    th:value="${listOrgForAccount[__${iterStat.index}__].orgId}" th:id="${'listOrg'+iterStat.index}"/>
+									<input th:unless="${listOrgForAccount[__${iterStat.index}__].orgId}!=0"
+									    type="text" class="form-control"
+									    th:value="${listOrgForAccount[__${iterStat.index}__].orgName}" th:id="${'listOrg'+iterStat.index}"/>
+								</div>
+		                    </td>
+		                    <td class ="col-organization">
+							    <div>
+								    <select class="form-control list-position" th:value="${listOrgForAccount[__${iterStat.index}__].positionId}"
+								    	th:name="listOrgForAccount[__${iterStat.index}__].positionId">
+								    	<option  th:value="${listOrgForAccount[__${iterStat.index}__].positionId}" th:text="${listOrgForAccount[__${iterStat.index}__].positionName}"></option>
+								    </select>
+								</div>
+		                    </td>
+		                    <td class="text-center">
+		                    	<input type="checkbox" class="check-access" 
+			                           th:name="listOrgForAccount[__${iterStat.index}__].actived"
+			                           th:checked="${listOrgForAccount[__${iterStat.index}__].actived}" />
+		                    </td>
+							<td class="td-action text-center">
+		                           <a class="glyphicon glyphicon-remove-sign font-size-20 red delete-org-for-account"> </a> 
+		<!--                                       th:attr="data-msg-confirm=#{message.confirm.delete.content}"> -->
+							</td>
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+			<div class="table-footer">
+			 	<th:block th:include="views/commons/pagination.html :: content"/>
+			</div>	
+		</div>
+
+</body>
+<script type="text/javascript" th:src="@{/static/cache/js/account/org-for-account.js}"></script>
+</html>

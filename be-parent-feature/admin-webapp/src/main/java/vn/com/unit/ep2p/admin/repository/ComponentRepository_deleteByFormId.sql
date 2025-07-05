@@ -1,0 +1,2 @@
+UPDATE EFO_COMPONENT SET DELETED_DATE = /*date*/, DELETED_BY = /*user*/
+WHERE FORM_ID = /*formId*/''

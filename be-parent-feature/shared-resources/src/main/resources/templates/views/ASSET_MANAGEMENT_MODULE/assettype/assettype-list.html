@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <script
+    type="text/javascript"
+    th:src="@{/static/jquery/multiple-select/js/jquery.multiselect.js}"
+  ></script>
+  <link
+    rel="stylesheet"
+    type="text/css"
+    th:href="@{/static/jquery/multiple-select/css/jquery.multiselect.css}"
+  />
+  <!-- BODY START -->
+  <body>
+    <div class="title-head clearfix">
+      <div class="col-sm-9 col-xs-7 no-padding">
+        <h3><i class="fa fa-table"></i> List of Asset Types</h3>
+      </div>
+      <div class="col-sm-3 col-xs-5 icon-head">
+        <div class="pull-right">
+          <a
+            ><i
+              class="fa fa-plus-circle icon-head-red"
+              id="add"
+              th:title="#{add.button}"
+            ></i
+          ></a>
+        </div>
+      </div>
+    </div>
+    <!-- TITLE AND BUTTON ADD END -->
+    <!-- FORM SEARCH START -->
+
+    <form
+      class="form-horizontal u-for-page-top j-formSearch"
+      th:action="@{/assettype/list}"
+      th:object="${assetTypeSearch}"
+      method="POST"
+      role="form"
+    >
+      <th:block
+        th:include="/views/ASSET_MANAGEMENT_MODULE/commons/message-alert.html :: content(${messageList})"
+      />
+      <!-- SEARCH AREA START-->
+      <div class="bg-content clearfix">
+        <div
+          data-toggle="collapse"
+          data-target="#search-box"
+          class="header-box"
+        >
+          <h2 class="title-box" th:text="#{search.title}">Vùng tìm kiếm</h2>
+          <i class="fa fa-minus pull-right" aria-hidden="true"></i>
+        </div>
+        <div class="collapse in row m-0" id="search-box">
+          <div class="col-xs-12 col-sm-12 form-group p-0">
+            <div class="col-sm-2"></div>
+            <div class="col-md-6 form-group">
+              <input
+                type="text"
+                class="form-control"
+                th:field="*{fieldSearch}"
+                th:placeholder="#{search.key}"
+                autocomplete="off"
+              />
+            </div>
+            <div class="col-sm-2">
+              <button type="submit" id="btnSearch" class="btn-common">
+                <i class="fa fa-search"></i>
+                <span th:text="#{search.button}">Tìm kiếm</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="bg-content clearfix">
+			<div data-toggle="collapse" data-target="#search-box"
+				class="header-box">
+				<h5 class="title-box">
+					<span th:text="#{search.title}">Vùng tìm kiếm</span>
+				</h5>
+				<i class="fa fa-minus pull-right" aria-hidden="true"></i>
+			</div>
+			<div class="collapse in row m-0" id="search-box">
+				<div class="col-xs-12 col-sm-12">
+					<div class="col-sm-5 form-group">
+						<input type="text" class="form-control" th:field="*{fieldSearch}"
+							th:placeholder="#{search.key}" />
+					</div>
+					<div class="col-sm-2">
+						<button type="submit" id="btnSearch" class="btn-common">
+							<i class=" fa fa-search"></i> <span th:text="#{search.button}">Tìm
+								kiếm</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>  -->
+      <!-- SEARCH AREA END -->
+      <!-- TABLE RESULT START -->
+      <div class="bg-content clearfix bg-content-tbl" id="tableList">
+        <th:block
+          th:include="/views/ASSET_MANAGEMENT_MODULE/assettype/assettype-table.html :: content"
+        />
+      </div>
+      <!-- TABLE RESULT END -->
+      <input type="hidden" id="fieldSearchHidden" />
+      <input
+        type="hidden"
+        id="url"
+        name="url"
+        th:value="${assetTypeSearch.url}"
+      />
+    </form>
+  </body>
+</html>

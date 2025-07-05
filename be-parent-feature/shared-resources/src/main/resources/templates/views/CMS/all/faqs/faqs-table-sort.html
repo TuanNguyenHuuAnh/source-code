@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+	<body th:fragment="content">	
+		<div class="col-sm-12">
+			<div class="table-responsive">
+				<form id="id-sort-form">
+					<table id="tb-sort-list" class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th class="u_t_no">#</th>
+								<th class="text-center" th:text="#{faqs.code}">Mã câu hỏi</th>
+								<th class="text-center" th:text="#{faqs.content}">Nội dung câu hỏi</th>
+								<th class="text-center" th:text="#{searchfield.disp.status}">Trạng thái</th>
+								<th class="text-center" th:text="#{searchfield.disp.enabled}">Kích hoạt</th>
+								<th class="text-center" th:text="#{create.date}">Ngày tạo</th>	
+							</tr>
+						</thead>
+						<tbody>
+							<th:block th:each="dataRow,i : ${sortPageModel}" th:with="startIndex=1">
+								<tr th:attr="data-row-id=${dataRow.id}"  th:if = "${dataRow.itemFunctionCode != null } AND ${#authorization.expression('hasAuthority('''+dataRow.itemFunctionCode+''')')}">
+									<td class="text-center" th:text="${i.index + startIndex}"></td>
+									<td th:text="${dataRow.code}"></td>
+ 									<td th:text="${dataRow.title}"></td>
+ 									<td th:text="${dataRow.statusName}"></td>
+ 									<td class="text-center">
+ 										<input type="checkbox" disabled="disabled" th:checked="${dataRow.enabled == 1 ? true : false}" />
+ 									</td>
+									<td th:text="${dataRow.createDate }? ${#dates.format(dataRow.createDate, 'dd/MM/yyyy')}" class="align-center"></td>
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+				</form>
+			</div>
+		</div>
+		
+		<script type="text/javascript" th:src="@{/static/CMS/all/faqs/faqs-list-sort.js}"></script>
+		<script type="text/javascript">
+			var table = document.getElementById("tb-sort-list");
+			RowSorter(table, {
+			    handler: 'td'
+			});
+		</script>
+	</body>
+	
+</html>
+

@@ -1,0 +1,3 @@
+UPDATE JCA_EMAIL_TEMPLATE_LANG
+SET DELETED_DATE = /*sysDate*/, DELETED_ID = /*userLoginId*/
+WHERE EMAIL_TEMPLATE_ID = /*emailTemplateId*/

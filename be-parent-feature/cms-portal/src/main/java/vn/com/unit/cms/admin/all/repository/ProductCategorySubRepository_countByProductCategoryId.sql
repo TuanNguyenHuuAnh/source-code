@@ -1,0 +1,3 @@
+SELECT COUNT(*) FROM M_PRODUCT_CATEGORY_SUB m 
+WHERE m.delete_date is null AND m.STATUS != 100
+AND m.M_PRODUCT_CATEGORY_ID = /*productCategoryId*/;

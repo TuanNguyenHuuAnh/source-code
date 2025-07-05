@@ -1,0 +1,1 @@
+SELECT  username,fullname FROM jca_m_account where delete_date is null

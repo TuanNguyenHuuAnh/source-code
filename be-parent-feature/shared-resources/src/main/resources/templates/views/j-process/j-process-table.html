@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<body th:fragment="content">
+	<div class="col-sm-12 p-0">
+		<div class="header-box">
+			<h2 class="title-box" th:text="#{search.results.title}">Kết quả tìm kiếm</h2>
+		</div>
+		<div class=" box box-table">
+			<div class="table-responsive">
+				<table class="table table-bordered table-hover out-tbl">
+					<thead>
+						<tr>
+							<th class="no">#</th>
+							<th class="min-wd-100" th:text="#{table.label.action}">Thao tác</th>
+							<th th:text="#{company.detail}">Company</th>
+							<th th:text="#{j.process.code}">Process code</th>
+							<th th:text="#{j.process.name}">Process name</th>
+							<th th:text="#{business.definition.name}">Business name</th>
+							<th th:text="#{j.process.effective}">Effective date</th>
+							<th th:text="#{j.process.expired}">Expired date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<th:block th:each="_item,i : ${pageWrapper.data}" th:with="startIndex=${pageWrapper.startIndexCurrent}">
+							<tr class="db-click" th:attr="data-j-process-id=${_item.processId}">
+								<td class="text-center" th:text="${i.index + startIndex}"></td>
+								<td class="td-action">
+									<div class="text-center">
+										<a class="j-btn-edit"
+										   th:if="${#authorization.expression('hasAuthority(@roleConstant.PROCESS)')}">
+										   <i class="glyphicon glyphicon-edit custom-icon" th:if="${#authorization.expression('hasAuthority(@roleConstant.PROCESS)') and ((_item.companyName != null and _item.companyName!='') or #authentication?.principal?.companyAdmin)}"></i>
+										   <i class="glyphicon glyphicon-eye-open custom-icon" th:unless="${#authorization.expression('hasAuthority(@roleConstant.PROCESS)') and ((_item.companyName != null and _item.companyName!='') or #authentication?.principal?.companyAdmin)}"></i>
+										</a> 
+										<a class="btn-delete glyphicon glyphicon-remove-sign font-size-20 red"
+										   th:if="${#authorization.expression('hasAuthority(@roleConstant.PROCESS+'':Edit'')') and ((_item.companyName != null and _item.companyName!='') or #authentication?.principal?.companyAdmin) and _item.status == 'DRAFT'}"> 
+										</a>
+									</div>
+								</td>
+								<td th:text="${_item.companyName} !='' and ${_item.companyName} != null ? ${_item.companyName}: #{company.all}"></td>
+								<td th:text="${_item.codeDisplay }"></td>
+								<td th:text="${_item.name}"></td>
+								<td th:text="${_item.businessName}"></td>
+								<td th:text="${_item.effectiveDate != null}?${#dates.format(_item.effectiveDate, @systemConfig.getConfig('DATE_PATTERN'))}:''"
+									class="text-center"></td>
+								<td th:text="${_item.expiredDate != null}?${#dates.format(_item.expiredDate, @systemConfig.getConfig('DATE_PATTERN'))}:''"
+									class="text-center"></td>
+							</tr>
+						</th:block>
+					</tbody>
+				</table>
+			</div>
+			<th:block th:include="views/commons/pagination.html :: content(pageWrapper=${pageWrapper})" />
+		</div>
+	</div>
+
+	<script type="text/javascript" th:src="@{/static/cache/js/j-process/j-process-table.js}"></script>
+</body>
+</html>

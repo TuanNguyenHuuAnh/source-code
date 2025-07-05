@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<div class="row main-heading ">
+	<div class="row unit-border-bottom">
+		<div class="col-sm-8 col-xs-6">
+			<h2 class="mar-tb-no red" th:text="#{chat.list.title.offline.edit.title}">Phản hồi yêu cầu khách hàng</h2>
+		</div>
+		<div class="col-sm-4 col-xs-6 align-right ml-auto">
+            <a class="u-btn-head" id="linkList">
+				<img th:src="@{/static/icons/icon-back.png}"/>
+				<span th:title="#{icon.back}">Trở lại</span>
+			</a>
+		</div>
+	</div>
+</div>
+<th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+	<div class="row unit-bg-com">
+		<form method="POST" class="form-horizontal j-form-validate" th:object="${roomEdit}" id="typeForm">			
+			<input type="hidden" th:field="*{id}"/>
+			
+			<div class="col-xs-12 col-sm-12 no-padding">
+				<div class="form-group col-md-6">
+					<label  class="col-sm-4 control-label"  >
+						<span th:text="#{chat.list.email}">Email</span>
+					</label>
+					<label class= "col-sm-8 " >
+						<p class="form-control-view" th:text="*{email}"></p>
+					</label>
+				</div>
+				<div class="form-group col-md-6">
+					<label  class="col-sm-4 control-label" >
+						<span th:text="#{chat.list.fullname}" >Họ tên</span> 
+					</label>
+					<label class= "col-sm-8 control-label" >
+						<p class="form-control-view" th:text="*{fullname}"></p>
+					</label>
+						
+				</div>
+			</div>
+			
+			<div class="col-xs-12 col-sm-12 no-padding">
+				<div class="form-group col-md-6">
+					<label  class="col-sm-4 control-label" >
+						<span th:text="#{chat.list.phone}"  >Số điện thoại</span>  
+					</label>
+					<label class= "col-sm-8 control-label" >
+						<p class="form-control-view" th:text="*{phone}"></p>
+					</label>					
+				</div>
+				<div class="form-group col-md-6">
+					<label  class="col-sm-4 control-label" >
+						<span th:text="#{chat.list.title.offline.edit.content}"  >Nội dung</span> 
+					</label>
+					<label class= "col-sm-8 control-label" >
+						<p class="form-control-view" th:text="*{message}"></p>
+					</label>					
+				</div>
+			</div>
+			
+			<div class="col-xs-12 col-sm-12 unit-button">
+				<button type="button" class="btn-cancel" id="cancel"  ><i class="fa fa-times"></i> <span th:text="#{cancel.button}">Thoát</span></button>				
+			</div>
+		</form>
+	</div>
+	
+<script type="text/javascript" th:src="@{/web-app/views/chat/chat-detail-offline.js}"></script>
+</html>	

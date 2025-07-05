@@ -1,0 +1,64 @@
+with Agent_key as 
+(Select T1.Agent_code, T1.OFFICE_CODE, T2.TD_CODE, case when T1.AGENT_NAME like '%_AT' then 'AT' when T1.AGENT_NAME like '%_SM' then 'SM' else '' end AS ROLENAME
+FROM STG_DMS.DMS_AGENT_DETAIL T1
+inner join  RPT_ODS.D_CURRENT_ORG_HIERARCHY T2 on T1.OFFICE_CODE= T2.O_CODE
+WHERE T1.Channel ='AG' and T1.AGENT_TYPE='EMP' 
+and (T1.AGENT_NAME like '%_AT'or T1.AGENT_NAME like '%_SM')
+and T1.AGENT_STATUS ='Inforce' 
+and T1.Agent_code = /*agentCode*/'476456'
+)
+
+SELECT A.AGENT_TYPE
+	, A.AGENT_CODE
+	, A.AGENT_NAME
+	, B.ID_NUMBER
+	, (case B.GENDER when 'M' then 'Nam'
+    	when 'F' then 'Nữ'
+    	else null end) GENDER
+	, B.MOBILE_PHONE
+	, B.EMAIL_ADDRESS1
+	, NVL(C.FULL_ADDRESS, E.FULL_ADDRESS) as FULL_ADDRESS
+	, D.TD_CODE TERRITORY
+	, D.N_CODE AREA
+	, D.R_CODE REGION
+	, D.O_CODE OFFICE
+	, A.AGENT_TYPE POSITION
+	, A.SALES_OFFICE_CODE
+	, A.SALES_OFFICE_NAME
+FROM STG_DMS.DMS_AGENT_DETAIL A
+LEFT JOIN STG_DMS.DMS_CLIENT_DETAIL B
+	ON A.CLIENT_CODE = B.CLIENT_CODE
+LEFT JOIN STG_DMS.DMS_CLIENT_ADDRESS C
+	ON (A.CLIENT_CODE = C.CLIENT_CODE
+	and C.ADDRESS_TYPE ='Pref')
+LEFT JOIN RPT_ODS.D_CURRENT_ORG_HIERARCHY D
+	ON (A.OFFICE_CODE = D.O_CODE)
+LEFT JOIN STG_DMS.DMS_CLIENT_ADDRESS E
+	ON (A.CLIENT_CODE = E.CLIENT_CODE
+	and E.ADDRESS_TYPE ='Res')
+WHERE 1=1
+and A.AGENT_CODE IN (
+	select T2.Agent_code AS participants
+	FROM Agent_key T1
+	inner join 
+	(select T1.Agent_code, T1.OFFICE_CODE, T2.TD_CODE, case when T1.AGENT_NAME like '%_AT' then 'AT' when T1.AGENT_NAME like '%_SM' then 'SM' else '' end AS ROLENAME
+	FROM STG_DMS.DMS_AGENT_DETAIL T1
+	inner join  RPT_ODS.D_CURRENT_ORG_HIERARCHY T2 on T1.OFFICE_CODE= T2.O_CODE
+	WHERE T1.Channel ='AG' and T1.AGENT_TYPE='EMP' 
+	and (T1.AGENT_NAME like '%_AT'or T1.AGENT_NAME like '%_SM')
+	and T1.AGENT_STATUS ='Inforce') T2  on T1.TD_CODE =T2.TD_CODE and T1.ROLENAME= T2.ROLENAME
+	union 
+	select T2.GAD_CODE AS participants
+	FROM Agent_key T1
+	inner join STG_DMS.DMS_AA_GA_OFFICE T2 on T1.OFFICE_CODE = T2.ORG_CODE
+	union 
+	select T2.BDOH_CODE AS participants
+	FROM Agent_key T1
+	inner join RPT_ODS.D_CURRENT_ORG_HIERARCHY T2 on T1.OFFICE_CODE = T2.O_CODE
+	union 
+	select T2.Agent_key AS participants
+	FROM Agent_key T1
+	inner join RPT_ODS.D_CURRENT_AGENT_HIERARCHY T2 on T1.OFFICE_CODE = T2.O_CODE
+	where T2.LV3_STATUS ='Inforce'
+)
+and A.CHANNEL = 'AG'

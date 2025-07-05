@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+<body>		
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#tabLanguage a').click(function(event) {
+				event.preventDefault();
+				$(this).tab('show');
+			});
+		});
+	</script>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		var LANGUAGE_LIST = /*[[${languageList}]]*/;
+		/*]]>*/
+	</script>
+	<!-- <div class="row main-heading ">
+		<div class="row unit-border-bottom"> -->
+		<div class="title-head clearfix">
+			<div class="col-sm-6 col-xs-6">
+				<h3 class="mar-tb-no red" th:text="#{region.page}">Tiêu đề trang</h3>
+			</div>
+
+			<div class="col-sm-6 col-xs-6 align-right ml-auto">
+
+				<!-- <a class="u-btn-head" id="linkList">
+					<img th:src="@{/static/icons/icon-back.png}"/>
+					<span th:title="#{icon.back}">Trở lại</span>
+				</a> -->
+		        <a class="u-btn-head" id="linkList">
+		          	<i class="fa fa-arrow-circle-left icon-head-red" th:title="#{icon.back}"></i>
+				</a>
+
+
+
+				<!-- <a class="u-btn-head" id="btn-save">
+					<img th:src="@{/static/icons/icon-save.png}"/>
+					<span th:title="#{save.button}">Lưu</span>
+				</a> -->
+				<div class="icon-head">
+					<a
+			          class="font17 btn-save btn-save-2"
+			          id="btn-save"
+			        >
+						<i class="fa fa-save" title="Save"></i>
+					</a>
+				</div>
+
+
+
+           		<!-- <a class="u-btn-head" id = "add">
+					<img th:src="@{/static/icons/icon-plus-white.png}"/>
+					<span>Thêm mới</span>
+				</a> -->
+				<a
+		          class="u-btn-head"
+		          id="add"
+		        >
+					<i class="fa fa-plus-circle icon-head-red" title="Add"></i>
+		        </a>
+
+			</div>
+		</div>
+		<!-- </div>
+	</div> -->
+	   	
+	<form class="form-horizontal u-for-page-top j-form-validate" id = "form-region-edit" th:action="@{/region/edit}" th:object="${regionDto}" method="post" role="form">
+		<th:block th:include="views/commons/message-alert.html :: content(${messageList})"/>
+		<div class="row unit-bg-com">
+			<div class="header-box">
+				<h2 class="sub-header section-heading hide-title" th:text="#{region.edit.title}">Thông tin vùng miền</h2>			                           
+            </div>
+            <input type="hidden" th:field="*{regionId}" />
+			<div class="col-md-6">
+				<div class="form-group" th:classappend="${#fields.hasErrors('regionCode')} ? has-error : ''">
+					<label class="col-sm-4 control-label required " for="regionCode" th:text="#{region.code}">Mã vùng miền</label>
+					<div class="col-sm-8" >
+						<input type="text" th:field="*{regionCode}" class="form-control j-required j-code j-maxlength" data-rule-maxlength="30" style="text-transform: uppercase;" />
+						<span class="help-block" th:if="${#fields.hasErrors('regionCode')}" th:errors="*{regionCode}"></span>													
+					</div>
+				</div>
+				<!-- Show language -->    		        
+				<div class="form-group">
+					<label  class="col-sm-4 control-label" th:text="#{news.language}">Ngôn ngữ</label>
+					<div class="col-sm-8 gr-tab">
+						<ul class="nav nav-tabs" id="tabLanguage">
+							<th:block th:each="language, i : ${languageList}">
+								<li role="presentation" th:classappend="${i.index == 0}  ? 'active' : ''" th:id="tabLanguage + ${i.index}">
+									<a th:href="'#language' + ${i.index}" th:text="${language.name}"></a>
+								</li>
+							</th:block>
+						</ul>
+					</div>
+				</div>
+				<div class="tab-content" style="margin-top: 10px">
+					<th:block th:each="language, i : ${languageList}" th:with="index=${i.index}">
+					<div th:id="'language' + ${index}" class="tab-pane fade " th:classappend="${index == 0}  ? 'in active' : ''">	        			        			        	
+				        <div class="row form-group">
+				            <label for="regionLanguageDtos[__${index}__].regionName" class="col-sm-4 control-label required" th:classappend="${#fields.hasErrors('regionLanguageDtos[__${index}__].regionName')} ? has-error : ''" th:text="#{region.name}">Tên vùng miền</label>
+				            <div class="col-sm-8">
+				                <input th:field="*{regionLanguageDtos[__${index}__].regionName}" type="text" class="form-control j-maxlength j-required" data-rule-maxlength="255" maxlength="255" />
+				                <span class="help-block" th:if="${#fields.hasErrors('regionLanguageDtos[__${index}__].regionName')}" th:errors="*{regionLanguageDtos[__${index}__].regionName}"></span>
+				            </div>	
+				        </div>				        			        
+				        <input type="hidden" th:field="*{regionLanguageDtos[__${index}__].regionLanguageId}"/>
+				        <input type="hidden" th:name="'regionLanguageDtos[' + ${index} + '].mLanguageCode'" th:value="${language.code}"/>		       			        
+				        <input type="hidden" th:field="*{regionLanguageDtos[__${index}__].mRegionId}" />	
+			        </div>		        					    		      
+		        </th:block>
+				</div>					        
+		        <!-- End show language -->
+		        <div class="form-group">
+					<label for="countryName" class="col-sm-4" th:text="#{country.name}">Tên quốc gia</label>
+					<div class="col-sm-8">
+						<select class="form-control select2" th:field="*{mCountryId}">
+							  <option th:each="choice : ${listCountryDto}" 
+							     th:value="${choice.countryId}" 
+							     th:selected="(${choice.countryId} == *{mCountryId})" 
+							     th:text="${choice.countryName}">
+							  </option>
+						 </select>				
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+		            <label for="note" class="col-sm-4 control-label " th:classappend="${#fields.hasErrors('note')} ? has-error : ''" th:text="#{job.note}">Ghi chú</label>
+		            <div class="col-sm-8">
+			            <textarea rows="3" th:field="*{note}" class="col-sm-10 form-control j-maxlength" data-rule-maxlength="65535" ></textarea>                
+		                <span class="help-block" th:if="${#fields.hasErrors('note')}" th:errors="*{note}"></span>
+		            </div>
+		        </div>
+		        <div class="form-group">
+		            <label for="description" class="col-sm-4 control-label " th:classappend="${#fields.hasErrors('description')} ? has-error : ''" th:text="#{job.description}">Mô tả</label>
+		            <div class="col-sm-8">
+		            	<textarea rows="3" th:field="*{description}" class="col-sm-10 form-control j-maxlength" data-rule-maxlength="65535" ></textarea>                
+		                <span class="help-block" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+		            </div>
+		        </div>
+		        <div class="form-group">
+					<label class="col-sm-4" th:text="#{role.active}">Active</label>						
+					<div class="col-sm-8">
+						<input type="checkbox" th:field="*{activeFlag}"/>													
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<input type="hidden" th:field="*{fieldSearch}"/>
+		<input type="hidden" th:field="*{fieldValues}"/>
+	</form>	
+	<input type="hidden" id="url" name="url" th:value="${regionDto.url}"/>
+	<script type="text/javascript" th:src="@{/static/CMS/all/region/region-edit.js}"></script>
+	</body>
+</html>

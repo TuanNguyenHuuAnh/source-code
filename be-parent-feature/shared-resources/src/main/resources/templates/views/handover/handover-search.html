@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{templates/unit-layout}"
+  layout:fragment="body">
+
+<body th:fragment="content">
+	<form class="form-horizontal u-for-page-top j-formSearch"
+		th:object="${handoverSearch}" method="POST" role="form">
+		<input type="hidden" id="companyIdList" name="companyIdList" th:field="*{companyIdList}" />
+		<div class="bg-content clearfix">
+			<div data-toggle="collapse" data-target="#search-box"
+				class="header-box">
+				<h2 class="title-box" th:text="#{search.title}">Vùng tìm kiếm</h2>
+				<i class="fa fa-minus pull-right" aria-hidden="true"></i>
+			</div>
+			<div class="collapse in row m-0" id="search-box">
+				<div class="col-xs-12 col-sm-12 p-0">
+					<div class="col-sm-6 p-0">
+						<div class="form-group" th:if="*{companyIdList != null} and *{companyIdList.size() >= 2}">
+							<label for="companyId" class="col-sm-4 align-top"
+								th:text="#{company.detail}">Company</label>
+							<div class="col-sm-8">
+								<select class="col-sm-9 form-control select-company"
+									id="companyId" name="companyId" th:field="*{companyId}">
+									<option value=""></option>
+									<option th:each="company : ${companyList}"
+										th:value="${company.id}" th:text="${company.name}"></option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="userId" class="col-sm-4 align-top"
+								th:text="#{issue.assignee.to}">User</label>
+							<div class="col-sm-8">
+								<select class="col-sm-9 form-control"
+									th:disabled="${handoverSearch.id}" id="userId" name="userId"
+									th:field="*{userId}">
+									<option value=""></option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label class="col-sm-4"
+								th:text="#{handover.classify.label}">Classify</label>
+							<div class="col-sm-8">
+								<select class="form-control" name="classify" id="classify" th:value="*{type}">
+									<th:block th:each="item : ${T(vn.com.unit.jcanary.service.HandoverService.Classify).values()}">
+										<option th:value="${item.longValue}"
+											th:selected="${item.longValue} == *{type}"    
+											th:text="#{${item.name}}"></option>
+									</th:block>
+									<!-- <option
+										th:each="item : ${T(vn.com.unit.jcanary.service.HandoverService.Classify).values()}"
+										th:value="${item.longValue}" th:text="${item.name}"
+										th:selected="${item.longValue} == *{type}"></option> -->
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4" th:text="#{product.title}">Title</label>
+							<div class="col-sm-8">
+								<input class="form-control  j-maxlength" type="text" id="title" name="title" th:field="*{title}"
+									maxlength="100" autocomplete="off"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12" style="margin-top: 10px;"
+					align="center">
+					<span class="button"> <a class="btn btn-common"
+						id="btnSearch"> <i class="fa fa-search"></i> <span
+							th:text="#{search.button}"></span>
+					</a>
+					</span>
+				</div>
+			</div>
+		</div>
+	</form>
+	<input type="hidden" id="fieldSearchHidden" />
+	<input type="hidden" id="fieldValuesHidden" />
+	<script type="text/javascript"
+		th:src="@{/static/cache/js/handover/handover-search.js}"></script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+	<div class="form-group ">
+		<div id="">
+			<div class="table-responsive">
+		        <table id="table-history-doc" class="table table-bordered table-striped table-hover">
+		            <thead>
+		                <tr>
+		                    <th class="no">#</th>
+		                    <th th:text="#{document.version}">Version</th>
+		                    <th th:text="#{document.history.updated.date}">Updated Date</th>					                    
+		                    <th th:text="#{document.history.updated.by}">Updated By</th>					                   
+		                    <th th:text="#{document.history.activity}">Activity</th>
+		                    <th th:text="#{document.history.note}">Note</th>
+		                    <th class="u_t_action" th:text="#{action.label}">Action</th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		            	<tr th:each="item,i : ${historyDocList}" th:classappend="${i.index > 4} ? 'widgetHistoryDocHiddenHistoryDoc' : ''" th:style="${i.index > 4} ? 'display: none;' : ''">
+		            		<input type="hidden" th:name="data[__${i.index}__].hisId" th:id="hisId__${i.index}__"
+                                             th:value="${item.id}"/>
+		            		<td class="text-center" th:text="${i.index+1}">1</td>
+                            <!-- <td th:text="${item.majorVersion} + '.' + ${item.minorVersion}">2.4</td> -->
+  							<td class="text-center" th:text="${item.versionFileHis}">2.4</td> 
+                            <td class="text-center" th:text="${item.createdDate != null}?${#dates.format(item.createdDate, @systemConfig.getConfig('DATE_PATTERN')+' HH:mm:ss')}:''"></td>
+                            <td th:text="${item.createdBy}">KhoaNA</td>
+                            <td th:text="${item.actionName != null} ? #{${item.actionName}} : ''">Update Data</td>			                           			                            			                            
+                            <td th:text="${item.note}">note</td>
+                            <td class="text-center">
+                                  <!--th:if="${@roleConfig.hasRole(@CommonConstant.TODO +':Edit')}"-->
+                                  <a class="fa fa-eye btnViewHistoryDoc" target="_blank" th:title="#{view.button}"></a>
+                                  <a class="fa fa-download btnDownloadHistoryDoc" target="_blank" th:title="#{download.button}" th:if="${item.fileNamePdf}"></a>
+								 <!--  <a class="fa fa-undo btnRevertDocument" data-toggle="modal" data-target="#revert-modal" th:title="#{revert.button}"  th:if="${isAttachFile == true} and ${i.index} gt 0"></a> -->
+                            </td>
+		            	</tr>
+		            </tbody>
+		        </table>
+		        <div class="form-group" th:if="${historyDocList?.size() > 5}">
+					<div class="show_hide_right" id="widgetHistoryDocViewAllHistoryDoc" style="color: #3097b6;">
+						<i class="widgetHistoryDocToggleLog " style="display: none;" th:text="#{approval.plugin.show.summary}"><span>Show summary</span></i> 
+						<i class="widgetHistoryDocToggleLog"  isFirstClickHistoryDoc="true" th:text="#{approval.plugin.show.all}"><span>Show all</span></i>
+					</div>
+				</div>
+		    </div> 
+			<div class="modal fade" id="revert-modal" tabindex="-1" role="dialog" aria-labelledby="history-modal-label">
+				<th:block th:include="views/document/document-form-history-document-revert-popup-body.html :: content" />
+			</div>
+		</div>
+	</div>
+</body>
+</html>

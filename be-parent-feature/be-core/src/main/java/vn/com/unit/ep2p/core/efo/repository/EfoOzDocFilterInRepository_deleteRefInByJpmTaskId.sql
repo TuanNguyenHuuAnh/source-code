@@ -1,0 +1,2 @@
+DELETE EFO_OZ_DOC_FILTER_IN
+WHERE TASK_ID = /*taskId*/ AND DOC_ID =  /*docId*/

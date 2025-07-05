@@ -1,0 +1,4 @@
+DELETE
+	JPM_PARAM_CONFIG
+WHERE
+ 	PARAM_ID = /*paramId*/

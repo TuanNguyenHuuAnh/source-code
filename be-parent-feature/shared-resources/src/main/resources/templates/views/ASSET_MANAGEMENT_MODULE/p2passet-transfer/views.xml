@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+	"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	<definition name="asset.transfer.list" extends="unit">
+		<put-attribute name="body" value="/views/ASSET_MANAGEMENT_MODULE/p2passet-transfer/asset-transfer-list.html" />
+	</definition>
+	
+	<definition name="asset.transfer.table" extends="ajax">
+		<put-attribute name="body" value="/views/ASSET_MANAGEMENT_MODULE/p2passet-transfer/asset-transfer-table.html" />
+	</definition>
+	
+	<definition name="asset.transfer.modal.list" extends="unit">
+		<put-attribute name="body" value="/views/ASSET_MANAGEMENT_MODULE/p2passet-transfer/asset-transfer-modal-list.html" />
+	</definition>
+	
+	<definition name="asset.transfer.modal.table" extends="ajax">
+		<put-attribute name="body" value="/views/ASSET_MANAGEMENT_MODULE/p2passet-transfer/asset-transfer-modal-table.html" />
+	</definition>
+	
+	<definition name="asset.transfer.edit" extends="unit">
+		<put-attribute name="body" value="/views/ASSET_MANAGEMENT_MODULE/p2passet-transfer/asset-transfer-edit.html" />
+	</definition>
+	
+	<definition name="asset.transfer.detail" extends="unit">
+		<put-attribute name="body" value="/views/ASSET_MANAGEMENT_MODULE/p2passet-transfer/asset-transfer-detail.html" />
+	</definition>
+	
+
+
+	
+
+
+</tiles-definitions>

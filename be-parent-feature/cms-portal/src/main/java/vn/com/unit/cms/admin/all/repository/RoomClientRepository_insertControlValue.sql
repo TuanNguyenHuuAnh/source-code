@@ -1,0 +1,2 @@
+insert into m_setting_chat_control_value(field_code, m_language_code, id_field, value_field, text_field, create_date, create_by)
+values(/*field*/,/*language*/,/*idField*/,/*valueField*/,/*textField*/,CURRENT_DATE,/*username*/)

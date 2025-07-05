@@ -1,0 +1,1 @@
+UPDATE JCA_M_SYSTEM_SETTING_SYNC SET DELETED_DATE = /*deleteDate*/null, DELETED_BY = /*deleteBy*/'' WHERE ID IN /*ids*/()

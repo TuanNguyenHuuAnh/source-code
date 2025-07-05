@@ -1,0 +1,3 @@
+DELETE   
+	JCA_ROLE_FOR_ACCOUNT
+WHERE ACCOUNT_ID = /*accountId*/

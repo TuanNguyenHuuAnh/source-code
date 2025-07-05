@@ -1,0 +1,7 @@
+SELECT
+	buttonStep.PERMISSION_DEPLOY_ID AS PERMISSION_DEPLOY_ID
+FROM
+	JPM_BUTTON_FOR_STEP_DEPLOY buttonStep
+WHERE
+	buttonStep.PROCESS_DEPLOY_ID = /*processDeployId*/
+	AND buttonStep.STEP_DEPLOY_ID = /*stepDeployId*/

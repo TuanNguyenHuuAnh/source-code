@@ -1,0 +1,4 @@
+DELETE
+	JPM_PROCESS_LANG
+WHERE
+	PROCESS_ID = /*processId*/

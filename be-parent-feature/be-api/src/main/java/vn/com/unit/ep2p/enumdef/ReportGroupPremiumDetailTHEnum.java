@@ -1,0 +1,53 @@
+package vn.com.unit.ep2p.enumdef;
+
+public enum ReportGroupPremiumDetailTHEnum {
+	BDtH("0")
+	,		BDAH("1")
+	,		SUBMITTOTALFILE("2")
+	,		SUBMITTOTALFYP("3")
+	,		RELEASETOTALACTIVE("4")
+	,		RELEASETOTALFYP("5")
+	, 		RELEASENETTOTALACTIVE("6")
+	,		RELEASETNETTOTALFYP("7")
+	,		CANCELTOTALFILE("8")
+	,		CANCELFYP("9")
+	,		FYPEDIT("10")
+	,	 	FYP ("11")
+	,		RYP	("12")
+	,		K2	("13")
+	,		K2PLUS("14")
+	,		LASTYEARSUBMITTOTALFILE	("15")
+	,		LASTYEARSUBMITTOTALFYP	("16")
+	,		LASTYEARRELEASETOTALFILE("17")
+	,		LASTYEARRELEASETOTALFYP	("18")
+	,		LASTYEARACTIONTOTALFILE	("19")
+	,		LASTYEARACTIONTOTALFYP	("20")
+	,		LASTYEARTOTALRYP("21")
+	,		LASTYEARTOTALGRAND("22")
+	,		QUANTILYBM	("23")
+	,		QUANTILYUM	("24")
+	,		QUANTILYPUM	("25")
+	,		QUANTILYFC	("26")
+	,		QUANTILYSA	("27")
+	,		RECRUITMENT	("28")
+	,		RECOVERYCODE	("29")
+	,		QUANTILYFCACTION	("30")
+	,		QUANTILYFCACTIONNEW	("31")
+	,		QUANTILYFCACTIONNEWSCHEME	("32")
+	,		QUANTILYFCPFC	("33")
+	,		LASTYEARRECRUITMENT	("34")
+	,		LASTYEARRECOVERYCODE	("35")
+	,		LASTYEARQUANTILYACTIONNEW	("36")
+	,		LASTYEARQUANTILYACTION	("37");
+
+
+	private String value;
+
+	private ReportGroupPremiumDetailTHEnum(String value) {
+		this.value = value;
+	}
+
+	public String toString() {
+		return value;
+	}
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content(editDto)">
+
+	<div class="form-group text-center">
+		<div class="row m-0 pos-gr-btn">
+			<button class="u-btn u-btn-primary btn-clone-process" type="button" th:if="${showButtonClone}">
+                    <i></i>
+                    <span th:text="#{icon.clone}"></span>
+            </button>
+
+            <button class="u-btn u-btn-primary btn-process-group" type="button"
+                    th:attr="data-button-id='300'
+                                    , data-button-name='Cập nhật'
+                                    , data-button-type='UPDATE'
+                                    , data-button-value='100' "
+                    th:if="${showButtonClone} OR ${showButtonUpdate}">
+                    <i></i>
+                    <span th:text="#{icon.update}"></span>
+            </button>
+            <th:block th:each="_item,i : ${buttonWrapper?.data}">
+            <button class="u-btn u-btn-primary btn-process-group" type="button"
+                            th:classappend="${_item.buttonClass}" th:value="${_item.buttonValue}" 
+                            th:attr="data-button-id=${_item.id}
+                                    , data-button-name=${_item.buttonText}
+                                    , data-button-type=${_item.buttonType}
+                                    , data-button-value=${_item.buttonValue}
+                                    , data-is-sign=${_item.signed}">
+                    <i th:class="${_item.buttonIcon}"></i>
+                    <span th:text="${_item.buttonText}"></span>
+                </button>
+			</th:block>
+		</div>
+	</div>
+</body>
+</html>

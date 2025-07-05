@@ -1,0 +1,2 @@
+insert into jca_role_for_team(team_id,role_id,CREATED_BY,CREATED_DATE, DEL_FLG)
+values(/*roleTeamDto.teamId*/, /*roleTeamDto.roleId*/, /*userId*/, getDate(), /*roleTeamDto.defFlag*/)

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html layout:decorate="~{templates/unit-layout}"
+      layout:fragment="body"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<body>
+<link rel="stylesheet" type="text/css" th:href="@{/static/CMS/js/taggingJS/style/tag-basic-style.css}"/>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var CUSTOMER_ALIAS = "personal";
+
+    var LANGUAGE_LIST = /*[[${languageList}]]*/;
+    var MESSAGE_EFFECTIVE_EXPIRATION = [[#{message.error.news.effective.expiration.date}]];
+
+    var MSG_ERROR_MIN_NEWS_SIZE = [[#{message.confirm.upload.image.news.error}]];
+    var MSG_ERROR_MIN_NEWS_SMALL_SIZE = [[#{message.confirm.upload.image.news.error.small.size}]];
+    var MSG_ERROR_MIN_NEWS_SIZE_DESKTOP = [[#{message.confirm.upload.image.news.banner.desktop.error}]];
+    var MSG_ERROR_MIN_NEWS_SIZE_MOBILE = [[#{message.confirm.upload.image.news.banner.mobile.error}]];
+    var MSG_ERROR_SEND_DATE = [[#{messsag.error.send.date}]];
+    var ERROR_FILE_EXTENSTION = [[#{message.error.file.extension.error}]];
+    var ERROR_FILE_NAME_EMPTY = [[#{message.error.file.name.is.empty}]];
+    var ERROR_FILE_NOT_TEMPLATE = [[#{message.error.not.template}]];
+    var ERROR_FILE_NOT_DATA = [[#{message.error.row.is.empty}]];
+    var ERROR_IMPORT_DEADLOCK = [[#{message.error.deadlock}]];
+    var ERROR_IMPORT_TIMEOUT = [[#{message.error.timeout}]];
+    /*]]>*/
+</script>
+
+<div class="title-head">
+    <div class="row">
+        <div class="col-md-5">
+            <h3>
+                <span th:text="#{notify.edit.title}">Tiêu đề trang</span>
+            </h3>
+        </div>
+        <div class="col-md-7">
+            <div class="pull-right">
+                <a class="u-btn u-btn-back" id="linkList">
+                    <img alt="" class="rotate-ico" th:src="@{/static/images/icon-down.png}" width="17px"/>
+                    <span th:text="#{comeback.button}">Trở lại</span>
+                </a>
+                <a class="u-btn u-btn-primary" id="addNew"
+                   th:if="${editDto.id != null} and ${#authorization.expression('hasAuthority(''__${@cmsRoleConstant.BUTTON_NEWS_EDIT}__:Edit'')')}">
+                    <img alt="" th:src="@{/static/images/ico-plus-white.png}"/>
+                    <span th:text="#{add.new.button}">Thêm mới</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form class="form-horizontal u-for-page-top j-form-validate"
+      id="newsForm"
+      method="POST" th:object="${editDto}">
+    <th:block
+            th:include="views/commons/message-alert.html :: content(${messageList})"/>
+    <div class="bg-content">
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-md-2" th:text="#{notify.code}"> </label>
+                <div class="col-md-4">
+                    <input class="form-control text-uppercase" readonly="readonly"
+                           th:field="*{notifyCode}" type="text"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label id="tie" class="control-label col-md-2 required" th:text="#{notify.name}"> </label>
+                <div class="col-md-10">
+                    <input class="form-control j-maxlength j-required" maxlength="100"
+                           th:id="titless"
+                           th:field="*{notifyTitle}"
+                           type="text"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-md-2" th:text="#{notify.link}"> </label>
+                <div class="col-md-10">
+                    <input class="form-control" maxlength="255" th:field="*{linkNotify}" type="text"/>
+                </div>
+            </div>
+        </div>
+
+        <!--        <div class="row">-->
+        <!--            <div class="form-group">-->
+        <!--                <label class="control-label col-md-2 required" th:text="#{notify.content}"> </label>-->
+        <!--                <div class="col-md-10">-->
+        <!--                    <textarea class="form-control j-required" maxlength="1000" rows="4" th:field="*{contents}"-->
+        <!--                              type="text"> </textarea>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <div class="row">
+            <div class="form-group">
+                <label id="content-label" class="control-label col-md-2 required" th:text="#{service.details.content}" > </label>
+                <div class="col-sm-8 col-md-10 ">
+                    <div class="controls">
+                            <textarea cols="80" th:id="editor"
+                                      th:name="contents" rows="20"
+                                      th:field="*{contents}"
+                                      class="form-control j-required"
+                                      >
+                            </textarea>
+                    </div>                        <label id="editor-error" generated = 'true' class="error" th:for="editor" ></label>
+
+                    <script th:inline="text">
+                            var token = $("meta[name='_csrf']").attr("content");
+                            var editor = CKEDITOR.replace("editor", {
+                                // Configure your file manager integration. This example uses CKFinder 3 for PHP.
+                                filebrowserBrowseUrl: '/apps/ckfinder/3.4.5/ckfinder.html',
+                                filebrowserImageBrowseUrl: '/apps/ckfinder/3.4.5/ckfinder.html?type=Images',
+                                filebrowserUploadUrl: BASE_URL + CUSTOMER_ALIAS + "/news/editor/file/upload?command=QuickUpload&type=Images&responseType=json&requesttoken=" + "[[${editDto.requestToken}]]&CKEditorFuncNum=dada",
+                                filebrowserImageUploadUrl: BASE_URL + CUSTOMER_ALIAS + "/news/editor/file/upload?command=QuickUpload&type=Images&responseType=json&requesttoken=" + "[[${editDto.requestToken}]]&CKEditorFuncNum=dada",
+                                filebrowserUploadMethod: 'xhr',
+                                fileTools_requestHeaders: {
+                                    'X-Requested-With': 'XMLHttpRequest',
+                                    'X-CSRF-TOKEN': token,
+                                },
+                                extraPlugins: 'image,uploadimage,emoji',
+                                imageBrowser_listUrl: BASE_URL + CUSTOMER_ALIAS + "/news/path/images/list",
+                            });
+                            editor.on('blur', function () {
+                                let name = editor.contextMenu.editor.name;
+                                $('label[generated=true]').each(function (key, val) {
+                                    let forError = $(val).attr('for');
+                                    if (forError == name) {
+                                        $(val).remove();
+                                    }
+                                })
+                            });
+                        </script>
+                    </div>
+                </div>
+        </div>
+
+        <div class="row ">
+            <div class="form-group" style="position: relative;top: 5px;">
+                <label class="control-label col-md-2 required" th:text="#{notify.send.date}"> </label>
+                <div class="col-md-4">
+                    <input class="form-control j-required validateSendDate" th:field="*{sendDate}" type="text"/>
+                </div>
+                 <input id="sendDateHidd" name="sendDateHidd"  th:value="*{sendDate}" type="hidden"/>
+                 
+                <div class="col-md-3">
+                    <input th:field="*{sendImmediately}" type="checkbox" value="1"/>
+                    <label th:text="#{notify.send.immedidately}"></label>
+                </div>
+                <div class="col-md-3">
+                    <input th:field="*{active}" type="checkbox" value="1"/>
+                    <label th:text="#{notify.send.active}"></label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-md-2" th:text="#{notify.object}"> </label>
+                <div style="top: 4px;position: relative;">
+                    <div class="control-label col-md-2">
+                        <input id="radio1" name="applicableObject" type="radio" value="ALL"
+                               th:checked="${editDto.applicableObject == 'ALL'}" onclick="resetGridDataUpload();">
+                        <label th:text="#{notify.all}">tất cả</label>
+                    </div>
+                    <div class="control-label col-md-3">
+                        <input id="radio2" name="applicableObject" type="radio" value="IMP"
+                               th:checked="${editDto.applicableObject == 'IMP'}" onclick="resetGridDataUpload();">
+                        <label th:text="#{notify.import.list}">Import DSĐL 1 nội dung</label>
+                    </div>
+                    <div class="control-label col-md-2">
+                        <input id="radio3" name="applicableObject" type="radio" value="SEL"
+                               th:checked="${editDto.applicableObject == 'SEL'}" onclick="resetGridDataUpload();">
+                        <label th:text="#{notify.region.type}">Khu vực/chức vụ</label>
+                    </div>
+                    <div class="control-label col-md-3">
+                        <input id="radio4" name="applicableObject" type="radio" value="IP"
+                               th:checked="${editDto.applicableObject == 'IP'}" onclick="resetGridDataUpload();">
+                        <label th:text="#{notify.import.lists}">Import DSĐL nhiều nội dung</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="conditionalView">
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-2" th:text="#{notify.region}">Miền</label>
+                    <div class="col-md-4">
+                        <select class="form-control" multiple="multiple" th:field="*{territory}"
+                                th:attr="data-territory=${editDto.territory}">
+                            <option th:each="i : ${lstTerritory}" th:text="${i.name}" th:value="${i.id}"></option>
+                        </select>
+                    </div>
+
+                    <label class="control-label col-md-2" th:text="#{notify.area}">Khu vực</label>
+                    <div class="col-md-4">
+                        <select class="form-control" multiple="multiple" th:field="*{region}"
+                                th:attr="data-region=${editDto.region}">
+                            <option th:each="i : ${lstRegion}" th:text="${i.name}" th:value="${i.id}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-2" th:text="#{notify.territory}">Vùng</label>
+                    <div class="col-md-4">
+                        <select class="form-control" multiple="multiple" th:field="*{area}"
+                                th:attr="data-area=${editDto.area}">
+                            <option th:each="i : ${lstArea}" th:text="${i.name}" th:value="${i.id}"></option>
+                        </select>
+                    </div>
+                    <label class="control-label col-md-2" th:text="#{notify.office}">Văn phòng</label>
+                    <div class="col-md-4">
+                        <select class="form-control" multiple="multiple" th:field="*{office}"
+                                th:attr="data-office=${editDto.office}">
+                            <option th:each="i : ${lstOffice}" th:text="${i.name}" th:value="${i.id}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-2" th:text="#{notify.type}"> </label>
+                    <div class="col-md-4">
+                        <select class="form-control" multiple="multiple" th:field="*{type}"
+                                th:attr="data-type=${editDto.type}">
+                            <option value=""></option>
+                            <option th:each="i : ${lstType}" th:text="${i.name}" th:value="${i.id}"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <!--    <input th:field="*{fc}" type="checkbox" value="1">
+                           <label th:text="#{notify.fc}">FC</label> -->
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <!--  <div class="form-group">
+                     <label class="control-label col-md-2" th:text="#{notify.reporter}"> </label>
+                     <div class="col-md-4">
+                         <select class="form-control" multiple="multiple" th:field="*{reporter}">
+                             <option value=""></option>
+                             <option th:each="i : ${lstReporter}" th:text="${i.name}" th:value="${i.id}"></option>
+                         </select>
+                     </div>
+                 </div> -->
+            </div>
+        </div>
+        <div class="import-content-box">
+            <div id="fmUpload" class="import-content controls">
+                <div class="bg-content">
+                    <th:block th:include="views/CMS/all/notify-import/notify-import.html :: content"/>
+                </div>
+
+                <!-- Table Search -->
+                <div class="bg-content-tbl" id="tableList">
+                    <th:block th:include="views/CMS/all/notify-import/notify-import-table.html :: content"/>
+                </div>
+                <script type="text/javascript" th:src="@{/static/CMS/all/notify-import/notify-import.js}"></script>
+                <script type="text/javascript"
+                        th:src="@{/static/CMS/all/notify-import/notify-import-table.js}"></script>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="row m-0 pos-gr-btn" th:if="${editDto.hasEdit}">
+                    <button class="u-btn u-btn-primary" id="btnSave" type="button">
+                        <img alt="" th:src="@{/static/images/icon-save.png}" width="19px"/> <span
+                            th:text="#{save.button}">Lưu</span>
+                    </button>
+                    <!--   <button class="u-btn u-btn-back " id="cancel" type="button">
+                          <img alt="" class="rotate-ico" th:src="@{/static/images/icon-down.png}" width="17px"/>
+                          <span th:text="#{cancel.button}">Thoát</span>
+                      </button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <input th:field="*{id}" type="hidden"/>
+    <input th:field="*{code}" type="hidden"/>
+    <input id="url" name="url" th:value="${editDto.url}" type="hidden"/>
+    <input th:field="*{referenceId}" type="hidden"/>
+    <input th:field="*{referenceType}" type="hidden"/>
+    <input th:field="*{requestToken}" type="hidden"/>
+    <!--    <input th:field="*{searchDto}" type="hidden"/>-->
+    <input th:field="*{updateDate}" type="hidden"/>
+    <input th:field="*{hasEdit}" type="hidden"/>
+
+</form>
+<script th:src="@{/static/CMS/js/bootstrap-datetimepicker.min.js}" type="text/javascript"></script>
+<script th:src="@{/static/CMS/all/notify/notify-edit.js}" type="text/javascript"></script>
+</body>
+</html>

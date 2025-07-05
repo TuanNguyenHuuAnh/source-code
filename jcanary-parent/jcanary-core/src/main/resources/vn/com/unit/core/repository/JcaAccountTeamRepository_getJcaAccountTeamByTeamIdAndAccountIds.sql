@@ -1,0 +1,8 @@
+SELECT
+	*
+FROM
+	JCA_ACCOUNT_TEAM
+WHERE
+	DELETED_ID = 0
+	AND ACCOUNT_ID IN /*accountIds*/()
+	AND TEAM_ID = /*teamId*/

@@ -1,0 +1,1 @@
+delete M_NOTIFYS_APPLICABLE_DETAIL where NOTIFY_ID = /*notifyId*/''

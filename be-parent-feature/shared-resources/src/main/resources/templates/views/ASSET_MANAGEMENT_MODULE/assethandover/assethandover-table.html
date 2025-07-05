@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <body th:fragment="content">
+    <div class="col-sm-12 p-0">
+      <h2 class="title-box">Search Result</h2>
+      <div class="box-tools pull-right">
+        <a
+          class="btn-common pull-right"
+          id="btnExport"
+          onclick="doExportExcel();"
+        >
+          <i class="fa fa-download" aria-hidden="true"></i>
+          <span th:text="' '+#{common.export.data}"></span>
+        </a>
+      </div>
+      <div class="table-responsive">
+        <table id="tblDataTable" class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th style="width: 20px">#</th>
+              <th style="width: 80px">Action</th>
+              <th>Handover No</th>
+              <th>Name of the Asset</th>
+              <th>Warehouse</th>
+              <th>Receiver</th>
+              <th>Handover Dept.</th>
+              <th>Handed Over Date</th>
+              <th>Handed Over By</th>
+              <th>Status</th>
+              <th>Pening At</th>
+            </tr>
+          </thead>
+          <tbody>
+            <th:block
+              th:each="assetDto,i : ${pageWrapper.data}"
+              th:with="startIndex=${pageWrapper.startIndexCurrent}"
+            >
+              <tr th:attr="data-assethandover-id=${assetDto.assetHandoverId}">
+                <td class="text-center" th:text="${i.index + startIndex}"></td>
+                <td class="td-action">
+                  <div class="align-center">
+                    <a
+                      class="
+                        glyphicon glyphicon-eye-open
+                        custom-icon
+                        j-btn-detail
+                      "
+                      th:title="#{view.button}"
+                      th:href="@{/asset-handover/detail(id=${assetDto.assetHandoverId})}"
+                    ></a>
+                    <a
+                      class="glyphicon glyphicon-edit custom-icon j-btn-edit"
+                      th:title="#{edit.button}"
+                      th:href="@{/asset-handover/edit(id=${assetDto.assetHandoverId})}"
+                      th:if="${assetDto.hasEditList}"
+                    ></a>
+                    <a
+                      class="
+                        glyphicon glyphicon-remove-sign
+                        font-size-20
+                        red
+                        j-handover-delete
+                      "
+                      th:title="#{delete.button}"
+                      th:if="${assetDto.hasDelete}"
+                    >
+                    </a>
+                  </div>
+                </td>
+                <td
+                  class="text-left"
+                  th:text="${assetDto.handoverNo}"
+                  style="white-space: nowrap"
+                ></td>
+                <td
+                  class="text-left"
+                  th:text="${assetDto.nameOfTheAsset}"
+                  style="white-space: nowrap"
+                ></td>
+                <td
+                  class="text-left"
+                  th:text="${assetDto.warehouseName}"
+                  style="white-space: nowrap"
+                ></td>
+                <td
+                  class="text-left"
+                  th:text="${assetDto.receiverFullname}"
+                  style="white-space: nowrap"
+                ></td>
+                <td
+                  class="text-left"
+                  th:text="${assetDto.costCenter}"
+                  style="white-space: nowrap"
+                ></td>
+                <td
+                  class="text-center"
+                  th:text="${assetDto.handoverDate} ? ${#dates.format(assetDto.handoverDate, @menuConfig.getFormDate())}"
+                ></td>
+                <td
+                  class="text-left"
+                  th:text="${assetDto.handoverFullname}"
+                  style="white-space: nowrap"
+                ></td>
+                <td
+                  class="text-left"
+                  th:text="${assetDto.deleteFlag != 1 ? assetDto.processStatusName : '__#{item.status.delete}__'}"
+                  style="white-space: nowrap"
+                ></td>
+                <td class="text-left" th:text="${assetDto.pendingAt}"></td>
+              </tr>
+            </th:block>
+          </tbody>
+        </table>
+      </div>
+      <!-- PAGINATION -->
+      <th:block
+        th:include="/views/ASSET_MANAGEMENT_MODULE/commons/pagination.html :: content(pageWrapper=${pageWrapper})"
+      />
+    </div>
+    <script
+      type="text/javascript"
+      th:src="@{/static/ASSET_MANAGEMENT_MODULE/js/assethandover/assethandover-list-table.js}"
+    ></script>
+  </body>
+</html>

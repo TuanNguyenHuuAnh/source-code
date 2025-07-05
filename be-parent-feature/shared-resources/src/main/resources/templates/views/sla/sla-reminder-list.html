@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<body th:fragment="content">
+
+	<th:block th:if="${slaStepDto?.reminderList != null}">
+		<th:block th:each="_item,i : ${slaStepDto.reminderList}">
+			<div class="reminder-row" th:attr="data-index=${i.index}">
+				<div class="col-md-12  form-group no-padding">
+					<div class="col-xs-12 col-sm-12 p-0 item-gradient">
+						<div class="col-xs-11 col-sm-11">
+							<label class="sla-reminder-escalate-index">
+								<span>#</span><span th:text="${i.index + 1}"></span>
+							</label>
+						</div>
+						<div class="col-xs-1 col-sm-1 icon-head">
+							<i class="pointer glyphicon glyphicon-remove-sign icon-remove-form pull-right remove-reminder" th:title="Remove"></i>
+						</div>				
+					</div>
+					<input type="hidden" th:name="'reminderList[' +${i.index} + '].id'"
+						th:value="${_item.id}" th:id="'slaAlertId'+${i.index}" />
+					<div class="col-md-2">
+						<label style="text-align: right;">Email To</label>
+					</div>
+					<div class="col-md-4">
+						<select class="form-control js-example-basic-multiple j-required email-to-select2"
+							th:name="'reminderList[' + ${i.index} + '].lstEmailToId'" th:id="'reToList' + ${i.index} + ''" 
+							multiple="multiple" th:field="${slaStepDto.reminderList[__${i.index}__].lstEmailToId}">
+							<option value=""></option>
+                           	<option th:each="choice : ${reEmailToList}" 
+                           			th:value="${choice.id}"
+                           			th:text="${choice.text}" th:selected="${emailToList ne null and emailToList.size() eq 1}">
+                   			</option> 
+							<!-- <option th:each="choice : ${userListOfEmailTo}" th:value="${ choice.key }"
+								th:text="${ choice.value }"
+								th:selected="${_item?.lstEmailToId != null ? #arrays.contains(_item?.lstEmailToId,choice.key) : false}"></option> -->
+						</select>
+					</div>
+					<div class="col-md-2">
+						<label style="text-align: center !important;" th:text="#{email.template.title}">Email
+							Template </label>
+					</div>
+					<div class="col-md-4">
+						<select class="form-control j-required email-select2" th:id="'reminderList' + ${i.index} + ''" 
+							th:name="'reminderList[' + ${i.index} + '].emailTemplateId'"
+							th:field="${slaStepDto.reminderList[__${i.index}__].emailTemplateId}">
+							<option value=""></option>
+							<option th:value="${_item?.emailTemplateId}" th:text="${_item?.emailTemplateName}"></option>
+						</select> 
+						<input type="hidden" name="'reminderList[' + ${i.index} + '].emailTemplateName'" th:field="${slaStepDto.reminderList[__${i.index}__].emailTemplateName}" />
+					</div>
+				</div>
+				<div class="col-md-12  form-group reminder-row no-padding">
+					<label class="col-md-2" style="text-align: left !important;" th:text="#{sla.email.cc.label}">Email
+						CC</label>
+					<div class="col-md-4">
+						<select class="form-control js-example-basic-multiple email-cc-select2" th:id="'reCcList' + ${i.index} + ''" 
+							th:name="'reminderList[' + ${i.index} + '].lstEmailCcId'"
+							multiple="multiple" th:field="${slaStepDto.reminderList[__${i.index}__].lstEmailCcId}">
+							<option value=""></option>
+                           	<option th:each="choice : ${reEmailCCList}" 
+                           			th:value="${choice.id}"
+                           			th:text="${choice.text}" th:selected="${emailCCList ne null and emailCCList.size() eq 1}">
+                   			</option> 
+						</select>
+					</div>
+					
+					<div class="col-md-2">
+						<label style="text-align: center !important;" th:text="#{noti.template.title}">Email
+							Template</label>
+					</div>
+					<div class="col-md-4">
+						<select class="form-control noti-select2"
+							th:name="'reminderList[' + ${i.index} + '].notiTemplateId'"
+							th:field="${slaStepDto.reminderList[__${i.index}__].notiTemplateId}">
+							<option value=""></option>
+							<option th:value="${_item?.notiTemplateId}" th:text="${_item?.notiTemplateName}"></option>
+						</select> 
+					</div>
+					
+				</div>
+				<div class="col-md-12  form-group reminder-row no-padding">
+					<div class="col-md-2">
+						<label th:text="#{sla.before.label}"> Before </label>
+					</div>
+					<div class="col-md-2 p-5">
+						<input class="form-control j-required reminder-alertTime" data-toggle="tooltip" data-placement="top" 
+						th:title="#{sla.message.invalid.alert-time}" type="number" step="1" min="0" max="200000"
+							th:name="'reminderList[' +${i.index} + '].alertTime'"
+							th:value="${_item?.alertTime != null ? #numbers.formatInteger(_item?.alertTime,0) : 0}"
+							th:id="'reminder-alertTime'+ ${i.index}" />
+					</div>
+					<div class="col-md-2 p-5">
+						<select class="form-control j-required  select2" th:id="'reminderList' + ${i.index} + ''" 
+							th:name="'reminderList[' + ${i.index} + '].alertUnitTime'">
+							<option th:each="choice : ${unitTimeList}"
+								th:value="${choice.id}" th:text="#{${choice.text}}" th:selected="${#strings.equals(choice.id, #strings.toString(_item.alertUnitTime))}"></option>
+						</select>
+						<!-- <input type="hidden" th:name="'reminderList[' +${i.index} + '].slaTimeType'" th:value="${_item.slaTimeType}"/> -->
+					</div>
+				</div>
+			</div>
+		</th:block>
+	</th:block>
+
+</body>
+</html>
+
+

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">	
+    <div class="form-group">
+        <table id="roleServiceByFunctionTableId" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th class="u_t_no ">#</th>
+                    <th class="u_t_name">
+                    	<div style="float:left;padding: 10px;width: 100%;">
+                    		<input type="text" id="serviceName" class="form-control input-sm" th:placeholder="#{component.authority.service.name}" />
+                    	</div>
+                    	
+                    	
+                    </th>
+                    <th th:text="#{authority.detail.access}">Truy cập</th>
+                    <!--  <th th:text="#{authority.detail.display}">Chi tiết</th> -->
+                    <!-- <th th:text="#{authority.detail.edit}">Cập nhật</th> -->
+                    <!-- <th:block th:if="${#authorization.expression('hasAuthority(@roleConstant.SHOW_ACTION)')}">
+                    	<th th:text="#{action.label}">Thao tác</th>
+                    </th:block> -->
+                </tr>
+            </thead>
+       <!--      <tfoot class="header">
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th class="text-center"><input type="checkbox" class="check-all-access"/></th>
+                    <th class="text-center"><input type="checkbox" class="check-all-disp"/></th>
+                    <th class="text-center"><input type="checkbox" class="check-all-edit"/></th>
+                    <th></th>
+                </tr>
+            </tfoot> -->
+            <tbody>
+            	<tr class ="item-tr" th:if="${serviceList} and ${serviceList.size()>0}">
+             	<td colspan="2"></td>
+             	<td class="text-center"><input type="checkbox" class="check-all-access"/> </td>
+            	</tr>
+            	<tr class ="item-tr" th:unless="${serviceList} and ${serviceList.size()>0}">
+             	<td colspan="4" th:text="#{search.results.no.data}"></td>
+            	</tr>
+                <th:block th:each="serviceDto,iterStat : ${serviceList}">
+                    <tr class ="item-tr item-tr-data" th:with="startIndex=${#ids.seq('')} - 1" >
+                    	<!-- th:if="${(#authorization.expression('hasAuthority(''' + authorityDto.functionCode + ':Edit'')')
+        									and !#authentication?.principal?.companyAdmin and authorityDto.authorityType == '1' 
+        								or #authentication?.principal?.companyAdmin) 
+        								or authorityDto.authorityType != '1'}" -->
+                        <input type="hidden" class="j-role-id" th:name="data[__${startIndex}__].roleId" th:id="roleId__${startIndex}__"
+                                             th:value="${serviceDto.roleId}" />
+                        <input type="hidden" class="j-item-id" th:name="data[__${startIndex}__].itemId" th:id="itemId__${startIndex}__"
+                                             th:value="${serviceDto.itemId}" />
+                        <input type="hidden" class="j-authority-type" th:name="data[__${startIndex}__].authorityType" th:id="authorityType__${startIndex}__"
+                                             th:value="${serviceDto.authorityType}" />
+                        <td  class="text-center" th:text="${startIndex} + 1">1.</td>
+                        <td th:text="${serviceDto.functionName}" data-tfilter="true">Function name</td>
+                        <td th:text="${serviceDto.businessCode}" data-tfilter-business-code="true" style="display:none">Function name</td>
+                        <td class="text-center item-td-check-access">
+                            <input type="checkbox" class="check-access" 
+                                   th:name="data[__${startIndex}__].canAccessFlag" th:id="canAccessFlag__${startIndex}__" 
+                                   th:checked="${serviceDto.canAccessFlag}" />
+                        </td>
+                        <!-- <td class="text-center">
+                            <input type="checkbox" class="check-disp" 
+                                   th:name="data[__${startIndex}__].canDispFlg" th:id="canDispFlg__${startIndex}__" 
+                                   th:checked="${serviceDto.canDispFlg}" />
+                        </td> -->
+				<!-- <td class="text-center item-td-check-edit">
+                            <input type="checkbox" class="check-edit" 
+                                   th:name="data[__${startIndex}__].canEditFlg" th:id="canEditFlg__${startIndex}__" 
+                                   th:checked="${serviceDto.canEditFlg}" />
+                        </td> -->
+				<!-- <!-- <th:block th:if="${#authorization.expression('hasRole(@roleConstant.SHOW_ACTION)')}">
+                         <td class="text-center">
+                             <div class="btn-group">
+                             	<a class="j-btn-edit glyphicon glyphicon-edit custom-icon"  th:classappend="${serviceDto.serviceType == '1' ? 'j-status-service-edit' : 'button_disabled'}" type="button">
+                                    </a>
+                             </div>
+                         </td>
+                        </th:block>
+                    </tr>
+                    
+                </th:block> --> -->
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

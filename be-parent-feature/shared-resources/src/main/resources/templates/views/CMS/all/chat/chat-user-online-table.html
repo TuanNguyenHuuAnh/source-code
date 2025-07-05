@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+	
+	<body th:fragment="content">
+		<div class="col-sm-12">
+			<div class="col-sm-6 no-padding">
+				<h2 class="sub-header section-heading" th:text="#{search.results.title}">Kết quả tìm kiếm</h2>
+			</div>
+			<div class="table-responsive col-sm-12 no-padding">
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th class="u_t_no">#</th>
+							<th th:text="#{login.username}">Tên đăng nhập</th>
+							<th th:text="#{account.fullname}">Họ và tên</th>
+							<th th:text="#{chat.list.email}">Email</th>
+ 							<th th:text="#{chat.list.phone}">Số điện thoại</th>
+ 							<th th:text="#{chat.list.status}">Trạng thái</th>
+						</tr>
+					</thead>
+					<tbody>
+						<th:block th:each="dataRow,i : ${data}">
+							<tr th:attr="data-socketid=${dataRow.socketId}" >
+								<td th:text="${i.index + 1}" style="text-align:center"></td>
+								<td style="width:150px;" th:text="${dataRow.username}"></td>
+								<td th:text="${dataRow.fullname}" style="text-align:left"></td>
+								<td th:text="${dataRow.email}"></td>
+								<td th:text="${dataRow.phone}"></td>
+								<td >Online</td>
+								<td th:text="${dataRow.username}" class="hidden agent-hidden" style="text-align:center"></td>
+							</tr>
+						</th:block>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<script type="text/javascript" th:src="@{/web-app/views/chat/chat-user-online-list.js}"></script>
+		
+		<div class="modal fade" id="modalAssignUser" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class='row'>
+							<form class="form-horizontal">
+								<div class="col-xs-12 col-sm-12">
+									<div class="form-group">
+										<label class="col-sm-3 control-label" th:text="#{chat.list.agent}">Nhân viên hỗ trợ</label>
+										<div class="col-sm-9">
+											<select id="sleUserOnline" class="form-control"></select>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<a href="#" id="acceptAssign" class="btn-common">OK</a> 
+						<a href="#" class="btn" data-dismiss="modal">Cancel</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="modalNotFoundUserOnline" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel"></h4>
+					</div>
+					<div class="modal-body" th:text="#{chat.assign.user.offline}">Tất cả nhân viên chưa đăng nhập hệ thống!</div>
+					<div class="modal-footer">
+							<a href="#" class="btn-common" data-dismiss="modal">OK</a>
+					</div>
+				</div>
+			</div>
+		</div>
+</body>
+</html>
+

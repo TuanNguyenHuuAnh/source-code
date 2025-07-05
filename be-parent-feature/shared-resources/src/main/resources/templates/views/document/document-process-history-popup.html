@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="content">
+	<div class="modal fade" id="popupProcessHistoryModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modalProgress" role="document">
+			<div class="modal-content" style="height: 475px; width: 700px; magin: 0; padding: 0; margin-left: 0px" th:if="${listProcessHistory.size() > 0}">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModal">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h2 class="title-box" id="role-item-component-modal-label" th:text="#{doc.process.history}">Process</h2>
+				</div>
+				<div class="modal-body" id="role-item-summary-modal-content" style="height: 350px; overflow-y: scroll;">
+					<div class="col-md-12 progressWrap">
+						<ol id="statusProgressList">
+							<th:block th:each="_item, i : *{listProcessHistory}">
+								<li>
+									<span class="process-history-step-no" th:text="${_item.stepNo}">1</span>
+									<dl>
+										<dt>[<span th:text="${_item.actionName}" style="text-transform: capitalize;"> </span> 
+											 <span th:text="#{document.process.history.at.step}" style="font-weight: normal;">at step </span> 
+											 <span th:text="${_item.stepName}">Submit Document</span>]</dt>
+										<dd><span th:text="#{doc.process.history.name}"></span> : <span th:text="${_item.assigneeFullname}"></span></dd>
+										<dd><span th:text="#{doc.process.history.email}"></span> : <span th:text="${_item.assigneeEmail}"></span></dd>
+										<dd th:text="${_item.actionTime != null}?${#dates.format(_item.actionTime, 'dd/MM/yyyy HH:mm:ss')}:''">02/18/2019 09:31</dd>
+										<!-- VyNT 20200819 add note 4k -->
+										<dd class="task-comment-dd">
+											<div class="task-comment-not-full-popup">
+												<div class="text-comment" th:text="${_item.taskComment}" th:attr="style = ${_item.actionTime != null} ? 'word-break: break-word;' : 'background-color: #fff;'"></div>
+												<label class="see-more" th:text="#{document.process.history.view.more}" th:if="${_item.charNumOfTaskComment} ne null and ${_item.charNumOfTaskComment} > 255">See more</label>
+											</div>
+											<div class="task-comment-fully-popup">
+												<div th:text="${_item.taskCommentFully}"  style="word-break: break-word;" ></div>
+												<label class="see-more" th:text="#{document.process.history.view.hidden}">See more</label>
+											</div>
+										</dd>
+									</dl>
+								</li>
+							</th:block>
+						</ol>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<a href="#" class="btn btn-cancel" data-dismiss="modal" th:text="#{close.button}" th:title="#{close.button}">Close</a>
+				</div>
+			</div>
+			
+			<div class="modal-content" th:if="*{listProcessHistory.size() == 0}">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModal">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h2 class="title-box" id="role-item-component-modal-label" th:text="#{doc.process.history}">Process</h2>
+				</div>
+				<div class="modal-body" id="role-item-summary-modal-content">
+					<div th:text="#{doc.process.history.emptyTable.label}"></div>
+				</div>
+
+				<div class="modal-footer">
+					<a href="#" class="btn btn-cancel" data-dismiss="modal" th:text="#{close.button}" th:title="#{close.button}">Close</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" th:src="@{/static/cache/js/document/document-process-history-popup.js}"></script>
+</body>
+</html>

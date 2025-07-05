@@ -1,0 +1,7 @@
+SELECT
+    ID                  AS ID
+     , NOTIFY_TITLE     AS NAME
+     , CONTENTS         AS TEXT
+FROM M_NOTIFYS
+WHERE NOTIFY_CODE = /*notifyCode*/'NOT1021.004'
+  AND DELETE_BY IS NULL

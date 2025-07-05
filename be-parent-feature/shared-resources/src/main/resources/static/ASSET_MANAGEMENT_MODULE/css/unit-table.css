@@ -1,0 +1,227 @@
+.model-content-max-height{
+	max-height: 568px;
+	overflow: auto;
+}
+.table-popup-max-height{
+	max-height: 350px;
+}
+
+.tbl-responsive {
+  overflow-x: auto!important;
+  position: relative;
+}
+.table-search-result{
+  background: #fff;
+}
+table{
+  margin-bottom: 0!important;
+}
+table th{
+	background: #304d50;
+	padding: 5px!important;
+	font-weight: 500;
+	border-bottom: none;
+	text-align: center;
+	border: 1px solid #ddd!important;
+	border-color: #ddd!important;
+	border-bottom-width: 1px!important;
+	vertical-align: middle!important;
+	color: #fff;
+	white-space: nowrap;
+}
+table td.td-action{
+	white-space: nowrap;
+}
+table td{
+  border-right: 1px solid #ddd!important;
+  border-bottom: 1px solid #ddd!important;
+  border-left: 1px solid #ddd!important;
+  padding: 3px 5px!important;
+  vertical-align: middle!important;
+}
+.center,.align-center{
+	text-align: center;
+}
+table td a{
+  font-size: 16px;
+  text-decoration: none;
+  padding-left: 2px;
+  cursor: pointer
+}
+table td .glyphicon-edit{
+	color: #304d50;
+}
+table td .glyphicon-remove-sign{
+	color: #e5111f;
+}
+/*pagging*/
+.no-border{
+	border: none!important;
+  padding: 0!important;
+}
+.pagination{
+	margin: 0px 0 5px 0!important;
+}
+.pagination>li>a:focus{
+	background-color: #0087ff;
+    border-color: #0087ff;
+    color: #fff!important;
+}
+.pagging .pagination>li:first-child:hover span{
+	background: transparent!important;
+}
+.pagging .pagination>li>a, .pagination>li>span{
+  padding: 4px 10px;
+}
+.pagination-sm>li>a, .pagination-sm>li>span {
+    padding: 4px 10px 3px 10px;
+}
+.pagination>.active>a, .pagination>.active>a:focus, 
+.pagination>.active>a:hover, .pagination>.active>span, 
+.pagination>.active>span:focus, .pagination>.active>span:hover,
+.pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover{
+	background-color: #e77723!important;
+    border-color: #ebeff0!important;
+    color: #fff
+}
+.pagination-select .blu{
+	color: #b8c0c3;
+}
+.pagination-sm>li:first-child>a, .pagination-sm>li:first-child>span{
+	border-radius: 0;
+	border-left: none
+}
+.bg-table-navigation{
+	padding: 0;
+	margin-top: 10px;
+}
+.bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn){
+  width: auto!important;
+}
+.bootstrap-select.btn-group .dropdown-menu li a{
+  outline: none
+}
+.bootstrap-select.btn-group .dropdown-toggle{
+    height: 27px;
+    font-size: 12px;
+    padding-top: 4px;
+    background: #fff;
+} 
+.btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default,.bootstrap-select.btn-group button:hover {
+  color: #333;
+  background-color: #fff!important;
+  border-color: #ddd!important;
+}
+.btn-group.open .dropdown-toggle{
+  box-shadow: none!important;
+}
+.bootstrap-select.btn-group .dropdown-menu{
+  margin:0!important;
+}
+.pagging .bootstrap-select button{
+  border-radius: 4px 0 0 4px;
+  border-color: #ddd;
+}
+/*fixed header table & scroll body*/
+.table-fixed-head table thead {
+  width: 100%;
+}
+.table-fixed-head table tbody {
+  display: block;
+  overflow-y: auto;
+  height: 187px;
+  position: relative;
+}
+.table-fixed-head table tbody tr {
+  width: 100%;
+}
+.table-fixed-head table thead, .table-fixed-head table tbody tr {
+  display: table;
+  table-layout: fixed;
+}
+.table-fixed-head table tr td:first-child,.table-fixed-head table tr th:first-child{
+  width: 50px;
+}
+table.table-striped tbody tr:nth-child(even),table.table-bordered tbody tr:nth-child(even){
+  background-color: #fff
+}
+table.table-striped tbody tr:nth-child(odd),table.table-bordered tbody tr:nth-child(odd){
+  background-color: #f4f4f4;
+}
+table tr.highlight{
+	background: #e87722!important;
+    color: #fff;
+}
+.gr-btn-sort button{
+	border: 1px solid #e77723;
+    background: #fff;
+    color: #e77723;
+    border-radius: 4px;
+}
+/*end fixed header table*/
+
+
+/*custom scroll bar*/
+.mCSB_inside > .mCSB_container{
+  margin-right: 0!important
+}
+tbody .mCSB_scrollTools{
+  width: 5px!important;
+}
+
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
+  background-color: #919191!important
+}
+.mCSB_scrollTools .mCSB_draggerRail{
+  width: 4px!important;
+  background-color: #fff!important;
+}
+.mCSB_horizontal.mCSB_inside>.mCSB_container{
+  margin-bottom: 7px!important
+}
+.datepicker th,.datepicker td, .datetimepicker td, .datetimepicker th{
+	background: none; 
+	border: none!important
+}
+
+ .datetimepicker th{
+ 	color: #333
+ }
+
+.datepicker th{
+	color: #333
+}
+
+.datetimepicker table tr td.active.active, .datetimepicker table tr td.active:hover.active{
+    background-image: linear-gradient(to bottom, #fdd49a, #fdf59a);
+    background-color: #fdf59a;
+    color: #333
+}
+.datepicker table tbody tr:nth-child(odd){
+	background: #fff!important
+}
+.u-custom-select .select-page{
+	background-color: #fff
+}
+.unit-bg-table{
+	margin: 0!important
+}
+table td .fa-save{
+	font-size: 17px;
+    color: #63b1bc;
+    font-weight: 500;
+}
+table .treegrid-expander.glyphicon-plus-sign,table .treegrid-expander.glyphicon-minus-sign{
+	color: #959595;
+    font-size: 11px;
+}
+.pagging .pagination>li>a,.pagination>li>span,.pagging .bootstrap-select button,.pagination>li>a,
+.pagination~.pagination-select select {
+    background: #aebebe;
+    background-color: #aebebe;
+    color: #fff;
+    border-color: #ebeff0;
+}
+.white-space-td{
+	white-space: nowrap;
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <body th:fragment="content">
+    <div class="col-sm-12 p-0">
+      <h2 class="title-box" th:text="#{search.results.title}">
+        Kết quả tìm kiếm
+      </h2>
+      <div class="box-tools pull-right">
+        <a class="btn-common pull-right" id="btnExport">
+          <i class="fa fa-download" aria-hidden="true"></i>
+          <span th:text="' '+#{common.export.data}"></span>
+        </a>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped cursor-tr">
+          <thead>
+            <tr>
+              <th style="width: 20px">#</th>
+              <th
+                th:text="#{receipt.action}"
+                style="width: 80px; min-width: 80px"
+              >
+                Action
+              </th>
+              <th class="u_t_code" th:text="#{p2passetlocation.code}">CODE</th>
+              <th class="u_t_code" th:text="#{p2passetlocation.name}">NAME</th>
+              <th class="u_t_code" th:text="#{p2passetlocation.address}">
+                ADDRESS
+              </th>
+              <th class="u_t_code" th:text="#{p2passetlocation.regionName}">
+                REGIONNAME
+              </th>
+              <th class="u_t_code" th:text="#{status.common.activated}">
+                Active
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <th:block
+              th:each="item,i : ${pageWrapper.data}"
+              th:with="startIndex=${pageWrapper.startIndexCurrent}"
+            >
+              <tr th:attr="data-id=${item.id}">
+                <td th:text="${i.index + startIndex}" class="text-center"></td>
+                <td class="text-center">
+                  <div>
+                    <a
+                      class="
+                        glyphicon glyphicon-eye-open
+                        custom-icon
+                        j-btn-detail
+                      "
+                      th:title="#{view.button}"
+                    ></a>
+                    <a
+                      class="glyphicon glyphicon-edit custom-icon j-btn-edit"
+                      th:title="#{edit.button}"
+                      th:if="${#authorization.expression('hasAuthority(''__${@roleEp2p.ROLE_OFFLICE_LOCATION}__:Edit'')')}"
+                    ></a>
+                    <a
+                      class="
+                        glyphicon glyphicon-remove-sign
+                        font-size-20
+                        red
+                        j-btn-delete
+                      "
+                      th:title="#{delete.button}"
+                      th:if="${#authorization.expression('hasAuthority(''__${@roleEp2p.ROLE_OFFLICE_LOCATION}__:Edit'')')}"
+                    ></a>
+                  </div>
+                </td>
+                <td th:text="${item.code}">CODE</td>
+                <td th:text="${item.name}">NAME</td>
+                <td th:text="${item.address}">ADDRESS</td>
+                <td th:text="${item.regionName}">REGIONNAME</td>
+                <td class="text-center">
+                  <input
+                    type="checkbox"
+                    th:checked="${item.activeFlag}"
+                    disabled="disabled"
+                  />
+                </td>
+              </tr>
+            </th:block>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <th:block
+      th:include="/views/ASSET_MANAGEMENT_MODULE/commons/pagination.html :: content"
+    />
+    <script
+      type="text/javascript"
+      th:src="@{/static/ASSET_MANAGEMENT_MODULE/js/p2passetlocation/p2passetlocation-table.js}"
+    ></script>
+  </body>
+</html>
