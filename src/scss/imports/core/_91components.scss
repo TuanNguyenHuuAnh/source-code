@@ -1,0 +1,158 @@
+// ------------- Customer Information -----------
+.customer-infomation {
+  width: 600px;
+  .form {
+    &__item {
+      &-header {
+        display: flex;
+        flex-direction: column;
+        padding: 20px 16px;
+        .above,
+        .below {
+          display: flex;
+          justify-content: space-between;
+        }
+        .above {
+          p {
+            font-size: 1.6rem;
+          }
+          .brown-text {
+            font-size: 1.4rem;
+            color: $brown;
+          }
+        }
+        .below {
+          margin-top: 20px;
+        }
+      }
+      &:last-child {
+        border: none;
+      }
+    }
+  }
+
+  .link-account-form {
+    width: 100%;
+    border: 1px solid $border;
+    border-radius: 10px;
+    margin-top: 20px;
+    padding: 20px 16px;
+    h3 {
+      font-weight: 600;
+      font-size: 1.6rem;
+      color: $black-cl;
+    }
+    .img-wrapper {
+      @include midflex;
+      .item {
+        @include midflex;
+        flex-direction: column;
+        .image {
+          width: 60px;
+          height: 60px;
+          margin: 15px;
+        }
+
+        p {
+          font-weight: 400;
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+
+  .authentication-form {
+    width: 100%;
+    border: 1px solid $border;
+    border-radius: 10px;
+    margin-top: 20px;
+    padding: 20px 16px;
+    h3 {
+      font-weight: 600;
+      font-size: 1.6rem;
+      color: $black-cl;
+    }
+    .content-wrapper {
+      .authentication-form__item {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 16px;
+        margin-right: -16px;
+        margin-left: -16px;
+        border-bottom: 1px solid $border;
+        p {
+          font-size: 1.6rem;
+          font-weight: 500;
+          color: $grey;
+          line-height: 19.36px;
+        }
+        &:last-child {
+          border: none;
+          padding-bottom: 0;
+        }
+      }
+    }
+  }
+
+  .change-password-form {
+    width: 100%;
+    border: 1px solid $border;
+    border-radius: 10px;
+    margin-top: 20px;
+    padding: 20px 16px;
+    p {
+      font-size: 1.6rem;
+      color: $black-cl;
+    }
+  }
+  // ----- change password for page 11 ------
+  .change-password {
+    width: 100%;
+    border-radius: 10px;
+    padding: 20px 0px 0px;
+    p {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: $grey;
+      line-height: 19.36px;
+    }
+  }
+  .authentication-sms {
+    width: 100%;
+    border: 1px solid $border;
+    border-radius: 10px;
+    margin-top: 20px;
+    padding: 20px 16px;
+    h3 {
+      font-weight: 600;
+      font-size: 1.6rem;
+      color: $black-cl;
+    }
+    .content-wrapper {
+      .authentication-sms__item {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 16px;
+        margin-right: -16px;
+        margin-left: -16px;
+        border-bottom: 1px solid $border;
+        p {
+          font-size: 1.6rem;
+          font-weight: 500;
+          color: $grey;
+          line-height: 19.36px;
+        }
+        &:last-child {
+          border: none;
+          padding-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+@include mobile {
+  .customer-infomation {
+    width: 343px;
+  }
+}

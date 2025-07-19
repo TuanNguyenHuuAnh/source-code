@@ -1,0 +1,787 @@
+// --------------------- Components -----------------------------------------------
+.multistepform {
+}
+// ------ round-checkbox -----------------
+.customradio {
+  display: block;
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  input {
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 0;
+    left: 0;
+    margin: 0;
+    opacity: 0;
+    // z-index: 2;
+    &:checked {
+      ~ .checkmark {
+        &::after {
+          background: $red;
+        }
+      }
+    }
+    // opacity: 0;
+  }
+  .checkmark {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid $red;
+    border-radius: 4px;
+    @include midflex;
+    padding: 2px;
+    border-radius: 50%;
+    margin-right: 6px;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 75%;
+      height: 75%;
+      top: 50%;
+      left: 50%;
+      background: none;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  p {
+    font-size: 1.6rem;
+  }
+}
+
+.round-checkbox {
+  display: flex;
+  align-items: center;
+  .customradio {
+    margin-right: 10px;
+  }
+}
+
+// --- Input Date -----------------------
+
+.inputdate {
+  input {
+    background: $white-cl;
+    width: 100%;
+    height: 56px;
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+    padding: 10px 12px 10px 16px;
+    transition: 0.2s;
+    font-family: $font-stack;
+  }
+
+  //   input[type="date"] {
+  //     &::-webkit-calendar-picker-indicator {
+  //       //   opacity: 0;
+  //     }
+  //   }
+}
+
+// --- Date Wrapper ----------------------
+.datewrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  &__item {
+    width: 45%;
+  }
+  .line {
+    display: block;
+    background: $grey;
+    width: 14px;
+    height: 2px;
+  }
+}
+
+// --- Date Time Wrapper -----------------
+.datetime-wrapper {
+  @include midflex;
+  justify-content: space-between;
+  &__item {
+    width: 48%;
+  }
+}
+
+// --- Circle Btn ----------------------------
+
+.circle-btn {
+  @include midflex;
+  @include plus-cirle;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+// --- Checkbox Dropdown Content -------------
+
+.checkbox-dropdown {
+  display: none;
+
+  &__content {
+    width: 100%;
+    margin: -12px 0;
+    &-item {
+      padding: 12px 0;
+    }
+  }
+
+  &.show {
+    display: block;
+  }
+}
+
+// --- Checkbox Wrap ------------------------
+
+.checkbox-wrap {
+  display: flex;
+  justify-content: space-between;
+  &.basic-column {
+    flex-direction: column;
+    justify-content: start;
+  }
+
+  .tab-wrapper {
+    margin: -20px 0;
+    .tab {
+      padding: 20px 0;
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0px;
+        display: block;
+        width: 100%;
+        height: 1px;
+        background: $light-black;
+      }
+      &:last-child {
+        &::after {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+// --------------- Progress Bar --------------------------------
+.step-container {
+  width: 100%;
+  max-width: 600px;
+  .step-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .step-btn-wrapper {
+      position: absolute;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .back-btn {
+        button {
+          display: flex;
+          align-items: center;
+          padding: 0;
+          .svg-wrapper {
+            @include midflex;
+          }
+          span {
+            margin-left: 6px;
+          }
+        }
+      }
+      .save-wrap {
+        .back-text {
+          padding: 0;
+          margin-left: 0px;
+          color: #985801;
+          @include midflex;
+        }
+      }
+    }
+
+    .progress-bar {
+      width: 70%;
+      display: flex;
+      // margin: 0;
+      user-select: none;
+      .step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        text-align: center;
+        width: 100%;
+
+        .bullet {
+          height: 24px;
+          width: 24px;
+          border: 2px solid #e2e0e0;
+          @include midflex;
+          border-radius: 50%;
+          position: relative;
+          transition: 0.2s;
+          font-weight: 500;
+          font-size: 11px;
+          line-height: 25px;
+          background: #e2e0e0;
+          z-index: 22;
+          span {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            @include midflex;
+            width: 15.63px;
+            height: 15.63px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(#e0e0e0, #adadad);
+            font-size: 11px;
+            overflow: hidden;
+          }
+        }
+
+        p {
+          color: #808080;
+          font-size: 1.2rem;
+          font-weight: 600;
+          margin-top: 8px;
+          transition: 0.2s;
+          line-height: 18px;
+          // @include layout-text;
+        }
+
+        &::before,
+        &::after {
+          position: absolute;
+          content: "";
+          bottom: 11px;
+          top: 15%;
+          left: -46%;
+          height: 3px;
+          width: 100%;
+          background: #dfdbdb;
+          z-index: 1;
+        }
+
+        &.active {
+          .bullet {
+            border: 2px solid #e33d43;
+            background: linear-gradient(#ffdc7b, #f5a537);
+            span {
+              color: $white-cl;
+              background: linear-gradient(#fae340, #e57333);
+            }
+          }
+          &::after {
+            background: #e33d43;
+            background: -moz-linear-gradient(left, #e33d43 0%, #e06363 65%, #ffd564 100%);
+            background: -webkit-linear-gradient(left, #e33d43 0%, #e06363 65%, #ffd564 100%);
+            background: linear-gradient(to right, #e33d43 0%, #e06363 65%, #ffd564 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: animate 0.3s linear forwards;
+          }
+          p {
+            width: 100%;
+            height: 36px;
+            color: #d32a30;
+          }
+        }
+
+        &:first-child {
+          &::before,
+          &::after {
+            display: none;
+          }
+        }
+      }
+    }
+
+    @include mobile {
+      .step-btn-wrapper {
+        position: static;
+        margin-bottom: 20px;
+        padding: 0 10px;
+      }
+      .progress-bar {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// ------ tab-flex ----------------------------
+
+.tabflex-wrapper {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.tabflex {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 9px;
+  h5 {
+    color: $grey;
+    &.special {
+      color: $black-secondary;
+      font-weight: 600;
+    }
+  }
+  p {
+    color: $black-cl;
+    &.special {
+      color: $black-secondary;
+      font-weight: 600;
+    }
+  }
+
+  @include mobile {
+    h5,
+    p {
+      font-size: 1.3rem;
+    }
+  }
+}
+
+// -------------------------- Page --------------------------------------------------
+
+.stepform {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  background: url("../img/step1-bg.svg") no-repeat;
+  background-size: cover;
+  // min-height: 500px;
+  margin-top: 245px;
+
+  &__head {
+    position: relative;
+    padding: 40px 16px 20px;
+    &-title {
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+    &-content {
+      margin-top: -4px;
+      margin-bottom: -4px;
+      .item {
+        padding: 4px 0;
+        display: flex;
+        justify-content: space-between;
+        &-title {
+          color: $black-secondary;
+        }
+        &-content {
+          font-weight: 600;
+          &.basic-big {
+            text-transform: uppercase;
+          }
+        }
+      }
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      display: block;
+      width: 90%;
+      border-bottom: 1px dashed #b5b5b5;
+    }
+  }
+
+  &__body {
+    padding: 40px 22px 32px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+    .info {
+      position: relative;
+      margin-bottom: 8px;
+      padding-top: 32px;
+      &__title {
+        display: flex;
+        justify-content: space-between;
+        // align-items: center;
+        h4 {
+          @include title(1.2rem, 700);
+          text-transform: uppercase;
+        }
+        i {
+          cursor: pointer;
+        }
+      }
+
+      &__body {
+        .item {
+          width: 100%;
+          margin-bottom: 26px;
+          &__title {
+            @include title(1.2rem, 600);
+            margin-bottom: 8px;
+          }
+          &__content {
+            .checkbox-warpper {
+              margin-left: -20px;
+              margin-right: -20px;
+              .checkbox-item {
+                padding: 0 20px;
+              }
+            }
+            .tab {
+              margin-top: -6px;
+              margin-bottom: -6px;
+              &__content {
+                padding: 6px 0;
+              }
+            }
+          }
+        }
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+        display: block;
+        width: 100%;
+        border-bottom: 1px dashed #b5b5b5;
+      }
+      &:first-child {
+        padding-top: 0;
+        &::before {
+          display: none;
+        }
+      }
+    }
+
+    .info__sub-title {
+      @include title(1.2rem, 600);
+      &__content {
+        margin-top: -6px;
+        margin-bottom: -6px;
+        &-item {
+          padding: 6px 0;
+        }
+      }
+    }
+    .acident {
+      @include title(1.2rem, 600);
+      text-transform: uppercase;
+      margin-top: 3.2rem;
+      &__content {
+        margin-top: -6px;
+        margin-bottom: -6px;
+        &-item {
+          padding: 6px 0;
+        }
+      }
+    }
+  }
+
+  .decor-clip {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: -8px;
+  }
+  .decor-person {
+    position: absolute;
+    height: auto;
+    top: -104px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @include mobile {
+    margin-top: 285px;
+  }
+}
+
+.optionalform-wrapper {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 16px;
+  background-color: $white-cl;
+  padding: 0 16px;
+  border-radius: 6px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+}
+
+.optionalform {
+  width: 100%;
+  background: $white-cl;
+  padding: 24px 0 20px;
+
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    h5 {
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .dot {
+      width: 18px;
+      height: 18px;
+      background-color: $grey;
+      border-radius: 50%;
+      @include midflex;
+      .line {
+        display: block;
+        width: 10px;
+        height: 2px;
+        border-radius: 1px;
+        background-color: $white-cl;
+      }
+    }
+  }
+
+  .tab-wrapper {
+    margin: -12px 0;
+    .tab {
+      padding: 12px 0;
+    }
+  }
+
+  .imglist {
+    &__title {
+      margin-bottom: 8px;
+    }
+    &__content {
+      width: 100%;
+      background: $main-bg;
+      border-radius: 6px;
+      padding: 12px;
+      .imgtab-wrapper {
+        width: 100%;
+        margin: 0 -6px;
+        display: flex;
+        flex-wrap: wrap;
+        .imgtab {
+          padding: 6px;
+
+          .img-wrapper {
+            position: relative;
+            overflow: hidden;
+            width: 65px;
+            height: 92px;
+            border: 1px solid $thin-grey;
+            img {
+              position: absolute;
+              width: 100%;
+              height: auto;
+              top: 0;
+              left: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.min {
+    .optionalform__title {
+      .dot {
+        display: none;
+      }
+    }
+  }
+}
+
+.optional-checkbox-wrapper {
+  width: 100%;
+  max-width: 600px;
+  padding: 16px 0;
+  h5 {
+    margin-bottom: 16px;
+  }
+}
+
+@keyframes animate {
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+// ------------- White-bg --------------
+.white-bg {
+  background: $white-cl;
+}
+
+// ------------ LongPT17: adjust Stepform Start ---------------
+// bottom-text
+
+.sccontract-warpper {
+  .bottom-text{
+    max-width: 475px;
+    display: flex;
+    justify-content: center;
+    p {
+      text-align: center;
+      line-height: 20px;
+      .red-text {
+        color: $red;
+      }
+    }
+  }
+} 
+
+// ---------------------- 4.6 QLBH Additional-infomation ----------------------------------------
+
+.logined{
+  .main-warpper{
+    .qlbh-sccard-wrapper{
+      .card-warpper{
+        .item{
+          .card{
+            &__header{
+              flex-direction: column;
+              align-items: flex-start;
+              &-item{
+                display: flex;
+                p{
+                  font-size: 1.6rem;
+                }
+              }
+              .additional-status-custom{
+                position: unset;
+                margin-top: 8px;
+                .active{
+                  color: $red;
+                  font-weight: 600;
+                }
+                .active::before{
+                  background: $red;
+                }
+              }
+            }
+            &__footer{
+              &-item{
+                .dash{
+                  width: 100%;
+                  margin: 8px 0 16px 0;
+                  border-top: $dash-border;
+                }
+              }
+            }
+            &__bottom{ 
+              background: $main-bg;
+              padding: 10px 12px;
+              @include midflex;
+              .red-text{
+                color: $red;
+                font-weight: 600;
+              }
+              p{
+                color: $grey;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include mobile{
+  .logined{
+    .main-warpper{
+      .qlbh-sccard-wrapper{
+        .card-warpper{
+          .item{
+            .card{
+              &__header{
+                &-item{
+                  p{
+                    font-size: 1.4rem;
+                  }
+                }
+                .additional-status-custom{
+                  .active{
+                    font-size: 1.3rem;
+                  }
+                }
+              }
+              &__bottom{
+                span,
+                p {
+                  font-size: 1.2rem;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.additonal-information{
+  .additional-information-sccontract-warpper{
+    .sccontract-container{
+      .warning-wrapper{
+        padding: 16px 14px;
+        .content{
+          p{
+            font-size: 1.3rem;
+          }
+        }
+      }
+      .bottom-btn{
+        padding-bottom: 60px;
+      }
+    }
+  }
+}
+@include mobile{
+  .additonal-information{
+    .additional-information-sccontract-warpper{
+      .sccontract-container{
+        .bottom-btn{
+          padding-bottom: 16px;
+        }
+      }
+    }
+  }
+}
+// 4.6 nodata1 --------------
+
+.nodata{
+  .additional-information-sccontract-warpper{
+    background: $white-cl;
+  }
+}
+
+// 4.6 nodata2 --------------
+
+.additonal-information-nodata{
+  .additional-information-sccontract-warpper{
+    background: $white-cl;
+    width: 100%;
+    .insurance{
+      .empty{
+        h4{
+          text-align: center;
+        }
+      }
+    }
+  }
+}

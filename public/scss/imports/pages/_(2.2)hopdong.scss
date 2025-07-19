@@ -1,0 +1,242 @@
+// ---------------------- Container ---------------------------
+
+.sccontract-warpper {
+  // background: $white-cl;
+  .sccontract-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 10px 50px 10px;
+    width: 100%;
+    // background-color: #f5f3f2;
+    min-height: calc(100% - 56px);
+  }
+  .gdhd-container {
+    min-height: 100%;
+  }
+  .breadcrums {
+    width: 100%;
+  }
+  .bottom-text {
+    margin-top: 16px;
+    p {
+      span {
+        color: $brown;
+      }
+    }
+  }
+}
+
+.sccontract-warpper {
+  .sccontract-container {
+    .warning-wrapper {
+      @include midflex;
+      background: $red-secondary;
+      padding: 16px 20px;
+      width: 100%;
+      max-width: 600px;
+      .icon-wrapper {
+        width: 24px;
+        height: 24px;
+        margin-right: 12px;
+      }
+      .content {
+        width: 90%;
+        p {
+          color: $white-cl;
+          line-height: 20px;
+
+          span {
+            color: $present-body;
+          }
+        }
+      }
+    }
+  }
+}
+
+// ----------------- Card Wrapper Custom -----------------
+
+.hopdong-sccard-wrapper {
+  .title {
+    width: 100%;
+    height: 50px;
+    @include midflex;
+    justify-content: space-between;
+  }
+  .card-warpper {
+    .item {
+      .card {
+        &__header {
+          @include midflex;
+          justify-content: flex-start;
+          .calendar-wrapper {
+            margin-right: 8px;
+          }
+          p {
+            margin-top: 2px;
+          }
+        }
+        &__footer {
+          .card__footer-item .dropdown {
+            flex-direction: column;
+          }
+          &-item .dropdown {
+            flex-direction: column;
+            &__content {
+              @include midflex;
+              justify-content: space-between;
+              .arrow {
+                position: unset;
+                transform: rotate(-90deg);
+              }
+            }
+          }
+        }
+        .card__footer-item {
+          width: 100%;
+          .dropdown {
+            width: 100%;
+            margin-top: 4px;
+            &__content {
+              display: flex;
+              justify-content: flex-start;
+              align-items: flex-start;
+              p {
+                color: $brown;
+                margin-bottom: 4px;
+                margin-right: 4px;
+              }
+              .arrow {
+                margin-top: 4px;
+              }
+              .alternative-text {
+                display: none;
+              }
+            }
+            &__items {
+              width: 100%;
+              height: auto;
+              .content-wrapper {
+                .item {
+                  display: flex;
+                  align-items: center;
+                  padding: 0;
+                  .content {
+                    p {
+                      display: flex;
+                      align-items: center;
+                      margin-bottom: 0;
+                      padding: 8px 0;
+                    }
+                  }
+                  .list-style {
+                    border-radius: 50%;
+                    content: "";
+                    width: 5px;
+                    height: 5px;
+                    background: $brown;
+                    margin-right: 6px;
+                  }
+                }
+              }
+            }
+          }
+          .show {
+            .dropdown__content {
+              justify-content: flex-start;
+              .alternative-text {
+                display: block;
+              }
+              .primary-text {
+                display: none;
+              }
+              .arrow {
+                transform: rotate(0);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include mobile {
+  .hopdong-sccard-wrapper {
+    .card-warpper {
+      .item {
+        .card {
+          .card__footer-item {
+            .dropdown {
+              &__content {
+                .arrow {
+                  margin-top: 2px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// ------------------ Form Wrapper ----------------
+
+.form-wrapper {
+  margin-top: 120px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+  .stepform__body {
+    .info {
+      &__subtitle {
+        padding: 0px 0px 12px 0px;
+        p {
+          color: $red;
+        }
+      }
+    }
+  }
+}
+
+// --------------- Popup ---------------------
+.envelop-infomation {
+  width: 289px;
+  height: 294px;
+  @include midflex;
+  align-items: flex-start;
+  background: url("../img/popup/envelop.png") no-repeat;
+  &__content {
+    margin-top: 32px;
+    width: 80%;
+    @include midflex;
+    flex-direction: column;
+    h5 {
+      text-transform: uppercase;
+    }
+    p {
+      margin-top: 12px;
+      text-align: center;
+      width: 151px;
+      line-height: 20px;
+    }
+  }
+  &__close-button {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 45px;
+  }
+}
+
+// ------------------- 2.2 Nodata ---------------------------
+
+.sccontract-warpper {
+  .sccontract-container {
+    // background: #fff;
+    padding: 0 16px;
+    .insurance {
+      background: #fff;
+    }
+  }
+}

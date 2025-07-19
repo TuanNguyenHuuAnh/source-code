@@ -1,0 +1,29 @@
+.scfee-refundcontract {
+  background-color: $main-bg;
+  background-image: url("../img/9.1-menulist-background-flower.png");
+  background-position: bottom;
+  background-size: cover;
+  min-height: calc(100vh - 2 * #{$height});
+  padding-bottom: 32px;
+  .fee-refundcontract {
+    width: 100%;
+    @include midflex;
+    flex-direction: column;
+    .stepform {
+      margin-top: 135px;
+      &__body {
+        .card-warpper {
+          margin: -8px 0;
+          .item {
+            padding: 8px 0;
+            .card {
+              &.choosen {
+                border-color: #e0dedc;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

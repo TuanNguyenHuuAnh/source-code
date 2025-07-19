@@ -1,0 +1,181 @@
+.scquyenloibaohiem {
+  background: url("../img/tienich-quyenloibaohiem-bg.png") no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.quyenloi-content {
+  .policy-content-wrapper {
+    .bieumau-page__item {
+      .content-wrapper {
+        .general-requirements {
+          .dropdown__items {
+            .item-wrapper {
+              border: 1px solid $border;
+              border-top: none;
+              border-bottom-left-radius: 6px;
+              border-bottom-right-radius: 6px;
+              padding: 4px 16px 12px 16px;
+              p {
+                position: relative;
+                display: flex;
+                padding: 12px 0 0 8px;
+                line-height: 22px;
+                font-size: 1.6rem;
+              }
+              .without-dot {
+                padding: 0 0 0 8px;
+                margin-bottom: 8px;
+              }
+              .without-dot::before {
+                display: none;
+              }
+              p::before {
+                position: absolute;
+                top: 20px;
+                left: 0px;
+                content: "";
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background: $brown;
+              }
+            }
+          }
+        }
+        .rights-process {
+          .dropdown__items {
+            .rights-process__item {
+              border: 1px solid $border;
+              border-top: none;
+              border-radius: 6px;
+              border-top-right-radius: 0px;
+              border-top-left-radius: 0px;
+              padding: 20px 16px;
+              .dropdown__content {
+                border-radius: 0;
+                background: $white-cl;
+                padding: 0;
+                position: relative;
+                p {
+                  color: $black-cl;
+                  font-weight: 500;
+                  font-size: 1.6rem;
+                  line-height: 22px;
+                  padding: 0;
+                }
+                .arrow {
+                  display: flex;
+                  position: absolute;
+                  top: 0px;
+                  right: 0px;
+                  transform: translateY(0);
+
+                  p {
+                    color: $brown;
+                    font-weight: 600;
+                    font-size: 1.4rem;
+                    padding: 0;
+                    width: 100%;
+                    line-height: 17px;
+                    margin-right: 2px;
+                  }
+
+                  .alternative-text {
+                    display: none;
+                  }
+                  img {
+                    transform: translateY(2px) rotate(-90deg);
+                    transition: all 0.2s ease-in-out;
+                  }
+                }
+              }
+              .dropdown__items {
+                display: none;
+                .rights-process__item__content-wrapper {
+                  margin-top: 20px;
+                  p {
+                    display: flex;
+                    position: relative;
+                    padding: 0;
+
+                    margin-bottom: 12px;
+                    font-size: 1.6rem;
+                    line-height: 22px;
+                  }
+                  .with-dot {
+                    padding-left: 8px;
+                  }
+                  .with-dot::before {
+                    position: absolute;
+                    left: 0px;
+                    top: 8px;
+                    content: "";
+                    width: 5px;
+                    height: 5px;
+                    border-radius: 50%;
+                    background: $brown;
+                  }
+                  .detail-button {
+                    display: flex;
+                    span {
+                      color: $brown;
+                      margin-right: 3px;
+                      font-weight: 600;
+                    }
+                    img {
+                      transform: translateY(2px) rotate(-90deg);
+                    }
+                  }
+                }
+              }
+            }
+            .show {
+              .dropdown__content {
+                p {
+                  font-weight: 700;
+                }
+                .arrow {
+                  .primary-text {
+                    display: none;
+                  }
+                  .alternative-text {
+                    display: block;
+                  }
+                  img {
+                    transform: translateY(2px) rotate(0deg);
+                  }
+                }
+              }
+              .dropdown__items {
+                display: block;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include mobile {
+  .quyenloi-content {
+    .policy-content-wrapper {
+      .bieumau-page__item {
+        .content-wrapper {
+          .rights-process {
+            .dropdown__items {
+              .rights-process__item {
+                .dropdown__content {
+                  p {
+                    width: 50%;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

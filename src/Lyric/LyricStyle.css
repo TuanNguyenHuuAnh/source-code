@@ -1,0 +1,42 @@
+.lyrics-container {
+    position: absolute;
+    bottom: 15%;
+    left: 10%;
+    right: 10%;
+}
+
+.lyric-item span{
+  line-height: 20px;
+}
+
+.white-frame {
+    /* background-color: rgba(255, 255, 255, 0.5); */
+    background-color: #ffffff;
+    padding: 16px 8px;
+}
+
+.toggle-button {
+    position: absolute;
+    right: 50%;
+    bottom: 15px;
+    z-index: 9999;
+    cursor: pointer;
+
+    background: #e02828;
+    height: 28px;
+    width: 70px;
+    border: none;
+    color: #fff;
+    font-size: 13px;
+    margin-right: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.lyrics-container {
+    position: absolute;
+    bottom: 15%;
+    left: 10%;
+    right: 10%;
+}
+

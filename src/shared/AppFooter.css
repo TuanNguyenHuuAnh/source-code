@@ -1,0 +1,119 @@
+#main-footer-id {
+    display: flex;
+    align-items: center;
+}
+
+.footer-container {
+    display: flex;
+}
+
+.footer-left-container {
+    display: flex;
+    margin-right: 286px;
+}
+
+.footer-right-container {
+    display: flex;
+    margin-left: 286px;
+}
+
+.footer-right-container p,
+.footer-right-container a {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+}
+
+.footer-left-container p,
+.footer-left-container a {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+}
+
+.footer-container .text-bold {
+    font-weight: 600;
+}
+
+.footer-pointer {
+    cursor: pointer;
+}
+
+.footer-right-visible-mobile {
+    display: none;
+}
+
+.divide-line {
+    color: #E2E2E2;
+    width: 1px;
+}
+
+
+/* Sử dụng media query để điều chỉnh margin cho các kích thước màn hình nhỏ hơn */
+@media screen and (max-width: 767px) {
+    .footer-left-container,
+    .footer-right-container {
+        margin: 0; /* Loại bỏ margin khi là màn hình di động */
+    }
+
+    .footer-right-invisible-mobile {
+        display: none;
+    }
+
+    .footer-right-visible-mobile {
+        display: flex;
+        margin: 0;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .footer-container {
+        display: flex;
+        flex-direction: column; /* Chuyển sang hiển thị theo chiều dọc cho màn hình nhỏ hơn 768px */
+        text-align: center; /* Căn giữa nội dung trên màn hình nhỏ hơn 768px */
+        margin-top: 16px;
+    }
+    .footer-left-container {
+        display: flex;
+        flex-direction: row;
+        margin: 0;
+        justify-content: center;
+    }
+
+    .footer-right-container p,
+    .footer-right-container a,
+    .footer-left-container p,
+    .footer-left-container a {
+        font-size: 10px;
+        font-weight: 400;
+        line-height: 16px;
+        margin-bottom: 4px; /* Khoảng cách giữa các dòng trên màn hình nhỏ hơn 768px */
+    }
+
+    .footer-flex-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+
+/* Sử dụng media query để điều chỉnh margin cho các thiết bị ngoại trừ điện thoại di động */
+@media screen and (max-width: 1200px) {
+    .footer-left-container,
+    .footer-right-container {
+        margin: 0; /* Loại bỏ margin khi kích thước màn hình nhỏ hơn hoặc bằng 1200px */
+    }
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+    .footer-left-container {
+        margin-left: 0px; /* Điều chỉnh margin khi kích thước màn hình nhỏ hơn 1200px */
+    }
+
+    .footer-right-container {
+        margin-right: 0px; /* Điều chỉnh margin khi kích thước màn hình nhỏ hơn 1200px */
+    }
+}
+

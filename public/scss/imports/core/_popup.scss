@@ -1,0 +1,2245 @@
+// ------------- Common Frame ---------------------------------
+
+.popup {
+  @include midflex;
+  // position: relative;
+  &__card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 200;
+    width: 100%;
+    // max-width: 500px;
+    padding: 16px;
+    opacity: 0;
+    visibility: hidden;
+    @include midflex;
+  }
+  .popupbg {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 190;
+    background: $popup-bg;
+    transition: opacity 0.3s;
+  }
+  &.show {
+    .popup__card {
+      opacity: 1;
+      visibility: visible;
+    }
+    .popupbg {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+// ------------ Login Popup -----------------------------------
+
+.login-warpper {
+  .container {
+    position: relative;
+  }
+}
+
+.login {
+  position: relative;
+  &__card {
+    position: absolute;
+    top: 24px;
+    left: 0px;
+    width: 100%;
+    max-width: 360px;
+    z-index: 2;
+    width: 100%;
+    background: $white-cl;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    overflow: hidden;
+
+    &-header {
+      position: relative;
+      width: 100%;
+      @include midflex;
+      padding: 16px;
+      h4 {
+        font-size: 1.8rem;
+        text-align: center;
+        font-weight: 700;
+      }
+      .login-closebtn {
+        display: none;
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 14px;
+        height: 14px;
+        cursor: pointer;
+      }
+    }
+
+    &-body {
+      width: 100%;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .loginform {
+        width: 100%;
+        margin-top: -6px;
+        margin-bottom: -6px;
+        display: flex;
+        flex-direction: column;
+        &-item {
+          padding: 6px 0;
+        }
+      }
+      .forgotpass-btn {
+        margin-top: 8px;
+        color: $brown;
+        font-weight: 600;
+        transition: 0.3s;
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+      .login-submit {
+        margin-top: 24px;
+        width: 100%;
+        font-weight: 600;
+        padding: 14px;
+        @include midflex;
+      }
+      .method-warpper {
+        padding-top: 12px;
+        width: 100%;
+        h4 {
+          font-weight: 500;
+          color: $grey;
+          text-align: center;
+          font-size: 1.2rem;
+        }
+        .method {
+          width: 100%;
+          padding: 12px 0;
+          display: flex;
+          justify-content: space-between;
+          &__item {
+            width: 48%;
+            // padding: 0 6px;
+          }
+        }
+      }
+      .signup {
+        width: 100%;
+        @include midflex;
+        p {
+          font-size: 1.2rem;
+          margin-right: 8px;
+        }
+        span {
+          font-size: 1.2rem;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  @include tablet {
+    &__card {
+      transition: 0.3s;
+      visibility: hidden;
+      opacity: 0;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 200;
+      &-header {
+        background: $main-bg;
+        .login-closebtn {
+          display: block;
+        }
+      }
+    }
+    &__bg {
+      opacity: 0;
+      visibility: hidden;
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      background: $popup-bg;
+      top: 0;
+      left: 0;
+      z-index: 190;
+      transition: 0.3s;
+    }
+  }
+
+  @include mobile {
+    &__card {
+      visibility: hidden;
+      opacity: 0;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 200;
+      width: 95%;
+      &-header {
+        background: $main-bg;
+        .login-closebtn {
+          display: block;
+        }
+      }
+    }
+    &__bg {
+      opacity: 0;
+      visibility: hidden;
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      background: $popup-bg;
+      top: 0;
+      left: 0;
+      z-index: 190;
+    }
+  }
+  @include mobile_lc {
+    &__card {
+      visibility: hidden;
+      opacity: 0;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 200;
+      overflow: scroll;
+      height: 80%;
+      &-header {
+        background: $main-bg;
+        .login-closebtn {
+          display: block;
+        }
+      }
+    }
+    &__bg {
+      opacity: 0;
+      visibility: hidden;
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      background: $popup-bg;
+      top: 0;
+      left: 0;
+      z-index: 190;
+    }
+  }
+  @include iphoneX {
+    &__card {
+      visibility: hidden;
+      opacity: 0;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 200;
+      height: 80%;
+      overflow: scroll;
+      &-header {
+        background: $main-bg;
+        .login-closebtn {
+          display: block;
+        }
+      }
+    }
+    &__bg {
+      opacity: 0;
+      visibility: hidden;
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      background: $popup-bg;
+      top: 0;
+      left: 0;
+      z-index: 190;
+    }
+  }
+
+  &.show {
+    .login__card {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .login__bg {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+// ------------ Option Popup -----------------------------------
+
+.option-popup {
+  .optioncard {
+    position: relative;
+    width: 95%;
+    max-width: 345px;
+    height: 255px;
+    @include midflex;
+    flex-direction: column;
+    background: linear-gradient(179.78deg, #f5e2e2 -11.3%, #fff5ef 17.25%, #fce5d7 105.93%);
+    border-radius: 12px;
+    padding: 16px;
+
+    p {
+      font-size: 1.5rem;
+      text-align: center;
+    }
+
+    .btn-wrapper {
+      width: 100%;
+      padding-top: 24px;
+      button {
+        width: 100%;
+        text-align: center;
+        @include midflex;
+      }
+
+      .btn-nobg {
+        width: 100%;
+        color: $brown;
+        padding: 16px;
+        @include midflex;
+        text-align: center;
+      }
+    }
+
+    .option-closebtn {
+      position: absolute;
+      top: 27px;
+      right: 22px;
+      width: 14px;
+      height: 14px;
+      @include midflex;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+
+// ----------- Signup NonExisted User --------------------------
+
+.popup-nonexisted-card {
+  overflow: hidden;
+  border-radius: 12px;
+  background: $white-cl;
+  max-height: 95vh;
+  width: 100%;
+  max-width: 460px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  .header {
+    width: 100%;
+    @include midflex;
+    padding: 16px;
+    background: $main-bg;
+    position: relative;
+    // -------- thêm padding cho header của popup trang 4 -----------
+    h4 {
+      width: 80%;
+      text-align: center;
+      font-weight: 700;
+      color: $black-cl;
+      font-size: 1.6rem;
+    }
+    i {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 18px;
+      height: 18px;
+      @include midflex;
+    }
+  }
+
+  .body {
+    padding: 16px 16px 40px;
+    .input-wrapper {
+      display: flex;
+      flex-direction: column;
+      margin: -6px 0;
+      .input-wrapper-item {
+        padding: 6px 0;
+      }
+    }
+    .btn-wrapper {
+      margin-top: 36px;
+      width: 100%;
+      button {
+        width: 100%;
+        @include midflex;
+      }
+    }
+    // .link-wrapper{
+    //   @include midflex;
+    //   flex-direction: column;
+
+    // }
+    a {
+      margin: 12px 0;
+      text-align: center;
+    }
+  }
+
+  @include mobile_lc {
+  }
+}
+
+// ----------- Signup Existed User --------------------------
+
+.popup-existed-card {
+  @extend .popup-nonexisted-card;
+  .body {
+    h5 {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+  }
+}
+
+// ----------- OTP Popup -------------------------------------
+
+.popup-otp-card {
+  @extend .popup-existed-card;
+  .body {
+    h5 {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .tag {
+      margin-top: 12px;
+      text-align: center;
+      color: $grey;
+      span {
+        font-weight: 600;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+// --------- Existed Email Popup -----------------------------
+
+.popup-existed-email-card {
+  @extend .popup-otp-card;
+}
+
+// ---------- New Password -----------------------------------
+
+.new-password-card {
+  @extend .popup-otp-card;
+  .body {
+    .input-wrapper {
+      margin-top: 36px;
+      .input-wrapper-item {
+        p {
+          font-size: 1.2rem;
+          font-weight: 500;
+          line-height: 1.8rem;
+          color: $grey;
+        }
+      }
+    }
+  }
+}
+
+// --------- Exchange Point Rule Popup -------------------------
+
+.exchange-rule-card {
+  @extend .popup-otp-card;
+  .body {
+    max-height: 80vh;
+    .list {
+      margin: -6px 0;
+      &__item {
+        padding: 6px 0;
+        position: relative;
+        .dot {
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: $brown;
+          position: absolute;
+          top: 10px;
+          left: 0;
+        }
+        p {
+          padding-left: 10px;
+          font-size: 1.6rem;
+        }
+      }
+    }
+  }
+}
+
+// ---------------------- User Rule Popup -------------------------------
+
+.user-rule-card {
+  @extend .popup-otp-card;
+  .body {
+    h5 {
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.6rem;
+      text-transform: uppercase;
+    }
+    .content-wrapper {
+      margin: -12px 0;
+      p {
+        padding: 12px 0;
+        line-height: 20px;
+      }
+    }
+    .checkbox-wrapper {
+      margin-top: 24px;
+    }
+  }
+}
+
+// --------------------- Envelop Confirm Popup --------------------------------------------
+
+.envelop-confirm-card {
+  position: relative;
+  width: 300px;
+  max-height: 95vh;
+  .envelopcard {
+    z-index: 5;
+
+    .envelop-content {
+      margin: 0 auto;
+      width: 75%;
+      background: $white-cl;
+      z-index: 2;
+      min-height: 156px;
+      background: url("../img/envelop_content.png") no-repeat;
+      background-size: cover;
+      background-position: bottom;
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+      overflow: hidden;
+      &__header {
+        position: relative;
+        width: 100%;
+        height: 30px;
+        .closebtn {
+          width: 14px;
+          height: 14px;
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          cursor: pointer;
+        }
+      }
+      &__body {
+        padding: 12px 16px 40px;
+        // max-height: 85vh;
+        // overflow-y: scroll;
+        p {
+          text-align: center;
+          line-height: 20px;
+        }
+      }
+    }
+  }
+
+  .envelopcard_bg {
+    position: relative;
+    width: 100%;
+
+    height: 150px;
+    z-index: -1;
+    img {
+      position: absolute;
+      width: 100%;
+      height: auto;
+      top: -174px;
+      left: 0;
+    }
+  }
+}
+
+// -----------------Step 1 0 popupNgười được bảo hiểm không có quyền lợi phát sinh. --------
+.step-start-popup {
+  width: 100%;
+  position: relative;
+  &-information {
+    background: url("../img/popup/popup-3-bg.svg");
+    &-close-btn {
+      cursor: pointer;
+      position: absolute;
+      right: 34px;
+      top: 26px;
+    }
+    &-title-picture {
+      padding: 3.2rem 8.6rem 3.6rem;
+    }
+    &-content {
+      &-header {
+        @include midflex;
+        font-size: 1.6rem;
+        font-weight: 600;
+        line-height: 2.4rem;
+      }
+      &-full {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding-top: 1.6rem;
+        padding-left: 1rem;
+        padding: 1.2rem 7.4rem 3.2rem;
+        p {
+          line-height: 2rem;
+          text-align: center;
+          @include title(1.2rem, 500);
+        }
+      }
+    }
+    .chose-again-btn {
+      padding: 0rem 1.6rem 3.5rem;
+      button {
+        width: 100%;
+        height: 5rem;
+        background: $gradient;
+        border-radius: 0.6rem;
+        color: white;
+      }
+    }
+  }
+}
+//  ----------- step 1 - thoat ra khoi step form ------
+// .out-of-event {
+//   width: 100%;
+//   position: relative;
+// }
+
+.out-of-event-information {
+  position: relative;
+  width: 100%;
+  max-width: 345px;
+  height: 100%;
+  border-radius: 8px;
+  background: $white-cl;
+  padding: 36px 16px 30px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 95vh;
+  &-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    cursor: pointer;
+    padding: 0;
+  }
+  &-title-picture {
+    margin-bottom: 18px;
+  }
+  &-content {
+    margin-bottom: 20px;
+    &-header {
+      text-align: center;
+      @include midflex;
+      font-size: 1.4rem;
+      font-weight: 500;
+      line-height: 20px;
+      color: $grey;
+    }
+    &-full {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      p {
+        line-height: 20px;
+        text-align: center;
+        @include title(1.2rem, 500);
+      }
+    }
+  }
+  .chose-again-btn {
+    margin-bottom: 20px;
+    width: 100%;
+    button {
+      width: 100%;
+      font-size: 1.5rem;
+      background: $gradient;
+      border-radius: 0.6rem;
+      color: $white-cl;
+      @include midflex;
+    }
+  }
+  .cancel-btn {
+    button {
+      font-size: 1.5rem;
+      color: $brown;
+      font-weight: 600;
+    }
+  }
+}
+
+// ---------------- Popup Ho So ----------------------------------------
+
+.hoso-information-card {
+  max-width: 460px;
+  width: 100%;
+  position: relative;
+  border-radius: 6px;
+  background: $white-cl;
+  padding: 32px 16px 40px;
+  max-height: 95vh;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  .close-btn {
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    right: 1.8rem;
+    top: 1.8rem;
+    cursor: pointer;
+  }
+
+  .picture-wrapper {
+    width: 100%;
+    @include midflex;
+  }
+
+  .hoso-information-content {
+    margin-top: 32px;
+    &-header {
+      @include midflex;
+      font-size: 1.8rem;
+      font-weight: 600;
+      line-height: 2.4rem;
+    }
+    &-full {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      padding-top: 1.6rem;
+      padding-left: 1rem;
+      p {
+        line-height: 2rem;
+        span {
+          color: #99542d;
+          padding-right: 0.5rem;
+        }
+        @include title(1.2rem, 500);
+      }
+    }
+  }
+}
+
+// ---------------- stepform - step 3 - popup luu y ------------------------
+
+.notice {
+  &-card {
+    background-color: #fff;
+    border-radius: 1.2rem;
+    padding: 0;
+    &-header {
+      width: 100%;
+      background-color: $main-bg;
+      border-radius: 12px 12px 0px 0px;
+      height: 5.6rem;
+      @include midflex;
+      p {
+        text-align: center;
+        font-size: 1.6rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+      }
+    }
+    &-close-btn {
+      .btn {
+        position: absolute;
+        right: 1.8rem;
+        top: 2rem;
+      }
+    }
+    &-body {
+      padding: 1.8rem 1.6rem 4rem;
+      p {
+        text-align: center;
+        font-size: 1.4rem;
+        font-weight: 500;
+        line-height: 2rem;
+      }
+    }
+  }
+}
+// ------------------ stepform - step 4 - popup confirm & commit --------
+.confirm {
+  &-card {
+    background-color: #fff;
+    border-radius: 1.2rem;
+    padding: 0;
+    width: 100%;
+    max-width: 460px;
+    max-height: 95vh;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &-header {
+      width: 100%;
+      background-color: $main-bg;
+      border-radius: 12px 12px 0px 0px;
+      height: 5.6rem;
+      @include midflex;
+      position: relative;
+    }
+    &-close-btn {
+      position: absolute;
+      right: 1.8rem;
+      top: 2rem;
+      cursor: pointer;
+    }
+    &-body {
+      padding: 1.8rem 1.6rem 4rem;
+      p {
+        text-align: left;
+        font-size: 1.4rem;
+        font-weight: 500;
+        line-height: 2rem;
+      }
+      .title-head {
+        p {
+          @include title(1.4rem, 600);
+          margin-top: 1.6rem;
+          line-height: 2rem;
+        }
+      }
+      .content {
+        p {
+          text-align: left;
+          font-size: 1.2rem;
+          font-weight: 500;
+          line-height: 1.8rem;
+          color: $grey;
+        }
+      }
+    }
+    .btn-footer {
+      @include midflex;
+      padding: 0rem 1.6rem 4rem;
+      button {
+        background: $gradient;
+        width: 100%;
+        height: 5rem;
+        border-radius: 0.6rem;
+        color: white;
+      }
+    }
+  }
+  .checkbox-warpper-confirm {
+    // width: 58.6rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+
+    p {
+      font-size: 1.6rem;
+      font-weight: 500;
+      line-height: 1.936rem;
+      margin-left: 1.2rem;
+    }
+  }
+  .dash-border {
+    border-bottom: $dash-border;
+    padding: 1.4rem 1.6rem 1.6rem;
+  }
+}
+// ----------- component popup 9.3 --------
+.doi-diem-thuong {
+  width: 100%;
+  position: relative;
+  &-information {
+    background-color: #fff;
+    border-radius: 1.2rem;
+    width: 100%;
+    max-width: 34.3rem;
+    img {
+      padding: 1.4rem 2rem 2.8rem;
+    }
+
+    &-close-btn {
+      .btn {
+        position: absolute;
+        right: 1.6rem;
+        top: 1.6rem;
+      }
+    }
+
+    &-content {
+      padding: 2rem 0rem 3.8rem;
+      @include midflex;
+      &-header {
+        font-size: 1.6rem;
+        font-weight: 500;
+        line-height: 2.2rem;
+        color: #414141;
+        text-align: center;
+        .red-text {
+          color: $red;
+        }
+        span {
+          font-size: 1.6rem;
+          font-weight: 700;
+          line-height: 2.2rem;
+        }
+      }
+      &-text {
+        width: 100%;
+        height: 4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: $light-brown;
+        border-radius: 0.6rem;
+        padding: 1rem 1.2rem;
+        .so-diem {
+          @include title(0, 500);
+          color: $brown;
+        }
+        .diem {
+          @include title(0, 600);
+          color: $brown;
+        }
+      }
+      &-full {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding-top: 1.6rem;
+        padding-left: 1rem;
+        padding: 1.2rem 7.4rem 3.2rem;
+        p {
+          line-height: 2rem;
+          text-align: center;
+          @include title(1.2rem, 500);
+        }
+      }
+    }
+    .chose-again-btn {
+      padding: 2rem 0rem 2rem;
+      button {
+        font-size: 1.5rem;
+        font-weight: 600;
+        width: 31.1rem;
+        height: 5rem;
+        background: $gradient;
+        border-radius: 0.6rem;
+        color: white;
+      }
+    }
+    .cancel-btn {
+      font-size: 1.5rem;
+      padding-left: 30%;
+      padding-bottom: 2rem;
+      button {
+        color: $red;
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+    }
+  }
+}
+.phieu-mua {
+  width: 100%;
+  position: relative;
+  &-information {
+    background-color: #fff;
+    border-radius: 1.2rem;
+    width: 100%;
+    max-width: 34.3rem;
+    &-close-btn {
+      .btn {
+        position: absolute;
+        right: 1.8rem;
+        top: 1.8rem;
+      }
+    }
+    &-content {
+      &-header {
+        @include midflex;
+        font-size: 1.8rem;
+        font-weight: 600;
+        line-height: 2.4rem;
+        padding: 1.6rem 0 0.6rem;
+      }
+      &-full {
+        width: 100%;
+        padding-top: 1.6rem;
+        padding-left: 1rem;
+        &-text {
+          @include midflex;
+        }
+        .text-1 {
+          font-size: 1.5rem;
+          font-weight: 500;
+          line-height: 2.1rem;
+        }
+        .dot {
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-start;
+          img {
+            width: 100%;
+            max-width: 0.5rem;
+            height: 0.5rem;
+            margin: 0rem 1.8rem 13rem 0rem;
+          }
+        }
+        .dot-1 {
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-start;
+          img {
+            width: 100%;
+            max-width: 0.5rem;
+            height: 0.5rem;
+            margin: 0rem 1.8rem 4rem 0rem;
+          }
+        }
+      }
+    }
+  }
+}
+.phieu-mua-tiki {
+  width: 100%;
+  position: relative;
+  &-information {
+    background-color: #fff;
+    border-radius: 1.2rem;
+    width: 100%;
+    max-width: 34.3rem;
+    &-close-btn {
+      .btn {
+        position: absolute;
+        right: 1.8rem;
+        top: 1.8rem;
+      }
+    }
+    &-content {
+      &-header {
+        @include midflex;
+        font-size: 1.8rem;
+        font-weight: 600;
+        line-height: 2.4rem;
+        padding: 1.6rem 0 0.6rem;
+      }
+      &-full {
+        width: 100%;
+        padding-top: 1.6rem;
+        padding-left: 1rem;
+        &-text {
+          @include midflex;
+        }
+        .text-1 {
+          font-size: 1.5rem;
+          font-weight: 500;
+          line-height: 2.1rem;
+        }
+        .dot {
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-start;
+          img {
+            width: 100%;
+            max-width: 0.5rem;
+            height: 0.5rem;
+            margin: 0rem 1.8rem 4.5rem 0rem;
+          }
+        }
+        .dot-1 {
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-start;
+          img {
+            width: 100%;
+            max-width: 0.5rem;
+            height: 0.5rem;
+            margin: 0rem 1.8rem 4rem 0rem;
+          }
+        }
+        .dot-2 {
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-start;
+          img {
+            width: 100%;
+            max-width: 0.5rem;
+            height: 0.5rem;
+            margin: 0rem 1.8rem 2.5rem 0rem;
+          }
+        }
+      }
+    }
+  }
+}
+.dia-chi-phong-kham {
+  &-card {
+    background-color: #fff;
+    border-radius: 1.2rem;
+    padding: 0;
+    &-header {
+      width: 100%;
+      background-color: $main-bg;
+      border-radius: 12px 12px 0px 0px;
+      height: 5.6rem;
+      @include midflex;
+      p {
+        text-align: center;
+        font-size: 1.6rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+      }
+    }
+    &-close-btn {
+      .btn {
+        position: absolute;
+        right: 1.8rem;
+        top: 2rem;
+      }
+    }
+    &-body {
+      .b-tab {
+        padding: 20px;
+
+        display: none;
+      }
+
+      .b-tab.active {
+        display: block;
+      }
+
+      .b-nav-tab {
+        display: inline-block;
+        padding: 20px;
+        text-transform: uppercase;
+        font-size: 1.2rem;
+        font-weight: 700;
+        line-height: 1.8rem;
+        color: $grey;
+      }
+
+      .b-nav-tab.active {
+        color: $present-head;
+        border-bottom: 3px solid $present-head;
+      }
+      .hcm-container {
+        width: 100%;
+        max-width: 530px;
+        height: 20.6rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 0.8rem;
+        background-color: $main-bg;
+        padding-bottom: 5rem;
+        &-header {
+          padding: 1.2rem;
+          border-radius: 7px 7px 0px 0px;
+          background-color: $light-brown;
+          p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            line-height: 2rem;
+            color: $brown;
+          }
+        }
+        &-content {
+          width: 100%;
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-start;
+          flex-direction: column;
+
+          .icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.2rem 1.2rem 1rem;
+            p {
+              @include title(0, 500);
+            }
+            img {
+              margin-right: 1.2rem;
+            }
+            .text-container {
+              display: flex;
+              justify-content: space-around;
+              align-items: center;
+              .space {
+                background-color: rgba(0, 0, 0, 0.1);
+                width: 100%;
+                max-width: 1px;
+                height: 29px;
+                margin: 0rem 3rem;
+              }
+              .text-left {
+                flex-direction: column;
+                @include midflex;
+                p {
+                  margin-bottom: 0.7rem;
+                }
+              }
+            }
+            .expand {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+  @include mobile {
+    &-card {
+      max-width: 343px;
+      width: 100%;
+      background-color: #fff;
+      border-radius: 1.2rem;
+      padding: 0;
+      &-header {
+        width: 100%;
+        background-color: $main-bg;
+        border-radius: 12px 12px 0px 0px;
+        height: 5.6rem;
+        @include midflex;
+        p {
+          text-align: center;
+          font-size: 1.6rem;
+          font-weight: bold;
+          line-height: 2.2rem;
+        }
+      }
+      &-close-btn {
+        .btn {
+          position: absolute;
+          right: 1.8rem;
+          top: 2rem;
+        }
+      }
+      &-body {
+        .b-tab {
+          padding: 20px;
+
+          display: none;
+        }
+
+        .b-tab.active {
+          display: block;
+        }
+
+        .b-nav-tab {
+          display: inline-block;
+          padding: 20px;
+          text-transform: uppercase;
+          font-size: 1.2rem;
+          font-weight: 700;
+          line-height: 1.8rem;
+          color: $grey;
+        }
+
+        .b-nav-tab.active {
+          color: $present-head;
+          border-bottom: 3px solid $present-head;
+        }
+        .hcm-container {
+          width: 100%;
+          max-width: 311px;
+          height: 214px;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          border-radius: 0.8rem;
+          background-color: $main-bg;
+          padding-bottom: 5rem;
+
+          &-header {
+            padding: 1.2rem;
+            border-radius: 7px 7px 0px 0px;
+            background-color: $light-brown;
+            p {
+              font-size: 1.2rem;
+              font-weight: 600;
+              line-height: 2rem;
+              color: $brown;
+            }
+          }
+          &-content {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex-direction: column;
+
+            .icon {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              padding: 1.2rem 1.2rem 1rem;
+              p {
+                @include title(0, 500);
+              }
+              img {
+                margin-right: 1.2rem;
+              }
+              .text-container {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                .space {
+                  background-color: rgba(0, 0, 0, 0.1);
+                  width: 100%;
+                  max-width: 1px;
+                  height: 29px;
+                  margin: 0rem 3rem;
+                }
+                .text-left {
+                  flex-direction: column;
+                  @include midflex;
+                  p {
+                    margin-bottom: 0.7rem;
+                  }
+                }
+              }
+              .expand {
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+//  ----------------- popup 9.4 ---------
+.quy-tac {
+  &-card {
+    background-color: #fff;
+    border-radius: 1.2rem;
+    padding: 0;
+    &-header {
+      width: 100%;
+      background-color: $main-bg;
+      border-radius: 12px 12px 0px 0px;
+      height: 5.6rem;
+      @include midflex;
+      p {
+        text-align: center;
+        font-size: 1.6rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+      }
+    }
+    &-close-btn {
+      .btn {
+        position: absolute;
+        right: 1.8rem;
+        top: 2rem;
+      }
+    }
+    &-body {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0.6rem 1.6rem 0.8rem;
+      &-dot {
+        margin-right: 0.8rem;
+        background-color: $brown;
+        width: 0.4rem;
+        height: 0.5rem;
+        border-radius: 20px;
+      }
+      .last {
+        width: 1.4rem;
+        height: 0.55rem;
+        margin-bottom: 6rem;
+      }
+
+      &-text {
+        font-size: 1.6rem;
+        font-weight: 500;
+        line-height: 2.2rem;
+        span {
+          font-weight: 700;
+        }
+      }
+    }
+    .first {
+      padding-top: 2rem;
+    }
+    .last-one {
+      padding-bottom: 2rem;
+    }
+    @include mobile {
+      &-body {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0.6rem 1.6rem 0.8rem;
+        &-dot {
+          margin-right: 0.8rem;
+          background-color: $brown;
+          width: 0.4rem;
+          height: 0.4rem;
+          border-radius: 20px;
+        }
+        .mobi {
+          width: 0.5rem;
+          height: 0.4rem;
+          margin-bottom: 6rem;
+        }
+        .last-mobi {
+          width: 2rem;
+          height: 0.4rem;
+          margin-bottom: 9rem;
+        }
+        .third-mobi {
+          width: 0.5rem;
+          height: 0.4rem;
+          margin-bottom: 2.5rem;
+        }
+        &-text {
+          font-size: 1.6rem;
+          font-weight: 500;
+          line-height: 2.2rem;
+          span {
+            font-weight: 700;
+          }
+        }
+      }
+    }
+  }
+}
+.dang-nhap {
+  width: 100%;
+  position: relative;
+  &-information {
+    width: 100%;
+    max-width: 460px;
+    border-radius: 1.2rem;
+    background: linear-gradient(179.78deg, #f5e2e2 -11.34%, #fff5ef 17.22%, #fce5d7 105.9%);
+    img {
+      padding: 1.4rem;
+      // margin: 0 !important;
+    }
+
+    &-close-btn {
+      .btn {
+        position: absolute;
+        right: 1.8rem;
+        top: 1.8rem;
+      }
+    }
+
+    &-content {
+      padding: 1rem 4.5rem 2rem;
+      &-header {
+        @include midflex;
+        font-size: 1.6rem;
+        font-weight: 500;
+        line-height: 2.2rem;
+        color: #414141;
+        text-align: center;
+        margin-top: 3.5rem;
+      }
+    }
+    .chose-again-btn {
+      padding: 0rem 1.6rem 3rem 1.6rem;
+      button {
+        font-size: 1.5rem;
+        width: 100%;
+        max-width: 42.8rem;
+        height: 5rem;
+        background: $gradient;
+        border-radius: 0.6rem;
+        color: white;
+      }
+    }
+    .cancel-btn {
+      font-size: 1.5rem;
+      color: $brown;
+      padding-left: 45%;
+      padding-bottom: 2.9rem;
+    }
+    @include mobile {
+      width: 100%;
+      max-width: 342px;
+      border-radius: 1.2rem;
+      background: linear-gradient(179.78deg, #f5e2e2 -11.34%, #fff5ef 17.22%, #fce5d7 105.9%);
+    }
+  }
+}
+//  --------------- plus and minus number button --------
+.plus-minus-btn {
+  margin: 0px 500px 100px;
+  &-wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 166px;
+    .number-input {
+      @include midflex;
+      input {
+        width: 100%;
+        max-width: 24px;
+        height: 24px;
+        border: 1px solid $border;
+        border-radius: 0.6rem;
+        padding-left: 25%;
+        color: $red-secondary;
+      }
+    }
+  }
+}
+
+// --------------- Refund Profile Card -----------------------------------------
+
+.refund-profile-card {
+  max-width: 345px;
+  @extend .hoso-information-card;
+  .content {
+    padding-top: 24px;
+    h4 {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    &__body {
+      .list {
+        margin: -6px 0;
+        &__item {
+          padding: 6px 0;
+          position: relative;
+          .dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #985801;
+            position: absolute;
+            top: 10px;
+            left: 0;
+          }
+          p {
+            padding-left: 10px;
+            font-size: 1.6rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+// --------------- Refund Confirm Card ------------------------------------------
+
+.refund-confirm-card {
+  @extend .refund-profile-card;
+  p {
+    text-align: center;
+    font-size: 1.6rem;
+    line-height: 22px;
+    padding: 0 24px;
+    span {
+      font-size: 1.6rem;
+      &.special {
+        white-space: nowrap;
+      }
+    }
+  }
+  .yellow-tab {
+    padding: 10px 12px;
+    &__item {
+      display: flex;
+      width: 100%;
+      p {
+        text-align: left;
+        padding: 0;
+        width: 60%;
+        font-size: 1.4rem;
+        color: $brown;
+        &:last-child {
+          width: 40%;
+          text-align: right;
+        }
+      }
+    }
+  }
+  .btn-wrapper {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .btn {
+      @include midflex;
+      width: 100%;
+    }
+    .continue {
+      margin-top: 20px;
+      color: $red;
+      text-align: center;
+      cursor: pointer;
+      font-weight: 600;
+    }
+  }
+}
+
+// --------------- Error Popup Card --------------------------------------------
+
+.error-popup-card {
+  @extend .refund-profile-card;
+  .content {
+    p {
+      text-align: center;
+    }
+  }
+}
+
+// ------------- 3.3 Popup Potential Customer ------------------
+
+.potential-customers {
+  position: relative;
+  max-width: 460px;
+  width: 100%;
+  min-height: 60vh;
+  max-height: 95vh;
+  background: url("../img/3.3-popup-dongphi-background.png") no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: block;
+  padding: 16px;
+  overflow: hidden;
+  border-radius: 6px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &__close-button {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    cursor: pointer;
+  }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    // padding-bottom: 120px;
+    .icon-wrapper {
+      margin: 22px 0 24px 0;
+    }
+    .content {
+      width: 80%;
+      text-align: center;
+      font-size: 1.6rem;
+      margin-bottom: 16px;
+      line-height: 22px;
+    }
+    .button-group {
+      width: 100%;
+      @include midflex;
+      flex-direction: column;
+      .continue {
+        @include midflex;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      .exit {
+        color: $brown;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+// ----------------------- Doctor Address Card ---------------------------------------
+
+.addresscard {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 208px;
+  &__head {
+    @include midflex;
+    padding: 12px;
+    background: $light-brown;
+    height: 20%;
+    p {
+      color: $brown;
+      font-weight: 600;
+    }
+  }
+
+  &__body {
+    padding: 12px;
+    background: $main-bg;
+    height: 80%;
+    .addresscard-wrapper {
+      margin: -6px 0;
+      .addresscard-item {
+        padding: 6px 0;
+        display: flex;
+        align-items: center;
+        i {
+          margin-right: 12px;
+          width: 20px;
+          height: 20px;
+        }
+        p {
+          color: $black-secondary;
+          width: calc(100% - 22px);
+        }
+
+        .item-content {
+          display: flex;
+          .item-content-text {
+            margin-right: 26px;
+            position: relative;
+            &::after {
+              content: "";
+              display: block;
+              position: absolute;
+              background: $superlight-border;
+              border-radius: 12px;
+              width: 2px;
+              height: 70%;
+              top: 50%;
+              transform: translateY(-50%);
+              right: -13px;
+            }
+
+            &:last-child {
+              &::after {
+                display: none;
+              }
+            }
+
+            span {
+              line-height: 20px;
+              display: block;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @include mobile {
+    height: auto;
+    &__head {
+      p {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+.doctor-address-card {
+  @extend .popup-otp-card;
+  width: 100%;
+  max-width: 570px;
+  max-height: 95vh;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  // .header {
+  // }
+  .control {
+    width: 100%;
+    height: 48px;
+    display: flex;
+    border-bottom: 1px solid $superlight-border;
+    &-tab {
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      @include midflex;
+      p {
+        // font-size: 1.2rem;
+        line-height: 18px;
+        font-weight: 600;
+        color: $grey;
+        text-align: center;
+        padding: 0 6px;
+      }
+
+      &.active {
+        border-bottom: 3px solid $brown;
+        p {
+          color: $present-head;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+
+  .body {
+    .tab-wrapper {
+      width: 100%;
+
+      .tab {
+        display: none;
+
+        // .item-wrapper {
+        //   .item {
+        //   }
+        // }
+
+        &.active {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+// ---------------------- Remove from Cart ----------------------------------------------------
+
+.remove-cart-card {
+  @extend .new-password-card;
+  max-width: 460px;
+  .body {
+    p {
+      text-align: center;
+      width: 80%;
+      margin: auto;
+      font-size: 1.6rem;
+    }
+
+    .btn-wrapper {
+      span {
+        display: block;
+        cursor: pointer;
+        text-align: center;
+        margin-top: 20px;
+      }
+    }
+  }
+}
+
+// ---------------------- Point Error Cart ----------------------------------------------------
+
+.point-error-card {
+  @extend .refund-profile-card;
+  max-width: 344px;
+  .content {
+    p {
+      text-align: center;
+    }
+  }
+}
+
+// ------------------------- New Delivery Address Card -------------------------------------
+
+.new-deliveryaddress-card {
+  @extend .popup-existed-card;
+}
+
+// -------------------------- Update Delivery Address Card ------------------------------------------
+
+.update-deliveryaddress-card {
+  @extend .new-deliveryaddress-card;
+}
+
+// --------------------------- Phone Confirm Popup ------------------------------------------------------
+
+.phone-confirm-card {
+  @extend .refund-profile-card;
+  .content {
+    p {
+      text-align: center;
+      line-height: 21px;
+      font-size: 1.6rem;
+    }
+    .btn {
+      margin-top: 20px;
+      @include midflex;
+      width: 100%;
+    }
+  }
+}
+
+// --------------------- Detail Sick Popup -------------------------------
+
+.detail-sick {
+  &-card {
+    background-color: #fff;
+    border-radius: 1.2rem;
+    padding: 0;
+    width: 100%;
+    max-width: 460px;
+    max-height: 85vh;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &-header {
+      width: 100%;
+      background-color: $main-bg;
+      border-radius: 12px 12px 0px 0px;
+      height: 5.6rem;
+      @include midflex;
+      position: relative;
+      .title-head {
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 22px;
+        width: 86%;
+        text-align: center;
+      }
+    }
+    &-close-btn {
+      position: absolute;
+      right: 1.8rem;
+      top: 2rem;
+      cursor: pointer;
+    }
+    &-body {
+      padding: 1.8rem 1.6rem 4rem;
+      p {
+        text-align: left;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 22px;
+        margin: 0px 0px 12px;
+      }
+      ul {
+        margin-left: 16px;
+        li {
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 22px;
+          margin: 0px 0px 12px;
+          &::before {
+            content: "\2022";
+            color: $brown;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+          }
+        }
+      }
+      &-detail {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-top: 16px;
+        .text {
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 20px;
+          color: $brown;
+          margin-right: 3px;
+        }
+      }
+    }
+  }
+}
+
+// --------------------- Quyen Loi Death ---------------------------------
+
+.quyen-loi-death {
+  &-card {
+    background-color: #fff;
+    border-radius: 1.2rem;
+    padding: 0;
+    width: 100%;
+    max-width: 460px;
+    max-height: 95vh;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &-header {
+      width: 100%;
+      background-color: $main-bg;
+      border-radius: 12px 12px 0px 0px;
+      height: 5.6rem;
+      @include midflex;
+      position: relative;
+      .title-head {
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 22px;
+      }
+    }
+    &-close-btn {
+      position: absolute;
+      right: 1.8rem;
+      top: 2rem;
+      cursor: pointer;
+    }
+    &-body {
+      padding: 1.8rem 1.6rem 4rem;
+      p {
+        text-align: left;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 22px;
+        margin: 0px 0px 12px;
+      }
+      ul {
+        margin-left: 16px;
+        li {
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 22px;
+          margin: 0px 12px 12px;
+          &::before {
+            content: "\2022";
+            color: $brown;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+          }
+        }
+      }
+      &-detail {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        .text {
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 20px;
+          color: $brown;
+          margin-right: 3px;
+        }
+      }
+    }
+  }
+}
+
+// ------------------------ OTP Option Popup --------------------------
+
+.popup-option-otp-card {
+  @extend .popup-otp-card;
+}
+
+// ---------------------- Download Android Ios --------------------------
+
+.download-ios-android-card {
+  @extend .popup-otp-card;
+  .header {
+    height: 52px;
+  }
+  .body {
+    h4 {
+      font-weight: bold;
+      font-size: 1.6rem;
+      text-align: center;
+      padding-bottom: 6px;
+      width: 90%;
+      margin: 0 auto;
+      line-height: 22px;
+    }
+    p {
+      // padding-bottom: 6px;
+      text-align: center;
+      width: 90%;
+      margin: 0 auto;
+      line-height: 20px;
+    }
+    .body-icon-wrapper {
+      width: 80%;
+      margin: 0 auto;
+
+      .body-icon {
+        padding-top: 24px;
+        margin: 0 -16px;
+        display: flex;
+        .icon {
+          width: 50%;
+          padding: 0 16px;
+          position: relative;
+          width: 100%;
+          cursor: pointer;
+          img {
+            width: 100%;
+            height: auto;
+          }
+        }
+      }
+    }
+  }
+}
+
+// --------------------- Anniversary Card ---------------------------------
+
+.anniversary-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  max-height: 84vh;
+  min-height: 76vh;
+  background: linear-gradient(179.78deg, #f5e2e2 -11.3%, #fff5ef 17.25%, #fce5d7 105.93%);
+  border-radius: 12px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  .close-btn {
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    cursor: pointer;
+  }
+  .decor-top {
+    padding-top: 40px;
+  }
+  .decor-bottom {
+    width: 100%;
+    padding-top: 10%;
+  }
+
+  .content {
+    padding: 40px 16px 0;
+    .title {
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.6rem;
+      line-height: 22px;
+      width: 70%;
+      margin: 0 auto;
+      span {
+        font-size: 1.6rem;
+        line-height: 22px;
+      }
+    }
+    .milestone {
+      width: 204px;
+      height: 34px;
+      margin: 18px auto;
+      background: url("../img/popup/bang-ron.svg") no-repeat center;
+      background-size: cover;
+      @include midflex;
+      p {
+        white-space: nowrap;
+        text-align: center;
+        font-weight: 700;
+        color: $white-cl;
+      }
+    }
+    p {
+      text-align: center;
+      font-size: 1.6rem;
+      line-height: 22px;
+      padding-bottom: 16px;
+      &:last-child {
+        padding-bottom: 0;
+      }
+    }
+  }
+}
+
+// --------------------- Birthday Anni Card ----------------------------------
+
+.birthday-anni-card-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  max-height: 84vh;
+  min-height: 40vh;
+  .birthday-anni-card {
+    @extend .anniversary-card;
+    min-height: 40vh;
+    .avatar-wrapper {
+      margin-top: 80px;
+      width: 100%;
+      padding: 0 16px;
+      background: url("../img/popup/decor_avatar_bg.svg") no-repeat center;
+      background-size: cover;
+      height: 112px;
+      position: relative;
+      .avatar-popup {
+        width: 100%;
+        @include midflex;
+        flex-direction: column;
+        .avatar-img {
+          position: relative;
+          width: 100px;
+          height: 100px;
+          overflow: hidden;
+          border-radius: 50%;
+          border: 4px solid $present-head;
+          z-index: 5;
+          img {
+            width: 100%;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+        .avatar-shadow {
+          margin-top: -8px;
+        }
+      }
+    }
+
+    .decor-bottom {
+      background-size: cover;
+      width: 100%;
+      padding-top: 4%;
+      img {
+        width: 100%;
+      }
+    }
+  }
+  .ribbon {
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

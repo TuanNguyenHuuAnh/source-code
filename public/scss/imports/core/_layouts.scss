@@ -1,0 +1,179 @@
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  box-sizing: border-box;
+  // appearance: none;
+  // -moz-appearance: none;
+  // -webkit-appearance: none;
+}
+html,
+body {
+  font-size: 62.5%;
+  width: 100%;
+  // max-width: $max-width;
+  -webkit-font-smoothing: antialiased;
+  margin: auto;
+  font-family: $font-stack;
+  background: $white-cl;
+  position: relative;
+  min-height: 100vh;
+  // background-color: $main-bg;
+  //   @include custom-scrollbar();
+  main {
+    padding-top: $height;
+    width: 100%;
+    min-height: calc(100vh - #{$height});
+    &.logined {
+      padding-left: 224px;
+
+      .heading {
+        width: calc(100% - 223px - 392px);
+        background: $main-bg;
+        filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.125));
+        z-index: 20;
+        position: fixed;
+        right: 0;
+        top: $height;
+        padding-bottom: 20px;
+        &__tab {
+          padding: 10px 5px 0;
+          width: 100%;
+          @include midflex;
+        }
+      }
+
+      @include maxW(1080px) {
+        padding-left: 0;
+        .heading {
+          width: calc(100% - 390px);
+        }
+      }
+      @include tablet {
+        padding-left: 0;
+        .heading {
+          width: 100%;
+        }
+      }
+      @include tablet_lc {
+        padding-left: 0;
+        .heading {
+          width: 100%;
+        }
+      }
+      @include mobile {
+        padding-left: 0;
+        .heading {
+          width: 100%;
+        }
+      }
+      @include mobile_lc {
+        padding-left: 0;
+        .heading {
+          width: 100%;
+        }
+      }
+    }
+    @include tablet {
+      .sccard-warpper {
+        display: none;
+      }
+    }
+    @include tablet_lc {
+      .sccard-warpper {
+        display: none;
+      }
+    }
+    @include mobile_lc {
+      .sccard-warpper {
+        display: none;
+      }
+    }
+    &.nodata {
+      @include tablet {
+        .sccard-warpper {
+          display: block;
+          .price {
+            display: flex;
+          }
+        }
+        .sccontract-warpper {
+          display: none;
+        }
+      }
+      @include tablet_lc {
+        .sccard-warpper {
+          display: block;
+          .price {
+            display: flex;
+          }
+        }
+        .sccontract-warpper {
+          display: none;
+        }
+      }
+      @include mobile_lc {
+        .sccard-warpper {
+          display: block;
+          .price {
+            display: flex;
+          }
+        }
+        .sccontract-warpper {
+          display: none;
+        }
+      }
+      @include mobile {
+        .sccard-warpper {
+          .price {
+            display: flex;
+          }
+        }
+      }
+    }
+  }
+  .mainwrapper {
+    width: 100%;
+    margin: auto;
+    overflow: hidden;
+  }
+  .container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .container-fluid {
+    width: 100%;
+    padding-right: 30px;
+    padding-left: 30px;
+    margin-right: auto;
+    margin-left: auto;
+    // @include xs {
+    //   padding-right: 15px;
+    //   padding-left: 15px;
+    // }
+  }
+  @media (min-width: $xxs-min) {
+    .container {
+      max-width: 540px;
+    }
+  }
+  @media (min-width: $xs-min) {
+    .container {
+      max-width: 720px;
+    }
+  }
+  @media (min-width: $sm-min) {
+    .container {
+      max-width: 960px;
+    }
+  }
+  @media (min-width: $md-min) {
+    .container {
+      max-width: $container-width;
+    }
+  }
+}

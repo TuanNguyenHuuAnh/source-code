@@ -1,0 +1,518 @@
+.sccarousel {
+  position: relative;
+}
+
+.scintro {
+  padding-top: 60px;
+  .title {
+    margin-bottom: 40px;
+    text-align: center;
+    p {
+      font-size: 1.8rem;
+      color: $grey;
+      margin-top: 10px;
+    }
+  }
+  .intro-warpper {
+    @include midflex;
+    .intro {
+      display: flex;
+      justify-content: space-between;
+      width: 65%;
+      &__item {
+        width: 33.33%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .icon-warpper {
+          position: relative;
+          background: $gradient;
+          @include midflex;
+          width: 104px;
+          height: 104px;
+          border-radius: 50%;
+          img {
+            width: 52px;
+            height: auto;
+          }
+        }
+        p {
+          text-align: center;
+          margin-top: 16px;
+          font-size: 16px;
+          display: block;
+          display: -webkit-box;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 3;
+          line-height: 20px;
+          height: 60px;
+        }
+      }
+    }
+  }
+
+  @include mobile {
+    .intro-warpper {
+      .intro {
+        width: 100%;
+
+        justify-content: space-between;
+        &__item {
+          .icon-warpper {
+            width: 74px;
+            height: 74px;
+            img {
+              width: 32px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.scplan {
+  width: 100%;
+  padding-top: 60px;
+}
+
+.scproduct {
+  padding-top: 60px;
+  padding-bottom: 60px;
+  h2 {
+    text-align: center;
+  }
+  .products-warpper {
+    margin-top: 28px;
+    width: 100%;
+    .products {
+      display: flex;
+      margin-left: -10px;
+      margin-right: -10px;
+      &__item {
+        width: 16.67%;
+        padding: 0 10px;
+        .productcard {
+          width: 100%;
+          border: 1px solid $superlight-border;
+          border-radius: 6px;
+          background: $main-bg;
+          overflow: hidden;
+          .img-warpper {
+            width: 100%;
+            height: 174px;
+            position: relative;
+            overflow: hidden;
+            img {
+              position: absolute;
+              width: auto;
+              height: 100%;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+            }
+          }
+          .content {
+            padding: 8px;
+            p {
+              height: 35px;
+              line-height: 20px;
+              text-align: center;
+              display: block;
+              display: -webkit-box;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical;
+            }
+          }
+        }
+      }
+    }
+  }
+  @include mobile {
+    padding-top: 20px;
+    padding-bottom: 60px;
+  }
+  @include tablet {
+    .products-warpper {
+      overflow-x: scroll;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      .products {
+        width: 1090px;
+      }
+    }
+  }
+  @include tablet_lc {
+    .products-warpper {
+      overflow-x: scroll;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      .products {
+        width: 1090px;
+      }
+    }
+  }
+  @include mobile_lc {
+    .products-warpper {
+      overflow-x: scroll;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      .products {
+        width: 1090px;
+      }
+    }
+  }
+}
+
+.scpromotion {
+  padding-top: 30px;
+  width: 100%;
+  height: 250px;
+  background-image: url("../img/promotion_bg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  .promotion-warpper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h2 {
+      font-size: 2.4rem;
+      text-align: center;
+      color: $red;
+      text-transform: uppercase;
+    }
+    .promotionvideo {
+      background-image: url("../img/btn_bg.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      width: 254px;
+      height: 46px;
+      margin: 14px 0 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      p {
+        color: $white-cl;
+        text-transform: uppercase;
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-right: 10px;
+      }
+      .icon-warpper {
+        width: 26px;
+        height: 26px;
+        @include midflex;
+        background-color: $white-cl;
+        border-radius: 50%;
+        i {
+          margin-left: 3px;
+        }
+      }
+    }
+  }
+}
+
+.scnews {
+  padding-top: 60px;
+  padding-bottom: 70px;
+  &__head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 48px;
+    h2 {
+      text-align: center;
+    }
+    p {
+      margin-top: 16px;
+      text-align: center;
+    }
+    .icon-warpper {
+      margin-top: 32px;
+      display: flex;
+
+      .icon {
+        margin: 0 12px;
+        width: 120px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        i {
+          position: relative;
+          width: 60px;
+          height: 60px;
+          padding: 14px;
+          border-radius: 50%;
+          background: $superlight-grey;
+          overflow: hidden;
+          img {
+            position: absolute;
+            width: 60%;
+            height: auto;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            &.basic-small {
+              width: 45%;
+            }
+          }
+        }
+        p {
+          text-align: center;
+          font-size: 1.6rem;
+          padding: 0 10px;
+        }
+      }
+    }
+  }
+  &__body {
+    &-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      a {
+        position: relative;
+        &::after {
+          content: "";
+          display: block;
+          position: absolute;
+          left: 0;
+          top: 16px;
+          width: 90%;
+          height: 2px;
+          background-color: $brown;
+          transform: scale(0);
+          transition: 0.3s;
+          transform-origin: center left;
+        }
+        &:hover {
+          &::after {
+            transform: scale(1);
+          }
+        }
+      }
+    }
+  }
+  @include tablet {
+    &__body {
+      .news-warpper {
+        width: 100%;
+        overflow-x: scroll;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        .news {
+          width: 1090px;
+        }
+      }
+    }
+  }
+  @include tablet_lc {
+    &__body {
+      .news-warpper {
+        width: 100%;
+        overflow-x: scroll;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        .news {
+          width: 1090px;
+        }
+      }
+    }
+  }
+  @include mobile_lc {
+    &__body {
+      .news-warpper {
+        width: 100%;
+        overflow-x: scroll;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        .news {
+          width: 1090px;
+        }
+      }
+    }
+  }
+  @include mobile {
+    &__head {
+      padding-bottom: 32px;
+    }
+  }
+}
+
+.scdownloadapp {
+  width: 100%;
+  height: 364px;
+  background-image: url("../img/downloadapp_bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding-top: 36px;
+  .download-content {
+    width: 40%;
+    .title {
+      font-size: 2.4rem;
+      font-weight: 700;
+    }
+    p {
+      margin: 12px 0;
+    }
+    .app {
+      display: flex;
+      .qr {
+        width: 80px;
+        height: 80px;
+        position: relative;
+        overflow: hidden;
+        img {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+        }
+      }
+      &__item {
+        margin-left: 12px;
+
+        .icon-warpper {
+          position: relative;
+          width: 127px;
+          height: 37px;
+
+          img {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+            height: auto;
+          }
+          &.top {
+            margin-bottom: 6px;
+          }
+        }
+      }
+    }
+  }
+  @include mobile {
+    background-image: url("../img/download_bg_mobile.png");
+    background-size: cover;
+    .download-content {
+      margin-top: -20px;
+      width: 80%;
+      .title {
+        font-size: 1.4rem;
+      }
+      p {
+        font-size: 1.2rem;
+      }
+      .app {
+        .qr {
+          display: none;
+        }
+        &__item {
+          margin-left: 0;
+          display: flex;
+          .icon-warpper {
+            width: 75px;
+            height: 22px;
+            &.top {
+              margin-right: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// -------------- Specific Component --------------------------------------------
+
+.scfolder {
+  padding-top: 60px;
+  .folder {
+    padding: 0 36px;
+    .folderwarpper {
+      .folder__item {
+        .folder-card {
+          @include midflex;
+        }
+      }
+      &.mid {
+        justify-content: center;
+      }
+    }
+    .folder-nav-pre,
+    .folder-nav-next {
+      color: $grey;
+      &::after {
+        font-size: 20px;
+        font-weight: 600;
+      }
+      &.disabled {
+        color: $carousel-navigation;
+        cursor: auto;
+      }
+    }
+    .folder-nav-next {
+      right: 0;
+    }
+    .folder-nav-pre {
+      left: 0;
+    }
+  }
+}
+
+.radarcarousel {
+  width: 80%;
+  margin: 0 auto;
+  @include mobile {
+    width: 65%;
+    margin: 0 20% 0 0;
+  }
+}
+
+.pagiwarpper {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  // background: red;
+  .radarcarousel-pagination {
+    bottom: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.radar-pagi-active {
+  opacity: 1;
+  background: $grey;
+}

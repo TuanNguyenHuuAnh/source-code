@@ -1,0 +1,144 @@
+.scgiftcard {
+  @include midflex;
+  flex-direction: column;
+  .giftcard {
+    padding: 0 16px;
+    width: 600px;
+    border: 1px solid $border;
+    border-radius: 10px;
+    .break-line {
+      border-top: 1px solid $border;
+      margin-left: -16px;
+      margin-right: -16px;
+    }
+    &__item {
+      display: flex;
+      flex-direction: column;
+      padding: 20px 0;
+      &:first-child {
+        padding-top: 24px;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px dashed #e0dedc;
+        padding-bottom: 16px;
+        h3 {
+          font-size: 1.6rem;
+          color: $black-cl;
+        }
+        button {
+          color: $brown;
+          font-size: 1.4rem;
+        }
+      }
+      .footer {
+        display: flex;
+        padding-top: 16px;
+        .icon-wrapper {
+          margin-right: 12px;
+        }
+        .content-wrapper {
+          width: 100%;
+          .row {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            &:first-child {
+              margin-top: 0;
+            }
+            .title {
+              p {
+                font-size: 1.6rem;
+                color: $black-cl;
+              }
+            }
+
+            .button-group {
+              @include midflex;
+              margin-right: 80px;
+              .number-input {
+                @include midflex;
+                input {
+                  width: 100%;
+                  max-width: 24px;
+                  height: 24px;
+                  border: 1px solid $border;
+                  border-radius: 0.6rem;
+                  padding-left: 25%;
+                  color: $red-secondary;
+                }
+              }
+            }
+            .price-tag {
+              position: absolute;
+              top: 0;
+              right: 0;
+              width: 40px;
+              height: 16px;
+              border-radius: 10px;
+              padding: 3px;
+              @include midflex;
+              justify-content: space-between;
+              background: $gradient;
+              img {
+                width: 10px;
+                height: 10px;
+                margin: 0;
+                margin-right: 2px;
+              }
+              span {
+                font-size: 1.2rem;
+                color: $white-cl;
+              }
+            }
+            .text-grey {
+              color: $grey;
+            }
+            .text-medium {
+              font-size: 1.4rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  .giftcard-total-point {
+    @include midflex;
+    margin-top: 55px;
+    width: 100%;
+    &-wrapper {
+      width: 600px;
+      display: flex;
+      justify-content: flex-end;
+      .column {
+        @include midflex;
+        flex-direction: column;
+        align-items: flex-end;
+        &-with-content {
+          padding: 15px;
+          p {
+            margin-bottom: 8px;
+          }
+          .price-tag {
+            @include midflex;
+            img {
+              margin-right: 4px;
+            }
+            span {
+              color: $red;
+            }
+          }
+        }
+        button {
+          width: 140px;
+          height: 50px;
+          @include midflex;
+          font-weight: 600;
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+}

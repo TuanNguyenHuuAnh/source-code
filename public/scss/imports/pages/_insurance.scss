@@ -1,0 +1,200 @@
+main {
+  .insurancepage {
+    .sccard-warpper {
+      .price {
+        display: none;
+      }
+    }
+    @include tablet {
+      .sccard-warpper {
+        display: none;
+      }
+    }
+    @include tablet_lc {
+      .sccard-warpper {
+        display: none;
+      }
+    }
+    @include mobile_lc {
+      .sccard-warpper {
+        display: none;
+      }
+    }
+  }
+  &.nodata {
+    .insurancepage {
+      @include tablet {
+        .sccard-warpper {
+          display: block;
+          .price {
+            display: flex;
+          }
+        }
+        .sccontract-warpper {
+          display: none;
+        }
+      }
+      @include tablet_lc {
+        .sccard-warpper {
+          display: block;
+          .price {
+            display: flex;
+          }
+        }
+        .sccontract-warpper {
+          display: none;
+        }
+      }
+      @include mobile_lc {
+        .sccard-warpper {
+          display: block;
+          .price {
+            display: flex;
+          }
+        }
+        .sccontract-warpper {
+          display: none;
+        }
+      }
+      @include mobile {
+        .sccard-warpper {
+          .price {
+            display: flex;
+          }
+        }
+      }
+    }
+  }
+}
+
+.insurance {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 10px;
+  width: 100%;
+  // background-color: $main-bg;
+  min-height: calc(100% - #{$height});
+  @include mobile {
+    padding-bottom: 50px;
+  }
+}
+.an-hung-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 10px;
+  width: 100%;
+  height: 100%;
+  background-color: $main-bg;
+  @include mobile {
+    padding-bottom: 50px;
+  }
+}
+.no-data {
+  background-color: #fff;
+}
+
+.detail {
+  margin-bottom: 16px;
+  .dropdown__content {
+    display: flex;
+    padding: 5px 0;
+    p {
+      span {
+        display: inline-block;
+      }
+    }
+    .icon {
+      display: inline-block;
+      margin-left: 5px;
+      transition: 0.3s;
+    }
+  }
+  &.show {
+    .dropdown__content {
+      .icon {
+        display: inline-block;
+        transform: rotate(90deg);
+        margin-left: 5px;
+      }
+    }
+  }
+
+  .yellowtab {
+    margin-top: 8px;
+    width: 100%;
+    background: $light-yellow;
+    border-radius: 6px;
+    padding: 12px;
+    .tab {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      p {
+        padding: 4px 0;
+      }
+    }
+  }
+  .tab {
+    margin-top: 12px;
+    .tag {
+      font-size: 1.2rem;
+    }
+  }
+
+  @include mobile {
+    .dropdown__content {
+      p {
+        font-size: 1.2rem;
+        span {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+}
+
+.price {
+  margin-top: 36px;
+  margin: 36px auto 0;
+  width: 100%;
+  max-width: 600px;
+  @include midflex;
+  button {
+    width: 100%;
+    p {
+      text-align: center;
+    }
+  }
+
+  @include mobile {
+    width: 100vw;
+    padding: 16px;
+    background: $white-cl;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 20;
+  }
+}
+.nodata2 {
+  .nodata2-fullwidth {
+    width: 100%;
+  }
+}
+@include mobile {
+  .nodata2 .main-warpper .nodata2-fullwidth {
+    display: block;
+    .sccontract-container {
+      h4 {
+        text-align: center;
+      }
+    }
+  }
+}
+@include tablet {
+  .nodata2 .main-warpper .nodata2-fullwidth {
+    display: block;
+  }
+}

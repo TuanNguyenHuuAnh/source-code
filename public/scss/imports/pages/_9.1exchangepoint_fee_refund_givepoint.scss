@@ -1,0 +1,73 @@
+.scgivepoint {
+  background-color: $main-bg;
+  background-image: url("../img/9.1-menulist-background-flower.png");
+  background-position: bottom;
+  background-size: cover;
+  min-height: calc(100vh - 2 * #{$height});
+  padding-bottom: 32px;
+
+  .givepoint {
+    width: 100%;
+    @include midflex;
+    flex-direction: column;
+    padding-top: 120px;
+    .personform {
+      .checkinfo {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        .icon-wrapper {
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          background: $gradient;
+          @include midflex;
+          i {
+            width: 55%;
+            height: auto;
+          }
+        }
+        span {
+          color: $red;
+          font-weight: 600;
+          font-size: 1.3rem;
+          margin-left: 8px;
+        }
+
+        &.disabled {
+          .icon-wrapper {
+            background: $brown-disabled;
+          }
+          span {
+            color: $brown-disabled;
+          }
+        }
+      }
+
+      .content-item {
+        &.disabled {
+          display: none;
+        }
+      }
+
+      .tag {
+        margin-top: 8px;
+        color: $grey;
+
+        &.validate {
+          color: $red;
+        }
+      }
+    }
+    .error {
+      text-align: center;
+      color: $red;
+      line-height: 20px;
+      margin-top: 15px;
+      display: none;
+      &.validate {
+        display: block;
+      }
+    }
+  }
+}

@@ -1,0 +1,100 @@
+// .insurancepage {
+//   @include tablet {
+//     .sccontract-warpper {
+//       display: none;
+//     }
+//   }
+//   @include tablet_lc {
+//     .sccontract-warpper {
+//       display: none;
+//     }
+//   }
+//   @include mobile_lc {
+//     .sccontract-warpper {
+//       display: none;
+//     }
+//   }
+// }
+
+// .insurance {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   padding: 20px 10px;
+//   width: 100%;
+// }
+
+// .detail {
+//   margin-bottom: 16px;
+//   .dropdown__content {
+//     display: flex;
+//     padding: 5px 0;
+//     p {
+//       span {
+//         display: inline-block;
+//       }
+//     }
+//     .icon {
+//       display: inline-block;
+//       margin-left: 5px;
+//       transition: 0.3s;
+//     }
+//   }
+//   &.show {
+//     .dropdown__content {
+//       .icon {
+//         display: inline-block;
+//         transform: rotate(90deg);
+//         margin-left: 5px;
+//       }
+//     }
+//   }
+
+//   .yellowtab {
+//     margin-top: 8px;
+//     width: 100%;
+//     background: $light-yellow;
+//     border-radius: 6px;
+//     padding: 12px;
+//     .tab {
+//       display: flex;
+//       justify-content: space-between;
+//       align-items: center;
+//       p {
+//         padding: 4px 0;
+//       }
+//     }
+//   }
+//   .tab {
+//     margin-top: 12px;
+//     .tag {
+//       font-size: 1.2rem;
+//     }
+//   }
+
+//   @include mobile {
+//     .dropdown__content {
+//       p {
+//         font-size: 1.2rem;
+//         span {
+//           font-size: 1.2rem;
+//         }
+//       }
+//     }
+//   }
+// }
+// .price {
+//   margin-top: 36px;
+//   width: 100%;
+//   max-width: 600px;
+//   @include midflex;
+
+//   @include mobile {
+//     width: 100vw;
+//     padding: 16px;
+//     background: $white-cl;
+//     position: fixed;
+//     bottom: 0;
+//     z-index: 20;
+//   }
+// }

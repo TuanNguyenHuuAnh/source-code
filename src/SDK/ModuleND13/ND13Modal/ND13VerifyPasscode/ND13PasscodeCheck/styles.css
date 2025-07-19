@@ -1,0 +1,25 @@
+.passcode-container .passcode-description {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: left;
+    color: #292929;
+}
+.nd13-noti-text {
+    font-family: 'Inter';
+    font-size: '16px';
+    font-weight: '500';
+    line-height: '24px';
+    text-align: 'left';
+}
+
+.nd13-payment {
+    text-align: 'center';
+    padding-top:'20px';
+    width: '455.45px';
+    height: '40px';
+    top: '116px';
+    gap: '0px';
+    opacity: '0px';
+}
+

@@ -1,0 +1,242 @@
+.thu-vien-container {
+  width: 100%;
+  padding: 16px 16px 0;
+  @include midflex;
+  flex-direction: column;
+  &_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 60rem;
+    &-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 2.2rem;
+    }
+  }
+  &_body {
+    border-radius: 1rem;
+    background-color: #fff;
+    margin-top: 1.2rem;
+    max-width: 60rem;
+    width: 100%;
+    height: auto;
+    &-item {
+      padding: 1.6rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .item-left {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        &-icon {
+          margin-right: 1.2rem;
+        }
+        &-text {
+          .head-title {
+            p {
+              font-size: 1.6rem;
+              font-weight: 600;
+              line-height: 2.2rem;
+            }
+          }
+          .date {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 0.85rem 0rem 0.85rem;
+            .icon {
+              margin-right: 0.8rem;
+              img {
+                max-width: 18px;
+                width: 100%;
+              }
+            }
+            .text {
+              @include title(0rem, 500);
+              line-height: 1.694rem;
+            }
+          }
+          .text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            line-height: 2.1rem;
+            color: #99542d;
+          }
+        }
+      }
+      .item-right {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        height: 9.1rem;
+        width: 46%;
+        .tai-xml {
+          margin-right: 1.1rem;
+        }
+        button {
+          padding: 0.4rem 1.1rem;
+          @include midflex;
+          background: $gradient;
+          color: white;
+          border-radius: 0.4rem;
+        }
+      }
+    }
+    &-border {
+      border-bottom: 1px solid #e0dedc;
+    }
+  }
+  @include mobile {
+    &_body {
+      border-radius: 1rem;
+      background-color: #fff;
+      margin-top: 1.2rem;
+      max-width: 60rem;
+      width: 100%;
+      height: auto;
+      &-item {
+        padding: 1.6rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .item-left {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: flex-start;
+          &-icon {
+            margin-right: 1.2rem;
+          }
+          &-text {
+            .head-title {
+              p {
+                font-size: 1.6rem;
+                font-weight: 600;
+                line-height: 2.2rem;
+                margin-top: 1.2rem;
+                width: 120%;
+              }
+            }
+            .date {
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
+              margin: 0.85rem 0rem 0.85rem;
+              .icon {
+                margin-right: 0.8rem;
+                img {
+                  max-width: 18px;
+                  width: 100%;
+                }
+              }
+              .text {
+                @include title(0rem, 500);
+                line-height: 1.694rem;
+              }
+            }
+            .text {
+              font-size: 1.3rem;
+              font-weight: 600;
+              line-height: 2.1rem;
+              color: #99542d;
+            }
+          }
+        }
+        .item-right {
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          height: 15rem;
+          width: 63%;
+          .tai-xml {
+            margin-right: 1.1rem;
+          }
+          button {
+            padding: 0.4rem 1.1rem;
+            @include midflex;
+            background: $gradient;
+            color: white;
+            border-radius: 0.4rem;
+          }
+        }
+      }
+      &-border {
+        border-bottom: 1px solid #e0dedc;
+      }
+    }
+  }
+}
+.tvtl-warpper {
+  width: calc(100% - 390px);
+  height: calc(100vh - 2 * #{$height});
+  // padding: 20px 12px;
+  background-color: $main-bg;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  @include tablet {
+    width: 100%;
+  }
+  @include tablet_lc {
+    width: 100%;
+  }
+  @include mobile_lc {
+    width: 100%;
+  }
+  // background-color: wheat;
+}
+
+//  -------- bo hop dong -------
+.bo-hop-dong {
+  &-container {
+    @include midflex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    max-width: 600px;
+    background-color: $white-cl;
+    border-radius: 0.6rem;
+    border: 0.5px solid $superlight-border;
+    .border {
+      width: 100%;
+      border-bottom: 0.5px solid $superlight-border;
+    }
+    &-body {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 600px;
+      padding: 2rem 1.6rem;
+      &__content {
+        &-title {
+          font-size: 1.6rem;
+          font-weight: 500;
+          line-height: 2.2rem;
+        }
+      }
+      @include mobile {
+        &__content {
+          &-title {
+            font-size: 1.6rem;
+            font-weight: 500;
+            line-height: 2.2rem;
+            width: 100%;
+            max-width: 280px;
+          }
+        }
+      }
+      &-border {
+        border-bottom: 1px solid $superlight-border;
+      }
+    }
+  }
+}

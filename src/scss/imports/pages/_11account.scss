@@ -1,0 +1,539 @@
+.page-eleven {
+  width: 100%;
+  .profile-user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $main-bg;
+    width: 100%;
+    background: url("../img/bg-qt-4.svg") no-repeat;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    height: 130px;
+
+    &__left {
+      padding: 2rem 6rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .left-text {
+        margin-left: 1.6rem;
+        .text {
+          font-size: 1.8rem;
+          font-weight: 700;
+          line-height: 2.178rem;
+        }
+
+        &-insurance {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 46px;
+          background-color: $light-yellow;
+          width: 100%;
+          // max-width: 173px;
+          height: 28px;
+          margin-top: 8px;
+          padding: 6px 12px;
+          .title {
+            font-size: 12px;
+            font-weight: 600;
+            color: $brown;
+            line-height: 14.52px;
+          }
+          &-icon {
+            padding-right: 13px;
+          }
+        }
+      }
+      .left-qt {
+        position: relative;
+        .img-camera {
+          position: absolute;
+          bottom: 0;
+          right: 5px;
+        }
+      }
+    }
+    &__right {
+      margin-right: 6rem;
+      &-sign-out {
+        border: 1px solid $red;
+        border-radius: 0.6rem;
+        padding: 1.6rem 3.6rem;
+
+        button {
+          font-size: 1.5rem;
+          font-weight: 600;
+          line-height: 1.8rem;
+          color: $red;
+        }
+      }
+    }
+  }
+  .profile-user-the-bao-hiem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $main-bg;
+    width: 100%;
+    background: url("../img/bg-qt-4.svg") no-repeat;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    height: 130px;
+    .head-text {
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 36.31px;
+    }
+  }
+  .customer-information {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background: url("../img/9.1-menulist-background-flower.png") no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  .customer-informationthe-bh {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    &__body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 24px;
+      width: 100%;
+      max-width: 600px;
+      .information-card-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-radius: 10px;
+        border: 1px solid #e5e5e5;
+        padding: 20px 16px;
+        margin-bottom: 20px;
+        width: 100%;
+        &-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          &-text {
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 18.15px;
+          }
+          &-arrow {
+            .bottom-mar {
+              margin-bottom: 15px;
+            }
+          }
+        }
+        &-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 100%;
+          &-text {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 48%;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 16px;
+            color: $brown;
+          }
+        }
+        .expand-text {
+          padding-bottom: 16px;
+        }
+      }
+      .information-card-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-radius: 10px;
+        border: 1px solid #e5e5e5;
+        padding: 20px 16px;
+        margin-bottom: 20px;
+        width: 100%;
+        &-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          &-text {
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 18.15px;
+          }
+          &-arrow {
+            .bottom-mar {
+              margin-bottom: 15px;
+            }
+          }
+        }
+        &-content2the {
+          display: flex;
+          justify-content: space-around;
+          flex-direction: column;
+          align-items: center;
+          width: 100%;
+          &-the-1 {
+            display: flex;
+            justify-content: space-between;
+            .img-second {
+              margin-left: 15px;
+              margin-bottom: 5px;
+            }
+          }
+          &-the-2 {
+            display: flex;
+            width: 98%;
+            justify-content: space-between;
+            align-items: center;
+
+            .right {
+              font-size: 12px;
+              font-weight: 500;
+              line-height: 16px;
+              color: $brown;
+              text-align: right;
+            }
+            .left {
+              font-size: 12px;
+              font-weight: 500;
+              line-height: 16px;
+              color: $brown;
+              margin-left: 4px;
+              text-align: left;
+            }
+          }
+        }
+        .expand-text {
+          padding-bottom: 16px;
+        }
+      }
+      .location-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .location-text {
+          margin-left: 13px;
+          font-size: 12px;
+          font-weight: 500;
+          line-height: 16px;
+          color: $brown;
+        }
+      }
+    }
+  }
+
+  .bottom-expand {
+    margin-bottom: 6rem;
+  }
+  // page 11 dia chi lien he
+  .--text-ali {
+    text-align: right;
+    width: 100%;
+    max-width: 234px;
+    line-height: 19.36px;
+  }
+
+  @include mobile {
+    .profile-user {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: $main-bg;
+      width: 100%;
+      background: url("../img/bg-qt-4.svg") no-repeat;
+      background-position: center;
+      background-size: cover;
+      z-index: -1;
+      height: 280px;
+
+      &__left {
+        padding: 2rem 6rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .left-text {
+          margin-left: 1.6rem;
+          margin-top: 16px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          .text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 2.178rem;
+          }
+
+          &-insurance {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 46px;
+            background-color: $light-yellow;
+            width: 100%;
+            // max-width: 173px;
+            height: 28px;
+            margin-top: 8px;
+            padding: 6px 12px;
+            .title {
+              font-size: 12px;
+              font-weight: 600;
+              color: $brown;
+              line-height: 14.52px;
+              // padding-left: 13px;
+            }
+            &-icon {
+              padding-right: 13px;
+            }
+          }
+        }
+        .left-qt {
+          position: relative;
+          .img-camera {
+            position: absolute;
+            bottom: 0;
+            right: 5px;
+          }
+        }
+      }
+      &__right {
+        margin-right: 0;
+        &-sign-out {
+          border: 1px solid $red;
+          border-radius: 0.6rem;
+          padding: 1.6rem 3.6rem;
+
+          button {
+            font-size: 1.5rem;
+            font-weight: 600;
+            line-height: 1.8rem;
+            color: $red;
+          }
+        }
+      }
+    }
+    .profile-user-the-bao-hiem {
+      .head-text {
+        font-size: 18px;
+      }
+    }
+    .customer-informationthe-bh {
+      &__body {
+        padding: 16px;
+
+        .information-card-item {
+          &-content {
+            &-text {
+              width: 88%;
+            }
+          }
+
+          .expand-text {
+            padding-bottom: 16px;
+          }
+        }
+        .information-card-item {
+          &-content2the {
+            display: flex;
+            justify-content: space-around;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            &-the-1 {
+              display: flex;
+              justify-content: space-between;
+              flex-direction: column;
+              .img-second {
+                margin-right: 15px;
+              }
+            }
+            &-the-2 {
+              display: flex;
+              width: 88%;
+              justify-content: space-between;
+              align-items: center;
+              margin-left: 15px;
+              margin-right: 15px;
+              .right {
+                font-size: 12px;
+                font-weight: 500;
+                line-height: 16px;
+                color: $brown;
+                text-align: right;
+              }
+              .left {
+                font-size: 12px;
+                font-weight: 500;
+                line-height: 16px;
+                color: $brown;
+                margin-left: 4px;
+                text-align: left;
+              }
+            }
+          }
+        }
+      }
+    }
+    .location-container {
+      margin-top: 70px;
+    }
+  }
+}
+// ------ popup page 11.1  change password --------
+.popup-change-card {
+  overflow: hidden;
+  border-radius: 12px;
+  background: linear-gradient(179.78deg, #f5e2e2 -11.3%, #fff5ef 17.25%, #fce5d7 105.93%);
+  max-height: 95vh;
+  width: 100%;
+  max-width: 343px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  .header {
+    width: 100%;
+    @include midflex;
+    padding: 16px;
+    background: $main-bg;
+    position: relative;
+    // -------- thêm padding cho header của popup trang 4 -----------
+    h4 {
+      width: 80%;
+      text-align: center;
+      font-weight: 700;
+      color: $black-cl;
+      font-size: 1.6rem;
+    }
+    i {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 18px;
+      height: 18px;
+      @include midflex;
+    }
+  }
+
+  .body {
+    padding: 16px 16px 40px;
+    position: relative;
+    .input-wrapper {
+      display: flex;
+      flex-direction: column;
+      margin: -6px 0;
+      .input-wrapper-item {
+        padding: 6px 0;
+      }
+    }
+    .btn-wrapper {
+      margin-top: 36px;
+      width: 100%;
+      button {
+        width: 100%;
+        @include midflex;
+      }
+    }
+    .cancel-wrapper {
+      margin-top: 20px;
+      width: 100%;
+      @include midflex;
+      p {
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 18.15px;
+        color: $brown;
+      }
+    }
+    &-text {
+      margin-top: 45px;
+      width: 100%;
+      max-width: 311px;
+      text-align: center;
+      padding: 1px 7px;
+      h5 {
+        width: 100%;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 22px;
+        color: $black-cl;
+      }
+    }
+
+    &-icon {
+      i {
+        position: absolute;
+        top: 29px;
+        right: 24px;
+        width: 18px;
+        height: 18px;
+        @include midflex;
+      }
+    }
+  }
+
+  @include mobile_lc {
+  }
+  .body {
+    .tag {
+      margin-top: 12px;
+      text-align: center;
+      color: $grey;
+      span {
+        font-weight: 600;
+        cursor: pointer;
+      }
+    }
+  }
+}
+.envelop-xac-nhan {
+  width: 289px;
+  height: 294px;
+  @include midflex;
+  align-items: flex-start;
+  background: url("../img/popup/envelop.png") no-repeat;
+  &__content {
+    margin-top: 32px;
+    width: 80%;
+    @include midflex;
+    flex-direction: column;
+    h5 {
+      text-transform: uppercase;
+    }
+    p {
+      margin-top: 12px;
+      text-align: center;
+      width: 151px;
+      line-height: 20px;
+    }
+  }
+  &__close-button {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 45px;
+  }
+}

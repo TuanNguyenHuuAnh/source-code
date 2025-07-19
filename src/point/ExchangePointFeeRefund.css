@@ -1,0 +1,11 @@
+.scfee-refundnextstep .fee-refundstep .error {
+    text-align: center;
+    color: #de181f;
+    line-height: 20px;
+    margin-top: 15px;
+    display: none;
+}
+
+.scfee-refundnextstep .fee-refundstep .error.validate {
+    display: block;
+}

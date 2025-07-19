@@ -1,0 +1,18 @@
+/* p {
+  margin-top: 0;
+  margin-bottom: 0 !important;
+} */
+.hide-deadly-disease-detail {
+  display: none;
+}
+.customer-feedback-page a:hover {
+  color: blue;
+  text-decoration: underline;
+}
+.customer-feedback-page a {
+  display: inline-block;
+}
+.faq-dropdown-content a:hover {
+  color: blue;
+  text-decoration: underline;
+}

@@ -1,0 +1,362 @@
+// MIXINS
+@mixin desktop-large {
+  @media (max-width: $lg-max) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (max-width: $md-max) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (max-width: $sm-max) and (min-height: 500px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (min-width: 320px) and (max-width: $xs-max) {
+    @content;
+  }
+}
+
+@mixin iphoneX {
+  @media screen and (min-width: 320px) and (max-width: 812px) and (orientation: landscape) {
+    @content;
+  }
+}
+@mixin iphoneX-10 {
+  @media screen and (min-width: 375px) and (max-width: 812px) and (orientation: landscape) {
+    @content;
+  }
+}
+@mixin iphoneX_lc {
+  @media screen and (min-width: 375px) and (max-width: 812px) and (orientation: landscape) {
+    @content;
+  }
+}
+@mixin iphone5SE {
+  @media screen and (min-width: 320px) and (max-width: 568px) {
+    @content;
+  }
+}
+@mixin iphone5SE_LC {
+  @media screen and (min-width: 320px) and (max-width: 568px) and (orientation: landscape) {
+    @content;
+  }
+}
+@mixin iphone6 {
+  @media screen and (min-width: 414px) and (max-width: 736px) {
+    @content;
+  }
+}
+@mixin iphone6_lc {
+  @media screen and (min-width: 414px) and (max-width: 736px) and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin mobile-xxs {
+  @media (max-width: $xxs-max) {
+    @content;
+  }
+}
+
+@mixin maxW($args) {
+  @media (max-width: $args) {
+    @content;
+  }
+}
+
+@mixin minW($args) {
+  @media (max-width: $args) {
+    @content;
+  }
+}
+
+@mixin minH($args) {
+  @media (min-height: $args) {
+    @content;
+  }
+}
+
+@mixin maxH($args) {
+  @media (max-height: $args) {
+    @content;
+  }
+}
+
+@mixin desktop_lc {
+  @media screen and (min-width: $sm-min) and (max-width: $md-max) and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin tablet_lc {
+  @media screen and (min-width: $xs-min) and (max-width: $sm-max) and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin mobile_lc {
+  @media screen and (max-width: $xs-max) and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin br($radius) {
+  border-radius: $radius;
+  background-clip: padding-box; /* stops bg color from leaking outside the border: */
+}
+
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes #{$animation-name} {
+    @content;
+  }
+  @-moz-keyframes #{$animation-name} {
+    @content;
+  }
+  @-ms-keyframes #{$animation-name} {
+    @content;
+  }
+  @-o-keyframes #{$animation-name} {
+    @content;
+  }
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+  -moz-animation: #{$str};
+  -ms-animation: #{$str};
+  -o-animation: #{$str};
+  animation: #{$str};
+}
+@mixin transform($args) {
+  transform: $args;
+  -webkit-transform: $args;
+  -o-transform: $args;
+}
+
+@mixin transform-origin($args) {
+  transform-origin: $args;
+  -webkit-transform-origin: $args;
+  -o-transform-origin: $args;
+}
+@mixin transition-delay($args) {
+  transition-delay: $args;
+  -webkit-transition-delay: $args;
+  -o-transition-delay: $args;
+}
+
+@mixin transition($args) {
+  transition: $args;
+  -webkit-transition: $args;
+  -o-transition: $args;
+}
+@mixin text($font-size, $font-family, $line-height, $color, $text-transform) {
+  font-size: $font-size;
+  font-family: $font-family;
+  line-height: $line-height;
+  color: $color;
+  text-transform: $text-transform;
+}
+
+@mixin mid() {
+  top: 50%;
+  left: 50%;
+  @include transform(translate(-50%, -50%));
+  position: absolute;
+}
+
+@mixin midflex() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin fullpage() {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+@mixin full-fixed() {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+@mixin hidden() {
+  opacity: 0;
+  visibility: hidden;
+}
+@mixin visible() {
+  opacity: 1;
+  visibility: visible;
+}
+
+@mixin overtext($args) {
+  display: -webkit-inline-box;
+  -webkit-line-clamp: $args;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@mixin custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: $black-cl;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #2b2b2b;
+  }
+}
+/*Text of Progress bar*/
+@mixin layout-text {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-top: 8px;
+  transition: 0.2s;
+  position: relative;
+  left: -25px;
+  line-height: 18px;
+}
+
+/*Time picker-custom*/
+@mixin icon-picker {
+  border: 1px solid #e6e6e6;
+  position: relative;
+  display: inline-block;
+  background: white;
+  padding: 10px 15px;
+  padding-right: 50px;
+  cursor: pointer;
+  transition: none;
+  border-radius: 6px;
+  width: 265px;
+  height: 56px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 18.15px;
+  color: $light-grey;
+  padding-top: 19px;
+}
+// form title change
+@mixin title($margin, $font-heavy) {
+  font-family: $font-stack;
+  font-size: 1.4rem;
+  font-weight: $font-heavy;
+  margin-bottom: $margin;
+}
+// contract form layout
+@mixin contract-layout($bg, $top-mr) {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  background: $bg;
+  background-size: cover;
+  min-height: 286px;
+  margin-top: $top-mr;
+}
+
+// text-style for question
+@mixin text-style($font-sz, $font-weight, $lineHeight) {
+  color: $black-cl;
+  font-size: $font-sz;
+  font-weight: $font-weight;
+  line-height: $lineHeight;
+}
+@mixin round-checkbox($border-bot, $mr-bot) {
+  .round-checkbox-container {
+    // display: flex;
+    padding-bottom: 2rem;
+    justify-content: space-between;
+    margin-left: 2rem;
+    &.line {
+      // border-bottom: $border-bot;
+      padding-bottom: 0px;
+    }
+    .radio-custom {
+      opacity: 0;
+      position: absolute;
+    }
+
+    .radio-custom,
+    .radio-custom-label {
+      display: inline-block;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .radio-custom-label {
+      position: relative;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 19.36px;
+      margin-right: 100px;
+      margin-bottom: $mr-bot;
+    }
+    .no-line {
+      position: relative;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 19.36px;
+      margin-right: 100px;
+    }
+
+    .radio-custom + .radio-custom-label:before {
+      content: "";
+      background: #fff;
+      display: inline-block;
+      vertical-align: middle;
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      text-align: center;
+    }
+
+    .radio-custom + .radio-custom-label:before {
+      border-radius: 50%;
+      border: 1.5px solid #de181f;
+    }
+
+    .radio-custom:checked + .radio-custom-label:before {
+      background: #de181f;
+      box-shadow: inset 0px 0px 0px 4px #fff;
+    }
+  }
+}
+@mixin plus-cirle {
+  .circle-plus {
+    background: linear-gradient(180deg, #ea6544 0%, #d12a1e 100%);
+    border-radius: 50%;
+    height: 2.4rem;
+    width: 2.4rem;
+    position: relative;
+    overflow: hidden;
+    img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  .plus-information {
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 16.94px;
+    margin-left: 0.8rem;
+    color: $red;
+    cursor: pointer;
+  }
+}

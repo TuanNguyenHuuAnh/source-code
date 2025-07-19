@@ -1,0 +1,203 @@
+// ------------------------------ Components --------------------------------------------
+
+.cart-category {
+  width: 100%;
+  background: $white-cl;
+  padding: 20px 16px;
+  border-bottom: 1px solid $border-nodash;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 16px;
+    border-bottom: 1px dashed $border-nodash;
+    h4 {
+      width: 90%;
+      font-size: 1.6rem;
+      line-height: 22px;
+      font-weight: 600;
+    }
+    .remove-btn {
+      width: 10%;
+      display: flex;
+      justify-content: flex-end;
+      cursor: pointer;
+    }
+  }
+}
+
+.cart-tab {
+  padding-top: 16px;
+  width: 100%;
+  background: $white-cl;
+  position: relative;
+
+  &__info {
+    width: 84%;
+    display: flex;
+    justify-content: space-between;
+    .info-content {
+      width: 80%;
+      display: flex;
+      i {
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        width: 44px;
+        height: 44px;
+        margin-right: 12px;
+        img {
+          position: absolute;
+          width: 100%;
+          height: auto;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+      .content {
+        h5 {
+          font-size: 1.6rem;
+          line-height: 22px;
+          margin-bottom: 4px;
+        }
+        p {
+          line-height: 20px;
+          color: $grey;
+        }
+      }
+    }
+  }
+
+  &__point {
+    width: 44px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    padding: 3px;
+    background: $gradient;
+    position: absolute;
+    top: 16px;
+    right: 0;
+    .icon-wrapper {
+      margin-right: 2px;
+      width: 10px;
+      height: 10px;
+    }
+    span {
+      color: $white-cl;
+    }
+  }
+
+  @include mobile {
+    &__info {
+      width: 80%;
+      flex-direction: column;
+      .info-content {
+        width: 100%;
+      }
+      .info-counter {
+        width: 100%;
+        padding-top: 12px;
+        padding-left: 52px;
+      }
+    }
+  }
+}
+
+.gift-btn-wrapper {
+  background: $white-cl;
+  width: 100%;
+  height: 82px;
+  z-index: 20;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  .btn-wrapper {
+    width: 100%;
+    height: 100%;
+    max-width: 550px;
+    margin: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 10px;
+    button {
+      width: 140px;
+      @include midflex;
+    }
+    .total-point {
+      // height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-right: 12px;
+      h5 {
+        margin-bottom: 4px;
+        line-height: 18px;
+      }
+      .point {
+        display: flex;
+        align-items: center;
+        i {
+          margin-right: 4px;
+          width: 12px;
+          height: 12px;
+        }
+        p {
+          color: $red;
+        }
+      }
+    }
+  }
+  @include mobile {
+    position: fixed;
+    width: 100vw;
+  }
+}
+
+// ------------------------------ Main Page --------------------------------------------
+
+.giftcard-page {
+  background-color: $main-bg;
+  background-image: url("../img/9.1-menulist-background-flower.png");
+  background-position: bottom;
+  background-size: cover;
+  height: calc(100vh - 2 * #{$height});
+  padding-bottom: 32px;
+  overflow-y: hidden;
+  position: relative;
+
+  .scgiftcart {
+    width: 100%;
+    height: calc(100% - 130px);
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    padding-top: 20px;
+    .giftcart {
+      width: 100%;
+      max-width: 600px;
+      margin: auto;
+      background: $white-cl;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid $border-nodash;
+      border-collapse: collapse;
+    }
+  }
+
+  @include mobile {
+    overflow-y: scroll;
+    height: 100%;
+    .scgiftcart {
+      height: 100%;
+      overflow-y: visible;
+    }
+  }
+}

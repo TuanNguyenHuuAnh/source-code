@@ -1,0 +1,15 @@
+.scexchangepoint-mobilecard .mobilecard .personform .choose-price .price-wrap .price-card.active {
+    width: 18%;
+    height: 48px;
+    background-color: #F4E6DE;
+    border-color: #C68158;
+    border-radius: 0.6rem;
+    margin: 0.4rem 0rem 0rem 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+

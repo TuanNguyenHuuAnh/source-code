@@ -1,0 +1,98 @@
+.activity-progress {
+    padding: 150px 400px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+  }
+  .input__content.extend {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.sand-clock {
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 50px;
+}
+
+.padding-clock {
+  padding-left: 190px;
+}
+.padding-clock2 {
+  padding-left: 206px;
+}
+.bg-red {
+  background-color: red;
+}
+
+.lable-red {
+  color: red !important;
+}
+
+.bigheight {
+  line-height: 24px !important;
+  padding-bottom: 10px !important;
+}
+
+.bigheight .span{
+  font-weight: 600;
+}
+
+.verybigheight {
+  line-height: 30px !important;
+  color: #b35801;
+  font-size: 1.4rem !important;
+}
+
+.width80percent {
+  width:80%;
+  height:80%;
+}
+
+.minheight40 {
+  min-height: 40px;
+}
+
+.minheight60 {
+  min-height: 60px;
+}
+
+.developing-popup-card {
+  max-width: 520px;
+  width: 100%;
+  position: relative;
+  border-radius: 6px;
+  background: #fff;
+  padding: 32px 16px 40px;
+  max-height: 100vh;
+  overflow: hidden; 
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.inline-local {
+  display: inline;
+}
+
+.center-local {
+  align-items: center;
+  text-align: center;
+}
+
+.padding60 {
+  padding-left: 60px;
+}
+
+.title-local {
+  max-width: 45%;
+}
+
+.hidelogin {
+  display: none;
+}

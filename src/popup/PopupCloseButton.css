@@ -1,0 +1,23 @@
+.btn {
+    display: inline-block;
+    font-weight: 600;
+    text-align: center;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 0px solid transparent;
+    white-space: nowrap;
+    padding: 0 0px;
+    font-size: 14px;
+    border-radius: 4px;
+    height: 45px;
+    line-height: 45px;
+    -webkit-user-select: none;
+    user-select: none;
+    transition: all .3s cubic-bezier(.645,.045,.355,1);
+    position: relative;
+    color: rgba(0,0,0,.65);
+    background-color: transparent;
+    border-color: #e8e8e8;
+    outline: none;
+}

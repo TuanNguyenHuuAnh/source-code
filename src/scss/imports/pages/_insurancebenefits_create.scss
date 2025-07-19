@@ -1,0 +1,18 @@
+.scbenefits {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 60px;
+  .benefit-wrapper {
+    max-width: 626px;
+    width: 100%;
+    padding: 0 16px;
+    .benefit-jobtitle {
+      margin-bottom: 20px;
+    }
+    .benefit-contract {
+      h4 {
+        margin-bottom: 12px;
+      }
+    }
+  }
+}

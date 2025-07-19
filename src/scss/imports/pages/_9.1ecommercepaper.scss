@@ -1,0 +1,238 @@
+// ------------------- Components ----------------
+
+.market-card {
+  width: 100%;
+  height: 128px;
+  border-radius: 8px;
+  overflow: hidden;
+  &__header {
+    background: $main-bg;
+    display: flex;
+    padding: 16px 12px;
+    .icon-wrapper {
+      position: relative;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      img {
+        position: absolute;
+        width: 100%;
+        height: auto;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+    p {
+      width: calc(100% - 44px);
+      height: 44px;
+      padding-left: 16px;
+      font-weight: 700;
+      line-height: 20px;
+      display: -webkit-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+  }
+  &__body {
+    background: $light-brown;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 12px 12px 16px;
+    .point {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      // flex: 1;
+      background-color: #fff;
+      border-radius: 12px;
+      width: 55px;
+      height: 24px;
+      .coin {
+        width: 100%;
+        max-width: 1.2rem;
+      }
+      .number {
+        font-size: 1.3rem;
+        font-weight: 500;
+        line-height: 1rem;
+        color: $red;
+      }
+    }
+  }
+}
+
+// ---------------- Main Page ------------------------
+
+.scmarketpaper {
+  background-color: $main-bg;
+  background-image: url("../img/9.1-menulist-background-flower.png");
+  background-position: bottom;
+  background-size: cover;
+  min-height: calc(100vh - 2 * #{$height});
+  padding-bottom: 32px;
+
+  .useroption-card {
+    width: 100%;
+    @include midflex;
+    flex-direction: column;
+    padding-top: 120px;
+    .personform {
+      .content {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin: 0 -8px;
+        &__item {
+          width: 50%;
+          padding: 0 8px;
+          .info {
+            &__title {
+              font-weight: 600;
+              margin-bottom: 16px;
+            }
+            .tag {
+              margin-top: 12px;
+              font-size: 1.2rem;
+              color: $grey;
+            }
+          }
+        }
+      }
+
+      .bordertab {
+        margin-top: 24px;
+        padding-top: 16px;
+        border-top: 1px solid $superlight-border;
+        h5 {
+          color: $grey;
+        }
+        .phone-wrapper {
+          padding-top: 12px;
+          .greytab {
+            background-color: #e6e6e6;
+            padding: 10px 16px;
+            border-radius: 0.6rem;
+            min-height: 60px;
+            position: relative;
+            &__item {
+              width: 90%;
+              .label {
+                font-size: 1.2rem;
+                font-weight: 600;
+                line-height: 1.5rem;
+                color: #727272;
+              }
+              p {
+                font-size: 1.6rem;
+                font-weight: 500;
+                line-height: 22px;
+                margin-top: 4px;
+                color: $black-secondary;
+              }
+            }
+            .icon-wrapper {
+              position: absolute;
+              right: 16px;
+              top: 50%;
+              transform: translateY(-50%);
+            }
+          }
+        }
+      }
+    }
+
+    .link-wrapper {
+      padding-top: 16px;
+      width: 100%;
+      max-width: 600px;
+      p {
+        cursor: pointer;
+      }
+    }
+
+    .error {
+      text-align: center;
+      color: $red;
+      line-height: 20px;
+      margin-top: 15px;
+      display: none;
+      &.validate {
+        display: block;
+      }
+    }
+  }
+
+  .marketcards {
+    width: 100%;
+    @include midflex;
+    flex-direction: column;
+    padding-top: 20px;
+    &__header {
+      width: 100%;
+      max-width: 600px;
+      @include midflex;
+      justify-content: space-between;
+      h4 {
+        font-weight: 600;
+        font-size: 1.6rem;
+      }
+    }
+    &__body {
+      margin-top: 16px;
+      background: $white-cl;
+      border-radius: 6px;
+      border: 1px solid $border;
+      width: 100%;
+      max-width: 600px;
+      padding: 24px 16px 16px;
+      .title {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        .info-icon {
+          cursor: pointer;
+        }
+      }
+      .marketcard-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -8px;
+        .marketcard-item {
+          padding: 8px;
+          width: 50%;
+        }
+      }
+
+      @include mobile {
+        .marketcard-wrapper {
+          flex-direction: column;
+          margin: -8px 0;
+          .marketcard-item {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  @include mobile {
+    .useroption-card {
+      .personform {
+        .content {
+          flex-direction: column;
+          &__item {
+            margin-bottom: 8px;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

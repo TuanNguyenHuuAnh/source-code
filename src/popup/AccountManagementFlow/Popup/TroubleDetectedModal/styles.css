@@ -1,0 +1,95 @@
+.modal-common-card {
+    -ms-overflow-style: none;
+    background: #fff;
+    border-radius: 6px;
+    max-height: 95vh;
+    max-width: 460px;
+    overflow-y: scroll;
+    padding: 32px 16px 40px;
+    position: relative;
+    scrollbar-width: none;
+    width: 100%;
+}
+
+.modal-common-card::-webkit-scrollbar {
+    display: none
+}
+
+.modal-common-card .close-btn {
+    cursor: pointer;
+    height: 14px;
+    position: absolute;
+    right: 1.6rem;
+    top: 0;
+    width: 14px
+}
+
+.modal-common-card .picture-wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%
+}
+
+.modal-common-card .btn-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.modal-body-link {
+    color: #985801;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: left;
+}
+
+.modal-body-link:hover {
+    color: #985801;
+}
+
+.modal-trouble-title {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 21px;
+    color: #C68158;
+    text-align: center;
+    margin-top: 2.4rem;
+}
+
+.modal-trouble-content {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 21px;
+    color: #292929;
+    text-align: center;
+    margin-top: 1.6rem;
+}
+
+.modal-trouble-content span {
+    font-weight: 700;
+}
+
+.btn-confirm {
+    background: linear-gradient(90.65deg, #EA553F 5.32%, #D32A30 97.84%);
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 18px;
+    color: #FFFFFF;
+    text-align: center;
+    min-height: 50px;
+    width: 100%;
+    margin-top: 2.4rem;
+    border-radius: 6px;
+}
+
+.btn-callback {
+    color: #985801;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 18px;
+    /* background: #FFFFFF; */
+}

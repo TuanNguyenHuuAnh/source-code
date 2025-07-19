@@ -1,0 +1,33 @@
+.checkbox-content, h5 {
+    display: block !important;
+
+}
+.input__content select {
+    margin-top: 4px;
+    width: 100%;
+    font-size: 1.6rem;
+    border: none;
+}
+
+.address-error {
+    color: red;
+    margin-top: 16px;
+    display: none;
+}
+
+.expoint-validate{
+    display: block!important;
+}
+
+.circle-plus-inactive {
+    background: linear-gradient(180deg, #d1c0b0 0%, #d1c0b0 100%)!important;
+    cursor: not-allowed;
+}
+
+.notallow {
+    cursor: not-allowed;
+}
+
+.ant-select-arrow {
+    right: 16px!important;
+}

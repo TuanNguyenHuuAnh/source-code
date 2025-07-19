@@ -1,0 +1,71 @@
+/* Core variables and mixins*/
+@import "imports/core/reset";
+@import "imports/core/variables";
+@import "imports/core/mixins";
+@import "imports/core/layouts";
+@import "imports/core/elements";
+@import "imports/core/components";
+@import "imports/core/91components";
+// @import "imports/core/93page";
+
+// @import "imports/core/bootstrap_mini";
+// @import "imports/core/libs";
+
+@import "imports/core/popup";
+
+/* Navigation, header, footer*/
+@import "imports/core/header";
+// @import "imports/core/nav";
+@import "imports/core/footer";
+
+/* Pages*/
+@import "imports/pages/home";
+@import "imports/pages/insurancenodata";
+@import "imports/pages/insurance";
+@import "imports/pages/insurancebenefits_create";
+@import "imports/pages/bill";
+@import "imports/pages/tthd";
+@import "imports/pages/ndbh(2.1)";
+@import "imports/pages/stepform";
+@import "imports/pages/44page";
+@import "imports/pages/point";
+@import "imports/pages/8products";
+@import "imports/pages/9.1normalpromotion";
+@import "imports/pages/9.1specialpromotion";
+@import "imports/pages/news9.1";
+@import "imports/pages/9.1exchangepoint_fee_refund";
+@import "imports/pages/9.1exchangepoint_fee_refund_nextstep";
+@import "imports/pages/9.1exchangepoint_fee_refund_givepoint";
+@import "imports/pages/9.1exchangepoint_mobilecard";
+@import "imports/pages/9.1marketpaper";
+@import "imports/pages/9.1doctorpaper";
+@import "imports/pages/9.1ecommercepaper";
+@import "imports/pages/9.1pointchange";
+@import "imports/pages/9.2giftcart";
+@import "imports/pages/9.2address";
+@import "imports/pages/13health";
+@import "imports/pages/pointhistory";
+
+// @import "imports/pages/exchangepoint";
+@import "imports/pages/4page";
+@import "imports/pages/tvtl(6)";
+@import "imports/pages/(2.2)hopdong";
+
+@import "imports/pages/5history";
+@import "imports/pages/11account";
+
+@import "imports/pages/9.1exchangepoint";
+@import "imports/pages/(2.2)hopdong";
+@import "imports/pages/10.1page";
+@import "imports/pages/(3)insurance";
+@import "imports/pages/8page";
+@import "imports/pages/10.2page";
+@import "imports/pages/14page";
+@import "imports/pages/(10.0)components";
+@import "imports/pages/10.1danhsachtienich";
+@import "imports/pages/10.1nghenghiep";
+@import "imports/pages/10.1bieumau";
+@import "imports/pages/10.1quyenloibaohiem";
+@import "imports/pages/4.xqlbh";
+
+// -------- Check ----------------

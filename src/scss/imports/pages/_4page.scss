@@ -1,0 +1,150 @@
+.page-four {
+  width: 100%;
+}
+.profile-user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // background-color: $main-bg;
+  width: 100%;
+  background: url("/img/bg-qt-4.svg") no-repeat;
+  background-position: center;
+  background-size: cover;
+  z-index: -1;
+  // height: 130px;
+
+  &__left {
+    padding: 2rem 6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .left-text {
+      margin-left: 1.6rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+      line-height: 2.178rem;
+    }
+    .left-qt {
+      position: relative;
+      .img-camera {
+        position: absolute;
+        bottom: 0;
+        right: 5px;
+      }
+    }
+  }
+  &__right {
+    margin-right: 6rem;
+    &-sign-out {
+      border: 1px solid $red;
+      border-radius: 0.6rem;
+      padding: 1.6rem 3.6rem;
+
+      button {
+        font-size: 1.5rem;
+        font-weight: 600;
+        line-height: 1.8rem;
+        color: $red;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  @include mobile {
+    flex-direction: column;
+
+    &__left {
+      flex-direction: column;
+    }
+  }
+}
+
+.customer-information {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.bottom-expand {
+  margin-bottom: 6rem;
+}
+.gdhd-warpper-dcttlh {
+  width: 100%;
+  height: calc(100vh - 2 * #{$height});
+  // padding: 20px 12px;
+  background-color: $main-bg;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  @include tablet {
+    width: 100%;
+  }
+  @include tablet_lc {
+    width: 100%;
+  }
+  @include mobile_lc {
+    width: 100%;
+  }
+  // background-color: wheat;
+}
+
+.input-margin {
+  margin-top: 12px;
+}
+.second-title {
+  margin-top: 32px;
+}
+.icon-large-italic {
+  margin-right: 37.68px;
+  width: 100%;
+  max-width: 26.63px;
+  height: 16px;
+}
+.background-input-grey {
+  background-color: $input-disabled;
+}
+
+// ---------------------- Page 4 ---------------------------------------------------
+
+.update-info-page {
+  width: 100%;
+  background: $main-bg;
+  min-height: calc(100vh - 2 * 56px);
+  padding-bottom: 60px;
+}
+
+.update-infoform {
+  width: 100%;
+  @include midflex;
+  padding-top: 120px;
+
+  .personform {
+    padding: 8px 16px 24px;
+    .content {
+      padding: 32px 0 27px;
+      border-bottom: 1px dashed $light-border;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      h4 {
+        margin-bottom: 12px;
+        text-transform: uppercase;
+      }
+      .input-wrapper {
+        width: 100%;
+        margin: -6px 0;
+        .input-wrapper-item {
+          padding: 6px 0;
+        }
+      }
+    }
+  }
+}

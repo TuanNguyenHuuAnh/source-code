@@ -1,0 +1,131 @@
+.table-clauses-wrapper {
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.table-wrapper {
+    max-width: 100%;
+}
+
+.table-clauses-wrapper table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.table-clauses-wrapper ul {
+    margin: 0px;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.table-clauses-wrapper ul li {
+    margin-left: 0; /* Đặt margin-left về 0 để các mục danh sách thẳng hàng */
+    padding-left: 0; /* Đặt padding-left về 0 để các mục danh sách thẳng hàng */
+}
+
+.table-clauses-wrapper ul li::before {
+    content: "\2022"; /* Mã unicode của ký tự bullet circle */
+    color: #292929; /* Màu sắc của marker */
+    display: inline-block;
+    width: 0.8em;
+    height: 0.8em;
+    margin-right: 0.5em; /* Khoảng cách giữa marker và văn bản */
+    border-radius: 50%; /* Tạo hình tròn */
+}
+.table-clauses-wrapper .no-bullet::before {
+    content: ""; /* Mã unicode của ký tự bullet circle */
+    margin: 0px;
+    width: initial;
+    height: initial;
+}
+
+.table-clauses-wrapper th {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 21px;
+    text-align: center;
+    color: #292929;
+    vertical-align: middle!important;
+    background: #F7EBDF;
+}
+
+.table-clauses-wrapper td {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: left;
+    /*text-align: justify;*/
+
+}
+
+.table-clauses-wrapper td span {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: left;
+}
+
+.table-clauses-wrapper th,
+td {
+    border: 1px solid #292929;
+    gap: 16px;
+    padding: 8px;
+    vertical-align: top;
+}
+
+.table-clauses-wrapper th:nth-child(1) {
+    width: 6%;
+}
+
+.table-clauses-wrapper td:nth-child(1) {
+    text-align: center;
+}
+
+.table-clauses-wrapper th:nth-child(2),
+td:nth-child(2) {
+    width: 30%;
+}
+
+.table-clauses-wrapper th:nth-child(3),
+td:nth-child(3) {
+    width: 35%;
+}
+
+.table-clauses-wrapper th:nth-child(4),
+td:nth-child(4) {
+    width: 30%;
+}
+
+@media screen and (max-width: 600px) {
+    .table-clauses-wrapper th,
+    td {
+        display: table-cell; /* Hiển thị các cột dưới dạng table-cell để giữ kích thước cột */
+        width: auto; /* Thiết lập lại chiều rộng tự động cho cột */
+    }
+
+    .table-clauses-wrapper {
+        overflow-x: scroll; /* Sử dụng thanh cuộn ngang khi bảng không vừa với màn hình */
+    }
+
+    /* CSS cho các cột */
+    .table-clauses-wrapper th:nth-child(1),
+    td:nth-child(1) {
+        width: 44px; /* Kích thước cột 1 */
+    }
+
+    .table-clauses-wrapper th:nth-child(2),
+    td:nth-child(2) {
+        width: 190px; /* Kích thước cột 2 */
+    }
+
+    .table-clauses-wrapper th:nth-child(3),
+    td:nth-child(3) {
+        width: 323px; /* Kích thước cột 3 */
+    }
+
+    .table-clauses-wrapper th:nth-child(4),
+    td:nth-child(4) {
+        width: 190px; /* Kích thước cột 4 */
+    }
+}
